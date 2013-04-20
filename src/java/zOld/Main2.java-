@@ -1,0 +1,190 @@
+
+package students.web;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import java.sql.Connection;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.ResultSet;
+
+
+//import students.logic.DBconn;
+
+public class Main2 extends HttpServlet{
+
+
+protected void processRequest(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException {
+
+response.setContentType("text/html;charset=utf-8"); 
+request.setCharacterEncoding("utf-8");
+
+String sReturn="",  sReturnLogin="",
+       // sParams="",
+                   sDO="",
+                   sFIO="", 
+                   sPredm="",
+                   sNumUrok="",
+                   sNumKab="",
+                   sDate="",
+                   sDay="",
+                   sTime= "",
+                   sComment="",
+
+                   sLoginIn="",
+                   sPassIn="",
+        
+                   sLoginDB="",
+                   sPassDB=""
+        
+                   ;
+ 
+ PrintWriter pw = response.getWriter();
+    
+try{
+   
+//response.setContentType("application/json;charset=utf8"); 
+//response.setContentType("text/html;charset=utf8"); 
+
+    //  sParams=request.getParameter("sParams");
+           
+   /* 0 */ sDO=request.getParameter("sDO"); //аналогично остальные параметры вытянуть
+   
+   /* 1 */ sFIO=request.getParameter("sFIO");   
+   /* 2 */ sPredm=request.getParameter("sPredm");  
+   /* 3 */ sNumUrok=request.getParameter("sNumUrok"); 
+   /* 4 */ sNumKab=request.getParameter("sNumKab");  
+   /* 5 */ sDate=request.getParameter("sDate"); 
+   /* 6 */ sDay=request.getParameter("sDay");  
+   /* 7 */ sTime=request.getParameter("sTime"); 
+   /* 8 */ sComment=request.getParameter("sComment"); 
+
+   /* 9 */ sLoginIn=request.getParameter("sLogin"); 
+   /* 10*/ sPassIn=request.getParameter("sPass"); 
+   
+//oDC.prepareStatement("INSERT INTO groups (nID,sName,sInfo) VALUES (1,'Vasya','duk')").executeUpdate(); 
+   
+if("addUser".equals(sDO)){//добавить юзера в базу
+
+Connection oDC = DBconn.getConnect("dbStudy"); //dbStudy
+oDC.prepareStatement("INSERT INTO main_table (m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment) VALUES ( '"  +
+                     sFIO +"','"+sPredm+"','"+sNumUrok+"','"+sNumKab+"','"+sDate+"','"+sDay+"','"+sTime+"','"+sComment+ "')" ).executeUpdate();
+
+DBconn.closeConnect("dbStudy",oDC);
+
+sReturn="{\"sReturn\":\"Ok\",\"sDO\":\""+sDO+"\"}";
+}
+
+//================================================
+
+if("Author".equals(sDO)){// Авторизация
+Connection oDC = DBconn.getConnect("dbStudy"); //dbStudy
+ResultSet oSet =oDC.prepareStatement("SELECT m_Login, m_Pass FROM table_author WHERE m_Login='"+sLoginIn+"'").executeQuery();
+if(oSet.next()){
+sLoginDB= oSet.getString(1);
+sPassDB = oSet.getString(2);
+}
+DBconn.closeConnect("dbStudy",oDC);
+
+// Если пришедший пароль и логин соответствуют паролю и логину в базе:
+if ((sLoginIn.equals(sLoginDB)) & (sPassIn.equals(sPassDB)))
+{
+sReturnLogin="{\"sReturnLogin\":\" 1 Логин и пароль есть в базе! \"}";
+}
+else {
+sReturnLogin="{\"sReturnLogin\":\" 2 Неверный логин или пароль...\"}";
+   }
+}
+//================================================
+
+       //       oDC.prepareStatement("SELECT m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment FROM main_table WHERE m_dayName='"+sDay+"', m_prepodName='"+sFIO+"', m_predmetName='"+sPredm+"'").executeQuery();
+if("DBfind-".equals(sDO)){
+
+Connection oDC1 = DBconn.getConnect("dbStudy"); //dbStudy
+
+ResultSet oSet1 =
+//              oDC1.prepareStatement("SELECT m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment FROM main_table WHERE m_dayName='"+sDay+"', m_prepodName='"+sFIO+"', m_predmetName='"+sPredm+"'").executeQuery();
+//               oDC1.prepareStatement("SELECT m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment FROM main_table WHERE m_dayName='Пятница', m_prepodName='Олег', m_predmetName='Алгебра'").executeQuery();
+      oDC1.prepareStatement("SELECT * FROM main_table WHERE m_prepodName='Олег'").executeQuery();
+pw.println("123123");
+pw.println("<table border=1>");
+
+if(oSet1.next()){
+
+pw.println("<tr>");
+pw.println("<td>" + oSet1.getString(1) + "</td>");
+pw.println("<td>" + oSet1.getString(2) + "</td>");
+pw.println("<td>" + oSet1.getString(3) + "</td>");
+pw.println("<td>" + oSet1.getString(4) + "</td>");
+pw.println("<td>" + oSet1.getString(5) + "</td>");
+pw.println("<td>" + oSet1.getString(6) + "</td>");
+pw.println("<td>" + oSet1.getString(7) + "</td>");
+pw.println("<td>" + oSet1.getString(8) + "</td>");
+pw.println("<td>" + oSet1.getString(9) + "</td>");
+pw.println("</tr>");
+}
+
+pw.println("</table>");    
+
+DBconn.closeConnect("dbStudy",oDC1);        
+
+
+}
+
+
+
+                /*
+                        //Тут код работы с базой (я описал все с фиксированными параметрами, а ты можеш поподвязывать их к входящим параметрам сервлета)
+Connection oDC=myclass.DatabaseConnect.getConnectByName("MyBase");//вставь свой коннекшин, и не забывай в финале закрывать его.
+
+
+            if("add".equals(sDO)){//добавить юзера в базу
+                                       oDC.prepareStatement("INSERT INTO MyTable (nID,sName,sInfo) VALUES (1,’Vasya’,’durak’)").executeUpdate();
+            }else if("edit".equals(sDO)){//отредактировать данные юзера в базе
+oDC.prepareStatement("UPDATE MyTable SET sInfo=’sovsem durak’,sName=’Vasya Pupkin’ WHERE nID=1").executeUpdate();
+            }else if("delete".equals(sDO)){//удалить юзера из базы
+                    oDC.prepareStatement("DELETE FROM MyTable WHERE nID=1").executeUpdate();
+            }else if("select".equals(sDO)){//выбрать данные юзера из базы
+ResultSet oSet=oDC.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
+if(oSet.next()){
+sName=oSet.getString(2);
+//можно и так: sName=oSet.getString("sName");
+}
+            }
+                //*/
+
+
+
+
+//sReturn="{\"sReturn\":\"Ok\",\"sDO\":\""+sDO+"\"}";
+}catch(Exception _){
+String sErr=_.getMessage();
+System.err.println("ERROR: "+sErr+"_"+sReturn);//это вывод в лог-файл
+sReturn="{\"sReturn\":\"Error\",\"sDO\":\""+sDO+"\"}" ; }
+//throw new RuntimeException(_); раскомментировав эту строку можно прерывать выполнение класса при этой ошибке
+
+
+
+finally{//этот код выполнится даже если произойдет ошибка (иногда это очень важно, чтоб, например - закрыть соединение
+
+     response.getWriter().write(sReturn);
+          response.getWriter().write(sReturnLogin);
+    
+     
+}
+}
+
+
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {processRequest(request,response);
+}
+
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {processRequest(request,response);}
+
+
+public String getServletInfo() {return "Short description";}
+}

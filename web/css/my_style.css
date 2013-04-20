@@ -1,0 +1,53 @@
+
+body {background-color: white}
+
+#FormBut div a{
+box-s hadow: 5px 5px 12px -2px #000; /* задаем сдвиг вправо и вниз по 5 пикселей, размер размытия 7 и цвет */   
+   margin-right: 5px;   
+    border : 1px solid blue ;   
+    border-radius: 7px 7px 7px 7px; 
+    
+    backg round-color: gold;
+    float: left;
+    display: block;
+    padding : 7px 20px 7px 20px ;
+    cursor: pointer ;
+    text-decoration: none; /*fdg  */
+    color: blue;
+    font-weight: bold ;
+    font-size: 16px;
+    font-family:Arial;
+    wid th: 170px;
+    bor der : 1px solid blue ;   
+}
+
+#f1 {
+    padding: 7px;
+}
+
+.MyParams {
+position: absolute;    
+    width : 200px;
+    left : 160px;
+    bo rder: 14px;
+    pad ding: 1px;
+    marg in: 1px;
+    border-color : blue;
+}
+    
+.mainForms {
+    display: none ; /* прячем формы при загрузке страницы*/
+    font-weight: bold ;
+        top : 120px;
+        position: fixed;       
+        border : 1px solid blue ;
+        width : 700px;
+        height : 570px;
+        left : 15px;
+}
+
+#FormaAuthor { background-color:  yellowgreen; }
+#FormaAdd { background-color:  #E2AF3A; }
+#FormaDB {    background-color:  #59A4E2; }
+#FormaHelp { background-color:  #FF91F8;}
+#FormaAbout { background-color:  #A67DFF;}

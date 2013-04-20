@@ -1,0 +1,201 @@
+package students.web;
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import javax.swing.*;
+import java.util.ArrayList;
+
+import students.logic.DBconn;
+
+public class ShowDB extends HttpServlet{
+
+
+protected void processRequest(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException {
+
+    String           sReturn="",
+                      
+                     sDO="",
+                     
+                     sFIO="", 
+                     sPredm="",
+                     sDay="" ;
+                   //sComment="";
+    
+   request.setCharacterEncoding("UTF-8");
+   response.setContentType("text/html;charset=UTF-8");
+   PrintWriter pw = response.getWriter();
+
+try{
+  
+   /* 0 */ sDO=request.getParameter("sDO"); //аналогично остальные параметры вытянуть
+   
+   /* 1 */ sFIO=request.getParameter("sFIO");   
+   /* 2 */ sPredm=request.getParameter("sPredm");  
+   /* 6 */ sDay=request.getParameter("sDay");  
+    
+  
+//   if("allDB".equals(sDO)) {
+//   
+//Connection oDC = DBconn.getConnect("dbStudy"); //dbStudy
+//ResultSet oSet=oDC.prepareStatement("SELECT * FROM main_table").executeQuery(); // выбрать все поля
+//
+////----rs = oDC.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
+////------pw.println("<br> <a href =\" http://localhost:8080/Baza/ \"> Вернутся </a> <br> <br> ");
+//
+//pw.println("<table border=1>");
+//while(oSet.next()){
+//pw.println("<tr>");
+//pw.println("<td>" + oSet.getString(1) + "</td>");
+//pw.println("<td>" + oSet.getString(2) + "</td>");
+//pw.println("<td>" + oSet.getString(3) + "</td>");
+//pw.println("<td>" + oSet.getString(4) + "</td>");
+//pw.println("<td>" + oSet.getString(5) + "</td>");
+//pw.println("<td>" + oSet.getString(6) + "</td>");
+//pw.println("<td>" + oSet.getString(7) + "</td>");
+//pw.println("<td>" + oSet.getString(8) + "</td>");
+//pw.println("<td>" + oSet.getString(9) + "</td>");
+//pw.println("</tr>");
+//}
+//
+//pw.println("</table>");    
+//    
+//    //sName=oSet.getString(2);
+//
+//DBconn.closeConnect("dbStudy",oDC);
+//    }
+
+//==============================================
+
+if("DBfind".equals(sDO)){
+
+ArrayList al = new ArrayList();
+al.add("123");
+al.add("123");
+
+//ArrayList al = {"123","123"} ;
+//int[] a = new int [10];  a[1] = 11;
+//String[] s = new String [10]; 
+
+String sPar1 = "";
+String sPar2 = "";
+String sPar3 = "";
+
+//String[] s = new String [2] ; 
+String[] s = {sPar1, sPar2} ;
+        
+if (sFIO!="") {
+    sPar1 += " m_prepodName='"+sFIO+"'" ;
+if ((sPredm!="")|(sDay!="")) sPar1 += " AND " ;
+}
+
+if (sPredm!=""){
+    sPar1 +=  "m_predmetName='"+sPredm+"'";
+    if (sDay!="") sPar1 += " AND " ;
+}
+if (sDay!="") {
+sPar1 += " m_dayName='"+sDay+"'" ;
+}
+//for (int i1=0;i1<al.size()-1;i1++)
+//    al.set(i1, "request") ;
+
+if (sPar1!="") {
+sPar2 = "WHERE ("+ sPar1 +")" ; }  //JOptionPane.showInputDialog("df");
+ 
+Connection oDC1 = DBconn.getConnect("dbStudy"); //dbStudy
+
+ResultSet oSet1 =
+//              oDC1.prepareStatement("SELECT m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment FROM main_table WHERE m_dayName='"+sDay+"', m_prepodName='"+sFIO+"', m_predmetName='"+sPredm+"'").executeQuery();
+//               oDC1.prepareStatement("SELECT m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment FROM main_table WHERE m_prepodName='Олег', m_predmetName='Алгебра', m_dayName='Пятница'").executeQuery();
+//oDC1.prepareStatement("SELECT * FROM main_table WHERE (m_prepodName='"+sFIO+"' OR m_predmetName='"+sPredm+"' AND m_dayName='"+sDay+"')").executeQuery();
+oDC1.prepareStatement("SELECT * FROM main_table "+sPar2 ).executeQuery();
+
+//pw.println("111");
+
+//pw.println(al.size());
+
+//pw.println(" <head>" );
+//pw.println("<link rel= \"stylesheet\" type=\"text/css\" href=\"css/my_style.css\"/>");
+//pw.println(" </head>" );
+
+//--- pw.println(sPar2);
+
+pw.println(" <style type=\"text/css\">" );
+pw.println("table {border-collapse: collapse;}");
+// ячейки
+pw.println("table td {font-size: 16px; border: 1px solid #98BF21; background-color: #EAF2D3; padding:3px 7px 2px 7px;}"); 
+//ячейки заголовка
+pw.println("table th {color: White; font-family:\"Arial\"; font-size: 18px; font-style: bold; background-color: #A7C942; border: 1px solid #98BF21; padding:3px 9px 2px 9px; }"); 
+pw.println("</style>");
+
+
+pw.println("<table");
+pw.println("<tr>"); 
+pw.println("<th> № </td>");
+pw.println("<th> Ф.И.О </td>");
+pw.println("<th> Предмет </td>");
+pw.println("<th> Очередь </td>");
+pw.println("<th> Кабинет </td>");
+pw.println("<th> Дата </td>");
+pw.println("<th> День </td>");
+pw.println("<th> Время начала </td>");
+pw.println("<th> Комментарий </td>");
+pw.println("</tr>");
+
+while(oSet1.next()){
+pw.println("<tr>"); 
+pw.println("<td>" + oSet1.getString(1) + "</td>");
+pw.println("<td>" + oSet1.getString(2) + "</td>");
+pw.println("<td>" + oSet1.getString(3) + "</td>");
+pw.println("<td>" + oSet1.getString(4) + "</td>");
+pw.println("<td>" + oSet1.getString(5) + "</td>");
+pw.println("<td>" + oSet1.getString(6) + "</td>");
+pw.println("<td>" + oSet1.getString(7) + "</td>");
+pw.println("<td>" + oSet1.getString(8) + "</td>");
+pw.println("<td>" + oSet1.getString(9) + "</td>");
+pw.println("</tr>");
+}
+
+pw.println("</table>");    
+
+DBconn.closeConnect("dbStudy",oDC1);
+
+
+}
+
+//sReturn="{\"sReturn\":\"Ok\",\"sDO\":\""+sPar+"\"}";
+}catch(Exception _){
+//String sErr=_.getMessage();
+//System.err.println("ERROR: "+sErr+"_"+sReturn);//это вывод в лог-файл
+//sReturn="{\"sReturn\":\"Error\",\"sDO\":\""+sDO+"\"}" ; 
+}
+//throw new RuntimeException(_); раскомментировав эту строку можно прерывать выполнение класса при этой ошибке
+
+
+
+finally{//этот код выполнится даже если произойдет ошибка (иногда это очень важно, чтоб, например - закрыть соединение
+
+  //   response.getWriter().write(sReturn);
+}
+}
+
+
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {processRequest(request,response);}
+
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {processRequest(request,response);}
+
+
+public String getServletInfo() {return "Short description";}
+}
