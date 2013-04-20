@@ -14,6 +14,7 @@ public class ItemDataTable {
     public ItemDataTable (HashMap mSourceTable){
         m=mSourceTable;
     }
+    //-sdfa
     
     public int nRows(String sColumnName) {
         return ((ArrayList<String>)m.get(sColumnName)).size();
