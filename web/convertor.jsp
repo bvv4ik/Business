@@ -10,7 +10,7 @@
     ItemDataTable o=new ItemDataTable(m);
     int nRows=o.nRows("sID"),nIndexPolise=0,nIndexRegion=0;
     String sRegionTypeLast="";
-    for(int nRow=0;nRow<nRows;nRow++){ //
+    for(int nRow=0;nRow<nRows;nRow++){ // //
         o._Row(nRow);
         o._("sNewColumn", o.s("sID")+"_"+nRow);
         String sPoliseType=
