@@ -1,0 +1,57 @@
+
+body {background-color: white}
+
+#FormAuthorization {
+        position: fixed;       
+        border : 1px solid blue ;
+        width : 700px;
+        height : 570px;
+        left : 15px;
+}
+
+#FormRegistration {
+        position: fixed;       
+        border : 1px solid blue ;
+        width : 600px;
+        height : 470px;
+        left : 0px;
+        
+        background-color: lightgoldenrodyellow; 
+}
+
+#sAnswer {
+        float: right;
+        position: absolute;       
+}
+
+
+. AllForms {
+    dis play: none ; /* прячем формы при загрузке страницы*/
+    fo nt-weight: bold ;
+        position: fixed;       
+        border : 1px solid blue ;
+        z-in dex: 100;
+        cursor: move; 
+        -moz-border-radius: 10px; 
+        -webkit-border-radius: 10px; /*Chrome и Safari*/ 
+        
+    box-shadow: 15px 15px 22px -7px #000; /* задаем сдвиг вправо и вниз по 5 пикселей, размер размытия 7 и цвет */   
+    border-radius: 7px 7px 7px 7px; 
+}
+
+# FormTest {
+    display: none ; /* прячем формы при загрузке страницы*/
+    fo nt-weight: bold ;
+        top : 320px;
+        left : 100px;
+        position: fixed;       
+        border : 1px solid blue ;
+        width : 250px;
+        height : 250px;
+        z-in dex: 100;
+        background-color:  red; 
+        cursor: move; 
+        
+    background-color:  yellowgreen; 
+        
+}

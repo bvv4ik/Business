@@ -1,0 +1,45 @@
+
+
+#Header{ padding-left: 10px;; font-weight:bold; }    
+.allForms{  -moz-border-radius: 5px; /*╨Ю╨║╤А╤Г╨│╨╗╨╡╨╜╨╕╨╡ ╤Д╨╛╤А╨╝╤Л*/ 
+            -webkit-border-radius: 5px; /*Chrome ╨╕ Safari*/ 
+            position: absolute;  }
+#Form1{ /* Main form*/
+    background-color:#CCD8E8;
+    border : 1px solid #B2BBC2;
+    left : 60px; /**/
+    top : 30px; 
+    width : 400px;
+    height : 450px;
+}
+#Form2{
+    background-color:#E0E7F9;
+    border : 1px solid #BAC7D7;
+    left : 5px;
+    top : 28px;
+    width : 376px;  /*ширина*/
+    height : 404px; /*высота*/
+    padding : 6px;   
+}
+.allSelect {
+    position: absolute; /**/
+    left : 160px; /**/
+    height : 21px;
+    width : 200px;
+}
+div{  font-weight:bold;
+      font-size:15px;
+   }
+#n1, #n2, #n3, #n4, #n5, #n6,  #n7, #n8, #n9, #n10, #n12{
+    height : 25px;               /**/
+    /* padd   ing : 5px;              /*ОТСТУП*/
+    /*border : 1px solid red;      /**/
+}
+#btHide{
+       position: absolute; /**/
+    left : 370px; /**/
+    color: red;
+}
+/*.ui-autocomplete {  max-height: 220px;  overflow-y: auto;
+    /* prevent horizontal scrollbar * /   overflow-x: hidden; 
+} */
