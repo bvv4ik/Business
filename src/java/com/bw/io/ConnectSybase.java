@@ -37,8 +37,10 @@ public class ConnectSybase {
             Class.forName("com.sybase.jdbc3.jdbc.SybDataSource");
             
             //String url = "jdbc:mysql://localhost:3306/students";
-            String url = "jdbc:sybase:Tds:SERGEY-PC:2048/"+sName;
-            oDC = DriverManager.getConnection(url, "sa", "1234567");
+            //-String url = "jdbc:sybase:Tds:SERGEY-PC:2048/"+sName;
+            //-oDC = DriverManager.getConnection(url, "sa", "1234567");
+            String url = "jdbc:sybase:Tds:bw-comp:5000/"+sName;//Business
+            oDC = DriverManager.getConnection(url, "sa", "123321123a");
             
            // int i = 10;
             //i = 1/0; 
