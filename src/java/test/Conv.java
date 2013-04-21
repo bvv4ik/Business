@@ -39,65 +39,50 @@ public class Conv {
     String s = "";
     int ID = 0;
     
-  //  String IdCoatuu = "";
+    String IdCoatuu = "";
     
     String IdRegion1 = "";
     String IdRegion2 = "";
     String IdRegion3 = "";
-    String IdRegion4 = "";
     
     String TypeRegion1 = "";
-    String NameRegion1 = "";
-    
+    String NameRegion1 = "";    
 
     String TypeRegion2 = "";
     String NameRegion2 = "";
     
-
     String TypeRegion3 = "";
     String NameRegion3 = "";
     
     String NamePolis = "";
     
     //for (int i=0;i<2000/*list1.size()*/;i++)
-    for (int i = 1; i <= 1500; i++) {
+    for (int i = 0; i <= 1500; i++) {
     //sCurrentRow = list3.get(i).toString();
     //String formatted = String.format("%07d", i);
     
       
         
-       // NamePolis = list3.get(i).toString();
+        NamePolis = list3.get(i).toString();
         //IDPolis = list3.get(i).toString();
  
       
-        
+        //IdCoatuu = list1.get(i).toString();
         
         sCurrentRow1 = list1.get(i).toString();
         sCurrentRow2 = list2.get(i).toString();
         sCurrentRow3 = list3.get(i).toString();
-      //  if (sCurrentRow3.lastIndexOf("/") != -1)
-      //  sCurrentRow3 = sCurrentRow3.substring(0, sCurrentRow3.lastIndexOf("/"));
+        if (sCurrentRow3.lastIndexOf("/") != -1)
+        sCurrentRow3 = sCurrentRow3.substring(0, sCurrentRow3.lastIndexOf("/"));
         
-        
-           // }
-        //System.out.println(lastIndexOf(sCurrentRow1,1));
- 
+        //System.out.println(lastIndexOf(sCurrentRow1,1)); 
         //int i = sCurrentRow1.lastIndexOf("/");
         
-      //  if (sCurrentRow.endsWith("00000000")){
-      //      sCurrentRow = "0-0-";
-      //  }
-     
-       //  IdRegion1 = String.format("%07d", i);     //Integer.toString(i);  
-       // IdRegion2 = String.format("%07d", i);
-        //IdRegion3 = String.format("%07d", i);  
-        
-        //if (list3.get(i).toString().contains("00000000")){
-      // IdRegion2 = String.format("%07d", i);
+
         
        if (sCurrentRow1.endsWith("00000000")){
            NameRegion1 = sCurrentRow3;//list3.get(i).toString();
-           IdRegion1 =  Integer.toString(i+1) ;//String.format("%07d", i+1);                        //String.format("%07d", i); //
+           IdRegion1 =  String.format("%07d", i+1);                        //String.format("%07d", i); //
         }
        if (sCurrentRow3.startsWith("АВТОНОМНА РЕСПУБЛІКА")){
            TypeRegion1 = "1"; 
@@ -106,11 +91,11 @@ public class Conv {
            TypeRegion1 = "2"; 
            }
     
-       
+        
        if (("00000".equals(sCurrentRow1.substring(5, 10))) &
           (sCurrentRow1.substring(2, 3).equals("2")))        {
         NameRegion2 = sCurrentRow3;
-        IdRegion2 = Integer.toString(i+1) ;//String.format("%07d", i+1);        
+        IdRegion2 = String.format("%07d", i+1);        
        }
        if (sCurrentRow3.contains(" РАЙОН")){
            TypeRegion2 = "3"; 
@@ -122,8 +107,8 @@ public class Conv {
               (!"00".equals(sCurrentRow1.substring(6, 8))) &
               ("00".equals(sCurrentRow1.substring(8, 10)))) {
        NameRegion3 = sCurrentRow3;
-      //  IdRegion3 = i ;//String.format("%07d", i+1); 
-       ID = i-1;
+        IdRegion3 = String.format("%07d", i+1); 
+       ID = i+1;
        }
        if ("С".equals(sCurrentRow2)){
            TypeRegion3 = "4"; 
@@ -137,13 +122,13 @@ public class Conv {
               (!"00".equals(sCurrentRow1.substring(6, 8))) &
               (!"00".equals(sCurrentRow1.substring(8, 10)))) {
            
-        //    IdRegion4 = i;
+         //   IdRegion4 = String.format("%07d", i+1);
             
-            sResultRow = "\n" + IdRegion1 +"   1   "+" "+NameRegion1+" "+TypeRegion1
-                    + " " + IdRegion2 +"   1   "+NameRegion2+" "+TypeRegion2
-                    + " " + i +"   1   "+NameRegion3+" "+TypeRegion3
-                    + " " + ID +"  "+NamePolis
-                    ;  
+            sResultRow = "\n" + IdRegion1 +"   1   "+" "+NameRegion1+" "+TypeRegion1 + "" + sCurrentRow1 + 
+                     " | " + IdRegion2 +"   1   "+NameRegion2+" "+TypeRegion2 +
+                     " | " + IdRegion3 +"   1   "+NameRegion3+" "+TypeRegion3 +
+                     " | " + (i+1) + " " + IdRegion3 +"  "+NamePolis     ;  
+            
             System.out.println(sResultRow);
             }
       // }
