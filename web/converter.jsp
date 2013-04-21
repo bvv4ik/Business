@@ -34,12 +34,7 @@
     s = s + list1.size();
     
     
-    if (copy(s,6,5)= '00000') and
-   (copy(s,3,1)= '2') then         // 2 òîëüêî ðàéîí  1 ãîðîäà
-//   (copy(s,4,2)<> '00')        then   //èíä ðàéîíà
-         begin
-         RayName :=  {richedit0.Lines[i]+}FormatFloat('00000#',i+1)+ ''''+  richedit3.Lines[i];
-         end;
+  
     
     //LoadTextFile lf2 = new LoadTextFile();
     //lf2.ListFromFile("D:/Java_study/---Projects/KOATUU/2.txt");

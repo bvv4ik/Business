@@ -39,7 +39,7 @@ public class Conv {
     String s = "";
     int ID = 0;
     
-    String IdCoatuu = "";
+    String IdCoatuu_Obl = "";
     
     String IdRegion1 = "";
     String IdRegion2 = "";
@@ -56,7 +56,10 @@ public class Conv {
     
     String NamePolis = "";
     
-    //for (int i=0;i<2000/*list1.size()*/;i++)
+  
+    
+    
+    
     for (int i = 0; i <= 1500; i++) {
     //sCurrentRow = list3.get(i).toString();
     //String formatted = String.format("%07d", i);
@@ -82,7 +85,8 @@ public class Conv {
         
        if (sCurrentRow1.endsWith("00000000")){
            NameRegion1 = sCurrentRow3;//list3.get(i).toString();
-           IdRegion1 =  String.format("%07d", i+1);                        //String.format("%07d", i); //
+           IdRegion1 =  String.format("%07d", i+1);  //String.format("%07d", i); //
+           IdCoatuu_Obl = sCurrentRow1;
         }
        if (sCurrentRow3.startsWith("АВТОНОМНА РЕСПУБЛІКА")){
            TypeRegion1 = "1"; 
@@ -124,7 +128,7 @@ public class Conv {
            
          //   IdRegion4 = String.format("%07d", i+1);
             
-            sResultRow = "\n" + IdRegion1 +"   1   "+" "+NameRegion1+" "+TypeRegion1 + "" + sCurrentRow1 + 
+            sResultRow = "\n" + IdRegion1 +"   1   "+" "+NameRegion1+" "+TypeRegion1 + " " + IdCoatuu_Obl +    
                      " | " + IdRegion2 +"   1   "+NameRegion2+" "+TypeRegion2 +
                      " | " + IdRegion3 +"   1   "+NameRegion3+" "+TypeRegion3 +
                      " | " + (i+1) + " " + IdRegion3 +"  "+NamePolis     ;  
