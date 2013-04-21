@@ -30,7 +30,7 @@ public class LoadTextFile {
                 list.add(sCurrentLine);       
             }
                 
-            System.out.println("Всего элементов в массиве 11111 "+list.size());
+            System.out.println("Всего элементов в массиве 11111111222 "+list.size());
            // System.out.println(list.get(5));
           //      System.out.println(s);
         
