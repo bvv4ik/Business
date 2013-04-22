@@ -67,34 +67,41 @@ public class Conv {
       
         
         NamePolis = list3.get(i).toString();
-        //IDPolis = list3.get(i).toString();
+     
  
       
         //IdCoatuu = list1.get(i).toString();
         
-        sCurrentRow1 = list1.get(i).toString();
+       // sCurrentRow1 = list1.get(i).toString();
         sCurrentRow2 = list2.get(i).toString();
         sCurrentRow3 = list3.get(i).toString();
-        if (sCurrentRow3.lastIndexOf("/") != -1)
-        sCurrentRow3 = sCurrentRow3.substring(0, sCurrentRow3.lastIndexOf("/"));
+        if ((list3.get(i).toString()).lastIndexOf("/") != -1) {
+            String temp = (list3.get(i).toString());
+            temp = (list3.get(i).toString()).substring(0, (list3.get(i).toString()).lastIndexOf("/"));
+            list3.set(i, temp);
+        }
         
         //System.out.println(lastIndexOf(sCurrentRow1,1)); 
         //int i = sCurrentRow1.lastIndexOf("/");
         
 
         
-       if (sCurrentRow1.endsWith("00000000")){
-           NameRegion1 = sCurrentRow3;//list3.get(i).toString();
-           IdRegion1 =  String.format("%07d", i+1);  //String.format("%07d", i); //
-           IdCoatuu_Obl = sCurrentRow1;
+       
+        if ((list1.get(i).toString()).endsWith("00000000")) {
+            NameRegion1 = list3.get(i).toString();
+            IdCoatuu_Obl = list1.get(i).toString();
+            IdRegion1 = String.format("%07d", i + 1);
         }
-       if (sCurrentRow3.startsWith("АВТОНОМНА РЕСПУБЛІКА")){
-           TypeRegion1 = "1"; 
-           }
-        if (sCurrentRow3.contains("ОБЛАСТЬ")){ //endsWith
-           TypeRegion1 = "2"; 
-           }
-    
+        if ((list3.get(i).toString()).startsWith("АВТОНОМНА РЕСПУБЛІКА ")) {
+            TypeRegion1 = "1";
+            String temp = (list3.get(i).toString()).replace("АВТОНОМНА РЕСПУБЛІКА ","");
+            list1.set(i, temp);
+            
+        }
+        if (sCurrentRow3.contains("ОБЛАСТЬ")) { //endsWith
+            TypeRegion1 = "2";
+        }
+
         
        if (("00000".equals(sCurrentRow1.substring(5, 10))) &
           (sCurrentRow1.substring(2, 3).equals("2")))        {
