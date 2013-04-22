@@ -66,7 +66,12 @@ public class Conv {
      
     String NamePolis = "";
     
-  
+         List listTree1 = new ArrayList(); 
+       
+         List listTree2 = new ArrayList(); 
+       
+         List listTree3 = new ArrayList(); 
+         
     
     
     
@@ -167,29 +172,28 @@ public class Conv {
                  
              String IDs = String.format("%07d", i+1);
            
+            // "\t"
+         sResultRow = "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
+                       "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
+                       "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3+
+                       "\t\t"+(i+1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+NamePolis+"\t"+IdCoatuu4 ;  
             
-         sResultRow = "\n" + IdRegion1 +"   1   "+" "+NameRegion1+" "+TypeRegion1 + " " + IdCoatuu1 +    
-                     " | " + IdRegion2 +"   1   "+NameRegion2+" "+TypeRegion2 + " " + IdCoatuu2 + 
-                     " | " + IdRegion3 +"   1   "+NameRegion3+" "+TypeRegion3 + " " + IdCoatuu3 + 
-                     " | " + (i+1) + " " + IdPolis4 +"  "+ TypePolis4 +"  "+  NamePolis + " " + IdCoatuu4    ;  
-            
-         List listTree1 = new ArrayList(42000); 
-         listTree1.add(IdRegion3);
-         List listTree2 = new ArrayList(42000); 
-         listTree2.add(IdRegion2);
-         List listTree3 = new ArrayList(42000); 
-         
-         
-            System.out.print(sResultRow);
+ 
+        // System.out.print("ass"+"\t"+"sss");
+           System.out.print(sResultRow);
+       //  "	"
+           listTree1.add(IdRegion3+"	"+IdRegion2+"	"+(i+1)); // формирование PlaceRegionTree
             }
-      // }
-       //if (sResultRow == null) sResultRow = "s";
        
+     
         
-      //  s = s + "\n"+ list3.get(i).toString();
-           //System.out.println(list1.get(i).toString());
+       
      }
-    // s = s + list1.size();
+  
+         for (int i2 = 0; i2 <= listTree1.size()-1; i2++) { // вывод PlaceRegionTree                     //------System.out.print(/*i2+" " + */ listTree1.get(i2).toString()+" "+listTree2.get(i2).toString()+" "+listTree3.get(i2).toString()+"\n");
+           System.out.print((listTree1.get(i2)).toString()+"\n");
+        }
+         //  System.out.print(listTree1.size());
     
 }
     
