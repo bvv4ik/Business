@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class LoadTextFile {
     
-    public List ListFromFile (String path ) throws SQLException{
+    public ArrayList ListFromFile (String path ) throws SQLException{
       //int iDatch = 0;
       //String s = "";  
-      List list = new ArrayList(); 
+      ArrayList<String> list = new ArrayList<String>(); 
       BufferedReader br = null;
 
         try {
