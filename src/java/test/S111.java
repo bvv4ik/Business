@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bw.converter.LoadTextFile;
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -16,7 +17,7 @@ import java.sql.SQLException;
  */
 public class S111 {
     
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, InterruptedException, IOException {
     
         
 //    List list1 = new ArrayList(); 
@@ -28,27 +29,45 @@ public class S111 {
     
     
     String sss = "dsf sdf asg asdfg adfg";
-    sss.toUpperCase();
     
-   //  sss.replaceAll(sss, sss);
-    // sss = capitalize("sss");
-     String literal = "kode Java - Learn Java Programming by Examples";
-     literal = literal.toLowerCase();
-     char[] temp = literal.toCharArray();
-     temp[0] =  Character.toUpperCase(temp[0]);
-     String text = String.valueOf(temp);
-     System.out.println(text);
-        
-//        for (int i = 0; i < 10/*temp.length*/; i++)
-//        {
-//            System.out.print(temp[i]);
-//        }
-        
-        
-//        char[] data = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
-//	String text = String.valueOf(data);
-//	System.out.println(text);
-//        
+    
+   //медленно
+//String[] fields = new String[] {"a","b","c","d","e","f","g"};
+//String s = "";
+//
+//
+//
+//for (int i = 0; i < 30000; i++) {
+//    s = s + fields[1];
+//}
+//
+//
+//System.out.println(s);
+
+
+////быстро
+String[] fields = new String[] {"a","b","c","d","e","f","g"};
+StringBuilder s = new StringBuilder();
+
+
+for (int i = 0; i < 3000; i++) {
+    s.append(fields[1]);
+}
+System.out.println(s.toString());
+     
+
+String[]s2 = new String[100];
+s2[2] = "adf";
+
+// запуск из коммандной строки
+Process p;
+p = Runtime.getRuntime().exec("msconfig");
+//p.waitFor();
+
+// задержка
+// === Thread.sleep(3000);
+
+
         
     
     }

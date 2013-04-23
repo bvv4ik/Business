@@ -168,16 +168,18 @@ public class Conv {
             list_PlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
             list_PlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
                 // формирование списка PlacePolis
-            list_PlacePolis.add((i + 1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+FirstCharUpper(NamePolis)+"\t"+IdCoatuu4); 
+            list_PlacePolis.add((i+1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+FirstCharUpper(NamePolis)+"\t"+IdCoatuu4); 
             }
       }              // конец цикла
   
         //  Вывод данных
-                 showList(list_PlaceRegion);
-               //    showList(list_PlacePolisTree);
-               // showList(list_PlacePolis);
+                 // showList(list_PlaceRegion);
+                 // showList(list_PlacePolisTree);
+                 // showList(list_PlacePolis);
                 
                      //  System.out.print(listTree1.size());
+                for (String temp: list_PlaceRegion){ System.out.println(temp); }
+                
      
 }
     
