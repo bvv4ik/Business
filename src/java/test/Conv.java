@@ -27,9 +27,9 @@ public class Conv {
     public static void showList(ArrayList<String> list) {
         // String formatted = String.format("%07d", i); // Добавляем нули
         // Collections.sort(listTree1); // Сортировка массива
-        HashSet set = new HashSet(list); // Удаляем дубликаты
-        list.clear();
-        list.addAll(set);
+    //    HashSet set = new HashSet(list); // Удаляем дубликаты
+    //    list.clear();
+    //    list.addAll(set);
            for (int i2 = 0; i2 <= list.size() - 1; i2++) { // вывод PlaceRegionTree                     //------System.out.print(/*i2+" " + */ listTree1.get(i2).toString()+" "+listTree2.get(i2).toString()+" "+listTree3.get(i2).toString()+"\n");
                //   s = s+ (list.get(i2).toString())+"\n";
                System.out.print(list.get(i2) + "\n");
@@ -82,7 +82,7 @@ public class Conv {
         
     
     
-    for (int i = 0; i <= list1.size()-1/*1500*/; i++) {
+    for (int i = 0; i <= list1.size()-1; i++) {
  
         NamePolis = list3.get(i);     // текущий полис
         IdCoatuu4 = list1.get(i);
@@ -132,44 +132,116 @@ public class Conv {
         }
       
       //========================================================  
-       
-         if ("8".equals(list1.get(i).substring(5, 6)) // если это ТРЕТЬЯ ступень - Сельрада
-                & !"00".equals(list1.get(i).substring(6, 8))
-                & "00".equals(list1.get(i).substring(8, 10))) {
-            NameRegion3 = FirstCharUpper(list3.get(i));
-            IdRegion3 = Integer.toString(i + 1);
-            IdCoatuu3 = list1.get(i);                 // запоминаем номер КОАТУ
-
-            IdPolis4 = Integer.toString(i + 1);    // связка с полисами
-        }
-
-        TypeRegion3 = "7";          // Тип Сельрада
-    
-         //========================================================  
+//       
+//         if ("8".equals(list1.get(i).substring(5, 6)) // если это ТРЕТЬЯ ступень - Сельрада
+//                & !"00".equals(list1.get(i).substring(6, 8))
+//                & "00".equals(list1.get(i).substring(8, 10))) {
+//            NameRegion3 = FirstCharUpper(list3.get(i));
+//            IdRegion3 = Integer.toString(i + 1);
+//            IdCoatuu3 = list1.get(i);                 // запоминаем номер КОАТУ
+//
+//            IdPolis4 = Integer.toString(i+1);    // связка с полисами
+//            TypeRegion3 = "7";          // Тип Сельрада 
+//         }
+//   
+//      //-----------------------------------------------------
+//        
+//        if      (   "8".equals(list1.get(i).substring(5, 6)) & // если это 4 ступень - село, селение
+//                  !"00".equals(list1.get(i).substring(6, 8))
+//                & !"00".equals(list1.get(i).substring(8, 10))  ) {
+//           
+//                    if ("С".equals(list2.get(i)) ) {  TypePolis4 = "3";  }  // Тип Село
+//                    if ("Щ".equals(list2.get(i)) ) {  TypePolis4 = "4";  }  // Тип Селение  
+// 
+////         sResultRow = "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
+////                       "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
+////                       "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3+
+////                       "\t\t"+(i+1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+NamePolis+"\t"+IdCoatuu4 ;  
+//           //System.out.print(sResultRow);
+//
+//                // формирование списка PlaceRegion
+//            list_PlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
+//            list_PlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);
+//            list_PlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
+//                // формирование списка PlaceRegionTree
+//            list_PlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
+//            list_PlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
+//                // формирование списка PlacePolis
+//            list_PlacePolis.add((i+1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+FirstCharUpper(NamePolis)+"\t"+IdCoatuu4); 
+//            }
+//        
+        //=======================================================
         
-        if      (   "8".equals(list1.get(i).substring(5, 6)) & // если это 4 ступень - село, селение
-                  !"00".equals(list1.get(i).substring(6, 8))
-                & !"00".equals(list1.get(i).substring(8, 10))  ) {
-           
-                    if ("С".equals(list2.get(i)) ) {  TypePolis4 = "3";  }  // Тип Село
-                    if ("Щ".equals(list2.get(i)) ) {  TypePolis4 = "4";  }  // Тип Селение  
- 
+       
+      
+      //======================================================== ================================= 
+//       
+//         if ("55".equals(list1.get(i).substring(5, 7)) // если это ТРЕТЬЯ ступень - СМТ
+//                & !"000".equals(list1.get(i).substring(7, 10))
+//                & "00".equals(list1.get(i).substring(8, 10))) {
+//            NameRegion3 = FirstCharUpper(list3.get(i));
+//            IdRegion3 = Integer.toString(i + 1);
+//            IdCoatuu3 = list1.get(i);                 // запоминаем номер КОАТУ
+//
+//            IdPolis4 = Integer.toString(i+1);    // связка с полисами
+//            TypeRegion3 = "6";          // Тип Селищрада
+//         }
+//   
+//      //-----------------------------------------------------
+//        
+//        if ("55".equals(list1.get(i).substring(5, 7)) // если это Четвертая ступень - село, селище (подчиненное  СМТ)
+//            & !"000".equals(list1.get(i).substring(7, 10))
+//            & !"00".equals(list1.get(i).substring(8, 10))) {
+//           
+//                    if ("С".equals(list2.get(i)) ) {  TypePolis4 = "3";  }  // Тип Село
+//                    if ("Щ".equals(list2.get(i)) ) {  TypePolis4 = "4";  }  // Тип Селение  
+// 
 //         sResultRow = "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
 //                       "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
-//                       "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3+
+//                       "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"-"+"\t"+TypeRegion3+"\t"+IdCoatuu3+
 //                       "\t\t"+(i+1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+NamePolis+"\t"+IdCoatuu4 ;  
-           //System.out.print(sResultRow);
+//           System.out.print(sResultRow);
+//
+//                // формирование списка PlaceRegion
+////            list_PlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
+////            list_PlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);
+////            list_PlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
+////                // формирование списка PlaceRegionTree
+////            list_PlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
+////            list_PlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
+////                // формирование списка PlacePolis
+////            list_PlacePolis.add((i+1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+FirstCharUpper(NamePolis)+"\t"+IdCoatuu4); 
+////         
+//           
+//        }
+        //===========================================================================================
+        
+        
+        if ("55".equals(list1.get(i).substring(5, 7)) // если это ТРЕТЬЯ ступень - СМТ
+                & !"000".equals(list1.get(i).substring(7, 10))
+                & "00".equals(list1.get(i).substring(8, 10))) {
+           // NameRegion3 = FirstCharUpper(list3.get(i));
+           // IdRegion3 = Integer.toString(i + 1);
+           // IdCoatuu3 = list1.get(i);                 // запоминаем номер КОАТУ
 
-                // формирование списка PlaceRegion
-            list_PlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
-            list_PlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);
-            list_PlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
-                // формирование списка PlaceRegionTree
-            list_PlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
-            list_PlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
-                // формирование списка PlacePolis
-            list_PlacePolis.add((i+1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+FirstCharUpper(NamePolis)+"\t"+IdCoatuu4); 
-            }
+            // IdPolis4 = Integer.toString(i+1);    // связка с полисами
+           // TypeRegion3 = "6";          // Тип Селищрада
+            
+             sResultRow = 
+                     "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
+                      "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
+                     //  "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"-"+"\t"+TypeRegion3+"\t"+IdCoatuu3+
+                       "\t\t"+(i+1)+"\t"+IdRegion2+"\t"+TypePolis4+"\t"+NamePolis+"\t"+IdCoatuu4 ;  
+           System.out.print(sResultRow);
+            
+         }
+        
+        
+        
+        
+        
+        
+        
       }              // конец цикла
   
         //  Вывод данных
@@ -178,9 +250,16 @@ public class Conv {
                  // showList(list_PlacePolis);
                 
                      //  System.out.print(listTree1.size());
-                for (String temp: list_PlaceRegion){ System.out.println(temp); }
+                for (String temp: list_PlacePolis){ System.out.println(temp); }
                 
-     
+// запуск из коммандной строки
+//Process p;
+//p = Runtime.getRuntime().exec("msconfig");
+//p.waitFor();
+
+// задержка
+// === Thread.sleep(3000);
+
 }
     
     
