@@ -81,7 +81,7 @@
          НЕверный логин!
          <script>
          alert("Вы не авторизированы, авторизируйтесь пожалуйста!");
-         location.href="http://localhost:8080/Business/index.jsp";
+         location.href="/index.jsp";
          </script>        
          
          

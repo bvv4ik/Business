@@ -68,16 +68,16 @@ function doSend(sParam1, nParam2, nParam3, nParam4, nParam5, nParam6, nParam7){
      };
 
 
-   $.ajax({type:"POST",dataType:"json",url:"/Business/LoginServlet",data:oData,async:/*false*/true
+   $.ajax({type:"POST",dataType:"json",url:"/LoginServlet",data:oData,async:/*false*/true
       ,success:function(o) {//учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
                                                                      //   alert("данные переданы, и получен ответ:" ); //+o.toSource()
                                                                      //$(".MyParams").val(""); // очищаем строки     //o.sReturn
                // $("#sReportLogin").text("Ответ от сервера: "+o.sReturnLogin);
                 if (o.sReturnLogin == " 1 Логин  есть в базе! "){
-                (window.location.href="http://localhost:8080/Business/main.jsp")}  //location.assign("http://example.com/");
+                (window.location.href="/main.jsp")}  //location.assign("http://example.com/");
                          
               if (o.sReturnLogin == "Сессия удалена"){
-                 location.href="http://localhost:8080/Business/index.jsp"}
+                 location.href="/index.jsp"}
              
            /*
                if (o.sReturnLogin != ""){

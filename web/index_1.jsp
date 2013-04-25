@@ -29,7 +29,7 @@
               <div id="str3"> <input id="cmdAuthorization" type="button" value="Войти" />   </div>
               <div id="sReportLogin"> </div>
               <br>
-             <div   <p><a href ="http://localhost:8080/Business/registration.jsp" tar--get="_blank"> Регистрация </a></p> </div>  
+             <div   <p><a href ="/registration.jsp" tar--get="_blank"> Регистрация </a></p> </div>  
              
              </div>
         
