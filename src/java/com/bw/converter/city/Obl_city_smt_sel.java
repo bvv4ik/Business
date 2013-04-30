@@ -1,15 +1,19 @@
 
-package com.bw.converter.obl;
+package com.bw.converter.city;
 
-import com.bw.converter.OtherMethods;
 import com.bw.converter.OtherMethods;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+import java.util.StringTokenizer;
 
 
- //// 4 ступени адреса   Область(или АР) --- Район --- Город(Міськрада) --- Село/селище
+////  4 ступени адреса:   Область(или АР) --- Міськрада(Город) --- Селищрада(СМТ) --- село/селение 
 
-public class Obl_ray_city_sel {
+
+
+public class Obl_city_smt_sel {
        
     
     public boolean showList ;
@@ -25,7 +29,7 @@ public class Obl_ray_city_sel {
     
    
    public static void main(String args[]) throws SQLException {
-        Obl_ray_city_sel o1 = new Obl_ray_city_sel();
+        Obl_city_smt_sel o1 = new Obl_city_smt_sel();
         o1.getData();
     }
 
@@ -86,36 +90,42 @@ public class Obl_ray_city_sel {
         }
        
         //========================================================
-        if (list1.get(i).substring(5, 10).equals("00000")        // если это ВТОРАЯ ступень - Район
-                & list1.get(i).substring(2, 3).equals("2")) {    // ищем только в Районах Области
+          if (list1.get(i).substring(5, 10).equals("00000")        // если это ВТОРАЯ ступень - Город
+           & list1.get(i).substring(2, 3).equals("1")        // !!! ищем только в Городах Области
+       & !"00".equals(list1.get(i).substring(3, 5) ))  {     //Убираем мусор типа "Міста автономної республіки крим"  
                                                 
-            TypeRegion2 = "3";     // 3 єто тип Район Области в PlaceRegionType
+        
+            TypeRegion2 = "4";     // 4 значит Миськрада (Города) в PlaceRegionType
  
-            NameRegion2 = OtherMethods.FirstCharUpper(list3.get(i));     // запоминаем название Района и делаем Заглавной 1 букву, остальное строчные
+            NameRegion2 = OtherMethods.FirstCharUpper(list3.get(i));     // запоминаем название Района
             IdRegion2 = Integer.toString(i + 1);           // назначаем ИД для Региона
             IdCoatuu2 = list1.get(i);                      // запоминаем номер КОАТУ
         }
     
     
-       
-      if      ("1".equals(list1.get(i).substring(5, 6))           // если это ТРЕТЬЯ ступень - Город
-               & !"0000".equals(list1.get(i).substring(6, 10)) // не берем строку если в ней мусор       
-              & "00".equals(list1.get(i).substring(8, 10))  // если это корень
-                  ) {  
+          if ("4".equals(list1.get(i).substring(5, 6))       // если это ТРЕТЬЯ ступень - СМТ
+                & "00".equals(list1.get(i).substring(8, 10))       // берем только само СМТ, но не подчиненных ему
+                & !list1.get(i).substring(6, 9).equals("000")          // убираем 1410640001 Пятихатки и Федорівку
+             //     & list1.get(i).substring(2, 3).equals("1")          // !!! ищем только в Городах Области
+               & !list3.get(i).startsWith("СЕЛИЩА МІСЬКОГО ТИПУ")  ) {         // убираем мусор
+        
+          
             NameRegion3 = OtherMethods.FirstCharUpper(list3.get(i));
-            IdRegion3 = Integer.toString(i+1);          // назначаем ИД для Города
+            IdRegion3 = Integer.toString(i+1);          // назначаем ИД для СМТ
             IdCoatuu3 = list1.get(i);                 // запоминаем номер КОАТУ
-            TypeRegion3 = "4";                       // 4 это тип Миськрада в PlaceRegionType
+            TypeRegion3 = "6";                       // 6 значит тип Селищрада (СМТ) в PlaceRegionType
             
             IdPolis7 = Integer.toString(i+1);       // связка с полисами в PlaceRegionType
          }
    
       //-----------------------------------------------------
         
-        if      ("1".equals(list1.get(i).substring(5, 6))           // если это 4 ступень - село, селище (подчиненное  Городу)
-            & !"00".equals(list1.get(i).substring(8, 10))        // если это подчиненное
-                ) {    
-           
+                if ("4".equals(list1.get(i).substring(5, 6)) // если это 4 ступень - село, селище (подчиненное  СМТ)
+                & !"00".equals(list1.get(i).substring(8, 10))   // берем только подчиненных СМТ
+                & !list1.get(i).substring(6, 9).equals("000")    // убираем 1410640001 Пятихатки и Федорівку
+                & !list3.get(i).startsWith("СЕЛИЩА МІСЬКОГО ТИПУ")   ) { // убираем мусор      
+                        
+                   
                     if ("С".equals(list2.get(i)) ) {  TypePolis7 = "3";  }  // Тип Село в PlacePolisType
                     if ("Щ".equals(list2.get(i)) ) {  TypePolis7 = "4";  }  // Тип Селение   в PlacePolisType
  

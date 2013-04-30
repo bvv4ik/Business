@@ -6,12 +6,13 @@ package com.bw.converter.city;
 
 import com.bw.converter.OtherMethods;
 import com.bw.converter.OtherMethods;
+import com.bw.converter.obl.Obl_ray_silr_sel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
     //// 2 ступени адреса:   Область(или АР) --- Город 
 
-public class Vetka_004 {
+public class Obl_city {
     
 
          /*Входные Рабочие данные*/
@@ -26,8 +27,9 @@ public class Vetka_004 {
     
 
     
-    public void main(String args[]) throws SQLException {
-        getData();
+     public static void main(String args[]) throws SQLException {
+        Obl_city o1 = new Obl_city();
+        o1.getData();
     }
 
     

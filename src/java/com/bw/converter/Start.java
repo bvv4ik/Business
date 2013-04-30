@@ -1,36 +1,35 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.bw.converter;
 
+//import javax.swing.*;
+//import java.awt.event.*;
 
 import java.sql.SQLException;
 import com.bw.converter.obl.Obl_ray_silr_sel;
-import com.bw.converter.city.Vetka_004_Area;
+import com.bw.converter.city.Obl_city_area;
 
 /**
  *
  * @author Sergey
  */
 public class Start {
+   
+   // static JFrame frame;
     
      public static void main(String args[]) throws SQLException {
          
-         Obl_ray_silr_sel  o1 = new Obl_ray_silr_sel();
-         o1.getData();
+//         Obl_ray_silr_sel  o1 = new Obl_ray_silr_sel();
+//         o1.getData();
          //o1.list1 
+       // OtherMethods.showDlg("sdasdasd"); 
+         String s = "0120455300";
+         System.out.println(s.substring(2, 3));
          
-//         Vetka_002  o2 = new Vetka_002();
-//         o2.getData();
-//         Vetka_003  o3 = new Vetka_003();
-//         o3.getData();
-
-   //     Vetka_004  o4 = new Vetka_004();
-  //     o4.getData();
          
-       Vetka_004_Area  o5 = new Vetka_004_Area();
-         o5.getData();
+   
+         
+//       City_area  o5 = new City_area();
+//         o5.getData();
          
      }
     

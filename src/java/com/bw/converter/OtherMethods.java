@@ -9,12 +9,25 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+//import javax.swing.*;
+//import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+//import java.awt.event.*;
 
 /**
  *
  * @author Sergey
  */
 public class OtherMethods {
+    
+    static JFrame frame;
+    
+    public static void showDlg(String sMessage) {
+        JOptionPane.showMessageDialog(frame, sMessage);
+        
+    }
+    
     
      public static void showList(ArrayList<String> list) {
         // String formatted = String.format("%07d", i); // Добавляем нули перед цифрами

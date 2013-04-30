@@ -5,7 +5,6 @@
 package com.bw.converter.city;
 
 import com.bw.converter.OtherMethods;
-import com.bw.converter.OtherMethods;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,7 +12,7 @@ import java.util.ArrayList;
      // Для таблицы PlaceArea
       
 
-public class Vetka_004_Area {
+public class Obl_city_area {
     
   
             /*Входные Рабочие данные*/
@@ -21,12 +20,13 @@ public class Vetka_004_Area {
     public ArrayList<String> list2 = new ArrayList<String>();   
     public ArrayList<String> list3 = new ArrayList<String>();   
     
-       /*Массивы готовых Выходных дынных, с дубликатами*/ 
+       /*Массивы готовых Выходных дынных*/ 
    public ArrayList<String> list_PlaceArea = new ArrayList<String>();
 
     
-    public void main(String args[]) throws SQLException {
-        getData();
+  public static void main(String args[]) throws SQLException {
+        Obl_city_area o1 = new Obl_city_area();
+        o1.getData();
     }
 
     
@@ -77,7 +77,7 @@ public class Vetka_004_Area {
                     TypeRegion1 = "2";  // Тип ОБласти в PlaceRegionType
                 }
                          
-            NameRegion1 = list3.get(i);        // запоминаем название Области 
+            NameRegion1 = list3.get(i);                 // запоминаем название Области 
             IdRegion1 = Integer.toString(i+1);               // назначаем ИД для Области
             IdCoatuu1 = list1.get(i);                          // запоминаем номер КОАТУ ОБласти
 
@@ -108,13 +108,14 @@ public class Vetka_004_Area {
           
           IdArea = Integer.toString(i+1);  // назначаем  ИД для Ариа
           
-               /*Вывод на екран 3-х таблиц, 2 ступени региона и 1 полиса*/       
-               sResultRow = "\n"+IdArea+"\t"+IdPolis7+"\t"+NameArea+"\t"+IdCoatuuArea;
+               /*Вывод на екран 1 полиса*/       
+       //        sResultRow = "\n"+IdArea+"\t"+IdPolis7+"\t"+NameArea+"\t"+IdCoatuuArea;
           
- //            sResultRow = "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
+           /*Вывод на екран 3-х таблиц, 2 ступени региона и 1 полиса*/       
+             sResultRow = "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
     
-//                         "\t\t"+(i+1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+NamePolis+"\t"+IdCoatuu4 +
-//                         "\t\t"+IdArea+"\t"+IdPolis4+"\t"+NameArea+"\t"+IdCoatuuArea;               
+                         "\t\t"+(i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7 +
+                         "\t\t"+IdArea+"\t"+IdPolis7+"\t"+NameArea+"\t"+IdCoatuuArea;               
            System.out.print(sResultRow);
       
       }
