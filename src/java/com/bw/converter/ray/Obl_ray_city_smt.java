@@ -1,5 +1,5 @@
 
-package com.bw.converter.obl;
+package com.bw.converter.ray;
 
 import com.bw.converter.OtherMethods;
 import com.bw.converter.OtherMethods;
@@ -12,7 +12,8 @@ import java.util.ArrayList;
 public class Obl_ray_city_smt {
        
     
-    public boolean showList ;
+     public static boolean bShowList ;
+     
         /*Входные Рабочие данные*/
     public ArrayList<String> list1 = new ArrayList<String>();
     public ArrayList<String> list2 = new ArrayList<String>();   
@@ -26,6 +27,7 @@ public class Obl_ray_city_smt {
    
    public static void main(String args[]) throws SQLException {
         Obl_ray_city_smt o1 = new Obl_ray_city_smt();
+        bShowList = true;
         o1.getData();
     }
 

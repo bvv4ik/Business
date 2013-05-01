@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bw.converter.obl;
+package com.bw.converter.ray;
 
 import com.bw.converter.OtherMethods;
 import java.sql.SQLException;
@@ -16,6 +16,7 @@ import java.util.StringTokenizer;
 
 public class Obl_ray_smt {
   
+     public static boolean bShowList ;
     
       /*Входные Рабочие данные*/
     public ArrayList<String> list1 = new ArrayList<String>();
@@ -30,6 +31,7 @@ public class Obl_ray_smt {
    
        public static void main(String args[]) throws SQLException {
         Obl_ray_smt o1 = new Obl_ray_smt();
+        bShowList = true;
         o1.getData();
     }
     

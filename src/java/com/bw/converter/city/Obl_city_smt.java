@@ -14,22 +14,23 @@ import java.util.StringTokenizer;
 
 
 public class Obl_city_smt {
-       
+           
+    public static boolean bShowList ;
     
-    public boolean showList ;
         /*Входные Рабочие данные*/
     public ArrayList<String> list1 = new ArrayList<String>();
     public ArrayList<String> list2 = new ArrayList<String>();   
     public ArrayList<String> list3 = new ArrayList<String>();   
    
         /*Массивы готовых Выходных дынных, с дубликатами*/
-    public ArrayList<String> list_PlacePolisTree = new ArrayList<String>();
-    public ArrayList<String> list_PlaceRegion = new ArrayList<String>();
-    public ArrayList<String> list_PlacePolis = new ArrayList<String>();
+    public ArrayList<String> aPlacePolisTree = new ArrayList<String>();
+    public ArrayList<String> aPlaceRegion = new ArrayList<String>();
+    public ArrayList<String> aPlacePolis = new ArrayList<String>();
     
    
    public static void main(String args[]) throws SQLException {
         Obl_city_smt o1 = new Obl_city_smt();
+        bShowList = true;
         o1.getData();
     }
 
@@ -116,22 +117,23 @@ public class Obl_city_smt {
             
             TypePolis7 = "2";      // 2 значит ПГТ
             
-            
+            if (bShowList) {
              sResultRow = "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
                        "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
                      //  "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"-"+"\t"+TypeRegion3+"\t"+IdCoatuu3+
                        "\t\t"+(i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7 ;  
            System.out.print(sResultRow);
+            }
 
              //    формирование списка PlaceRegion
-            list_PlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
-            list_PlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);
-         //   list_PlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
+            aPlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
+            aPlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);
+           //   aPlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
                 // формирование списка PlaceRegionTree
-         //   list_PlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
-            list_PlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
+           //   aPlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
+            aPlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
                 // формирование списка PlacePolis
-            list_PlacePolis.add((i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7); 
+            aPlacePolis.add((i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7); 
             
          }
    

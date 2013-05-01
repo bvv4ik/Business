@@ -6,7 +6,7 @@ package com.bw.converter.city;
 
 import com.bw.converter.OtherMethods;
 import com.bw.converter.OtherMethods;
-import com.bw.converter.obl.Obl_ray_silr_sel;
+import com.bw.converter.ray.Obl_ray_silr_sel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,21 +14,23 @@ import java.util.ArrayList;
 
 public class Obl_city {
     
-
+    public static boolean bShowList ;
+    
          /*Входные Рабочие данные*/
     public ArrayList<String> list1 = new ArrayList<String>();
     public ArrayList<String> list2 = new ArrayList<String>();   
     public ArrayList<String> list3 = new ArrayList<String>();   
     
        /*Массивы готовых Выходных дынных, с дубликатами*/
-    public ArrayList<String> list_PlacePolisTree = new ArrayList<String>();
-    public ArrayList<String> list_PlaceRegion = new ArrayList<String>();
-    public ArrayList<String> list_PlacePolis = new ArrayList<String>();
+    public ArrayList<String> aPlacePolisTree = new ArrayList<String>();
+    public ArrayList<String> aPlaceRegion = new ArrayList<String>();
+    public ArrayList<String> aPlacePolis = new ArrayList<String>();
     
 
     
      public static void main(String args[]) throws SQLException {
         Obl_city o1 = new Obl_city();
+        bShowList = true;
         o1.getData();
     }
 
@@ -36,7 +38,6 @@ public class Obl_city {
       public void getData() throws SQLException {
         
           //Загружаем КОАТУ в 3 столбца  
-  
            list1 = OtherMethods.ListFromFile("D:/Java_study/---Projects/KOATUU/1.txt"); 
            list2 = OtherMethods.ListFromFile("D:/Java_study/---Projects/KOATUU/2.txt");
            list3 = OtherMethods.ListFromFile("D:/Java_study/---Projects/KOATUU/3.txt");
@@ -66,7 +67,6 @@ public class Obl_city {
         String NamePolis7 = "";
 
    
-
 
         list3 = OtherMethods.ClearGarbage(list3);  // Удаляем мусор из строк с названиями и делаем строку с большой буквы
     
@@ -106,23 +106,28 @@ public class Obl_city {
             NamePolis7 = list3.get(i);              // запоминаем название Района   
             
             
-              /*Вывод на екран 4-х таблиц, 3 ступени региона и 1 полиса*/       
+              /*Вывод на екран 2-х таблиц, 1 ступени региона и 1 полиса*/ 
+            if (bShowList) {
            sResultRow = "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
                   //     "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
                   //     "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3+
                        "\t\t"+(i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7 ;  
            System.out.print(sResultRow);
-
-//                // формирование готового списка PlaceRegion
-//            list_PlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
-//            list_PlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);
-//            list_PlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
-//                // формирование списка PlaceRegionTree
-//            list_PlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
-//            list_PlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
-//                // формирование списка PlacePolis
-//            list_PlacePolis.add((i+1)+"\t"+IdPolis4+"\t"+TypePolis4+"\t"+NamePolis+"\t"+IdCoatuu4); 
-//            
+             }
+           
+           
+                         // формирование готового списка PlaceRegion
+            aPlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
+          //не треб...  aPlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);
+          //не треб...  aPlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
+               
+                       // формирование списка PlaceRegionTree
+           //не треб... aPlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
+          //не треб...  aPlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
+                
+                        // формирование списка PlacePolis
+            aPlacePolis.add((i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7); 
+            
             }
         
         //=======================================================
