@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 //import java.awt.event.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
@@ -27,6 +30,13 @@ public class OtherMethods {
         JOptionPane.showMessageDialog(frame, sMessage);
         
     }
+    
+     public static ArrayList<String> delDuplicates(ArrayList<String> aList) {
+         HashSet set = new HashSet(aList); // Удаляем дубликаты
+        aList.clear();
+        aList.addAll(set);
+        return aList;
+     }
     
     
      public static void showList(ArrayList<String> list) {

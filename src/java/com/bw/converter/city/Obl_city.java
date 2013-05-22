@@ -25,6 +25,7 @@ public class Obl_city {
     public ArrayList<String> aPlacePolisTree = new ArrayList<String>();
     public ArrayList<String> aPlaceRegion = new ArrayList<String>();
     public ArrayList<String> aPlacePolis = new ArrayList<String>();
+
     
 
     
@@ -32,8 +33,8 @@ public class Obl_city {
         Obl_city o1 = new Obl_city();
         bShowList = true;
         o1.getData();
-    }
-
+    } 
+//  мавсамыма а
     
       public void getData() throws SQLException {
         

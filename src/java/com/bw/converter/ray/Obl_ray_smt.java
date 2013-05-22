@@ -24,9 +24,9 @@ public class Obl_ray_smt {
     public ArrayList<String> list3 = new ArrayList<String>();   
    
         /*Массивы готовых Выходных дынных, с дубликатами*/
-    public ArrayList<String> list_PlacePolisTree = new ArrayList<String>();
-    public ArrayList<String> list_PlaceRegion = new ArrayList<String>();
-    public ArrayList<String> list_PlacePolis = new ArrayList<String>();
+    public ArrayList<String> aPlacePolisTree = new ArrayList<String>();
+    public ArrayList<String> aPlaceRegion = new ArrayList<String>();
+    public ArrayList<String> aPlacePolis = new ArrayList<String>();
     
    
        public static void main(String args[]) throws SQLException {
@@ -105,20 +105,22 @@ public class Obl_ray_smt {
            
             TypePolis7 = "2";   // выставляем Тип СМТ в PlacePolisType
             
-             sResultRow = 
+            if (bShowList) {
+              sResultRow = 
                      "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+  
                      "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
                      
                      "\t\t"+(i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7 ;  
-           System.out.print(sResultRow);
-            
+              System.out.print(sResultRow);
+            } 
+           
                // формирование списка PlaceRegion
-            list_PlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
-            list_PlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);        
+            aPlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
+            aPlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);        
                 // формирование списка PlaceRegionTree
-            list_PlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
+            aPlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
                 // формирование списка PlacePolis
-            list_PlacePolis.add((i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7); 
+            aPlacePolis.add((i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7); 
            
          }
        
