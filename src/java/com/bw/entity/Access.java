@@ -25,28 +25,27 @@ public class Access  {
 private int nID;
 private int nID_SubjectHuman;
 private String sLogin; //(уникально)
+private String sPassword; //(уникально)
 private int bDisabled; //(вырубить доступ)
   
 // Setters
  public Access _nID(int i) { nID = i; return this; }
  public Access _nID_SubjectHuman(int i) { nID_SubjectHuman=i; return this; }
  public Access _sLogin(String s) { sLogin=s; return this;  }
+ public Access sPassword(String s) { sPassword=s; return this;  }
  public Access _bDisabled (int b){  bDisabled=b; return this; }
  
  // Getters
  public int nID() { return nID; }
  public int nID_SubjectHuman() { return nID_SubjectHuman; }
  public String sLogin() { return sLogin; }
+ public String sPassword() { return sPassword; }
  public int bDisabled(){ return bDisabled; }
  
  //================================================
  
  
  
-//private int _nID;
-//private int _nID_SubjectHuman;
-//private String _sLogin; //(уникально)
-//private int _bDisabled; //(вырубить доступ)
 
    // загружаем все данные из таблицы по логину 
  public void getTable (String sLogin) throws Exception   { 
@@ -65,113 +64,123 @@ private int bDisabled; //(вырубить доступ)
 }
  
  
-
- //public String result(){     return sR;   }
  
- //private void setUserRegistration (String sLogin, String sPassword1, String sPassword2, String sEmail) throws Exception {
- public static String setUserRegistration (String sLoginEmail, String sPassword1, String sPassword2) throws Exception {
+ 
+
+ public static String userRegistration (String sEmail, String sPassword, String sPassword2) throws Exception {
   
 
-   if  ( (sLoginEmail==null) | (sPassword1==null) | (sPassword2==null)/* | (sEmail==null)*/ )
-        return "Она или несколько строк Нулл";
+   if  ( (sEmail==null) | (sPassword==null) | (sPassword2==null)/* | (sEmail==null)*/ )
+        return "Одна или несколько строк Null";
  
-     if  ( (sLoginEmail.equals("")) | (sPassword1.equals("")) | (sPassword2.equals("")) /* | (sEmail.equals(""))*/ )  // проверка на пустые строки
+     if  ( (sEmail.equals("")) | (sPassword.equals("")) | (sPassword2.equals("")) /* | (sEmail.equals(""))*/ )  // проверка на пустые строки
   return "Внимание, не все поля формы заполнены!";
    
-     if ((!bValidMail(sLoginEmail))) // если "" то Емаил Ошибочный
-  return "Введите правильный Е-Маил!"; 
+//     if ((!bValidMail(sEmail))) // если "" то Емаил Ошибочный
+//  return "Введите правильный Е-Маил!"; 
      
-    if ((!bValidString(sLoginEmail)) | (!bValidString(sPassword1))) // Если true то прис. недопустимые символы
-  return "Логин или пароль содержат недопустимые символы!";
+    if ((!bValidString(sEmail)) | (!bValidString(sPassword))) // Если true то прис. недопустимые символы
+  return "Логин или Пароль содержат недопустимые символы!";
 
-     if (!sPassword1.equals(sPassword2)) //проверка двух полей паролей на идентичность
+     if (!sPassword.equals(sPassword2)) //проверка двух полей паролей на идентичность
   return "Поля паролей не совпадают!";       
      
-     if (bLoginExists(sLoginEmail)) // если true то логин уже существует в Базе
-  return "Логин занят! ";
+     if (bLoginExists(sEmail)) // если true то логин уже существует в Базе
+    return "Этот Логин уже занят! ";
+   
+     
  
     
- 
-  // return "111"; 
-  
+
       Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");                      
- //  try{
-   
-      
+   try{
+     
    // Подготовливаем данные для записи в БД 
-      
       oDC.setAutoCommit(false);
       oDC.prepareStatement("INSERT INTO TheSubject (nID_OfSubject) VALUES (1)").executeUpdate();
       // вставляем по умолчанию запись "1" т.е "человек"
       
       //----- oDC.prepareStatement("insert Contact values()").executeUpdate();
-      ResultSet oSet2 =oDC.prepareStatement("SELECT @@identity").executeQuery();
-      int n=oSet2.next()?oSet2.getInt(1):0;
+      ResultSet oSet2 = oDC.prepareStatement("SELECT @@identity").executeQuery();
+      int n = oSet2.next()  ?  oSet2.getInt(1)  :  0 ;
       //System.out.println("----------------------------");   System.out.println(n);
     
       oDC.prepareStatement("INSERT INTO TheSubjectHuman(nID_TheSubject, sTheSubjectHuman, sLastName, sFirstName, sSurName, sDTbirth, sDTdeath, nSex ) " +
       "VALUES ("+n+",'Человек','Фамилия','Имя','Отчество','1900-11-11 11:11:11','1900-11-11 11:11:11',1)").executeUpdate();
 
       ResultSet oSet3 =oDC.prepareStatement("SELECT @@identity").executeQuery();
-      int n1=oSet3.next()?oSet3.getInt(1):0;
+      int n1 = oSet3.next() ? oSet3.getInt(1)  :  0;
       //System.out.println("----------------------------");   System.out.println(n1);
        
-      oDC.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, bDisabled ) VALUES ("+n1+",'"+sLoginEmail+"',1)").executeUpdate();
+      oDC.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, sPassword, bDisabled ) VALUES ("+n1+",'"+sEmail+"','"+sPassword+"',1)").executeUpdate();
+      ResultSet oSet4 =oDC.prepareStatement("SELECT @@identity").executeQuery();
+      int n2 = oSet4.next() ? oSet4.getInt(1)  :  0;
 
-      // пробуем записать Логин и Пароль в Лдап
-      if (!ConnectLdap.bWrite(sLoginEmail, sPassword1)) // если false занчит ошибка подключения к Лдап
-      {
-          oDC.rollback();
-          return "Ошибка Лдап подключения, учетная запись не создана!";
-      }
-
-      // Если записалось в Лдап, то подтверждаем запись в БД
+      
+      //подтверждаем запись в БД
       oDC.commit();
      
       ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
       
       // Запись инфы в табл
-      AccessOf.save(sLoginEmail);
+      AccessOf.save(n2);
       
-      return "Учетная запись успешно создана!";  
+      return "Учетная запись создана !";  // нельзя менять т.к работает как Колбэк
  
-  // }catch (Exception e){
-      //    return "Ошибка создания записи";  
-   // }
+   }catch (Exception e){
+          return "Ошибка создания записи @Access";  
+    }
       
-      //return;
+    
  } 
  
  
     
- 
-     
-public static boolean bLoginExists (String sLogin) {    
-    String s = ""; 
-    Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
- try{
- 
- ResultSet oSet =oDC.prepareStatement("SELECT * FROM Access WHERE sLogin='"+sLogin+"'").executeQuery();
- if(oSet.next()){
-        s = oSet.getString(3);   // System.out.println(s);
-        }
-            if (sLogin.equals(s)){ // Если Логин есть в базе
-             return true ;//""; //"такой Логин уже есть";       
+public static String getPassword (String sLogin) {    
+String s = "";
+        Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+        try {
+            ResultSet oSet = oDC.prepareStatement("SELECT TOP 1 sPassword FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
+            if (oSet.next()) {
+                s = oSet.getString(1);   
             }
-            
-         ConnectSybase.closeConnect("UA_DP_PGASA",oDC);    
+            if ( s != null) { // Если Пароль есть у данного логина в базе
+                return s;        // отправляем Пароль        
+            }
+            ConnectSybase.closeConnect("UA_DP_PGASA", oDC);
+        } catch (Exception _) {
+            String sErr = _.getMessage();
+            System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
+            //return null;//"Ошибка приложения";
+        } finally {      //ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
+        }
+        return "";  // "" - такого Пароля нет у Логина"; 
+}
+     
+    public static boolean bLoginExists(String sLogin) {
+        String s = "";
+        Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+        try {
+            ResultSet oSet = oDC.prepareStatement("SELECT TOP 1 sLogin FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
+            if (oSet.next()) {
+                s = oSet.getString(1);   // System.out.println(s);
+            }
+            if (sLogin.equals(s)) { // Если Логин есть в базе
+                return true;        //" true - такой Логин уже есть";       
+            }
+            ConnectSybase.closeConnect("UA_DP_PGASA", oDC);
+        } catch (Exception _) {
+            String sErr = _.getMessage();
+            System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
+            //return null;//"Ошибка приложения";
+        } finally {      //ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
+        }
+        return false;  //"false - Логин свободен";
     }
-  
- catch (Exception _){
-                    String sErr=_.getMessage();
-                    System.err.println("ERROR: "+sErr+"_"+" ---- bLoginExists");//это вывод в лог-файл
-                    //return null;//"Ошибка приложения";
-                    }
-finally {          }
- // ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
-  return false;  //"Логин свободен";
- }
- 
+
+
+
+
 
  
 private static boolean bValidString (String sVerify ) {    

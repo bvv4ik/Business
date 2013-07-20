@@ -44,26 +44,7 @@ function doSend(sParam1, nParam2, nParam3, nParam4, nParam5, nParam6, nParam7){
          
          sLoginEmail : $("#sLoginEmail").val(),
          sPasswordReg1 : $("#sPasswordReg1").val(),
-         sPasswordReg2 : $("#sPasswordReg2").val()//,
-         /*
-         sCountry : $("#sCountry").val(),
-         sRegion : $("#sRegion").val(),
-         sPolis : $("#sPolis").val(),
-         sArea : $("#sArea").val(),
-         
-         sBranchType : $("#sBranchType").val(),
-         sBranch : $("#sBranch").val(),
-         
-         sBuildType : $("#sBuildType").val(),
-         sBuild : $("#sBuild").val(),
-         
-         sPart : $("#sPart").val(),
-         sCellType : $("#sCellType").val(),
-         sCell : $("#sCell").val()
-         */
-         
-         
-     //    sEmailReg : $("#sEmailReg").val()
+         sPasswordReg2 : $("#sPasswordReg2").val()//, 
      
      };
 
@@ -340,6 +321,27 @@ alert("najato") ;
     
     
 });
+
+
+//var idTimer=0;
+//$('#sLo----------ginReg').keyup(function() {
+
+//clearTimeout(idTimer);
+//var cmd="doSend('LoginVerify')";
+//{
+//idTimer=window.setTimeout(cmd, 3000);
+
+ //$("#sAnswer").text("Поиск...");
+ 
+//}
+
+//});
+
+
+//$("#FormTest").draggable();
+//$( "#FormTest" ).draggable({ containment: "body", scroll: false });
+    
+
 
 
         //мои полезные функции

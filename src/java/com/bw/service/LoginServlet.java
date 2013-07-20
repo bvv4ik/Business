@@ -50,9 +50,10 @@ protected void processRequest(HttpServletRequest request,HttpServletResponse res
 response.setContentType("text/html;charset=utf-8"); 
 request.setCharacterEncoding("utf-8");
 
-String         
+String   test ="",       
+        sFind ="",
                sReturnLogin="",       
-         //         sDO="",
+                  sDO="",
                   nID_Country="",
                   nID_RegionType="",
                   nID_Region="",
@@ -100,7 +101,11 @@ try{
       
   //  String clientIP = request.getRemoteAddr();
     
-   String sDO=request.getParameter("sDO"); //аналогично остальные параметры вытянуть
+    test=request.getParameter("test");
+    sFind=request.getParameter("sFind");
+    
+    sDO=request.getParameter("sDO"); //аналогично остальные параметры вытянуть
+    
     nID_Country=request.getParameter("nID_Country");
     
     nID_Region=request.getParameter("nID_Region");
@@ -151,7 +156,7 @@ try{
    
    if ("RegisteredUser".equals(sDO))   {
       Access A = new Access();
-      String s = A.setUserRegistration(sLoginEmail, sPasswordReg1, sPasswordReg2);
+      String s = A.userRegistration(sLoginEmail, sPasswordReg1, sPasswordReg2);
            
       sReturnLogin = "{\"sReturnLogin\":\""+s+"\"}"; 
       }    
@@ -178,7 +183,7 @@ try{
     if ((s).equals("description: "+sPasswordEnter))
     {    
         HttpSession session = request.getSession(true);    
-        session.setAttribute("sLogin",sLoginEnter);
+        session.setAttribute("sLogin", sLoginEnter);
         
        // TheSubjectHuman s = new TheSubjectHuman();
         
@@ -186,7 +191,7 @@ try{
         session.setAttribute("sLastName",s);
         
         AccessOf AO = new AccessOf();
-        AO.save(sLoginEnter);
+      //  AO.save(sLoginEnter);
         // Сохраняем в историю момент посещения
         
         /*
@@ -318,18 +323,25 @@ try{
         P.save(nID_Cell, nID_Part, nID_Build);
         }
     
-    
-        
-        
+    if ("test".equals(sDO))   {   
+       sReturnLogin = " [{ \"nID_Region\":\"34\" ,\"sRegion\":\"Днепропетровская\",\"value\":\"Днепропетровская обл.\" }, { \"nID_Region\":38 ,\"value\":\"Киевская обл. Район Мироновский\"} ] "; 
+    }
         
    if ("getPolis".equals(sDO))   {   
-     sReturnLogin = " [{ \"nID_Region\":\"34\" ,\"sRegion\":\"Днепропетровская\",\"value\":\"Днепропетровская обл.\" }, { \"nID_Region\":38 ,\"value\":\"Киевская обл. Район Мироновский\"} ] ";
+     //sReturnLogin = " [{ \"nID_Region\":\"34\" ,\"sRegion\":\"Днепропетровская\",\"value\":\"Днепропетровская обл.\" }, { \"nID_Region\":38 ,\"value\":\"Киевская обл. Район Мироновский\"} ] ";
+    // sReturnLogin = " [{ \"nID_Polis\":\"34\"  ,  \"value\":\"Днепропетровская обл.\" }, { \"nID_Polis\":38  ,  \"value\":\"Киевская обл. Район Мироновский\"} ] ";
 
-     //"row":102,
-   
+        PlacePolis pp = new PlacePolis();
+        pp.getStringAddressPolis(sFind/*"дніпр"*/, 1/*здесь вставить переменную*/);
+   //sReturnLogin = "[{ \"nID_Polis\": 5128  ,  \"value\":\"   обл. ДНІПРОПЕТРОВСЬКА  м. ДНІПРОДЗЕРЖИНСЬК \"} ,{ \"nID_Polis\": 5115  ,  \"value\":\"   обл. ДНІПРОПЕТРОВСЬКА  м. ДНІПРОПЕТРОВСЬК \"} ]";        
+   //for (String temp: pp.aResult2){ System.out.println(temp); }
+   //for (String temp: pp.aResult3){ System.out.println(temp); }
  
+       sReturnLogin = pp.sObject;
+       return;
+      // String s = sReturnLogin;
+     //"row":102,
 
-  
      
      /*sReturnLogin = "[{
  "nID_Region":34

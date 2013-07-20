@@ -1,4 +1,21 @@
+/*Автокомплит*/
+.ui-widget-content {
+font-size: 9pt;
+}
 
+.ui-menu .ui-menu-item a {
+font-size: 9pt;
+}
+
+.ui-menu .ui-menu-item a img {
+font-size: 9pt;
+}
+
+ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all
+.ui-autocomplete {
+font-size: 9pt;
+}
+/*---------------------*/
 
 #Header{ padding-left: 10px;; font-weight:bold; }    
 .allForms{  -moz-border-radius: 5px; /*╨Ю╨║╤А╤Г╨│╨╗╨╡╨╜╨╕╨╡ ╤Д╨╛╤А╨╝╤Л*/ 

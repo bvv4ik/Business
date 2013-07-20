@@ -10,6 +10,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//import java.net.*; 
+
 /**
  *
  * @author Ser
@@ -45,11 +47,11 @@ private String sData;
  public String sData() { return sData; }
     
     
- public static void save(String sLogin) throws Exception {
+ public static void save(int sLastAccess) throws Exception {
      
-     Access Acc = new Access();
-     Acc.getTable(sLogin);
-     int i = Acc.nID();
+     //Access Acc = new Access();
+     //Acc.getTable(sLogin);
+     //int i = Acc.nID();
      
      Date d = new Date();
      DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
@@ -58,11 +60,13 @@ private String sData;
      Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");                      
     
       oDC.prepareStatement("INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
-              + "VALUES ("+i+",'Ip....','"+sTime+"','ссылка откуда...',1,'доп. инф')").executeUpdate();
+              + "VALUES ("+sLastAccess+",'Ip....','"+sTime+"','ссылка откуда...',1,'доп. инф')").executeUpdate();
      //1900-11-11 11:11:11
       
       ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
 
+      
+      
       
  
  }

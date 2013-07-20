@@ -52,10 +52,10 @@ public class Obl_city {
         String NameRegion1 = "";
         String IdCoatuu1 = "";
 
-//        String IdRegion2 = "";
-//        String TypeRegion2 = "";
-//        String NameRegion2 = "";
-//        String IdCoatuu2 = "";
+        String IdRegion2 = "";
+        String TypeRegion2 = "";
+        String NameRegion2 = "";
+        String IdCoatuu2 = "";
 //
 //        String IdRegion3 = "";
 //        String TypeRegion3 = "";
@@ -82,9 +82,9 @@ public class Obl_city {
 
         if (list1.get(i).endsWith("00000000")) { // если это ПЕРВАЯ ступень - Область, АР
                if (list3.get(i).startsWith("Крим")) {
-                    TypeRegion1 = "1";                // выставляем тип АР в PlaceRegionType
+                    TypeRegion1 = "1";                // 1 = тип АР в PlaceRegionType
                 } else {
-                    TypeRegion1 = "2";               // выставляем тип Область в PlaceRegionType
+                    TypeRegion1 = "2";               // 2 = тип Область в PlaceRegionType
                 }
                          
             NameRegion1 = list3.get(i);                      // запоминаем название Области и делаем Заглавной 1 букву, остальное строчные
@@ -98,7 +98,11 @@ public class Obl_city {
    
       //-----------------------------------------------------
         
-     if (list1.get(i).substring(5, 10).equals("00000")        // если это ВТОРАЯ ступень - Город
+     
+  
+        
+                
+     if (list1.get(i).substring(5, 10).equals("00000")        // если это Третья ступень - Город
            & list1.get(i).substring(2, 3).equals("1")        // !!! ищем только в Городах Области
        & !"00".equals(list1.get(i).substring(3, 5) ))  {     //Убираем мусор типа "Міста автономної республіки крим"  
                                                 
@@ -110,7 +114,7 @@ public class Obl_city {
               /*Вывод на екран 2-х таблиц, 1 ступени региона и 1 полиса*/ 
             if (bShowList) {
            sResultRow = "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
-                  //     "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
+                     //   "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
                   //     "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3+
                        "\t\t"+(i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7 ;  
            System.out.print(sResultRow);

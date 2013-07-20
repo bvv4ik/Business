@@ -33,12 +33,14 @@ public class ConnectSybase {
       //  PreparedStatement stmt = null;
        // ResultSet rs = null;
         try{
-           // jdbc:sybase:Tds:localhost:2048/UA_DP_PGASA [sa на SA]
+
             Class.forName("com.sybase.jdbc3.jdbc.SybDataSource");
             
-            //String url = "jdbc:mysql://localhost:3306/students";
-            String url = "jdbc:sybase:Tds:SERGEY-PC:2048/"+sName;
-            oDC = DriverManager.getConnection(url, "sa", "1234567");
+//            String url = "jdbc:sybase:Tds:SERGEY-PC:2048/"+sName;
+  //          oDC = DriverManager.getConnection(url, "sa", "1234567");
+            String url = "jdbc:sybase:Tds:pgasa-edu-ua.org:5000/"+sName;
+            oDC = DriverManager.getConnection(url, "sa", "123321123a");
+
             
            // int i = 10;
             //i = 1/0; 

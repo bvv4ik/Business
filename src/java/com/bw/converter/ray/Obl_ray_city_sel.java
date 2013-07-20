@@ -134,8 +134,8 @@ public class Obl_ray_city_sel {
             aPlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);
             aPlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
                 // формирование списка PlaceRegionTree
-            aPlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
-            aPlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
+            aPlacePolisTree.add(IdRegion3+"\t"+IdRegion2   +"\t"+(IdRegion1)   +"\t"+(IdRegion3)); 
+            aPlacePolisTree.add(IdRegion2+"\t"+IdRegion1   +"\t"+(IdRegion1)   +"\t"+"0");
                 // формирование списка PlacePolis
             aPlacePolis.add((i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7); 
             
@@ -144,7 +144,9 @@ public class Obl_ray_city_sel {
         
         
     }
-        
+          System.out.println("---");
+         for (String temp: aPlacePolisTree){ System.out.println(temp); }
+    
  }
         
 }

@@ -1,0 +1,312 @@
+/* -------------------------/ ВСЕ Кнопки /------------------------------------ */
+.allButt { 
+	background: #2E8CE3;  padding: 7px 30px; font-size: 16px; /*fo nt-weight: bold;*/ color: #FFFFFF; text-align: center;
+	border: solid 1px #73C8F0; cursor: pointer; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+	background: -moz-linear-gradient(0% 100% 90deg, #2E8CE3, #73C2FD);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#73C2FD), to(#2E8CE3));
+	box-shadow: inset 0 1px 0 0 #FFFFFF;  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5); -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	border-bottom: 1px solid rgba(0,0,0,0.25);  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+}
+.allButt:hover { 
+	background: #2E69E3;  background: -moz-linear-gradient(0% 100% 90deg, #2E69E3, #59C2FF);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#59C2FF), to(#2E69E3));
+}
+.allButt:active {
+	background: #2E69E3;  background: -moz-linear-gradient(0% 100% 90deg, #2E69E3, #59C2FF);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#59C2FF), to(#2E69E3));
+	box-shadow: inset 1px 1px 0 0 #004A7F; -moz-box-shadow: inset 1px 1px 0 0 #004A7F;
+	-webkit-box-shadow: inset 1px 1px 0 0 #004A7F; padding: 8px 29px 6px 31px;
+}
+
+
+/* -------------------------/ ФОН (СОЗДАНИЕ АККАУНТА и ВХОДА) /------------------------------------ */
+#divFon{
+         position : absolute;   
+	 left:0px;   
+	 top:0px;   
+/*	 z-i ndex:100;        h eight:600px;  */
+	 width:100%;  
+	 height:100%;  
+	 background:#9C9C9C;
+}
+
+
+/*---------------------------------------------------------------------------------------
+ ------------------------------ СОЗДАНИЕ АККАУНТА  ------------------------------
+---------------------------------------------------------------------------------------*/
+
+/* -------------------------/ форма создания Аккаунта /------------------------------------ */
+#divAccount {
+        position : relative;       
+        border   : 2px solid orange ;
+        width    : 290px;    
+	height   : 460px;     
+          font-size        : 16px;
+          background-color : #E8E8E8;/*#FFFACD; */
+          border-radius    : 5px;
+             margin        : 0 auto;  /*по центру экрана*/
+             padding-left  : 30px;
+         box-shadow: 0 0 60px rgba(0,0,0,0.9); /* Параметры тени */
+         top : 150px;
+}
+
+/* -------------------------/ ЗАГОЛОВОК формы /------------------------------------ */
+#divHeader_Account
+{  
+	position : relative; 
+	left : -30px;
+	width : 320px;
+	border-radius: 5px 5px 0px 0px;
+	    /*  t ext-align: center;*/
+	text-indent: 30px;
+	padding-top : 14px; 
+	padding-bottom : 14px; 
+	font-size: 18px;  
+	font-weight: bold;    
+	background : #87CEFA;  
+	color : white;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	  /*     bor der : 1px solid blue ; */
+}
+
+
+/* -----------------------------/ ПОЛЯ ввода /------------------------------------ */
+#divAccount .inputs
+{
+    border:solid 3px transparent;
+    -moz-box-shadow:0 0 20px 3px #1E90FF;          /*тень*/
+    -webkit-box-shadow:0px 0px 7px 3px #1E90FF;
+    -webkit-border-radius: 2px; /*Chrome  Safari*/       /*закругление*/
+    width : 250px;
+    font-size: 16px;
+    margin-bottom : 14px;
+}
+
+#btClose_Account    /*  КНОПКА закрытия окна Аккаунта  */
+{
+    position : absolute; 
+	/*al ign : right;*/
+	left : 292px;
+	top : 5px;
+	border-radius: 3px;
+	border : 1px solid grey ;
+}
+
+#btClose_Account:hover  /*  наведение на КНОПКУ закрытия окна Аккаунта  */
+{
+	top : 4px;
+	border : 1px solid black ;
+}
+
+
+#divAccount span
+{
+	font-size: 18px;  font-weight: bold;  margin-left :3px;  position : relative;  color : red;  cursor: help;
+}
+
+/*-----------------------/ Вскплыв подсказка/--------------------------*/
+/*
+#divAccount a:hover {
+	background		: #ffffff;	/ *необходимо для IE6 * /
+	text-decoration	: none;
+}
+#divAccount a.tooltip span {
+	display			: none; 
+	padding			: 2px 3px; 
+	margin-left		: 8px; 
+	width			: 130px;
+}
+#divAccount a.tooltip:hover span {
+	display			: inline; 
+	position		: absolute; 
+	background		: #ffffff; 
+	border			: 1px solid #cccccc; 
+	color			: #6c6c6c;
+	border-radius   : 3px 3px 3px 3px;
+}
+*/
+
+
+
+/*--------------------------------------------------------------------------------------
+-------------------------------------  ВХОД НА САЙТ ------------------------------------
+---------------------------------------------------------------------------------------*/
+
+/* -------------------------/ форма входа на сайт /------------------------------------ */
+#divLogin {
+        position: relative;       
+        border : 1px solid blue ;
+        width : 290px; 
+        height : 170px;
+        top : 150px;
+        font-size: 16px;
+        background-color: #FFDAB9 ; /*lightgoldenrodyellow*/
+        border-radius: 5px;
+        margin: 0 auto;  /*по центру экрана*/
+        padding-left: 30px;
+           box-shadow: 0 0 60px rgba(0,0,0,0.9); /* Параметры тени */
+}
+
+
+/* -------------------------/ строки ввода данных /------------------------------------ */
+#divLogin .inputs       
+{
+	-webkit-border-radius : 2px; /*Chrome  Safari*/ 
+	border				  : solid 3px transparent;
+	-moz-box-shadow		  : 0 0 20px 3px #1E90FF;
+	-webkit-box-shadow	  : 0px 0px 7px 3px #1E90FF;
+	width : 250px;
+	font-size: 16px;
+}
+
+/* -------------------------/ ссілка для создания Аккаунта/------------------------------------ */
+#divLogin #linkRegister
+{
+    
+    margin: 10px 0px 0px 20px;
+    position : absolute; 
+}
+/*---------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------*/
+
+
+
+
+
+/*---------------------------------------------------------------------------------------*/
+/* ------------------------ ГЛАВНАЯ СТРАНИЦА САЙТА  --------------------------------- */
+/*---------------------------------------------------------------------------------------*/
+
+
+/* ------------------------Верхнее Меню--------------------------------- */
+#separatop {   /*разделитель меню*/
+    margin-top : 10px; /*отступ в меню*/
+    height: 30px;
+    float: left;
+    width: 0px;
+    border-right: 2px solid orange; /* Линия сверху текста */
+    /* bo rder-radius: 5px 5px 5px 5px;*/
+}
+#divNavigation {
+ /*   bo rder: 1px solid orange;*/
+    padding-left : 10px;
+    Left: 50%;
+    width: 1190;
+    height: 50px;
+/*    m  argin: 0;
+    pa  dding: 0;
+    posi tion:absolute;
+    mar gin: 0 auto;  /*по центру экрана*/
+    background: url(../img/menu/navigation-bg.jpg) no-repeat left top;
+} 
+#divNavigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+} 
+#divNavigation ul li {
+    display: inline;
+    margin: 0px;
+} 
+#divNavigation ul li a {
+    height:33px;
+    display: block;
+    float: left;
+    padding: 17px 15px 0 15px;
+    font: bold 16px Arial;
+    color: #363636;
+    text-decoration: none;
+   /* bac kground: url(../img/menu/navigation-separator.png) no-repeat right center;*/
+} 
+#divNavigation ul li a:hover {
+    color: #FFF;
+    background: url(../img/menu/navigation-hover.png) repeat-x left top;
+   /* b order-radius: 7px 7px 7px 7px;*/
+}
+#divNavigation ul li #active a {
+    color: orange;/*#FFF;*/
+    background: url(../img/menu/navigation-hover.png) repeat-x left top;
+}
+/* ----------------------------------------------------------------------------- */
+
+body {
+    background-color: white; /*#FFFFF0;*/
+}
+
+#divMainPage{
+    position: relative ;
+    margin:0 auto;
+    width : 1193px;
+    height : 1500px;
+   /* bo rder: 1px solid red; /* Параметры рамки */ 
+   /* p adding :20px;**/
+}
+
+#divLeftNavigator span {   /* название главных пунктов*/
+    font-weight: bold;
+    font-size: 18px;
+}
+
+hr 
+{
+    width : 200px; /* разделительная полоса */
+}
+
+#divLeftNavigator {   /* навигация  слива */
+    background: #FFF8DC; /* Цвет фона */
+    top : 60px;
+    height : 1930px; 
+    width : 250px; 
+    position: absolute;
+    border-radius: 10px 10px 10px 10px;
+    padding-left: 10px;
+    font-size: 16px;
+    border: 1px solid orange; /* Параметры рамки */  
+}
+
+
+a:hover {  /*фон при наведенной ссылке*/
+   /* d isplay : block;*/
+    background-color:orange;
+}
+/*
+A----5:visited {    color: blue; / * Цвет  ссылки * /  	}   
+*/
+
+#img_logo {
+    bor der: 1px solid orange; /* Параметры рамки */    
+    position: relative ;
+    left : 15px;
+    top : 15px;
+    height: 145px;
+    width: 200px;
+    /*op acity : 0.2;*/
+    background: url(../img/logo4.png)  no-repeat left top;
+}
+
+#main_pict {
+   /* b order: 1px solid black; /* Параметры рамки */  
+    position: absolute/*relative*/ ;
+    width : 916px;
+    left : 270px;
+    top: 50px;
+    height : 600px;
+}
+
+#main_text{
+   /* bo rder: 1px solid black; /* Параметры рамки */  
+    padding : 10px;   /* Отступ внутри дива */
+    text-indent: 25px; /* Отступ первой строки текста */
+    text-align: justify; /* Выравнивание по ширине текста */
+    font-size: 22px;
+}
+
+p {
+    margin-top: 1px; /* Отступ абзаца сверху */
+    margin-bottom: 1px; /* Отступ  абзаца  снизу */
+} 
+
+   
+   
+ 

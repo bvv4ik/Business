@@ -97,6 +97,7 @@ public class Obl_ray_city {
         //======================================================================
         
         if      ("1".equals(list1.get(i).substring(5, 6))           // если это ТРЕТЬЯ ступень - Город
+                & list1.get(i).substring(2, 3).equals("2")         // !!!ищем только в Районах Области!!!
                 & !"0000".equals(list1.get(i).substring(6, 10))  ) {     // не берем строку если в ней мусор
             
             TypePolis7 = "1";                          // выставляем тип Город в PlacePolisType

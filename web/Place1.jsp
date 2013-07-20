@@ -15,49 +15,27 @@
     </head>
     <body>
         
-        
+
     <div id="Form1" class="allForms">  <div id="Header">Внесение данных: <input id="btHide" type="Button" value="X" /></div>
       <div id="Form2" class="allForms">  
             <div id="Form3"> 
 
 
 <div id="n1"> <span id="c1">Страна:</span>     <select id="sCountry" class="allSelect">    </select>   
-<input id="btCountry" type="Button" value="+" />  
 </div>
 <%String configPath = getInitParameter("configPath");%>
 <%String clientIP = request.getRemoteAddr();
-
-        String scheme = request.getScheme();
-        String serverName = request.getServerName();
-        int portNumber = request.getServerPort();
-        String contextPath = request.getContextPath();
-        String servletPath = request.getServletPath();
-        String pathInfo = request.getPathInfo();
         String query = request.getQueryString();
  String path = getServletContext().getRealPath("");
 %>
  
                 
-<%= clientIP %><br>
-<%= scheme %><br>
-<%= serverName %><br>
-<%= portNumber %><br>
-<%= contextPath %><br>
-<%= servletPath %><br>
-<%= pathInfo %><br>
-<%= query %><br>
-<%= path %><br>
-
-<div id="n2"><span id="c1">РегионТип:</span>     <select id="sRegionType" class="allSelect">    </select>  </div>
+<div id="n12">Полис: <input id="sPolis1" type="text" class="allSelect" >  </input>  </div>
 
     
-<div id="n12">Регион:     <select id="sRegion" class="allSelect">    </select>  </div>
-<div id="n3">ГородТип:      <select id="sPolisType" class="allSelect">     </select>  </div>
-<div id="n3">Город:      <select id="sPolis" class="allSelect">     </select>  </div>
-<div id="n4">Тип улицы:  <select id="sBranchType"class="allSelect" >   </select>  </div>
 <div id="n5">Название улицы:  <select id="sBranch" class="allSelect" >  </select>  </div>
 <!-- <img src="----img/ui-anim_basic_16x16.gif" width="16" height="16" id="Wait" alt="" />  -->  
-<div id="n6">Район:   <select id="sArea" class="allSelect">  </select>   </div> 
+<div id="n6">Район города:   <select id="sArea" class="allSelect">  </select>   </div> 
 <div id="n7">Тип здания: <select id="sBuildType" class="allSelect">  </select> </div>
 <!--option value=""> </option>   <option> Улица </option>    -->             
 <br>
@@ -70,7 +48,7 @@
 <br>
 <br>
 <!-- ------------------------------------------------------------ -->
-<div id="n12">Город: <input id="sPolis1" type="text" class="allSelect" >  </input>  </div>
+
 
                 </div> <!-- Form3 -->
             </div> <!-- Form2 -->
@@ -84,14 +62,14 @@
 
 <script>
     
-   function cursor(bool, obj){
-     if (bool == true)
-     //document.getElementById(obj/*"sCountry"*/).style.cursor = 'wait';   
- obj.style.cursor = 'wait';   
-     if (bool == false)
-     obj.style.cursor = 'default';  
-     //document.getElementById("sCountry").style.cursor = 'default';        
-    };
+//   function cursor(bool, obj){
+//     if (bool == true)
+         //document.getElementById(obj/*"sCountry"*/).style.cursor = 'wait';   
+// obj.style.cursor = 'wait';   
+//     if (bool == false)
+//     obj.style.cursor = 'default';  
+//          //document.getElementById("sCountry").style.cursor = 'default';        
+//    };
 
 
 //$(document).ready(function(){    $("#Form1").draggable();    });
@@ -140,7 +118,7 @@ $("#sCountry").mouseover(function(){
     
     //alert ((this.options.length-1).toString());
       
-     //var s = <%= getServletContext().getAttribute("HELLO.WORLD") %> ;
+    // var s = < % = getServletContext().getAttribute("HELLO.WORLD") % > ;
      //     alert (s);
    ///====  document.getElementById("sCountry").style.cursor = 'wait'; // устан друг курс
 
@@ -152,6 +130,7 @@ $("#sCountry").mouseover(function(){
     /*
         */
 
+/*
 
 
 $("#sCountry").change(function(){        
@@ -184,7 +163,10 @@ $("#sPolis").change(function(){
 var sel = document.getElementById("sPolis");  nID_Polis  = sel.options[sel.selectedIndex].value; // Получаем значение выделенного элемента 
     //doSend("getAllAreas", );       
 });        
-        
+  */
+   
+   
+  /*      
         
         $("#sBranchType").change(function(){   doSend("getAllBranch");       });       
         $("#sBranch").change(function(){      doSend("getAllBuild");       });       
@@ -195,12 +177,12 @@ var sel = document.getElementById("sPolis");  nID_Polis  = sel.options[sel.selec
         
         $("#btSave").click(function(){      doSend("Save");       }); 
 
-
+*/
 
 
 
      $("#sPolis1").autocomplete({
-                minLength:2,  delay:500, width: 400,  selectOnly:true, //  selectFirst:true,
+                minLength:2,  delay:500, width: 100,  selectOnly:true, //  selectFirst:true,
                 source:function(req,res){ 
                 var oData= { sDO:"getPolis", sFind:$("#sPolis1").val()  };
             
@@ -208,12 +190,12 @@ var sel = document.getElementById("sPolis");  nID_Polis  = sel.options[sel.selec
                 focus:function(event,ui){return false;}, select:function(event,ui){  
                 ////doSelect(ui.item.nID); //nID_Region   //    return false;
                //var 
-                nID_Region = ui.item.nID_Region;
-                alert(ui.item.nID_Region); //--------------- 
+              /////  nID_Polis = ui.item.nID_Polis;
+                alert(ui.item.nID_Polis); //--------------- 
                 }
         }).data("autocomplete")._renderItem=function(ul,item)
         {return $("<li></li>").data("item.autocomplete",item)
-            .append("<a>"+item.value+" "+item.nID_Region+"</a>").appendTo(ul);//+item.nID+")"
+            .append("<a>"+((item.value).toLowerCase()) /*+" "+item.nID_Polis*/  +  "</a>").appendTo(ul);//+item.nID+")"
             // alert(item.nID_Polis); //---------------    
         };
         
