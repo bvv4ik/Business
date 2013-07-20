@@ -178,7 +178,7 @@ var oData= {
            // if (o.sReturn == "Учетная запись создана !") {
            // $("#divAccount").hide("slow");                // прячем окно РЕГИСТРАЦИИ
            // $("#divLogin").show("slow");   }              // показываем окно ВХОДА 
-           if (o.sReturn == "Добро пожаловать на сайт!"){   (window.location.href="http://localhost:8080/Business/index.jsp")     }  
+           if (o.sReturn == "Добро пожаловать на сайт!"){   (window.location.href="http://localhost:8080/index.jsp")     }  
 
          }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
          ,dataFilter:function(data, type) {/*alert("это окно будет появляться и при ошибке и при успехе")*/;return data;}
