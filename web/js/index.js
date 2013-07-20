@@ -142,7 +142,7 @@ var oData= {   sDO_Account: nameDO,
              sFirstName_Account : $("#sFirstName_Account").val()   
      };
 
- $.ajax({type:"POST",dataType:"json",url:"/Business/CreateAccount",data:oData,async:/*false*/true
+ $.ajax({type:"POST",dataType:"json",url:"/CreateAccount",data:oData,async:/*false*/true
       ,success:function(o) { //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
                                                                      //----$(".MyParams").val(""); // очищаем строки     //o.sReturn
                alert(o.sReturn_Account);
@@ -171,7 +171,7 @@ var oData= {
              sEmail : $("#divLogin #sEmail").val(),
              sPassword: $("#divLogin #sPassword").val()
      };
- $.ajax({type:"POST",dataType:"json",url:"/Business/Login",data:oData,async:/*false*/true
+ $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
       ,success:function(o) { //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
                                                                     //----$(".MyParams").val(""); // очищаем строки     //o.sReturn
            alert(o.sReturn);
