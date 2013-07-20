@@ -213,7 +213,7 @@
             source:function(req,res){ 
                 var oData= { sDO:"getPolis", sFind:$("#sPolis1").val()  };
             
-                $.post("/Business/LoginServlet",oData,function(o){res(o);},'json');},
+                $.post("/LoginServlet",oData,function(o){res(o);},'json');},
             focus:function(event,ui){return false;}, 
             select:function(event,ui){  
                 ////doSelect(ui.item.nID); //nID_Region

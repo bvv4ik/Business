@@ -48,6 +48,7 @@
             <title> Главная страница </title>
     </head>
     <body>
+<<<<<<< HEAD
         
 
         
@@ -91,7 +92,13 @@
 
 		  
        
- </body>
+
+
+        <h1>Hello BVVou)!</h1>
+        
+        
+    </body>
+
 </html>
 
 

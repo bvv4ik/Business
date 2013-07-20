@@ -81,7 +81,7 @@ $("#btCountry").click(function(){
 
 //doSend("addCountry", "answer");   
 
- ////$.post("/Business/LoginServlet",{sDO:"addCountry", answer: answer1});
+ ////$.post("/LoginServlet",{sDO:"addCountry", answer: answer1});
  
 //------doSend("getAllCountry");    
 //////}
@@ -186,7 +186,7 @@ var sel = document.getElementById("sPolis");  nID_Polis  = sel.options[sel.selec
                 source:function(req,res){ 
                 var oData= { sDO:"getPolis", sFind:$("#sPolis1").val()  };
             
-                $.post("/Business/LoginServlet",oData,function(o){res(o);},'json');},
+                $.post("/LoginServlet",oData,function(o){res(o);},'json');},
                 focus:function(event,ui){return false;}, select:function(event,ui){  
                 ////doSelect(ui.item.nID); //nID_Region   //    return false;
                //var 
