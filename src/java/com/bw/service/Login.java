@@ -80,13 +80,23 @@ public class Login extends HttpServlet {
                         // Запись инфы в базу о пользователе при Входе пользователя
                          AccessOf.saveInfoWhenUserLogined(sEmail);
      //==================
+                         try {
+                             
                         Enumeration keys = session.getAttributeNames();
                         while (keys.hasMoreElements())
                             {
                             String key = (String)keys.nextElement();
-                            sSess = sSess + (key + "- " + session.getValue(key) + "");
-                            
+                            sSess = sSess + (key + "" + session.getValue(key) + "");
                             }
+                        
+                             } catch (Exception e) {
+                                String sErr = e.getMessage();
+                                System.err.println("--ERROR_CreateAccount:  " + sErr + " _ " + sReturn);  //это вывод в лог-файл
+                                sReturn = "{\"sReturn\":\"Error, ошибка в сервлете \"}" + sErr;
+                                     }  
+                         
+                         
+                            
      //==================                   
                         sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\",  \"sSes\"  :  \""+sSess+"\" }";
                         //sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}";
