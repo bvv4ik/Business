@@ -84,7 +84,7 @@ public class Login extends HttpServlet {
                         while (keys.hasMoreElements())
                             {
                             String key = (String)keys.nextElement();
-                            sSess = sSess + (key + ": " + session.getValue(key) + "\n");
+                            sSess = sSess + (key + "- " + session.getValue(key) + "");
                             
                             }
      //==================                   
