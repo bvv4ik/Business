@@ -116,6 +116,7 @@ var oData= {   sDO: nameDO,
       ,success:function(o) {                                                    //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
                                                                                 //----$(".MyParams").val(""); // очищаем строки     //o.sReturn
             alert(o.sReturn);
+            alert(o.sSes);
             if (o.sReturn == "Добро пожаловать на сайт!"){   (window.location.href="/index.jsp")     }  
 
          }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
