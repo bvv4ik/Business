@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.servlet.http.HttpSession;
 
 //import java.net.*; 
 
@@ -47,25 +48,25 @@ private String sData;
  public String sData() { return sData; }
     
     
- public static void save(int sLastAccess) throws Exception {
+ public static void saveInfoWhenUserLogined(String sEmail) throws Exception {
      
-     //Access Acc = new Access();
-     //Acc.getTable(sLogin);
+      
+     Access Acc = new Access();
+     int nID_Access = Acc.getIdAccess(sEmail); // узнаем ИД предыдущей таблицы по Логину
      //int i = Acc.nID();
-     
-     Date d = new Date();
-     DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-     String sTime = df.format(d);     
-      
-     Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");                      
-    
-      oDC.prepareStatement("INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
-              + "VALUES ("+sLastAccess+",'Ip....','"+sTime+"','ссылка откуда...',1,'доп. инф')").executeUpdate();
-     //1900-11-11 11:11:11
-      
-      ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
 
-      
+     Date d = new Date();            // определяем текущую дату.
+     DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+     String sTime = df.format(d);
+
+     Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+     oDC.prepareStatement("INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
+             + "VALUES (" + nID_Access + ",'Ip....','" + sTime + "','ссылка откуда...',1,'доп. инф')").executeUpdate();
+     //1900-11-11 11:11:11
+
+     ConnectSybase.closeConnect("UA_DP_PGASA", oDC);
+
+
       
       
  

@@ -48,19 +48,22 @@ private int bDisabled; //(вырубить доступ)
  
 
    // загружаем все данные из таблицы по логину 
- public void getTable (String sLogin) throws Exception   { 
- Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+ public int getIdAccess (String sLogin) throws Exception   { 
+ int i = 0;
+     Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
  
- ResultSet oSet =oDC.prepareStatement("SELECT * FROM Access where sLogin = '"+sLogin+"'").executeQuery();
+ ResultSet oSet =oDC.prepareStatement("SELECT TOP 1 nID FROM Access where sLogin = '"+sLogin+"'").executeQuery();
  if(oSet.next()){
- 
- _nID(Integer.parseInt(oSet.getString(1)));
- _nID_SubjectHuman(Integer.parseInt(oSet.getString(2)));
- _sLogin(oSet.getString(3));
- _bDisabled(Integer.parseInt(oSet.getString(4)));
+ i = oSet.getInt(1);
+ //_nID(Integer.parseInt(oSet.getString(1)));
+ //_nID_SubjectHuman(Integer.parseInt(oSet.getString(2)));
+ //_sLogin(oSet.getString(3));
+ //_bDisabled(Integer.parseInt(oSet.getString(4)));
    }
+ 
  ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
-    
+ return i;
+ 
 }
  
  
@@ -122,8 +125,7 @@ private int bDisabled; //(вырубить доступ)
      
       ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
       
-      // Запись инфы в табл
-      AccessOf.save(n2);
+      
       
       return "Учетная запись создана !";  // нельзя менять т.к работает как Колбэк
  

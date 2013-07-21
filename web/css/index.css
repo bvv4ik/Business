@@ -1,3 +1,12 @@
+#divError{
+    position: absolute;
+     border   : 1px solid orange ;
+        width    : 290px;    
+	height   : 260px; 
+        background: blue;
+    
+}
+
 /* -------------------------/ ВСЕ Кнопки /------------------------------------ */
 .allButt { 
 	background: #2E8CE3;  padding: 7px 30px; font-size: 16px; /*fo nt-weight: bold;*/ color: #FFFFFF; text-align: center;
@@ -275,13 +284,14 @@ A----5:visited {    color: blue; / * Цвет  ссылки * /  	}
 */
 
 #img_logo {
-    bor der: 1px solid orange; /* Параметры рамки */    
+    bo rder: 1px solid orange; /* Параметры рамки */    
     position: relative ;
     left : 15px;
     top : 15px;
     height: 145px;
     width: 200px;
     /*op acity : 0.2;*/
+    di splay : block;
     background: url(../img/logo4.png)  no-repeat left top;
 }
 

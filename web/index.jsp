@@ -18,6 +18,7 @@
   Object oLastName = session.getAttribute("sLastName");
   Object oSureName = session.getAttribute("sSureName");
   Object oIP = request.getServerName(); //getRemoteUser();//
+  Integer count = (Integer) session.getAttribute("count");
   // }
 
   //Object oIP = session.getId();       //request.getRemoteAddr();      //request.getRemoteUser(); 
@@ -40,35 +41,36 @@
         <!--<script type="text/javascript" src="---js/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="---js/ajax1.js"> </script>
         <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
-        
+        <script type="text/javascript" src="js/index.js"> </script>   
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <link rel="stylesheet" type="text/css" href="css/index.css"/>
-        <script type="text/javascript" src="js/index.js"> </script>    
+         
             
             <title> Главная страница </title>
     </head>
     <body>
-<<<<<<< HEAD
+
         
 
         
         
-<!-- ------------------------ ГЛАВНАЯ ------------------------------------- -->
+<!-- ------------------------ ГЛАВНАЯ форма------------------------------------- -->
 <div id="divFon" >     
       
-  <%=oIP %>    
+  <%=count %>   
+  <div id="divError">  </div>
 
- <!-- ------------------------ ВХОД ------------------------------------- -->
+ <!-- ------------------------ ВХОД форма ------------------------------------- -->
        <div id="divLogin" >
            <br>
-               <input  class="inputs" id="sEmail" name="Email" font color='blue' type="text" value="Email" onblur="if(this.value=='') {this.value='Email' } " onfocus="if(this.value=='Email') {this.value=''; this.style='color:red'}"  maxlength="25" />   <br> <br>
-               <input  class="inputs" id="sPassword" name="Password" type="text" value="Password" onblur="if(this.value=='') {this.value='Password'; this.type='text'} " onfocus="if(this.value=='Password') {this.value=''; this.type='password'} "  maxlength="25" />  <br> <br>
+               <input  class="inputs" id="sEmail" name="Email" font color='blue' type="text" value="ser111@ss.ss" onblur="if(this.value=='') {this.value='Логин (Email)' } " onfocus="if(this.value=='Логин (Email)') {this.value=''; this.style='color:red'}"  maxlength="25" />   <br> <br>
+               <input  class="inputs" id="sPassword" name="Password" type="text" value="111" onblur="if(this.value=='') {this.value='Password'; this.type='text'} " onfocus="if(this.value=='Password') {this.value=''; this.type='password'} "  maxlength="25" />  <br> <br>
                <input  class="allButt" id="btLogin" type="button" value="Вход" />  
                <a id="linkRegister" href ="#" >Зарегистрироватся </a>   <br> <br>  <!--   http://localhost:8080/Business/register.jsp   -->
       </div>
  
 
-<!-- --------------------------- АККАУНТ ------------------------------- -->
+<!-- --------------------------- АККАУНТ форма ------------------------------- -->
        <div id="divAccount"  >
 	 
             <div id="divHeader_Account">Создание учетной записи:     <!-- style="visibility: hidden" --> 
@@ -91,16 +93,8 @@
           <!-- <h1>    Добро пожаловать <    %=oLogin%>  <    %=oLastName%> <    %=oFirstName%> <   %=oSureName%>    </h1> !-->
 
 		  
-       
-
-
-        <h1>Hello BVVou)!</h1>
-        
-        
-    </body>
-
+  </body>
 </html>
-
 
   
   
@@ -118,14 +112,21 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<!--   <script type="text/javascript" src="js/jquery-1.8.2.js"></script> -->
-
-                <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-                <link rel="stylesheet" type="text/css" href="css/index.css"/>
                 <script type="text/javascript" src="js/index.js"> </script>   
+                <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+             <!--   
+                    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+                    <script type="text/javascript" src="js/confirm-1.0.jquery.min.js"></script>-->
+  
+                
+                <link rel="stylesheet" type="text/css" href="css/index.css"/>
+                
 		<title> Главная </title>
 	</head>
 	<body>
 
+  
+            
 
 		<div  id="divMainPage">
 
@@ -235,7 +236,7 @@
 					<li> <a href="#">О нас...</a>  	 </li> 	<div id="separatop"></div>
 					<li> <a href="#">Контакты</a>	     </li> 	<div id="separatop"></div>
 					<li> <a href="#">Личный кабинет</a></li> 	<div id="separatop"></div>
-					<li> <a href="#">Выход</a>	     </li>
+					<li> <a id="mainPageExitSession" href="#">Выход</a>	     </li>
 				</ul>
 			</div>
 
@@ -275,5 +276,3 @@
         <% }
      %>
         
-     
-   

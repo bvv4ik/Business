@@ -14,6 +14,8 @@ import javax.servlet.ServletException;
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
+import java.util.Hashtable;
+import java.util.List;
 import javax.servlet.Servlet;
 
 import javax.servlet.http.*;
@@ -37,16 +39,19 @@ import javax.servlet.annotation.WebServlet;
 
 public class Login extends HttpServlet {
 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
+        
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
 
         String              sReturn = "",
                             sDO = "" ,
                                 sEmail = "",
-                                sPassword = "";
+                                sPassword = "",
+                               sSess = "";
            
         try {
 
@@ -67,24 +72,42 @@ public class Login extends HttpServlet {
                     Pass = A.getPassword(sEmail);   // смотрим  Пароль по Емайлу
                     if (sPassword.equals(Pass))      // если Пароли совпадают
                     {
-                        HttpSession session = request.getSession(true); //создаем сессию для пользователя
+                        HttpSession session = request.getSession(true);    //создаем сессию для пользователя
                         session.setAttribute("sEmail", sEmail);
                         session.setAttribute("sPassword", sPassword);
-                        sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}";
+                        
+                        
+                        // Запись инфы в базу о пользователе при Входе пользователя
+                         AccessOf.saveInfoWhenUserLogined(sEmail);
+     //==================
+                        Enumeration keys = session.getAttributeNames();
+                        while (keys.hasMoreElements())
+                            {
+                            String key = (String)keys.nextElement();
+                            sSess = sSess + (key + ": " + session.getValue(key) + "\n");
+                            
+                            }
+     //==================                   
+                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\",  \"sSes\"  :  \""+sSess+"\" }";
+                        //sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}";
                     } else {
                             sReturn = "{\"sReturn\":\"" + "Неверный Пароль или Логин!" + "\"}";
                             }
 
-                      
                     }
                 else{
                  sReturn = "{\"sReturn\":\"" + "Неверный Пароль или Логин!" + "\"}";
                  }
          
-           
-       // sReturn = s;
             }
 
+            if ("theDestroySession".equals(sDO)) {
+                HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+                session.invalidate();
+                sReturn = "{\"sReturn\":\"" + "Сессия удалена!" + "\"}";
+                
+            } 
+            
 
 //======================================================================
 
@@ -102,13 +125,13 @@ public class Login extends HttpServlet {
         }
 
 
+        
+        
+        
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-
-
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -118,4 +141,9 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
+    
+   
+    
+    
+    
 }
