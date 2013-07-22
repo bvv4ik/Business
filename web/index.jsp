@@ -44,7 +44,14 @@
         <script type="text/javascript" src="js/index.js"> </script>   
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <link rel="stylesheet" type="text/css" href="css/index.css"/>
-         
+
+        <script type="text/javascript" src='js/message/codebase/message.js'></script>
+	
+	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_default.css" title="Default"/>
+	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_dark.css" title="Growl - dark"/>
+	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_shiny.css" title="Growl - shiny"/>
+	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
+	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>
             
             <title> Главная страница </title>
     </head>

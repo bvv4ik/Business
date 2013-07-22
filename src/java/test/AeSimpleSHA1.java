@@ -12,7 +12,28 @@ import java.security.NoSuchAlgorithmException;
  
 public class AeSimpleSHA1 { 
  
+
     public String str1 = "";
+    
+    
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException  {
+
+        // проверяем в милисекундах время перекодировки
+          long start;
+        long stop;
+        
+        start = System.currentTimeMillis();
+        System.out.println(start);
+        
+       // Thread.sleep(1000);
+        
+        String sha1_ad1 = AeSimpleSHA1.SHA1("john:password1");  
+      System.out.println(sha1_ad1);
+        
+      stop = System.currentTimeMillis();
+        System.out.println(stop);
+}
+
     
     private static String convertToHex(byte[] data) { 
         StringBuffer buf = new StringBuffer();
@@ -53,9 +74,9 @@ public class AeSimpleSHA1 {
 
 //http://www.anyexample.com/programming/java/java_simple_class_to_compute_sha_1_hash.xml
 
-//String sha1_ad1 = AeSimpleSHA1.SHA1("1");   
-//System.out.println(sha1_ad1);
 
+//String sha1_ad1 = AeSimpleSHA1.SHA1("1");  
+//System.out.println(sha1_ad1);
 //"1"
 //hex: 356a192b7913b04c54574d18c28d46e6395428ab
 //     356a192b7913b04c54574d18c28d46e6395428ab
@@ -63,4 +84,4 @@ public class AeSimpleSHA1 {
 //h:e:x: 35:6a:19:2b:79:13:b0:4c:54:57:4d:18:c2:8d:46:e6:39:54:28:ab
 //base64: NWoZK3kTsExUV00Ywo1G5jlUKKs=
         
-//Вызов делать так public static void main(String[] args) throws Exception {
+//Вызов делать так 

@@ -8,11 +8,26 @@ window.onload=function() {
   //  $("#divError").hide(); //-------------------------
 
 
+
+$("#divError").click(function(){
+   
+   //alert("dfsdfsd");
+  // dhtmlx.alert("Текст сообщения.");
+  dhtmlx.message.position = "bottom";
+  dhtmlx.message({ type:"error", expire:20000, text:"Вы нажали кнопку <br> для сообщения со стилем! кликните, чтобы закрыть." })
+  dhtmlx.message({ type:"error", expire:1000, text:"Вы нажали кнопку <br> для сообщения со стилем2!" })
+  
+  //setTimeout(function() { alert('2 секунды') }, 2000) //зажержка выполнения
+  
+});
+
 //---------------- сдвигаем логотип при наведении    
     $("#img_logo").mouseover(function(){ $(this).css("left","13px")  })        // var s = $("#img_logo").css("left");     // alert("s");
     .mouseout(function(){   $(this).css("left","15px")   });   // сдвигаем логотип при наведении 
-    
 
+$("#img_logo").click(function(){
+   ajax_getAllSession();
+});
     
 //---------------- Удаляем сессию пользователя
     $("#mainPageExitSession").click(function(){    
@@ -116,7 +131,7 @@ var oData= {   sDO: nameDO,
       ,success:function(o) {                                                    //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
                                                                                 //----$(".MyParams").val(""); // очищаем строки     //o.sReturn
             alert(o.sReturn);
-            alert(o.sSes);
+           // alert(o.sSes);
             if (o.sReturn == "Добро пожаловать на сайт!"){   (window.location.href="/index.jsp")     }  
 
          }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
@@ -139,6 +154,28 @@ var oData= {   sDO: sNameDo
             alert(o.sReturn);
             window.location.href="/index.jsp"  ;
             //if (o.sReturn == "Добро пожаловать на сайт!"){   (window.location.href="/index.jsp")     }  
+            
+
+         }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
+         ,dataFilter:function(data, type) {/*alert("это окно будет появляться и при ошибке и при успехе")*/;return data;}
+         });
+}
+
+
+
+// AJAX запрос 4    // отправляем запрос на сервер и Удаляем сессию
+function ajax_getAllSession(){         
+var oData= {   sDO: "theGetAllSessionList"  
+             //sEmail : $("#divLogin #sEmail").val(),
+             //sPassword: $("#divLogin #sPassword").val()
+     };
+ $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
+      ,success:function(o) {                                                    //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+                                                                                //----$(".MyParams").val(""); // очищаем строки     //o.sReturn
+            if (o.sReturn != null)
+                alert(o.sReturn);
+           
+            //if (o.sReturn == "Добро пожаловать на сайт!"){   (window.location.href="/index.jsp")     }  
 
          }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
          ,dataFilter:function(data, type) {/*alert("это окно будет появляться и при ошибке и при успехе")*/;return data;}
@@ -148,22 +185,21 @@ var oData= {   sDO: sNameDo
 
 
 
-
  // ----------------- Функция блокировка выделения страницы
  //должно быть в самом низу скрипта, иначе блокирует некоторые элементы
-    function disableSelection(target){ 
-        if (typeof target.onselectstart!="undefined") //IE route 
-            target.onselectstart=function(){return false} 
-        else if (typeof target.style.MozUserSelect!="undefined") //Firefox route 
-            target.style.MozUserSelect="none" 
-        else //All other route (ie: Opera) 
-            target.onmousedown=function(){return false} 
-        target.style.cursor = "default" ;
-    }; 
-    
-    // ----------------- Блокируем выделение мышью Форм
-    var somediv=document.getElementById("divFon") ;
-    disableSelection(somediv); 
+//    function disableSelection(target){ 
+//        if (typeof target.onselectstart!="undefined") //IE route 
+//            target.onselectstart=function(){return false} 
+//        else if (typeof target.style.MozUserSelect!="undefined") //Firefox route 
+//            target.style.MozUserSelect="none" 
+//        else //All other route (ie: Opera) 
+//            target.onmousedown=function(){return false} 
+//        target.style.cursor = "default" ;
+//    }; 
+//    
+//    // ----------------- Блокируем выделение мышью Форм
+//    var somediv=document.getElementById("divFon") ;
+//    disableSelection(somediv); 
     
     };
 

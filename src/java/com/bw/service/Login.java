@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import javax.servlet.Servlet;
@@ -39,6 +40,7 @@ import javax.servlet.annotation.WebServlet;
 
 public class Login extends HttpServlet {
 
+    public ArrayList<String> aListAllSession = new ArrayList<String>();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -76,29 +78,29 @@ public class Login extends HttpServlet {
                         session.setAttribute("sEmail", sEmail);
                         session.setAttribute("sPassword", sPassword);
                         
+                        aListAllSession.add(sEmail+"   "+session.getId());
                         
                         // Запись инфы в базу о пользователе при Входе пользователя
                          AccessOf.saveInfoWhenUserLogined(sEmail);
      //==================
-                         try {
-                             
-                        Enumeration keys = session.getAttributeNames();
-                        while (keys.hasMoreElements())
-                            {
-                            String key = (String)keys.nextElement();
-                            sSess = sSess + (key + "" + session.getValue(key) + "");
-                            }
-                        
-                             } catch (Exception e) {
-                                String sErr = e.getMessage();
-                                System.err.println("--ERROR_CreateAccount:  " + sErr + " _ " + sReturn);  //это вывод в лог-файл
-                                sReturn = "{\"sReturn\":\"Error, ошибка в сервлете \"}" + sErr;
-                                     }  
-                         
-                         
-                            
+//                         try {
+//                         // Выборка всех записей сессии    
+//                        Enumeration keys = session.getAttributeNames();
+//                        while (keys.hasMoreElements())
+//                            {
+//                            String key = (String)keys.nextElement();
+//                            sSess = sSess + (key + "_" + session.getValue(key) + "");
+//                            }
+//                        
+//                             } catch (Exception e) {
+//                                String sErr = e.getMessage();
+//                                System.err.println("--ERROR_CreateAccount:  " + sErr + " _ " + sReturn);  //это вывод в лог-файл
+//                                sReturn = "{\"sReturn\":\"Error, ошибка в сервлете \"}" + sErr;
+//                                     }  
      //==================                   
-                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\",  \"sSes\"  :  \""+sSess+"\" }";
+                         
+                                                                              // нельзя чтобы в json было пустое значение
+                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\",  \"sSes\"  :  \""+"1"+sSess+"\" }";
                         //sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}";
                     } else {
                             sReturn = "{\"sReturn\":\"" + "Неверный Пароль или Логин!" + "\"}";
@@ -111,6 +113,9 @@ public class Login extends HttpServlet {
          
             }
 
+            
+            
+            
             if ("theDestroySession".equals(sDO)) {
                 HttpSession session = request.getSession(true);    //создаем сессию для пользователя
                 session.invalidate();
@@ -118,7 +123,20 @@ public class Login extends HttpServlet {
                 
             } 
             
+            
+            if ("theGetAllSessionList".equals(sDO)) {
+                String s = "";
+                for (String temp: aListAllSession){ 
+                  s=s+temp+" ";
+                   }
+    
+                sReturn = "{\"sReturn\":\"" + s + "\"}";
+            } 
 
+            
+            
+            
+            
 //======================================================================
 
         } catch (Exception _) {
