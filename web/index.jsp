@@ -26,23 +26,17 @@
 %>
   
 
-        
-       <%   if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
-                 //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
-       { %> 
-            
 
-       <!-- Форма создания учетной записи -->
+       <!-- Хеад формаы  -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
     <head>
              <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--<script type="text/javascript" src="---js/jquery-1.7.2.js"></script>
-        <script type="text/javascript" src="---js/ajax1.js"> </script>
-        <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
+        <!--  <script type="text/javascript" src="---js/jquery-1.7.2.js"></script>       <script type="text/javascript" src="---js/ajax1.js"> </script>          <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
         <script type="text/javascript" src="js/index.js"> </script>   
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>
+
         <link rel="stylesheet" type="text/css" href="css/index.css"/>
 
         <script type="text/javascript" src='js/message/codebase/message.js'></script>
@@ -52,14 +46,21 @@
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_shiny.css" title="Growl - shiny"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>
-            
+        
+     	<script type="text/javascript" src="js/qTip2/jquery.qtip.js"> </script>
+	<link rel="stylesheet" type="text/css" href="js/qTip2/jquery.qtip.css"/>
+
             <title> Главная страница </title>
     </head>
     <body>
 
-        
 
         
+       <%   if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
+                 //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
+       { %> 
+            
+
         
 <!-- ------------------------ ГЛАВНАЯ форма------------------------------------- -->
 <div id="divFon" >     
@@ -68,23 +69,23 @@
   <div id="divError">  </div>
 
  <!-- ------------------------ ВХОД форма ------------------------------------- -->
-       <div id="divLogin" >
-           <br>
-               <input  class="inputs" id="sEmail" name="Email" font color='blue' type="text" value="ser111@ss.ss" onblur="if(this.value=='') {this.value='Логин (Email)' } " onfocus="if(this.value=='Логин (Email)') {this.value=''; this.style='color:red'}"  maxlength="25" />   <br> <br>
-               <input  class="inputs" id="sPassword" name="Password" type="text" value="111" onblur="if(this.value=='') {this.value='Password'; this.type='text'} " onfocus="if(this.value=='Password') {this.value=''; this.type='password'} "  maxlength="25" />  <br> <br>
+           <div id="divLogin" >
+                <br>  <!-- value="ser111@ss.ss" -->
+               <input  class="inputs" id="sEmail"   type="text"  placeholder="Логин (Е-маил)..."  maxlength="25" />   <br> <br>
+               <input  class="inputs" id="sPassword" type="Password" placeholder="Пароль..."  maxlength="25" />  <br> <br>
                <input  class="allButt" id="btLogin" type="button" value="Вход" />  
                <a id="linkRegister" href ="#" >Зарегистрироватся </a>   <br> <br>  <!--   http://localhost:8080/Business/register.jsp   -->
-      </div>
+           </div>
  
 
-<!-- --------------------------- АККАУНТ форма ------------------------------- -->
+<!-- --------------------------- АККАУНТ форма -------------------------------autocomplete="off" -->
        <div id="divAccount"  >
 	 
             <div id="divHeader_Account">Создание учетной записи:     <!-- style="visibility: hidden" --> 
      		 <img id="btClose_Account" src="img/krest.jpg"   border="1"   title="Закрыть"  />
-            </div>  <br>
-		   Логин (E-Mail):   <span title="Поле, обязательное для заполнения. Введите Ваш существующий Е-Маил, он станет Вашим Логином для входа на этот сайт.">*</span>
-		   <input id="sEmail_Account" class="inputs" style="color: #6495ED" type="text" value="" autocomplete="off" maxlength="25" >   <!-- placeholder="E-Mail..." -->
+            </div>  <br>  
+		   Логин (E-Mail): <!--  <span title="">*</span>-->
+		   <input id="sEmail_Account" class="inputs" placeholder="Логин (Е-маил)..." title="Поле, обязательное для заполнения. Введите Ваш существующий Е-Маил, он станет Вашим Логином для входа на этот сайт." style="color: #6495ED" type="text" value=""  maxlength="25" >   
 		   Пароль:  <span title="Поле, обязательное для заполнения. Пароль должен содержать не менее 10 (и не более 25) символов латинского алфавита и цифр (a-z, A-Z, 0-9), и должен обязательно включать в себя хотябы 1 цифру, 1 заглавную и 1 маленькую букву, например: Maksim1bnf">*</span>
 		   <input id="sPassword_Account" class="inputs" style="color: #6495ED"  type="password" value=""  maxlength="25" >   
 		   Пароль (повторно):  <span title="Обязательное для заполнения.">*</span>
@@ -94,13 +95,12 @@
 		   Имя:     <br>
 		   <input id="sFirstName_Account" class="inputs" style="color: #6495ED" type="text" value="" autocomplete="off"  maxlength="25" >     <br> <br>
                    <input class="allButt" id="btReg"  type="button" value="Создать" />             
-					   
-        </div>       <!-- <a class="tooltip" href="#">Tooltip<span> Вот такая подсказочка получилась :).</span></a> -->
-</div>
+            </div>       <!-- <a class="tooltip" href="#">Tooltip<span> Вот такая подсказочка получилась :).</span></a> -->
+      </div>
           <!-- <h1>    Добро пожаловать <    %=oLogin%>  <    %=oLastName%> <    %=oFirstName%> <   %=oSureName%>    </h1> !-->
 
 		  
-  </body>
+</body>
 </html>
 
   
@@ -108,39 +108,16 @@
         <% } else  // иначе если есть сессия рисуем главную страницу     
         { %>    
 
-        
-        
 <!--          < %=oEmail%>        -->
+
 <!--           Добро пожаловать на главную страницу! -->
 
-         
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<!--   <script type="text/javascript" src="js/jquery-1.8.2.js"></script> -->
-                <script type="text/javascript" src="js/index.js"> </script>   
-                <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-             <!--   
-                    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-                    <script type="text/javascript" src="js/confirm-1.0.jquery.min.js"></script>-->
-  
-                
-                <link rel="stylesheet" type="text/css" href="css/index.css"/>
-                
-		<title> Главная </title>
-	</head>
-	<body>
-
-  
-            
 
 		<div  id="divMainPage">
 
 			<div  id="divLeftNavigator">
 
-			   <div  id="img_logo"> </div>	
-                           <!--    <img id="img_logo" src="img/logo4.png" >  -->
+			   <div  id="img_logo"> </div>	          <!--    <img id="img_logo" src="img/logo4.png" >  -->
 				
 				<br><br> <hr> <br>
 				<span> 1. О ВУЗе </span>
@@ -275,11 +252,11 @@
 		</div>
 
 		
-</body>
-</html>
-
-
         
         <% }
      %>
-        
+
+</body>
+</html>
+
+     

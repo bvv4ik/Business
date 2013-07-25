@@ -167,8 +167,8 @@ String s = "";
             if (oSet.next()) {
                 s = oSet.getString(1);   // System.out.println(s);
             }
-            if (sLogin.equals(s)) { // Если Логин есть в базе
-                return true;        //" true - такой Логин уже есть";       
+            if ((s != "") && (s != null) && (sLogin.equals(s))) { // Если Логин есть в базе
+                return true;        //" true - такой Логин уже занят";       
             }
             ConnectSybase.closeConnect("UA_DP_PGASA", oDC);
         } catch (Exception _) {

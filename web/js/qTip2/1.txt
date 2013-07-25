@@ -1,0 +1,2 @@
+http://qtip2.com/options#position.my
+http://qtip2.com/demos#styling

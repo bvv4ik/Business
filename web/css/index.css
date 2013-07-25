@@ -318,5 +318,13 @@ p {
 } 
 
    
-   
+
+/*Шрифты для qTip2*/
+.qtip-content { font-size: 16px; margin : 3px;  line-height: 140%;}
+.qtip-title { font-size: 16px;  margin : 3px;  }
+.qtip { border-radius: 5px 5px 5px 5px; }
+
+
+
+
  

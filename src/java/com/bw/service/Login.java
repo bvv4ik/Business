@@ -14,9 +14,14 @@ import javax.servlet.ServletException;
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.servlet.Servlet;
 
 import javax.servlet.http.*;
@@ -41,6 +46,8 @@ import javax.servlet.annotation.WebServlet;
 public class Login extends HttpServlet {
 
     public ArrayList<String> aListAllSession = new ArrayList<String>();
+    private int countEnter = 5;
+    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -66,49 +73,56 @@ public class Login extends HttpServlet {
     //------------- ВХОД пользователя ---------------
             if ("theUserLogin".equals(sDO)) {
                 
-                String Pass = "";
+                
+//                if (countEnter == 0){
+//                    sReturn = "{\"sReturn\":\"" + "Вы заблокирован !" + "\"}";
+//                    return;
+//                }
+//    int delay = 5000;   // delay for 5 sec.
+//    int interval = 1000;  // iterate every sec.
+//    Timer timer = new Timer();
+//    timer.scheduleAtFixedRate(new TimerTask() {
+//            public void run() {
+//                // Task here ...
+//                
+//            }
+//        }, delay, interval);
+//                
+
                 
                 Access A = new Access();
-                if (A.bLoginExists(sEmail) == true) { // true - Емаил существует
-
+                if (A.bLoginExists(sEmail) == true) { // true - Емаил существует в базе
+                    String Pass = "";
                     Pass = A.getPassword(sEmail);   // смотрим  Пароль по Емайлу
-                    if (sPassword.equals(Pass))      // если Пароли совпадают
-                    {
-                        HttpSession session = request.getSession(true);    //создаем сессию для пользователя
-                        session.setAttribute("sEmail", sEmail);
-                        session.setAttribute("sPassword", sPassword);
+                    if (sPassword.equals(Pass))  {      // если Пароли совпадают
+                    
+                           HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+                           session.setAttribute("sEmail", sEmail);
+                           session.setAttribute("sPassword", sPassword);
                         
-                        aListAllSession.add(sEmail+"   "+session.getId());
+                                 Date d = new Date(/*tmp*/);
+                                 DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+                                 String sTime = df.format(d);
+                         
+                        aListAllSession.add(sEmail+"   "+session.getId()+"   "+sTime);
+                        //+"   "+session.getCreationTime()+"   "+session.getLastAccessedTime()
                         
                         // Запись инфы в базу о пользователе при Входе пользователя
                          AccessOf.saveInfoWhenUserLogined(sEmail);
-     //==================
-//                         try {
-//                         // Выборка всех записей сессии    
-//                        Enumeration keys = session.getAttributeNames();
-//                        while (keys.hasMoreElements())
-//                            {
-//                            String key = (String)keys.nextElement();
-//                            sSess = sSess + (key + "_" + session.getValue(key) + "");
-//                            }
-//                        
-//                             } catch (Exception e) {
-//                                String sErr = e.getMessage();
-//                                System.err.println("--ERROR_CreateAccount:  " + sErr + " _ " + sReturn);  //это вывод в лог-файл
-//                                sReturn = "{\"sReturn\":\"Error, ошибка в сервлете \"}" + sErr;
-//                                     }  
-     //==================                   
                          
                                                                               // нельзя чтобы в json было пустое значение
-                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\",  \"sSes\"  :  \""+"1"+sSess+"\" }";
+                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!  \" }";
                         //sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}";
-                    } else {
-                            sReturn = "{\"sReturn\":\"" + "Неверный Пароль или Логин!" + "\"}";
+                    } else { // неверный пароль
+                   //         countEnter--; 
+                            sReturn = "{\"sReturn\":\"" + "Неверный Логин или Пароль!" + "\"}";
                             }
 
                     }
-                else{
-                 sReturn = "{\"sReturn\":\"" + "Неверный Пароль или Логин!" + "\"}";
+                else{  // несуществующий Логин
+                 //countEnter--;   
+                 sReturn = "{\"sReturn\":\"" + "Неверный Логин или Пароль!" +  "\"}";
+                 //(Осталось попыток: " +countEnter+" )"+
                  }
          
             }
@@ -119,6 +133,7 @@ public class Login extends HttpServlet {
             if ("theDestroySession".equals(sDO)) {
                 HttpSession session = request.getSession(true);    //создаем сессию для пользователя
                 session.invalidate();
+                
                 sReturn = "{\"sReturn\":\"" + "Сессия удалена!" + "\"}";
                 
             } 
@@ -171,7 +186,21 @@ public class Login extends HttpServlet {
     }
     
    
-    
-    
-    
 }
+
+//==================
+//                         try {
+//                         // Выборка всех записей сессии    
+//                        Enumeration keys = session.getAttributeNames();
+//                        while (keys.hasMoreElements())
+//                            {
+//                            String key = (String)keys.nextElement();
+//                            sSess = sSess + (key + "_" + session.getValue(key) + "");
+//                            }
+//                        
+//                             } catch (Exception e) {
+//                                String sErr = e.getMessage();
+//                                System.err.println("--ERROR_CreateAccount:  " + sErr + " _ " + sReturn);  //это вывод в лог-файл
+//                                sReturn = "{\"sReturn\":\"Error, ошибка в сервлете \"}" + sErr;
+//                                     }  
+     //==================    
