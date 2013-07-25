@@ -4,18 +4,19 @@
 window.onload=function() { 
 
 
-$('#sEmail_Account').qtip({
+$('.inp_Account').qtip({
     content: {
 		title: {
-                text: 'Внимание!'
-                       },
-		text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> '
+               // text: 'Внимание!'
+                       }//,
+		//text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> '
                 
 		     },
                   //content: 'Stems are great for indicating' , // принудительно
 	   show: 'focus',
+         //  show: {  delay: 1000  },	//задержка
        hide: 'blur',
-                   //hide: { // delay: 1000  },	//задержка
+                   
         position: {
             adjust: { x: 10 }, // принудительное смещение
             my: 'left top',  // Position my top left...
@@ -86,37 +87,52 @@ $("#img_logo").click(function(){
 // ------------------ Кликаем на кнопку создания Аккаунта
         $("#divAccount #btReg").click(function(){     
             if ($("#sEmail_Account").val() == "")
-  
-                dhtmlx.message({ type:"error", expire:3000, text:"Введите Е-маил!" })
-                //alert("Введите Е-маил!")
+                dhtmlx.message({ type:"error", expire:4000, text:"Введите Е-Маил!" })
             else 
-                if(!IsValidateEmail($("#sEmail_Account").val())){
-                dhtmlx.message({ type:"error", expire:3000, text:"Введите правильный E-Mail!" })
-                //alert("Введите правильный E-Mail!");
-            }
-        else
-            if ($("#sPassword_Account").val() == "")
-                dhtmlx.message({ type:"error", expire:3000, text:"Введите Пароль!" })
-                //alert("Введите Пароль!")
-               
-        else
-            if ($("#sPassword2_Account").val() == "")
-                dhtmlx.message({ type:"error", expire:3000, text:"Введите Пароль повторно!" })
-                //alert("Введите Пароль повторно!")
-        else
-            if ($("#sPassword_Account").val() != $("#sPassword2_Account").val())
-                dhtmlx.message({ type:"error", expire:3000, text:"Введенные пароли не совпадают!" })
-                //alert("Введенные пароли не совпадают!")
-        else{
-            doSend("theCreateAccount");      // отправляем на сервер запрос о создании Аккаунта 
-            //document.location.href = "http://www.site.ru";   //document.formReg_CreateAccount.submit();
-            }
-    });
+                if(!IsValidateEmail(  $("#sEmail_Account").val()  ))
+                dhtmlx.message({ type:"error", expire:4000, text:"Введите правильный E-Mail!" })
+            else
+                if ($("#sPassword_Account").val() == "")
+                    dhtmlx.message({ type:"error", expire:4000, text:"Введите Пароль!" })
+            else
+                if ($("#sPassword2_Account").val() == "")
+                    dhtmlx.message({ type:"error", expire:4000, text:"Введите Пароль повторно!" })
+            else
+                if ($("#sPassword_Account").val() != $("#sPassword2_Account").val())
+                    dhtmlx.message({ type:"error", expire:4000, text:"Пароли не совпадают!" })
+            else{
+                doSend("theCreateAccount");      // отправляем на сервер запрос о создании Аккаунта 
+                                                      //document.formReg_CreateAccount.submit();
+                }
+        });
     
     
 // ------------------ Кликаем на кнопку Входа на сайт
-$("#divLogin #btLogin").click(function(){    
-    doSend1("theUserLogin");
+$("#divLogin #btLogin").click(function(){  
+    
+    
+    if ($("#divLogin #sEmail").val() == ""){
+     dhtmlx.message({ type:"error", expire:4000, text:"Введите Е-Маил!" });
+     off($("#divLogin #btLogin"),true);  // блокируем кнопку
+     setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 4000) 
+    }
+ else
+    if ($("#divLogin #sPassword").val() == ""){
+        dhtmlx.message({ type:"error", expire:4000, text:"Введите Пароль!" })
+        off($("#divLogin #btLogin"),true);  // блокируем кнопку
+        setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 4000) 
+        
+    }
+  else
+      {   
+         // doSend1("theUserLogin");
+          off($("#divLogin #btLogin"),true); // блокируем кнопку
+          setTimeout(function() { doSend1("theUserLogin");  // отправляем запрос
+                                  off($("#divLogin #btLogin"),false);  // разблокируем   
+                                 }, 4000) 
+          dhtmlx.message({ type:"default", expire:4000, text:"<br>Запрос отправлен, ожидайте...!<br><br>" });
+          //doSend1('theUserLogin');
+      }
 });    
     
 
@@ -181,7 +197,7 @@ var countEnter = 5; // по умолчанию
 // AJAX запрос 2  --- проверка логина и пароля для входа на сайт
 function doSend1(nameDO){  
     
- if (countEnter == 1)
+ if (countEnter == -1)
      return;
 
        
@@ -193,18 +209,24 @@ var oData= {   sDO: nameDO,
 
  $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
       ,success:function(o) {                                                    //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-
-               
-               dhtmlx.message({ type:"error", expire:3000, text:o.sReturn + "<br>( Осталось попыток: "+countEnter+" )"  })
+            alert(o.sReturn+"1");
+            if (o.sReturn == "Добро пожаловать на сайт!"){   
+                (window.location.href="/index.jsp"); 
+                alert(o.sReturn+"2");
+            }  
+            else{
+                alert(o.sReturn+"3");
+               dhtmlx.message({ type:"error", expire:5000, text:o.sReturn + "<br><br>( Осталось попыток: "+countEnter+" )"  })
                 countEnter--; // неудачная попытка
-               if (countEnter == 1)
+               if (countEnter == -1)
                {    
-                  dhtmlx.message({ type:"error", expire:3000, text:"Запросы заблокированы <br>на 10 секунд!" })
-                  setInterval(function() { countEnter = 5 }, 10000)
+                  dhtmlx.message({ type:"error", expire:10000, text:"Отправка запросов заблокирована <br>на 30 секунд!" })
+                  setInterval(function() { countEnter = 5 }, 30000)
                }
+            }
             //alert(o.sReturn);
-           // alert(o.sSes);
-            if (o.sReturn == "Добро пожаловать на сайт!"){   (window.location.href="/index.jsp")     }  
+           
+            
 
          }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
          ,dataFilter:function(data, type) {/*alert("это окно будет появляться и при ошибке и при успехе")*/;return data;}
@@ -288,4 +310,14 @@ var oData= {   sDO: "theGetAllSessionList"
     // $("#divFon").append(s);   //alert(s.valueOf());
     //});
     
- 
+  //мои полезные функции
+        function see(s,b){if(b==null)b=$(s).css('display')!='none';else if(b)$(s).show();else $(s).hide();return b;}
+        function off(s,b){b=b!=null?b:$(s).attr('disabled');$(s).attr('disabled',b);return b;}
+        function on(s,b,o){var bZ=!off(s);b=b==null?bZ:b;if(bZ!=b){off(s,!b);if(o!=null)o(b);}return b;}
+        function oGet(oAt){var s="";oAt.each(function(n,o){if (o.type!="button"&(o.type!="radio"||o.checked)){s=s+(n>0?",":"")+"\""+o.id+"\":\""+(o.type=="checkbox"?o.checked:o.value.replace(/\"/g,"&quot;"))+"\"";}});return "{"+s+"}";}
+
+        function oSet(oTo){$.each(oTo,function(key,val){if(key!=''){var s="#"+key;
+        if($(s).attr("type")=="checkbox"){$(s).attr("checked",eval(val));}
+        else if($(s).attr("type")=="radio"){$('[id='+key+']:[value='+val+']').attr('checked',true);}
+        else {$(s+":[type!=button]").val(val.replace(/<br\/>/g,"<br/>\n").replace(/<br>/g,"<br>\n").replace(/<\/p>/g,"</p>\n").replace(/&quot;/g,"\""));}
+        }});  }

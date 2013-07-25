@@ -70,8 +70,8 @@
 
  <!-- ------------------------ ВХОД форма ------------------------------------- -->
            <div id="divLogin" >
-                <br>  <!-- value="ser111@ss.ss" -->
-               <input  class="inputs" id="sEmail"   type="text"  placeholder="Логин (Е-маил)..."  maxlength="25" />   <br> <br>
+                <br>                             <!-- value="ser111@ss.ss" -->
+               <input  class="inputs" id="sEmail"   type="text"  placeholder="Е-Маил..."  maxlength="25" />   <br> <br>
                <input  class="inputs" id="sPassword" type="Password" placeholder="Пароль..."  maxlength="25" />  <br> <br>
                <input  class="allButt" id="btLogin" type="button" value="Вход" />  
                <a id="linkRegister" href ="#" >Зарегистрироватся </a>   <br> <br>  <!--   http://localhost:8080/Business/register.jsp   -->
@@ -84,25 +84,28 @@
             <div id="divHeader_Account">Создание учетной записи:     <!-- style="visibility: hidden" --> 
      		 <img id="btClose_Account" src="img/krest.jpg"   border="1"   title="Закрыть"  />
             </div>  <br>  
-		   Логин (E-Mail): <!--  <span title="">*</span>-->
-		   <input id="sEmail_Account" class="inputs" placeholder="Логин (Е-маил)..." title="Поле, обязательное для заполнения. Введите Ваш существующий Е-Маил, он станет Вашим Логином для входа на этот сайт." style="color: #6495ED" type="text" value=""  maxlength="25" >   
-		   Пароль:  <span title="Поле, обязательное для заполнения. Пароль должен содержать не менее 10 (и не более 25) символов латинского алфавита и цифр (a-z, A-Z, 0-9), и должен обязательно включать в себя хотябы 1 цифру, 1 заглавную и 1 маленькую букву, например: Maksim1bnf">*</span>
-		   <input id="sPassword_Account" class="inputs" style="color: #6495ED"  type="password" value=""  maxlength="25" >   
-		   Пароль (повторно):  <span title="Обязательное для заполнения.">*</span>
-		   <input id="sPassword2_Account" class="inputs" style="color: #6495ED"  type="password" value=""  maxlength="25" >   <br>
-		   Фамилия:  <span title=""></span>     <br>
-		   <input id="sLastName_Account" class="inputs" style="color: #6495ED"  type="text" value="" autocomplete="off" maxlength="25">   <br>
-		   Имя:     <br>
-		   <input id="sFirstName_Account" class="inputs" style="color: #6495ED" type="text" value="" autocomplete="off"  maxlength="25" >     <br> <br>
+		    <!--  <span title="">*</span>-->
+		   <input id="sEmail_Account" class="inp_Account" placeholder="Ваш Е-Маил..." title='Поле обязательное к заполнению. Введите название вашего Е-Маил, который станет уникальным Логином для входа на этот сайт. Данное поле обязательно для заполнения. <br>Так же ознакомьтесь: <a href="http://ru.wikipedia.org/wiki/Пароль" target="_blank" title="">Безопастность пароля</a>' style="color: #6495ED" type="text" value=""  maxlength="25" >                      
+                   <input id="sPassword_Account" class="inp_Account" placeholder="Пароль" title="Поле обязательное к заполнению. Пароль должен содержать не менее 10 и не более 25 символов латинского алфавита и цифр (a-z, A-Z, 0-9). Для безопастности очень желательно, чтобы пароль включал в себя маленькие латинские буквы, но так же заглавные буквы и цифры. Пример безопасного пароля:  <b>Ivan33bn81T</b> , <br>Примеры НЕбесопасных паролей: <b>qwerty</b>, <b>123</b>, <b>7654321</b>. <br>Не экономьте несколько символов на своей безопасности! )) " style="color: #6495ED"  type="password" value=""  maxlength="25" >   
+                   <input id="sPassword2_Account" class="inp_Account" placeholder="Пароль (повторно)" title="Поле обязательное к заполнению. <br> Защита от невнимательности! :)" style="color: #6495ED"  type="password" value=""  maxlength="25" >   <br>
+		   <input id="sFirstName_Account" class="inp_Account" placeholder="Имя" title="Не обязательно, но не поленитесь представится :)" style="color: #6495ED" type="text" value="" autocomplete="off"  maxlength="25" > <br> 
+		   <input id="sLastName_Account" class="inp_Account" placeholder="Фамилия" title="Не обязательно." style="color: #6495ED"  type="text" value="" autocomplete="off" maxlength="25">   <br>  <br>
                    <input class="allButt" id="btReg"  type="button" value="Создать" />             
             </div>       <!-- <a class="tooltip" href="#">Tooltip<span> Вот такая подсказочка получилась :).</span></a> -->
       </div>
           <!-- <h1>    Добро пожаловать <    %=oLogin%>  <    %=oLastName%> <    %=oFirstName%> <   %=oSureName%>    </h1> !-->
 
 		  
-</body>
-</html>
+<!--    <div id="progressBar_Account" >     <div></div>          </div>  <br>
+<style>
+#progressBar_Account {
+  background-color: #1E90FF;   border-radius: 5px;   padding: 2px;  width: 253px;
+}
 
+#progressBar_Account div {
+   width: 1%;    background-color: lightblue;   height: 23px;   border-radius: 3px;
+}
+</style>     -->
   
   
         <% } else  // иначе если есть сессия рисуем главную страницу     

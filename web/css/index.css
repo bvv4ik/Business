@@ -8,8 +8,18 @@
 }
 
 /* -------------------------/ ВСЕ Кнопки /------------------------------------ */
+
+.allButt {
+     bor der-radius: 4px;
+     width : 80px;
+     height: 30px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/*
 .allButt { 
-	background: #2E8CE3;  padding: 7px 30px; font-size: 16px; /*fo nt-weight: bold;*/ color: #FFFFFF; text-align: center;
+	background: #2E8CE3;  padding: 7px 30px; font-size: 14px; font-weight: bold; color: #FFFFFF; text-align: center;
 	border: solid 1px #73C8F0; cursor: pointer; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
 	background: -moz-linear-gradient(0% 100% 90deg, #2E8CE3, #73C2FD);
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#73C2FD), to(#2E8CE3));
@@ -26,7 +36,7 @@
 	box-shadow: inset 1px 1px 0 0 #004A7F; -moz-box-shadow: inset 1px 1px 0 0 #004A7F;
 	-webkit-box-shadow: inset 1px 1px 0 0 #004A7F; padding: 8px 29px 6px 31px;
 }
-
+*/
 
 /* -------------------------/ ФОН (СОЗДАНИЕ АККАУНТА и ВХОДА) /------------------------------------ */
 #divFon{
@@ -80,7 +90,7 @@
 
 
 /* -----------------------------/ ПОЛЯ ввода /------------------------------------ */
-#divAccount .inputs
+#divAccount .inp_Account
 {
     border:solid 3px transparent;
     -moz-box-shadow:0 0 20px 3px #1E90FF;          /*тень*/
@@ -89,6 +99,7 @@
     width : 250px;
     font-size: 16px;
     margin-bottom : 14px;
+    margin-top: 20px;
 }
 
 #btClose_Account    /*  КНОПКА закрытия окна Аккаунта  */

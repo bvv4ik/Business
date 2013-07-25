@@ -102,16 +102,16 @@ public class Login extends HttpServlet {
                         
                                  Date d = new Date(/*tmp*/);
                                  DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-                                 String sTime = df.format(d);
+                                 String sTimeLogin = df.format(d);
                          
-                        aListAllSession.add(sEmail+"   "+session.getId()+"   "+sTime);
+                        aListAllSession.add(sEmail+"   "+session.getId()+"   "+sTimeLogin+"   "+request.getRemoteAddr()+"   "+ request.getServerName());
                         //+"   "+session.getCreationTime()+"   "+session.getLastAccessedTime()
                         
                         // Запись инфы в базу о пользователе при Входе пользователя
                          AccessOf.saveInfoWhenUserLogined(sEmail);
                          
                                                                               // нельзя чтобы в json было пустое значение
-                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!  \" }";
+                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\" }"; //не менять
                         //sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}";
                     } else { // неверный пароль
                    //         countEnter--; 
