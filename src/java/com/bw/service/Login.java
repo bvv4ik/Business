@@ -3,8 +3,12 @@
 //(name="mytest", urlPatterns={"/myurl"}) ;
 package com.bw.service;
 
+import javax.swing.Timer;
+
 import com.bw.entity.*;
 import com.bw.io.ConnectLdap;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -20,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Timer;
+//import java.util.Timer;
 import java.util.TimerTask;
 import javax.servlet.Servlet;
 
@@ -46,7 +50,9 @@ import javax.servlet.annotation.WebServlet;
 public class Login extends HttpServlet {
 
     public ArrayList<String> aListAllSession = new ArrayList<String>();
-    // public static ArrayList<String[]> aResult = new ArrayList<String[]>();
+    //public ArrayList<String> aListAllSession = new ArrayList<String>();
+    //public String sIsOnline = "Online";
+     public static ArrayList<String[]> aAllSession = new ArrayList<String[]>();
     private int countEnter = 5;
     
     
@@ -91,6 +97,60 @@ public class Login extends HttpServlet {
 //        }, delay, interval);
 //                
 
+  // вызывается 1 раз               
+//  java.util.Timer timer2 = new java.util.Timer();
+//  TimerTask task = new TimerTask() {
+//      public void run()
+//      {     //Do work!         //    aListAllSession.remove(0);
+//           aListAllSession.add("<td>"+1+"</td>"+ 
+//                              "<td>"+2+"</td>"+ 
+//                              "<td>"+3+"</td>"+
+//                              "<td>"+ 4 +"</td>"+ 
+//                              "<td>"+5+"</td>"+
+//                              "<td>"+6+"</td>");
+//      }
+//  };
+//  timer2.schedule( task, 5000 );
+  
+ 
+////int delay = 1000; //milliseconds
+////  ActionListener taskPerformer = new ActionListener() {
+////    
+////       public void actionPerformed(ActionEvent evt) {
+////          //...Perform a task...
+////           aListAllSession.add("<td>"+1+"</td>"+ 
+////                              "<td>"+2+"</td>"+ 
+////                              "<td>"+3+"</td>"+
+////                              "<td>"+ 4 +"</td>"+ 
+////                              "<td>"+5+"</td>"+
+////                              "<td>"+6+"</td>");
+////       //    setRepeats(false) ;
+////      }
+////  };
+////   new Timer(delay, taskPerformer).start();
+ 
+//Timer tim;                 
+//tim = new Timer(1000, new ActionListener() {
+//    //@Override
+//    public void actionPerformed(ActionEvent ae) {
+//
+//         aListAllSession.add("<td>"+1+"</td>"+ 
+//                              "<td>"+2+"</td>"+ 
+//                              "<td>"+3+"</td>"+
+//                              "<td>"+ 4 +"</td>"+ 
+//                              "<td>"+5+"</td>"+
+//                              "<td>"+6+"</td>");
+//       
+//    }
+//        
+//});                 
+//  tim.start();
+//    tim.stop();
+  
+  //timer2.schedule( task, date ); //date - java.util.Date
+                 
+                 
+                 
                 
                 Access A = new Access();
                 if (A.bLoginExists(sEmail) == true) { // true - Емаил существует в базе
@@ -106,11 +166,28 @@ public class Login extends HttpServlet {
                                  DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
                                  String sTimeLogin = df.format(d);
                         
+                                 Date d1 = new Date(session.getLastAccessedTime());         DateFormat df1 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");                                  String sLastAccessedTime = df1.format(d1);
+                                 
                            // формируем ячейки таблицы      
                         //aListAllSession.add(sEmail+"   "+session.getId()+"   "+sTimeLogin+"   "+request.getRemoteAddr()+"   "+ request.getServerName());
-                        aListAllSession.add("<td>"+sEmail+"</td>"+ 
+                        String[] sArr2 = {  
+                                  sEmail,
+                                  session.getId(),
+                                  sTimeLogin,
+                                  "150",
+                                  request.getRemoteAddr(),
+                                  request.getServerName()
+                                  };
+                             
+                             aAllSession.add(sArr2);
+                             
+                             
+                             
+                                 
+                             aListAllSession.add("<td>"+sEmail+"</td>"+ 
                               "<td>"+session.getId()+"</td>"+ 
-                              "<td>"+sTimeLogin+"</td>"+ 
+                              "<td>"+sTimeLogin+"</td>"+
+                              "<td>"+ sLastAccessedTime  +"</td>"+ 
                               "<td>"+request.getRemoteAddr()+"</td>"+
                               "<td>"+request.getServerName()+"</td>");
                         //+"   "+session.getCreationTime()+"   "+session.getLastAccessedTime()
@@ -154,7 +231,8 @@ public class Login extends HttpServlet {
                 for (String temp: aListAllSession){ 
                   s = s+"<tr>"+ temp+"</tr>";  // делаем табличные строки
                 }
-                     //<tr>   <td>1</td>  </tr>
+                    s = "<tr>  <td>E-Mail</td><td>ID Session</td><td>TimeLogin</td><td>LastAccessedTime</td><td>RemoteAddr</td><td>ServerName</td>  </tr>"+s;
+                    
                 sReturn = "{\"sReturn\":\"" + s + "\"}";
             } 
 

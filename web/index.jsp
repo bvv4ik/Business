@@ -91,7 +91,7 @@
      		 <img id="btClose_Account" src="img/krest.jpg"   border="1"   title="Закрыть"  />
             </div>  <br>  
 		    <!--  <span title="">*</span>-->
-		   <input id="sEmail_Account" class="sInput_Account" placeholder="Ваш Е-Маил..." title='Поле, обязательное для заполнения. Введите название вашего Е-Маил, который станет уникальным Логином для входа на этот сайт. <br>Так же ознакомьтесь: <a href="http://ru.wikipedia.org/wiki/Пароль" target="_blank" title="">Безопастность пароля</a>' type="text" value=""  maxlength="25" >                      
+		   <input id="sEmail_Account" class="sInput_Account" placeholder="Ваш Е-Маил..." title='Поле, обязательное для заполнения. Введите название вашего Е-Маил, который станет уникальным Логином для входа на этот сайт. <br>Так же ознакомьтесь: <a href="http://ru.wikipedia.org/wiki/Пароль" target="_blank" title="">Безопастность пароля</a>' type="text" value=""  maxlength="70" >                      
                    <input id="sPassword_Account" class="sInput_Account" placeholder="Пароль" title="Поле, обязательное для заполнения. Пароль должен содержать не менее 10 и не более 25 символов латинского алфавита и цифр (a-z, A-Z, 0-9). Для надежности очень желательно, чтобы пароль включал в себя не только маленькие латинские буквы, но так же заглавные буквы и цифры. Пример безопастного пароля:  <b>Ivan33bn81T</b> , <br>Примеры небесопастных паролей: <b>qwerty</b>, <b>123</b>, <b>7654321</b>. <br>Не экономьте несколько символов на своей безопастности! )) "  type="password" value=""  maxlength="25" >   
                    <input id="sPassword2_Account" class="sInput_Account" placeholder="Пароль (повторно)" title="Поле обязательное для заполнения. <br> Защита от невнимательности! :)"   type="password" value=""  maxlength="25" >   <br>
 		   <input id="sFirstName_Account" class="sInput_Account" placeholder="Имя" title="Желательно, но необязательно :)"  type="text" value="" autocomplete="off"  maxlength="25" > <br> 
@@ -120,12 +120,13 @@
 <!--          < %=oEmail%>        -->
 
 <!--           Добро пожаловать на главную страницу! -->
-<div id="divAllSessinList"  >    
+<div id="divAllSessinList" >    
 
-<table id="tabl1" cellspacing='0'>   
-<tr>    <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>   </tr>
+<table id="table1" cellspacing="0">   
 
-</table>;
+
+</table>
+<input type="button" value="Закрыть" onClick="$('#divAllSessinList').css('left','-1000px');" >
      
 </div>
 

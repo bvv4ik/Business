@@ -5,7 +5,7 @@
         width    : 800px;    
 	height   : 600px; 
          m argin        : 0 auto;  /*по центру экрана*/
-         top : 150px;
+         top : 100px;
          left : -1000px;
          background:  lightgray;
          z-index: 100;
@@ -29,7 +29,7 @@
 }
 
 #divAllSessinList table tr:hover{
- fo nt-weight:bold;
+  fo nt-weight:bold;
   background: #f3bd48; /* Цвет фона строки при наведении */
 }
 
@@ -51,8 +51,8 @@
 	color:#000000;
 }
 
-/*
-#divAllSessinList tr:first-child td{  / *самая первая строка ЗАГОЛОВОК заливка* /
+
+#divAllSessinList tr:first-child td{  /*самая первая строка ЗАГОЛОВОК заливка*/
 	background:-o-linear-gradient(bottom, #5fbf00 5%, #3f7f00 100%);	
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #5fbf00), color-stop(1, #3f7f00) );
 	background:-moz-linear-gradient( center top, #5fbf00 5%, #3f7f00 100% );
@@ -63,9 +63,9 @@
 	font-size:14px;
 	font-family:Arial;
 	font-weight:bold;
-	color:#ffffff; / *цвет шрифта* /
+	color:#ffffff; /*цвет шрифта*/
 	}
-        */
+        
 /*--------------------------------------------------------------------------*/
 
 

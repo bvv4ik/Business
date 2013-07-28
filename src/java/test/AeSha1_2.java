@@ -11,7 +11,7 @@ package test;
 
     
 import javax.xml.bind.DatatypeConverter;
-import org.apache.commons.codec.binary.Base64;
+//import org.apache.commons.codec.binary.Base64;
 import java.io.IOException;
 
 public class AeSha1_2 {

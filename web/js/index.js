@@ -237,6 +237,8 @@ var oData= { sDO: "theUserLogin",
  $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
       ,success:function(o) {                                                                                 //    эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
 
+           if (o.sReturn == null)  
+                alert('null');
           if (o.sReturn == "Добро пожаловать на сайт!"){  (window.location.href="/index.jsp"); 
             }  
             else{
@@ -284,7 +286,7 @@ function ajax_getAllSession(){
       ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
                                                                                 
             if (o.sReturn != null)    {  //alert(o.sReturn);
-            $("#divAllSessinList table tr").html(o.sReturn);
+            $("#divAllSessinList table").html(o.sReturn);
             $("#divAllSessinList").css("left","150px");
             }
             
