@@ -1,20 +1,97 @@
+
+#divAllSessinList{
+    position: absolute;
+     border   : 1px solid black ;
+        width    : 800px;    
+	height   : 600px; 
+         m argin        : 0 auto;  /*по центру экрана*/
+         top : 150px;
+         left : -1000px;
+         background:  lightgray;
+         z-index: 100;
+         
+     overflow:auto; /* прокрутка появляется по необходимости */
+    padding:10px 10px;
+    b order:#999 1px solid;
+
+     
+}
+
+#divAllSessinList table{  /* вся таблица*/
+	width:100%;
+	he ight:100%;
+	ma rgin:0px;
+	pa dding:0px;
+	border-right:1px solid #3f7f00;
+	border-top:1px solid #3f7f00;
+        
+        
+}
+
+#divAllSessinList table tr:hover{
+ fo nt-weight:bold;
+  background: #f3bd48; /* Цвет фона строки при наведении */
+}
+
+#divAllSessinList tr:nth-child(odd)     {    background-color: #e3ffa3 }  /*  не четные строки */
+#divAllSessinList tr:nth-child(even)    {    background-color:#eeffc9; }  /* четные строки */
+
+#divAllSessinList td{  /*одна  (каждая) ячейка*/
+	ve rtical-align:middle;
+		
+	border-bottom: 1px solid #3f7f00;
+	border-left: 1px solid #3f7f00;
+	
+	text-align:left;
+	padding:5px;
+	    padding-left:10px;
+	font-size:12px;
+	font-family:Arial;
+	fo nt-weight:normal;
+	color:#000000;
+}
+
+/*
+#divAllSessinList tr:first-child td{  / *самая первая строка ЗАГОЛОВОК заливка* /
+	background:-o-linear-gradient(bottom, #5fbf00 5%, #3f7f00 100%);	
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #5fbf00), color-stop(1, #3f7f00) );
+	background:-moz-linear-gradient( center top, #5fbf00 5%, #3f7f00 100% );
+	background: -o-linear-gradient(top,#5fbf00,3f7f00);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#5fbf00", endColorstr="#3f7f00");	
+	
+	text-align:center;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#ffffff; / *цвет шрифта* /
+	}
+        */
+/*--------------------------------------------------------------------------*/
+
+
 #divError{
     position: absolute;
      border   : 1px solid orange ;
-        width    : 290px;    
-	height   : 260px; 
+        width    : 100px;    
+	height   : 100px; 
         background: blue;
     
 }
 
+
+
+
+
 /* -------------------------/ ВСЕ Кнопки /------------------------------------ */
 
 .allButt {
-     bor der-radius: 4px;
-     width : 80px;
-     height: 30px;
-    font-weight: bold;
-    font-size: 14px;
+  width: 95px;
+height: 30px;
+font-weight: bold;
+font-size: 16px;
+co lor: rgb(88, 112, 175);
+font-family: verdana;
+
 }
 
 /*
@@ -43,7 +120,6 @@
          position : absolute;   
 	 left:0px;   
 	 top:0px;   
-/*	 z-i ndex:100;        h eight:600px;  */
 	 width:100%;  
 	 height:100%;  
 	 background:#9C9C9C;
@@ -57,11 +133,11 @@
 /* -------------------------/ форма создания Аккаунта /------------------------------------ */
 #divAccount {
         position : relative;       
-        border   : 2px solid orange ;
+        border   : 1px solid orange ;
         width    : 290px;    
-	height   : 460px;     
+	height   : 430px;     
           font-size        : 16px;
-          background-color : #E8E8E8;/*#FFFACD; */
+          background-color : #CACACA;/*#FFFACD; */
           border-radius    : 5px;
              margin        : 0 auto;  /*по центру экрана*/
              padding-left  : 30px;
@@ -82,7 +158,7 @@
 	padding-bottom : 14px; 
 	font-size: 18px;  
 	font-weight: bold;    
-	background : #87CEFA;  
+	background : #1667CC;  
 	color : white;
 	font-family: Geneva, Arial, Helvetica, sans-serif;
 	  /*     bor der : 1px solid blue ; */
@@ -90,17 +166,36 @@
 
 
 /* -----------------------------/ ПОЛЯ ввода /------------------------------------ */
-#divAccount .inp_Account
+/*
+.sInput_Account_act{
+border:solid 3px transparent;     
+-moz-box-shadow:0 0 20px 3px #1E90FF;          /*тень* /
+-webkit-box-shadow:0px 0px 7px 3px #1E90FF;
+}
+*/
+
+.sInput_Account
 {
-    border:solid 3px transparent;
-    -moz-box-shadow:0 0 20px 3px #1E90FF;          /*тень*/
-    -webkit-box-shadow:0px 0px 7px 3px #1E90FF;
-    -webkit-border-radius: 2px; /*Chrome  Safari*/       /*закругление*/
+    border:solid 1px grey;
+    padding : 4px;
+         b order:solid 3px transparent;     
+        -mo z-box-shadow:0 0 20px 3px #1E90FF;          /*тень*/
+        -we bkit-box-shadow:0px 0px 7px 3px #1E90FF;
+    -webkit-border-radius: 3px; /*Chrome  Safari*/       /*закругление*/
     width : 250px;
     font-size: 16px;
-    margin-bottom : 14px;
-    margin-top: 20px;
+    margin-bottom : 11px;
+    margin-top: 16px;
+    color : black;
 }
+
+input::-webkit-input-placeholder {
+font-style:italic;
+letter-spacing:2px; color:#B5B5B5;
+font-size: 13px;
+padding-top: 2px;
+}
+
 
 #btClose_Account    /*  КНОПКА закрытия окна Аккаунта  */
 {
@@ -160,7 +255,7 @@
         height : 170px;
         top : 150px;
         font-size: 16px;
-        background-color: #FFDAB9 ; /*lightgoldenrodyellow*/
+        background-color: #FCD08F ; 
         border-radius: 5px;
         margin: 0 auto;  /*по центру экрана*/
         padding-left: 30px;
@@ -169,12 +264,14 @@
 
 
 /* -------------------------/ строки ввода данных /------------------------------------ */
-#divLogin .inputs       
+.sInput_Login       
 {
-	-webkit-border-radius : 2px; /*Chrome  Safari*/ 
-	border				  : solid 3px transparent;
-	-moz-box-shadow		  : 0 0 20px 3px #1E90FF;
-	-webkit-box-shadow	  : 0px 0px 7px 3px #1E90FF;
+      border:solid 1px grey;
+      padding : 4px;
+      -webkit-border-radius : 3px; /*Chrome  Safari*/ 
+	     b order		      : solid 3px transparent;
+	    -m oz-box-shadow		  : 0 0 20px 3px #1E90FF;
+	     -w ebkit-box-shadow	  : 0px 0px 7px 3px #1E90FF;
 	width : 250px;
 	font-size: 16px;
 }
@@ -183,7 +280,7 @@
 #divLogin #linkRegister
 {
     
-    margin: 10px 0px 0px 20px;
+    margin: 10px 0px 0px 85px;
     position : absolute; 
 }
 /*---------------------------------------------------------------------------------------*/
@@ -286,7 +383,7 @@ hr
 }
 
 
-a:hover {  /*фон при наведенной ссылке*/
+#divMainPage a:hover {  /*фон при наведенной ссылке*/
    /* d isplay : block;*/
     background-color:orange;
 }
@@ -300,9 +397,7 @@ A----5:visited {    color: blue; / * Цвет  ссылки * /  	}
     left : 15px;
     top : 15px;
     height: 145px;
-    width: 200px;
-    /*op acity : 0.2;*/
-    di splay : block;
+    width: 200px;     /*op acity : 0.2;*/
     background: url(../img/logo4.png)  no-repeat left top;
 }
 
@@ -331,9 +426,9 @@ p {
    
 
 /*Шрифты для qTip2*/
-.qtip-content { font-size: 16px; margin : 3px;  line-height: 140%;}
-.qtip-title { font-size: 16px;  margin : 3px;  }
-.qtip { border-radius: 5px 5px 5px 5px; }
+.qtip-content { font-size: 14px; margin : 3px;  line-height: 140%;}
+.qtip-title { font-size: 14px;  margin : 3px;  }
+/*.qtip { border-radius: 5px 5px 5px 5px; }*/
 
 
 

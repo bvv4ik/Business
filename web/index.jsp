@@ -18,7 +18,9 @@
   Object oLastName = session.getAttribute("sLastName");
   Object oSureName = session.getAttribute("sSureName");
   Object oIP = request.getServerName(); //getRemoteUser();//
-  Integer count = (Integer) session.getAttribute("count");
+  
+  
+  
   // }
 
   //Object oIP = session.getId();       //request.getRemoteAddr();      //request.getRemoteUser(); 
@@ -45,6 +47,7 @@
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_dark.css" title="Growl - dark"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_shiny.css" title="Growl - shiny"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
+        
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>
         
      	<script type="text/javascript" src="js/qTip2/jquery.qtip.js"> </script>
@@ -55,8 +58,9 @@
     <body>
 
 
-        
-       <%   if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
+       
+       <%   // oEmail = 1 ; 
+            if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %> 
             
@@ -65,16 +69,18 @@
 <!-- ------------------------ ГЛАВНАЯ форма------------------------------------- -->
 <div id="divFon" >     
       
-  <%=count %>   
-  <div id="divError">  </div>
+
+  <div id="divError" style="visibility: hidden">  </div>
+  
+  
 
  <!-- ------------------------ ВХОД форма ------------------------------------- -->
            <div id="divLogin" >
                 <br>                             <!-- value="ser111@ss.ss" -->
-               <input  class="inputs" id="sEmail"   type="text"  placeholder="Е-Маил..."  maxlength="25" />   <br> <br>
-               <input  class="inputs" id="sPassword" type="Password" placeholder="Пароль..."  maxlength="25" />  <br> <br>
+               <input  class="sInput_Login" id="sEmail"   type="text" value="ser111@ss.ss" placeholder="Е-Маил..."  maxlength="25" />   <br> <br>
+               <input  class="sInput_Login" id="sPassword" type="Password" value="111" placeholder="Пароль..."  maxlength="25" />  <br> <br>
                <input  class="allButt" id="btLogin" type="button" value="Вход" />  
-               <a id="linkRegister" href ="#" >Зарегистрироватся </a>   <br> <br>  <!--   http://localhost:8080/Business/register.jsp   -->
+               <a id="linkRegister" href ="#" >Регистрация </a>   <br> <br>  <!--   http://localhost:8080/Business/register.jsp   -->
            </div>
  
 
@@ -85,11 +91,11 @@
      		 <img id="btClose_Account" src="img/krest.jpg"   border="1"   title="Закрыть"  />
             </div>  <br>  
 		    <!--  <span title="">*</span>-->
-		   <input id="sEmail_Account" class="inp_Account" placeholder="Ваш Е-Маил..." title='Поле обязательное к заполнению. Введите название вашего Е-Маил, который станет уникальным Логином для входа на этот сайт. Данное поле обязательно для заполнения. <br>Так же ознакомьтесь: <a href="http://ru.wikipedia.org/wiki/Пароль" target="_blank" title="">Безопастность пароля</a>' style="color: #6495ED" type="text" value=""  maxlength="25" >                      
-                   <input id="sPassword_Account" class="inp_Account" placeholder="Пароль" title="Поле обязательное к заполнению. Пароль должен содержать не менее 10 и не более 25 символов латинского алфавита и цифр (a-z, A-Z, 0-9). Для безопастности очень желательно, чтобы пароль включал в себя маленькие латинские буквы, но так же заглавные буквы и цифры. Пример безопасного пароля:  <b>Ivan33bn81T</b> , <br>Примеры НЕбесопасных паролей: <b>qwerty</b>, <b>123</b>, <b>7654321</b>. <br>Не экономьте несколько символов на своей безопасности! )) " style="color: #6495ED"  type="password" value=""  maxlength="25" >   
-                   <input id="sPassword2_Account" class="inp_Account" placeholder="Пароль (повторно)" title="Поле обязательное к заполнению. <br> Защита от невнимательности! :)" style="color: #6495ED"  type="password" value=""  maxlength="25" >   <br>
-		   <input id="sFirstName_Account" class="inp_Account" placeholder="Имя" title="Не обязательно, но не поленитесь представится :)" style="color: #6495ED" type="text" value="" autocomplete="off"  maxlength="25" > <br> 
-		   <input id="sLastName_Account" class="inp_Account" placeholder="Фамилия" title="Не обязательно." style="color: #6495ED"  type="text" value="" autocomplete="off" maxlength="25">   <br>  <br>
+		   <input id="sEmail_Account" class="sInput_Account" placeholder="Ваш Е-Маил..." title='Поле, обязательное для заполнения. Введите название вашего Е-Маил, который станет уникальным Логином для входа на этот сайт. <br>Так же ознакомьтесь: <a href="http://ru.wikipedia.org/wiki/Пароль" target="_blank" title="">Безопастность пароля</a>' type="text" value=""  maxlength="25" >                      
+                   <input id="sPassword_Account" class="sInput_Account" placeholder="Пароль" title="Поле, обязательное для заполнения. Пароль должен содержать не менее 10 и не более 25 символов латинского алфавита и цифр (a-z, A-Z, 0-9). Для надежности очень желательно, чтобы пароль включал в себя не только маленькие латинские буквы, но так же заглавные буквы и цифры. Пример безопастного пароля:  <b>Ivan33bn81T</b> , <br>Примеры небесопастных паролей: <b>qwerty</b>, <b>123</b>, <b>7654321</b>. <br>Не экономьте несколько символов на своей безопастности! )) "  type="password" value=""  maxlength="25" >   
+                   <input id="sPassword2_Account" class="sInput_Account" placeholder="Пароль (повторно)" title="Поле обязательное для заполнения. <br> Защита от невнимательности! :)"   type="password" value=""  maxlength="25" >   <br>
+		   <input id="sFirstName_Account" class="sInput_Account" placeholder="Имя" title="Желательно, но необязательно :)"  type="text" value="" autocomplete="off"  maxlength="25" > <br> 
+		   <input id="sLastName_Account" class="sInput_Account" placeholder="Фамилия" title="Пока не обязательно."   type="text" value="" autocomplete="off" maxlength="25">   <br>  <br>
                    <input class="allButt" id="btReg"  type="button" value="Создать" />             
             </div>       <!-- <a class="tooltip" href="#">Tooltip<span> Вот такая подсказочка получилась :).</span></a> -->
       </div>
@@ -103,7 +109,7 @@
 }
 
 #progressBar_Account div {
-   width: 1%;    background-color: lightblue;   height: 23px;   border-radius: 3px;
+   width: 45%;    background-color: lightblue;   height: 23px;   border-radius: 3px;
 }
 </style>     -->
   
@@ -114,9 +120,35 @@
 <!--          < %=oEmail%>        -->
 
 <!--           Добро пожаловать на главную страницу! -->
+<div id="divAllSessinList"  >    
+
+<table id="tabl1" cellspacing='0'>   
+<tr>    <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>   </tr>
+
+</table>;
+     
+</div>
+
 
 
 		<div  id="divMainPage">
+                     
+                     
+                       <div id="divNavigation" >
+				<ul>
+					<li> <a href="#">Главная</a>       </li>  <div id="separatop"></div>
+					<li> <a href="#">Новости</a>	     </li>  <div id="separatop"></div>
+					<li> <a href="#">Библиотека</a>    </li>  <div id="separatop"></div>
+					<li> <a href="#">Настройки</a>	 </li> 	<div id="separatop"></div>
+					<li> <a href="#">О нас...</a>  	 </li> 	<div id="separatop"></div>
+					<li> <a href="#">Контакты</a>	     </li> 	<div id="separatop"></div>
+					<li> <a href="#">Личный кабинет</a></li> 	<div id="separatop"></div>
+					<li> <a id="mainPageExitSession" href="#">Выход</a>	     </li>
+				</ul>
+			</div>
+                     
+                     
+                     
 
 			<div  id="divLeftNavigator">
 
@@ -214,18 +246,7 @@
 
 			</div>
 
-			<div id="divNavigation" >
-				<ul>
-					<li> <a href="#">Главная</a>       </li>  <div id="separatop"></div>
-					<li> <a href="#">Новости</a>	     </li>  <div id="separatop"></div>
-					<li> <a href="#">Библиотека</a>    </li>  <div id="separatop"></div>
-					<li> <a href="#">Настройки</a>	 </li> 	<div id="separatop"></div>
-					<li> <a href="#">О нас...</a>  	 </li> 	<div id="separatop"></div>
-					<li> <a href="#">Контакты</a>	     </li> 	<div id="separatop"></div>
-					<li> <a href="#">Личный кабинет</a></li> 	<div id="separatop"></div>
-					<li> <a id="mainPageExitSession" href="#">Выход</a>	     </li>
-				</ul>
-			</div>
+			
 
 			<div id="main_pict">
 				<img src="img/main2.jpg"  alt="apelsin">

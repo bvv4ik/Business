@@ -409,11 +409,11 @@
 
 /* Tipped style */
 .qtip-tipped{
-	border: 3px solid #959FA9;
+	border: 1px solid #959FA9;
 
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 
 	background-color: #F9F9F9;
 	color: #454545;

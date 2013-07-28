@@ -4,26 +4,32 @@
 window.onload=function() { 
 
 
-$('.inp_Account').qtip({
+$('.sInput_Account').qtip({
     content: {
 		title: {
-               // text: 'Внимание!'
+                text: 'Информация:'
                        }//,
 		//text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> '
                 
 		     },
                   //content: 'Stems are great for indicating' , // принудительно
-	   show: 'focus',
+	  
+           show: 'focus',
          //  show: {  delay: 1000  },	//задержка
+//                          show: {    effect: function(offset) {
+//                           $(this).slideDown(500); // "this" refers to the tooltip 
+//                           }
+//                           },	
+         
        hide: 'blur',
                    
         position: {
-            adjust: { x: 10 }, // принудительное смещение
+            adjust: { x: 7 }, // принудительное смещение
             my: 'left top',  // Position my top left...
             at: 'center right' // at the bottom right of...
         },
 	     style: {
-         classes: 'qtip-green qtip-shadow' // цвет и стиль
+         classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green
 		            //width : 15 // ширина
         }
  });
@@ -33,6 +39,23 @@ $('.inp_Account').qtip({
 // ---------------  При загрузке прячем форму Аккаунта:    
     $("#divAccount").hide();
     dhtmlx.message.position = "bottom";
+    
+    //dhtmlx.setActiveStyleSheet("SkyBlue");
+ 
+    
+    $('.sInput_Account').blur(
+  function () {
+    //alert("df");
+  //  $('.sInput_Account').addClass(".sInput_Account_act");
+ // $("#divAllSessinList").css("left","150px");
+  //  see($('#divAllSessinList'),true);
+    //alert(1);
+    
+    //.sInput_Account_act
+  }
+);
+    
+
   //  $("#divError").hide(); //-------------------------
 
 
@@ -42,8 +65,8 @@ $("#divError").click(function(){
    //alert("dfsdfsd");
   // dhtmlx.alert("Текст сообщения.");
   
-  dhtmlx.message({ type:"error", expire:20000, text:"Вы нажали кнопку <br> для сообщения со стилем! кликните, чтобы закрыть." })
-  dhtmlx.message({ type:"error", expire:1000, text:"Вы нажали кнопку <br> для сообщения со стилем2!" })
+ // dhtmlx.message({ type:"error", expire:20000, text:"Вы нажали кнопку <br> для сообщения со стилем! кликните, чтобы закрыть." })
+ // dhtmlx.message({ type:"error", expire:1000, text:"Вы нажали кнопку <br> для сообщения со стилем2!" })
   
   //setTimeout(function() { alert('2 секунды') }, 2000) //зажержка выполнения
   
@@ -59,11 +82,9 @@ $("#img_logo").click(function(){
     
 //---------------- Удаляем сессию пользователя
     $("#mainPageExitSession").click(function(){    
-        if (confirm("Хотите отключится?")) {
-            doSend2("theDestroySession");//alert("Привет!")
-        } else {
-        // alert("Вы нажали кнопку отмена")
-        }
+        if (confirm("Вы действительно хотите выйти?")) {
+            ajax_doDestroySession(); 
+        } else {   /* alert("Вы нажали кнопку отмена") */     }
     });    
 
              
@@ -87,19 +108,19 @@ $("#img_logo").click(function(){
 // ------------------ Кликаем на кнопку создания Аккаунта
         $("#divAccount #btReg").click(function(){     
             if ($("#sEmail_Account").val() == "")
-                dhtmlx.message({ type:"error", expire:4000, text:"Введите Е-Маил!" })
+                dhtmlx.message({ type:"error", expire:4000, text:" Введите Е-Маил! <br>" })
             else 
                 if(!IsValidateEmail(  $("#sEmail_Account").val()  ))
-                dhtmlx.message({ type:"error", expire:4000, text:"Введите правильный E-Mail!" })
+                dhtmlx.message({ type:"error", expire:4000, text:" Введите правильный E-Mail! <br>" })
             else
                 if ($("#sPassword_Account").val() == "")
-                    dhtmlx.message({ type:"error", expire:4000, text:"Введите Пароль!" })
+                    dhtmlx.message({ type:"error", expire:4000, text:" Введите Пароль! <br>" })
             else
                 if ($("#sPassword2_Account").val() == "")
-                    dhtmlx.message({ type:"error", expire:4000, text:"Введите Пароль повторно!" })
+                    dhtmlx.message({ type:"error", expire:4000, text:" Введите Пароль повторно! <br>" })
             else
                 if ($("#sPassword_Account").val() != $("#sPassword2_Account").val())
-                    dhtmlx.message({ type:"error", expire:4000, text:"Пароли не совпадают!" })
+                    dhtmlx.message({ type:"error", expire:4000, text:" Пароли не совпадают! <br>" })
             else{
                 doSend("theCreateAccount");      // отправляем на сервер запрос о создании Аккаунта 
                                                       //document.formReg_CreateAccount.submit();
@@ -107,31 +128,29 @@ $("#img_logo").click(function(){
         });
     
     
+   
 // ------------------ Кликаем на кнопку Входа на сайт
 $("#divLogin #btLogin").click(function(){  
     
     
-    if ($("#divLogin #sEmail").val() == ""){
-     dhtmlx.message({ type:"error", expire:4000, text:"Введите Е-Маил!" });
-     off($("#divLogin #btLogin"),true);  // блокируем кнопку
-     setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 4000) 
+    if  ( ($("#divLogin #sEmail").val() == "") | ($("#divLogin #sPassword").val() == "")  )  {        // если пустой Логин
+     dhtmlx.message({ type:"error", expire:4000, text:"Введите Е-Маил и пароль!" });  // выводим сообщение
+     off($("#divLogin #btLogin"),true);     // блокируем кнопку входа
+     setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 4000)  // через время включаем кнопку
     }
- else
-    if ($("#divLogin #sPassword").val() == ""){
-        dhtmlx.message({ type:"error", expire:4000, text:"Введите Пароль!" })
-        off($("#divLogin #btLogin"),true);  // блокируем кнопку
-        setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 4000) 
-        
-    }
-  else
+  else  // если поля заполнены, то:
       {   
-         // doSend1("theUserLogin");
-          off($("#divLogin #btLogin"),true); // блокируем кнопку
-          setTimeout(function() { doSend1("theUserLogin");  // отправляем запрос
-                                  off($("#divLogin #btLogin"),false);  // разблокируем   
-                                 }, 4000) 
+          off($("#divLogin #btLogin"),true); // блокируем кнопку входа
+          
+          $("body").css("cursor","wait") ;  // курсор мфши в ожидание
+          
+          // Через 4 секунды делаем:
+          setTimeout(function() {   ajax_doLogin();  // отправляем запрос на вход
+                                    off($("#divLogin #btLogin"),false);  // разблокируем  кнопку 
+                                    }, 4000) 
+                                 
           dhtmlx.message({ type:"default", expire:4000, text:"<br>Запрос отправлен, ожидайте...!<br><br>" });
-          //doSend1('theUserLogin');
+         
       }
 });    
     
@@ -140,10 +159,14 @@ $("#divLogin #btLogin").click(function(){
  
 
 
-// AJAX запрос1  -- создаем Аккаунт
+// AJAX  -------- создаем Аккаунт  ----------------
 
-function doSend(nameDO){         //var oData={sDO:"doIt",sName:"MyName",sParam3:"MyParam3",sParam:sParam, sParams:oGet($(".MyParams"))};
-var oData= {   sDO_Account: nameDO,  
+function doSend(doCreateAccount){         //var oData={sDO:"doIt",sName:"MyName",sParam3:"MyParam3",sParam:sParam, sParams:oGet($(".MyParams"))};
+
+
+//$("#divLogin #sEmail").css("cursor","wait") ;
+
+var oData= {   sDO_Account: doCreateAccount,  
              sEmail_Account : $("#sEmail_Account").val(),
              sPassword_Account: $("#sPassword_Account").val(),
              sPassword2_Account: $("#sPassword2_Account").val(),
@@ -153,71 +176,73 @@ var oData= {   sDO_Account: nameDO,
 
  
  $.ajax({type:"POST",dataType:"json",url:"/CreateAccount",data:oData,async:/*false*/true
-      ,success:function(o) {                                            //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-                                                                        //----$(".MyParams").val(""); // очищаем строки     //o.sReturn
-               //alert(o.sReturn_Account);
+      ,success:function(o) {                                                       //эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+                                                                                    //----$(".MyParams").val(""); // очищаем строки     //o.sReturn        
                //dhtmlx.message({ text:o.sReturn_Account,  expire:1000, type:"customCss"  });
                 //dhtmlx.message({ type:"error", expire:2000, text:"Введите Пароль повторно!" })
             if (o.sReturn_Account == "Учетная запись создана !") {
-            
-            // в любом случае закрываем
-                      $("#divAccount").hide();                // прячем окно РЕГИСТРАЦИИ
-                      $("#divLogin").show();                  // показываем окно ВХОДА
+
+                       $("#divAccount").hide();                // прячем окно РЕГИСТРАЦИИ
+                       $("#divLogin").show();                  // показываем окно ВХОДА
                       
             	dhtmlx.modalbox({ 
-			text:"<b><br>Ваша учетная запись успешно создана, <br> желаете автоматически войти на сайт? <br><br></b>",
+			text:"<br><b>Поздравляем! <br><br> Ваша учетная запись успешно создана, <br> желаете автоматически войти на сайт? </b><br><br>",
 			width:"350px",
 			position:"center",
 			buttons:["Да", "Нет"],
 			callback:function(index){
-			if (index==0) {
+			if (index==0) {  //
                                $("#divLogin #sEmail").val( $("#sEmail_Account").val() );
                                $("#divLogin #sPassword").val($("#sPassword_Account").val()) ;
+                              // alert(1);
                                 //  http://localhost:8080/CreateAccount?sDO=theCreateAccount&sEmail=ser412@d3f.dd&sPassword=12&sPassword2=12&sLastName=ser1&sFirstName=bel1
-                               doSend1("theUserLogin");
+                               ajax_doLogin();
                         }
-                        
 				//dhtmlx.message("Button "+index+" was pressed")
+                                $(".sInput_Account").val("");     // очищаем строки регистрации 
 			}
 		});
-            
-            
-          //  $("#divLogin #sEmail").val( $("#sEmail_Account").val() ); // автоматически вводим Емаил 
+                  
+                
            }
-
+           else  // если учетная Запись не создана (выводим "Логин занят" или другое сообщение)
+                {
+                     //dhtmlx.message(" "+o.sReturn_Account);
+                     dhtmlx.message({ type:"error", expire:4000, text:" "+o.sReturn_Account });
+                }
+           
+           
          }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
-         ,dataFilter:function(data, type) {/*alert("это окно будет появляться и при ошибке и при успехе")*/;return data;}
+         ,dataFilter:function(data, type) { return data;}
          });
 }
 
 
 
-var countEnter = 5; // по умолчанию
-//var bSend = true; //
-// AJAX запрос 2  --- проверка логина и пароля для входа на сайт
-function doSend1(nameDO){  
-    
- if (countEnter == -1)
-     return;
 
+
+// AJAX   ----------- ВХОД на сайт  ----------------
+var countEnter = 5;      // по умолчанию
+
+function ajax_doLogin(){  
+
+if (countEnter == -1)   return; // блокировка отправки сообщений
        
-var oData= {   sDO: nameDO,  
+var oData= { sDO: "theUserLogin",
              sEmail : $("#divLogin #sEmail").val(),
              sPassword: $("#divLogin #sPassword").val(),
              bBlocked: false
-     };
+           };
 
  $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
-      ,success:function(o) {                                                    //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-            alert(o.sReturn+"1");
-            if (o.sReturn == "Добро пожаловать на сайт!"){   
-                (window.location.href="/index.jsp"); 
-                alert(o.sReturn+"2");
+      ,success:function(o) {                                                                                 //    эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+
+          if (o.sReturn == "Добро пожаловать на сайт!"){  (window.location.href="/index.jsp"); 
             }  
             else{
-                alert(o.sReturn+"3");
+             
                dhtmlx.message({ type:"error", expire:5000, text:o.sReturn + "<br><br>( Осталось попыток: "+countEnter+" )"  })
-                countEnter--; // неудачная попытка
+                countEnter--;   // неудачная попытка, минус 1
                if (countEnter == -1)
                {    
                   dhtmlx.message({ type:"error", expire:10000, text:"Отправка запросов заблокирована <br>на 30 секунд!" })
@@ -226,53 +251,46 @@ var oData= {   sDO: nameDO,
             }
             //alert(o.sReturn);
            
-            
 
          }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
-         ,dataFilter:function(data, type) {/*alert("это окно будет появляться и при ошибке и при успехе")*/;return data;}
+         ,dataFilter:function(data, type) {
+                            $("body").css("cursor","default") ;  // курсор мыши делаем нормальный
+              return data;}
          });
 }
 
 
 
 
-// AJAX запрос 3    // отправляем запрос на сервер и Удаляем сессию
-function doSend2(sNameDo){         
-var oData= {   sDO: sNameDo  
-             //sEmail : $("#divLogin #sEmail").val(),
-             //sPassword: $("#divLogin #sPassword").val()
-     };
- $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
-      ,success:function(o) {                                                    //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-                                                                                //----$(".MyParams").val(""); // очищаем строки     //o.sReturn
-            //alert(o.sReturn);
-            window.location.href="/index.jsp"  ;
-            //if (o.sReturn == "Добро пожаловать на сайт!"){   (window.location.href="/index.jsp")     }  
-            
-
+// AJAX   --------  запрос на сервер и Удаляем сессию  -----------------------
+function  ajax_doDestroySession(){         
+   var oData= {   sDO: "theDestroySession"       };
+ 
+ $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
+      ,success:function(o) {                                                              //эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+                         window.location.href="/index.jsp"  ;
          }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
-         ,dataFilter:function(data, type) {/*alert("это окно будет появляться и при ошибке и при успехе")*/;return data;}
+         ,dataFilter:function(data, type) { return data;}
          });
 }
 
 
 
-// AJAX запрос 4    // список всех сессий
+// AJAX  ----------------  список всех сессий   ---------------------------
 function ajax_getAllSession(){         
-var oData= {   sDO: "theGetAllSessionList"  
-             //sEmail : $("#divLogin #sEmail").val(),
-             //sPassword: $("#divLogin #sPassword").val()
-     };
- $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
-      ,success:function(o) {                                                    //учти, что эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-                                                                                //----$(".MyParams").val(""); // очищаем строки     //o.sReturn
-            if (o.sReturn != null)
-                alert(o.sReturn);
-           
-            //if (o.sReturn == "Добро пожаловать на сайт!"){   (window.location.href="/index.jsp")     }  
+   var oData= {   sDO: "theGetAllSessionList"   };
+ 
+ $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
+      ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+                                                                                
+            if (o.sReturn != null)    {  //alert(o.sReturn);
+            $("#divAllSessinList table tr").html(o.sReturn);
+            $("#divAllSessinList").css("left","150px");
+            }
+            
 
          }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
-         ,dataFilter:function(data, type) {/*alert("это окно будет появляться и при ошибке и при успехе")*/;return data;}
+         ,dataFilter:function(data, type) { return data;}
          });
 }
 

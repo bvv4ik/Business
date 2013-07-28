@@ -46,6 +46,7 @@ import javax.servlet.annotation.WebServlet;
 public class Login extends HttpServlet {
 
     public ArrayList<String> aListAllSession = new ArrayList<String>();
+    // public static ArrayList<String[]> aResult = new ArrayList<String[]>();
     private int countEnter = 5;
     
     
@@ -59,8 +60,9 @@ public class Login extends HttpServlet {
         String              sReturn = "",
                             sDO = "" ,
                                 sEmail = "",
-                                sPassword = "",
-                               sSess = "";
+                                sPassword = ""
+                               //sSess = ""
+                            ;
            
         try {
 
@@ -103,8 +105,14 @@ public class Login extends HttpServlet {
                                  Date d = new Date(/*tmp*/);
                                  DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
                                  String sTimeLogin = df.format(d);
-                         
-                        aListAllSession.add(sEmail+"   "+session.getId()+"   "+sTimeLogin+"   "+request.getRemoteAddr()+"   "+ request.getServerName());
+                        
+                           // формируем ячейки таблицы      
+                        //aListAllSession.add(sEmail+"   "+session.getId()+"   "+sTimeLogin+"   "+request.getRemoteAddr()+"   "+ request.getServerName());
+                        aListAllSession.add("<td>"+sEmail+"</td>"+ 
+                              "<td>"+session.getId()+"</td>"+ 
+                              "<td>"+sTimeLogin+"</td>"+ 
+                              "<td>"+request.getRemoteAddr()+"</td>"+
+                              "<td>"+request.getServerName()+"</td>");
                         //+"   "+session.getCreationTime()+"   "+session.getLastAccessedTime()
                         
                         // Запись инфы в базу о пользователе при Входе пользователя
@@ -141,10 +149,12 @@ public class Login extends HttpServlet {
             
             if ("theGetAllSessionList".equals(sDO)) {
                 String s = "";
+                
+                //for (int i = 0; i < aListAllSession.size(); i++) { }
                 for (String temp: aListAllSession){ 
-                  s=s+temp+" ";
-                   }
-    
+                  s = s+"<tr>"+ temp+"</tr>";  // делаем табличные строки
+                }
+                     //<tr>   <td>1</td>  </tr>
                 sReturn = "{\"sReturn\":\"" + s + "\"}";
             } 
 
