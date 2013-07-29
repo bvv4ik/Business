@@ -7,7 +7,7 @@
          m argin        : 0 auto;  /*по центру экрана*/
          top : 100px;
          left : -1000px;
-         background:  lightgray;
+         background:  #CD853F;
          z-index: 100;
          
      overflow:auto; /* прокрутка появляется по необходимости */

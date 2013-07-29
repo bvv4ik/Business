@@ -121,12 +121,12 @@
 
 <!--           Добро пожаловать на главную страницу! -->
 <div id="divAllSessinList" >    
-
+<input type="button" value="Закрыть" style="position:relative; left:700px;" onClick="$('#divAllSessinList').css('left','-1000px');" >
 <table id="table1" cellspacing="0">   
 
 
 </table>
-<input type="button" value="Закрыть" onClick="$('#divAllSessinList').css('left','-1000px');" >
+
      
 </div>
 

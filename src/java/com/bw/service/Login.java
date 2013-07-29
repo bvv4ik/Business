@@ -49,10 +49,40 @@ import javax.servlet.annotation.WebServlet;
 
 public class Login extends HttpServlet {
 
-    public ArrayList<String> aListAllSession = new ArrayList<String>();
+     
+          
+     public static java.util.Timer timer = new java.util.Timer();
+     public static int TimerCount = 0;
+     
+     
+   public static class RunMeTask extends TimerTask
+  {     
+	@Override
+	public void run() {
+		//System.out.println("Run Me ~");    
+                TimerCount++;    
+                
+                String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
+                                  "sEmail",
+                                  "sEmail",
+                                  "sEmail",
+                                  "sEmail",
+                                  "sEmail",
+                                  "sEmail",
+                                  };
+                             
+                     aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
+                
+                        
+                if (TimerCount == 50)
+                timer.cancel();
+	}
+}   
+ 
+    public static ArrayList<String> aListAllSession = new ArrayList<String>();
     //public ArrayList<String> aListAllSession = new ArrayList<String>();
     //public String sIsOnline = "Online";
-     public static ArrayList<String[]> aAllSession = new ArrayList<String[]>();
+    public static ArrayList<String[]> aAllSession = new ArrayList<String[]>();
     private int countEnter = 5;
     
     
@@ -81,77 +111,7 @@ public class Login extends HttpServlet {
     //------------- ВХОД пользователя ---------------
             if ("theUserLogin".equals(sDO)) {
                 
-                
-//                if (countEnter == 0){
-//                    sReturn = "{\"sReturn\":\"" + "Вы заблокирован !" + "\"}";
-//                    return;
-//                }
-//    int delay = 5000;   // delay for 5 sec.
-//    int interval = 1000;  // iterate every sec.
-//    Timer timer = new Timer();
-//    timer.scheduleAtFixedRate(new TimerTask() {
-//            public void run() {
-//                // Task here ...
-//                
-//            }
-//        }, delay, interval);
-//                
-
-  // вызывается 1 раз               
-//  java.util.Timer timer2 = new java.util.Timer();
-//  TimerTask task = new TimerTask() {
-//      public void run()
-//      {     //Do work!         //    aListAllSession.remove(0);
-//           aListAllSession.add("<td>"+1+"</td>"+ 
-//                              "<td>"+2+"</td>"+ 
-//                              "<td>"+3+"</td>"+
-//                              "<td>"+ 4 +"</td>"+ 
-//                              "<td>"+5+"</td>"+
-//                              "<td>"+6+"</td>");
-//      }
-//  };
-//  timer2.schedule( task, 5000 );
-  
- 
-////int delay = 1000; //milliseconds
-////  ActionListener taskPerformer = new ActionListener() {
-////    
-////       public void actionPerformed(ActionEvent evt) {
-////          //...Perform a task...
-////           aListAllSession.add("<td>"+1+"</td>"+ 
-////                              "<td>"+2+"</td>"+ 
-////                              "<td>"+3+"</td>"+
-////                              "<td>"+ 4 +"</td>"+ 
-////                              "<td>"+5+"</td>"+
-////                              "<td>"+6+"</td>");
-////       //    setRepeats(false) ;
-////      }
-////  };
-////   new Timer(delay, taskPerformer).start();
- 
-//Timer tim;                 
-//tim = new Timer(1000, new ActionListener() {
-//    //@Override
-//    public void actionPerformed(ActionEvent ae) {
-//
-//         aListAllSession.add("<td>"+1+"</td>"+ 
-//                              "<td>"+2+"</td>"+ 
-//                              "<td>"+3+"</td>"+
-//                              "<td>"+ 4 +"</td>"+ 
-//                              "<td>"+5+"</td>"+
-//                              "<td>"+6+"</td>");
-//       
-//    }
-//        
-//});                 
-//  tim.start();
-//    tim.stop();
-  
-  //timer2.schedule( task, date ); //date - java.util.Date
-                 
-                 
-                 
-                
+      
                 Access A = new Access();
                 if (A.bLoginExists(sEmail) == true) { // true - Емаил существует в базе
                     String Pass = "";
@@ -166,34 +126,42 @@ public class Login extends HttpServlet {
                                  DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
                                  String sTimeLogin = df.format(d);
                         
-                                 Date d1 = new Date(session.getLastAccessedTime());         DateFormat df1 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");                                  String sLastAccessedTime = df1.format(d1);
+                                 //Date d1 = new Date(session.getLastAccessedTime());         DateFormat df1 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");                                  String sLastAccessedTime = df1.format(d1);
                                  
                            // формируем ячейки таблицы      
                         //aListAllSession.add(sEmail+"   "+session.getId()+"   "+sTimeLogin+"   "+request.getRemoteAddr()+"   "+ request.getServerName());
-                        String[] sArr2 = {  
+
+                        String[] sArrSession = {  // создаем строковый  массив с инф. о пользователе
                                   sEmail,
                                   session.getId(),
                                   sTimeLogin,
-                                  "150",
+                                  "Подключен",
                                   request.getRemoteAddr(),
                                   request.getServerName()
                                   };
                              
-                             aAllSession.add(sArr2);
+                             aAllSession.add(sArrSession); // переносим в Список Массивов для хранения
                              
                              
                              
                                  
-                             aListAllSession.add("<td>"+sEmail+"</td>"+ 
-                              "<td>"+session.getId()+"</td>"+ 
-                              "<td>"+sTimeLogin+"</td>"+
-                              "<td>"+ sLastAccessedTime  +"</td>"+ 
-                              "<td>"+request.getRemoteAddr()+"</td>"+
-                              "<td>"+request.getServerName()+"</td>");
-                        //+"   "+session.getCreationTime()+"   "+session.getLastAccessedTime()
+//                             aListAllSession.add(
+//                                     
+//                              "<td>"+sEmail+"</td>"+ 
+//                              "<td>"+session.getId()+"</td>"+ 
+//                              "<td>"+sTimeLogin+"</td>"+
+//                              "<td>"+sLastAccessedTime  +"</td>"+ 
+//                              "<td>"+request.getRemoteAddr()+"</td>"+
+//                              "<td>"+request.getServerName()+"</td>");
+                       
                         
                         // Запись инфы в базу о пользователе при Входе пользователя
                          AccessOf.saveInfoWhenUserLogined(sEmail);
+                         
+                         // включаем таймер
+                         TimerTask task = new RunMeTask();    
+    	                 timer.schedule(task, 1000,100);
+                         
                          
                                                                               // нельзя чтобы в json было пустое значение
                         sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\" }"; //не менять
@@ -227,11 +195,18 @@ public class Login extends HttpServlet {
             if ("theGetAllSessionList".equals(sDO)) {
                 String s = "";
                 
-                //for (int i = 0; i < aListAllSession.size(); i++) { }
-                for (String temp: aListAllSession){ 
-                  s = s+"<tr>"+ temp+"</tr>";  // делаем табличные строки
-                }
-                    s = "<tr>  <td>E-Mail</td><td>ID Session</td><td>TimeLogin</td><td>LastAccessedTime</td><td>RemoteAddr</td><td>ServerName</td>  </tr>"+s;
+                //for (int i = 0; i < aAllSession.size(); i++) { }
+                for (String[] temp: aAllSession){     //aListAllSession
+                  s = s+"<tr>"+  
+                          "<td>"+temp[0]+"</td>"+ 
+                          "<td>"+temp[1]+"</td>"+ 
+                          "<td>"+temp[2]+"</td>"+ 
+                          "<td>"+temp[3]+"</td>"+ 
+                          "<td>"+temp[4]+"</td>"+ 
+                          "<td>"+temp[5]+"</td>"+ 
+                          "</tr>";  // делаем табличные строки
+                }  // Добавляем шапку к таблице
+                    s = "<tr>  <td>E-Mail</td> <td>ID Session</td><td>Время входа</td><td>Статус</td><td>IP адрес</td><td>ServerName</td>  </tr>"+s;
                     
                 sReturn = "{\"sReturn\":\"" + s + "\"}";
             } 
@@ -292,3 +267,60 @@ public class Login extends HttpServlet {
 //                                sReturn = "{\"sReturn\":\"Error, ошибка в сервлете \"}" + sErr;
 //                                     }  
      //==================    
+
+
+
+
+
+  // вызывается 1 раз               
+//  java.util.Timer timer2 = new java.util.Timer();
+//  TimerTask task = new TimerTask() {
+//      public void run()
+//      {     //Do work!         //    aListAllSession.remove(0);
+//           aListAllSession.add("<td>"+1+"</td>"+ 
+//                              "<td>"+2+"</td>"+ 
+//                              "<td>"+3+"</td>"+
+//                              "<td>"+ 4 +"</td>"+ 
+//                              "<td>"+5+"</td>"+
+//                              "<td>"+6+"</td>");
+//      }
+//  };
+//  timer2.schedule( task, 5000 );
+  
+ 
+////int delay = 1000; //milliseconds
+////  ActionListener taskPerformer = new ActionListener() {
+////    
+////       public void actionPerformed(ActionEvent evt) {
+////          //...Perform a task...
+////           aListAllSession.add("<td>"+1+"</td>"+ 
+////                              "<td>"+2+"</td>"+ 
+////                              "<td>"+3+"</td>"+
+////                              "<td>"+ 4 +"</td>"+ 
+////                              "<td>"+5+"</td>"+
+////                              "<td>"+6+"</td>");
+////       //    setRepeats(false) ;
+////      }
+////  };
+////   new Timer(delay, taskPerformer).start();
+ 
+//Timer tim = null;                 
+//tim = new Timer(1000, new ActionListener() {
+//    //@Override
+//    public void actionPerformed(ActionEvent ae) {
+//
+//         aListAllSession.add("<td>"+1+"</td>"+ 
+//                              "<td>"+2+"</td>"+ 
+//                              "<td>"+3+"</td>"+
+//                              "<td>"+ 4 +"</td>"+ 
+//                              "<td>"+5+"</td>"+
+//                              "<td>"+6+"</td>");
+//    //tim.stop();    
+//    }
+//        
+//});                 
+//  tim.start();
+   
+  
+  //timer2.schedule( task, date ); //date - java.util.Date
+                 
