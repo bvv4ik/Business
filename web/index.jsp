@@ -43,13 +43,12 @@
 
         <script type="text/javascript" src='js/message/codebase/message.js'></script>
 	
-	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_default.css" title="Default"/>
+	<!-- <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_default.css" title="Default"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_dark.css" title="Growl - dark"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_shiny.css" title="Growl - shiny"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
-        
-	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>
-        
+	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
+        -->
      	<script type="text/javascript" src="js/qTip2/jquery.qtip.js"> </script>
 	<link rel="stylesheet" type="text/css" href="js/qTip2/jquery.qtip.css"/>
 
@@ -59,7 +58,7 @@
 
 
        
-       <%   // oEmail = 1 ; 
+       <%    //oEmail = 1 ; 
             if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %> 
@@ -101,7 +100,10 @@
       </div>
           <!-- <h1>    Добро пожаловать <    %=oLogin%>  <    %=oLastName%> <    %=oFirstName%> <   %=oSureName%>    </h1> !-->
 
-		  
+
+
+
+
 <!--    <div id="progressBar_Account" >     <div></div>          </div>  <br>
 <style>
 #progressBar_Account {
@@ -118,17 +120,39 @@
         { %>    
 
 <!--          < %=oEmail%>        -->
-
 <!--           Добро пожаловать на главную страницу! -->
+
 <div id="divAllSessinList" >    
-<input type="button" value="Закрыть" style="position:relative; left:700px;" onClick="$('#divAllSessinList').css('left','-1000px');" >
+<input type="button" value="Закрыть" style="position:relative; left:700px;" onClick="$('#divAllSessinList').css('display','none'); $('#FON_contact').css('display','none');" >
 <table id="table1" cellspacing="0">   
-
-
 </table>
 
-     
 </div>
+
+<!-- --------------------------- КОНТАКТ форма ------------------------------- -->          
+<div id="form_contact">
+          <p id="btClose_contact" >X</p>
+                    <h1 id="title1"> <b>Форма  обратной связи</b></h1>
+                    <div> <b>Здесь вы можете оставить свое сообщение:</b> </div>
+                    <div> <b>Ваше имя:</b>  <input class="theInput"  type="text" value="Сергей"  maxlength="30" readonly="" style="background: #cccccc; color: gray" /></div>
+                    <div> <b>Ваш e-mail:</b> <input class="theInput"  type="text"  value="Serg@mail.ru" maxlength="30" readonly="" style="background: #cccccc; color: gray" /></div>
+                    <div> <b>Тема сообщения:</b> </div>
+                    <div>   <select class="theInput"  id="sel" >           <option value="" selected="selected"> --- выбрать тему ---</option>       <option value="Предлагаю...">Предлагаю...</option>  	  <option value="Нашел ошибку!">Нашел ошибку!</option> 	      <option value="Помогите...">Помогите...</option>      <option value="Желаю...">Желаю...</option>           </select></div>
+                    <div  id="blockMessage" > <b>Сообщение:</b>  </div>
+                    <div  id="blockSelect" >   <textarea id="textarea_contact" rows="14" cols="57" placeholder="  ( максимум 1000 символов ) " maxlength="1000" ></textarea></div>
+                    <div  id="blockMessageLength"> (Осталось символов: <b>1000</b>)  </div>
+                    <div>  <input class="theInput"  style="left : 320px; width:110px"  type="button"  value="Отправить"> </div>
+
+</div>
+
+
+<div id="FON_contact">           
+</div>
+<!-- ---------------------------------------------------------- -->          
+
+
+     
+
 
 
 
@@ -141,9 +165,9 @@
 					<li> <a href="#">Новости</a>	     </li>  <div id="separatop"></div>
 					<li> <a href="#">Библиотека</a>    </li>  <div id="separatop"></div>
 					<li> <a href="#">Настройки</a>	 </li> 	<div id="separatop"></div>
-					<li> <a href="#">О нас...</a>  	 </li> 	<div id="separatop"></div>
-					<li> <a href="#">Контакты</a>	     </li> 	<div id="separatop"></div>
-					<li> <a href="#">Личный кабинет</a></li> 	<div id="separatop"></div>
+					<li> <a id="mainPageAdmin" href="#">Админ</a>  	 </li> 	<div id="separatop"></div>
+					<li> <a id="mainPagePrivateOffice" href="#">Личный кабинет</a></li> 	<div id="separatop"></div>
+                                        <li> <a id="mainPageContact" href="#">Контакты</a>	     </li> 	<div id="separatop"></div>
 					<li> <a id="mainPageExitSession" href="#">Выход</a>	     </li>
 				</ul>
 			</div>

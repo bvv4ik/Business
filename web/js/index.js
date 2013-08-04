@@ -1,28 +1,61 @@
 //$(document).ready(function() { 
 // });
+// 
+// 
+
 
 window.onload=function() { 
 
+//-------------------------Форма Контактов
+// счетчик символов до 1000
+	$("#textarea_contact").keyup(function () {
+	       var s = $("#textarea_contact").val().length;   	//alert(s);
+	       $("#blockMessageLength").html("(Осталось символов: " + "<b>"+ -(s-1000)+ "</b> )" );
+     });
 
+
+	//скрываем контакты
+    // var pos = $("#form_contact").position();
+	$("#btClose_contact").click( function (){
+//	if (pos.left <= 0) {
+//		$("#form_contact").css("left","250px");
+//		pos.left = 250;
+//		}
+//		else{
+//		pos.left = -150;
+//		$("#form_contact").css("left","-150px");
+//		}
+          $("#form_contact").css("display","none");  
+          $("#FON_contact").css("display","none");  
+         // $("body").css("overflow","scroll");
+	}); 
+        
+         // показываем форму контактов       
+        $("#mainPageContact").click( function (){     
+           $("#form_contact").css("display","block");  // $("#form_contact").show();  
+           $("#FON_contact").css("display","block");
+        //   $("body").css("overflow","hidden");
+           
+        });
+        
+//----------------------------------------------------------
+
+  
 $('.sInput_Account').qtip({
     content: {
 		title: {
                 text: 'Информация:'
                        }//,
 		//text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> '
-                
 		     },
                   //content: 'Stems are great for indicating' , // принудительно
-	  
            show: 'focus',
          //  show: {  delay: 1000  },	//задержка
 //                          show: {    effect: function(offset) {
 //                           $(this).slideDown(500); // "this" refers to the tooltip 
 //                           }
 //                           },	
-         
        hide: 'blur',
-                   
         position: {
             adjust: { x: 7 }, // принудительное смещение
             my: 'left top',  // Position my top left...
@@ -77,7 +110,14 @@ $("#divError").click(function(){
     .mouseout(function(){   $(this).css("left","15px")   });   // сдвигаем логотип при наведении 
 
 $("#img_logo").click(function(){
-   ajax_getAllSession();
+   
+});
+
+           
+
+
+$("#mainPageAdmin").click(function(){
+ ajax_getAllSession();
 });
     
 //---------------- Удаляем сессию пользователя
@@ -149,8 +189,9 @@ $("#divLogin #btLogin").click(function(){
                                     off($("#divLogin #btLogin"),false);  // разблокируем  кнопку 
                                     }, 4000) 
                                  
-          dhtmlx.message({ type:"default", expire:4000, text:"<br>Запрос отправлен, ожидайте...!<br><br>" });
-         
+          dhtmlx.message({ type:"default", expire:4000, text:"<br>Запрос отправлен...!<br><br>" });
+       //<img src="img/wait.gif" />   
+       alert(2);
       }
 });    
     
@@ -287,7 +328,10 @@ function ajax_getAllSession(){
                                                                                 
             if (o.sReturn != null)    {  //alert(o.sReturn);
             $("#divAllSessinList table").html(o.sReturn);
-            $("#divAllSessinList").css("left","150px");
+           // $("#divAllSessinList").css("left","150px");
+           $("#divAllSessinList").css("display","block");
+           $("#FON_contact").css("display","block");
+
             }
             
 
@@ -298,9 +342,9 @@ function ajax_getAllSession(){
 
 
 
-
- // ----------------- Функция блокировка выделения страницы
- //должно быть в самом низу скрипта, иначе блокирует некоторые элементы
+//
+////  ----------------- Функция блокировка выделения страницы
+// //должно быть в самом низу скрипта, иначе блокирует некоторые элементы
 //    function disableSelection(target){ 
 //        if (typeof target.onselectstart!="undefined") //IE route 
 //            target.onselectstart=function(){return false} 
@@ -310,12 +354,16 @@ function ajax_getAllSession(){
 //            target.onmousedown=function(){return false} 
 //        target.style.cursor = "default" ;
 //    }; 
-//    
 //    // ----------------- Блокируем выделение мышью Форм
-//    var somediv=document.getElementById("divFon") ;
+//    var somediv=document.getElementById("#form_contact") ;
 //    disableSelection(somediv); 
-    
+
+
+
+
     };
+
+
 
 
   // ----------------- Функция проверки валидности Е-маила

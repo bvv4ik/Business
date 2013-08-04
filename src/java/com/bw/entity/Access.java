@@ -13,13 +13,20 @@ import com.bw.io.ConnectSybase;
 import java.sql.ResultSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-/**
- *
- * @author Ser
- */
+
+
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpSession;
+//
+//import javax.servlet.ServletException;
+//import javax.servlet.http.HttpServlet;
+
+
+
 public class Access  {
  
-   
+//public static HttpServletRequest request;   
     
 //public static int nID;
 private int nID;
@@ -72,6 +79,9 @@ private int bDisabled; //(вырубить доступ)
 
  public static String userRegistration (String sEmail, String sPassword, String sPassword2) throws Exception {
   
+ 
+// HttpSession session = request.getSession(true);  
+//   Object o = session.getAttribute("sLogin");
 
    if  ( (sEmail==null) | (sPassword==null) | (sPassword2==null)/* | (sEmail==null)*/ )
         return "Одна или несколько строк Null";

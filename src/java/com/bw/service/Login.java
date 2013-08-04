@@ -14,6 +14,12 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 //import javax.servlet.http.HttpServlet;
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
@@ -55,53 +61,139 @@ public class Login extends HttpServlet {
      public static int TimerCount = 0;
      
      
-   public static class RunMeTask extends TimerTask
-  {     
-	@Override
-	public void run() {
-		//System.out.println("Run Me ~");    
-                TimerCount++;    
-                
-                String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
-                                  "sEmail",
-                                  "sEmail",
-                                  "sEmail",
-                                  "sEmail",
-                                  "sEmail",
-                                  "sEmail",
-                                  };
-                             
-                     aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
-                
-                        
-                if (TimerCount == 50)
-                timer.cancel();
-	}
-}   
+//   public  class RunMeTask extends TimerTask   //extends HttpServlet
+//  {     
+//	@Override
+//	public void run() { 		//System.out.println("Run Me ~");    
+//                TimerCount++;    
+//                
+//                String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
+//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sEmail",
+//                                  };
+//                             
+//                     aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
+//                 //sIDCurrentSession =  HttpServletRequest.getSession().getId();
+//                 HttpSession session = request.getSession();
+//                 if (request. session.getId() == null)
+//                     //    sIDSession
+//                      Login.
+//                     
+//                if (TimerCount == 50)
+//                timer.cancel();
+//	}
+//}   
+//   
+   
+      
+     
+    
+  
+     
+     
+     //============================
+// private static TimerTask task = new TimerTask() {
+//  
+//  @Override
+//  public void run() //(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+//    
+//  {     //Do work!         //    aListAllSession.remove(0);
+//           //System.out.println("1");
+//            //aAllSession.remove(0);    
+//       String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
+//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sEmail",
+//                                  };
+//                        
+//                   aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
+//               //     sIDCurrentSession =  HttpServletRequest.getSession().getId();
+//                 //HttpSession session = Login.getSession();
+//                 Login.
+//                   
+//            timer.cancel();  
+//           //if (request.getSession() == null){
+//          //if (request.getSession() == null){
+//          //  }
+//               
+//      }
+//};
+
+    
  
+   
+    public static String sIDCurrentSession = "";
+   
     public static ArrayList<String> aListAllSession = new ArrayList<String>();
     //public ArrayList<String> aListAllSession = new ArrayList<String>();
     //public String sIsOnline = "Online";
     public static ArrayList<String[]> aAllSession = new ArrayList<String[]>();
     private int countEnter = 5;
+//    public static HttpServletRequest request1;
     
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
 
         String              sReturn = "",
                             sDO = "" ,
                                 sEmail = "",
-                                sPassword = ""
-                               //sSess = ""
+                                sPassword = "",
+                              
+                               sSess = ""
                             ;
            
+  sSess = request.getSession().getId(); 
+        
         try {
 
+//       HttpSession session = request.getSession(true);  
+//   Object o = session.getAttribute("sLogin");
+             
+            
+//      TimerTask task = new TimerTask() {
+//       
+//
+//        
+//  @Override
+//  public  void  run() //(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+//    
+//  {     //Do work!         //    aListAllSession.remove(0);
+//     //HttpServletRequest request2;//
+//     // HttpSession session1 = request1.getSession();
+//      //  String sessionId  = session1.getId(); 
+//       //System.out.println("1");
+//            //aAllSession.remove(0);    
+//
+//       
+//      String sessionId  = sSess;
+//     //  HttpSession session = Login.request.getSession();
+//       //String sessionId = session.getId();
+//       // HttpServletRequest request2;// = getSession().getId();
+//       //String sessionId  =  request2.getSession().getId();
+//               //Login.request1.getSession().getId();
+//       
+//              // HttpServletRequest.getSession().getId();
+//       String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
+//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sessionId",
+//                                  };       
+//                        HttpSession session = request.getSession();
+//                       // Login.request.getSession().getId();
+//                   aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
+//                   
+//                   TimerCount++;   
+//                   
+//                   //sIDCurrentSession
+//                   
+//                    if (TimerCount == 5)
+////                timer.cancel();
+//            timer.cancel();  
+////           sIDCurrentSession =  session.getId();            
+//         //  sIDCurrentSession = request.getPathInfo();
+//           
+//      }
+//};    
+         
+             
+             
             sDO = request.getParameter("sDO"); //вытягиваем параметры
                sEmail = request.getParameter("sEmail");
                sPassword = request.getParameter("sPassword");
@@ -130,7 +222,8 @@ public class Login extends HttpServlet {
                                  
                            // формируем ячейки таблицы      
                         //aListAllSession.add(sEmail+"   "+session.getId()+"   "+sTimeLogin+"   "+request.getRemoteAddr()+"   "+ request.getServerName());
-
+                      
+                       
                         String[] sArrSession = {  // создаем строковый  массив с инф. о пользователе
                                   sEmail,
                                   session.getId(),
@@ -159,12 +252,26 @@ public class Login extends HttpServlet {
                          AccessOf.saveInfoWhenUserLogined(sEmail);
                          
                          // включаем таймер
-                         TimerTask task = new RunMeTask();    
-    	                 timer.schedule(task, 1000,100);
+                      //   TimerTask task = new RunMeTask(); 
+                        // this.request1 = request ;
+    	               //  timer.schedule(task, 100,1000);
+                          sIDCurrentSession = session.getId();
                          
-                         
+                          
                                                                               // нельзя чтобы в json было пустое значение
                         sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\" }"; //не менять
+                        
+                                
+//                        while (TimerCount < 5){
+//                             TimerCount++;
+//                         String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
+//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sessionId",
+//                                  };       
+//                            aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
+//                             Thread.sleep(1000);
+//                        }
+                        
+                        
                         //sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}";
                     } else { // неверный пароль
                    //         countEnter--; 
