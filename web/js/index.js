@@ -174,9 +174,9 @@ $("#divLogin #btLogin").click(function(){
     
     
     if  ( ($("#divLogin #sEmail").val() == "") | ($("#divLogin #sPassword").val() == "")  )  {        // если пустой Логин
-     dhtmlx.message({ type:"error", expire:4000, text:"Введите Е-Маил и пароль!" });  // выводим сообщение
+     dhtmlx.message({ type:"error", expire:3000, text:"Введите Е-Маил и пароль!" });  // выводим сообщение
      off($("#divLogin #btLogin"),true);     // блокируем кнопку входа
-     setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 4000)  // через время включаем кнопку
+     setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 3000)  // через время включаем кнопку
     }
   else  // если поля заполнены, то:
       {   
@@ -187,11 +187,11 @@ $("#divLogin #btLogin").click(function(){
           // Через 4 секунды делаем:
           setTimeout(function() {   ajax_doLogin();  // отправляем запрос на вход
                                     off($("#divLogin #btLogin"),false);  // разблокируем  кнопку 
-                                    }, 4000) 
+                                    }, 3000) 
                                  
-          dhtmlx.message({ type:"default", expire:4000, text:"<br>Запрос отправлен...!<br><br>" });
-       //<img src="img/wait.gif" />   
-       alert(2);
+          dhtmlx.message({ type:"default", expire:3000, text:"<br> <img src='img/wait.gif'/> &nbsp; Ожидайте... <br><br>" });
+          
+       
       }
 });    
     

@@ -43,8 +43,8 @@
 
         <script type="text/javascript" src='js/message/codebase/message.js'></script>
 	
-	<!-- <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_default.css" title="Default"/>
-	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_dark.css" title="Growl - dark"/>
+	 <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_default.css" title="Default"/>
+	<!--<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_dark.css" title="Growl - dark"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_shiny.css" title="Growl - shiny"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
@@ -75,9 +75,9 @@
 
  <!-- ------------------------ ВХОД форма ------------------------------------- -->
            <div id="divLogin" >
-                <br>                             <!-- value="ser111@ss.ss" -->
-               <input  class="sInput_Login" id="sEmail"   type="text" value="ser111@ss.ss" placeholder="Е-Маил..."  maxlength="25" />   <br> <br>
-               <input  class="sInput_Login" id="sPassword" type="Password" value="111" placeholder="Пароль..."  maxlength="25" />  <br> <br>
+                <br>                             <!-- value="ser111@ss.ss"    value="111"-->
+               <input  class="sInput_Login" id="sEmail"   type="text" value="" placeholder="Е-Маил..."  maxlength="25" />   <br> <br>
+               <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="Пароль..."  maxlength="25" />  <br> <br>
                <input  class="allButt" id="btLogin" type="button" value="Вход" />  
                <a id="linkRegister" href ="#" >Регистрация </a>   <br> <br>  <!--   http://localhost:8080/Business/register.jsp   -->
            </div>
