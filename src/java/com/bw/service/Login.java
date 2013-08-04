@@ -57,8 +57,8 @@ public class Login extends HttpServlet {
 
      
           
-     public static java.util.Timer timer = new java.util.Timer();
-     public static int TimerCount = 0;
+  //   public static java.util.Timer timer = new java.util.Timer();
+   //  public static int TimerCount = 0;
      
      
 //   public  class RunMeTask extends TimerTask   //extends HttpServlet
@@ -119,7 +119,7 @@ public class Login extends HttpServlet {
     
  
    
-    public static String sIDCurrentSession = "";
+  //  public static String sIDCurrentSession = "";
    
     public static ArrayList<String> aListAllSession = new ArrayList<String>();
     //public ArrayList<String> aListAllSession = new ArrayList<String>();
@@ -141,7 +141,7 @@ public class Login extends HttpServlet {
                                sSess = ""
                             ;
            
-  sSess = request.getSession().getId(); 
+ // sSess = request.getSession().getId(); 
         
         try {
 
@@ -194,7 +194,7 @@ public class Login extends HttpServlet {
          
              
              
-            sDO = request.getParameter("sDO"); //вытягиваем параметры
+               sDO = request.getParameter("sDO"); //вытягиваем параметры
                sEmail = request.getParameter("sEmail");
                sPassword = request.getParameter("sPassword");
      
@@ -255,7 +255,7 @@ public class Login extends HttpServlet {
                       //   TimerTask task = new RunMeTask(); 
                         // this.request1 = request ;
     	               //  timer.schedule(task, 100,1000);
-                          sIDCurrentSession = session.getId();
+                         // sIDCurrentSession = session.getId();
                          
                           
                                                                               // нельзя чтобы в json было пустое значение
