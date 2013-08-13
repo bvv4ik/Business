@@ -3,12 +3,41 @@
 body{
 	margin:0px;
 	padding:0px;
+       
 }
+body {
+    ba ckground-color: white; /*#FFFFF0;*/
+    background-image: url(../img/body-bg1.jpg);
+}
+
+body{
+/*     background: rgb(58, 58, 58);
+     background-image: url(../img/body-bg1.jpg);*/
+}
+
+/*
+#left, textarea{  / *запрет выделения текста на странице* /
+-moz-user-select: -moz-none;
+-o-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+user-select: none;
+cursor : default;
+}
+*/
+
 /*
 body{
 	background:  url(dark_wood_texture.jpg)  #282828;
 	font-family:Arial, Helvetica, sans-serif;
 }*/
+
+/* стилизация placeholder*/ /* стили для webkit */
+.sInput_Account::-webkit-input-placeholder {  color:#00f;    opacity: 0.5; }
+.sInput_Login::-webkit-input-placeholder {    color:#00f;    opacity: 0.4; } /* Полупрозрачный фон */
+.sInput_Account:-moz-placeholder { color:#00f;    opacity: 0.5; }
+.sInput_Login::-moz-placeholder {  color:#00f;   opacity: 0.4; }/* Полупрозрачный фон */
+
 
 #btClose_contact:hover{
 color: #ff6666;
@@ -21,9 +50,9 @@ background-color:  black;
 width: 1260px;
 height: 2000px;
 position: fixed;
-    opacity: 0.8;
-    filter:alpha(opacity=80);
-    -moz-opacity:0.8;
+    opacity: 0.4;
+    filter:alpha(opacity=40);
+    -moz-opacity:0.4;
     
 z-index: 103;
 }
@@ -32,13 +61,13 @@ z-index: 103;
 
 #form_contact{
     
-     font-family:Arial, Helvetica, sans-serif;
+     font-family: Arial, Helvetica, sans-serif;
      display:none;
    /* opacity: 100; / *!important;     */
      z-index : 104;
     position:fixed;    
-    top: 10%;  width:430px; height:630px; left:33%;
-	background-color: #A7AEC4;;                 /*E6B8B8; /*#AECC8D; /*#E6B8B8;/*#f5f5f5;*/
+    top: 10%;  width:430px; height:600px; left:33%;
+	background-color: #B3C0DD; /*#A7AEC4;;                 /*E6B8B8; /*#AECC8D; /*#E6B8B8;/*#f5f5f5;*/
 	padding:15px;
 	    -moz-border-radius:10px;
 	    -khtml-border-radius: 10px;
@@ -112,7 +141,7 @@ height : 275px !important;
          /*m argin        : 0 auto;  / *по центру экрана* /
          top : 100px;
          left : -1000px;*/
-         background:  #CD853F;
+         background:  #8DA6B8; /*#CD853F;*/
          z-index: 104;
          
      overflow:auto; /* прокрутка появляется по необходимости */
@@ -195,7 +224,12 @@ height: 30px;
 font-weight: bold;
 font-size: 16px;
 co lor: rgb(88, 112, 175);
-font-family: verdana;
+f ont-family: verdana;
+
+font-family: Arial; 
+border-radius: 6px; 
+background-image: -webkit-linear-gradient(top, rgb(150, 209, 255) 0%, rgb(38, 93, 153) 100%);
+
 
 }
 
@@ -227,7 +261,8 @@ font-family: verdana;
 	 top:0px;   
 	 width:100%;  
 	 height:100%;  
-	 background:#9C9C9C;
+	 /*background:#9C9C9C;*/
+          background-image: url(../img/body-bg1.jpg);
 }
 
 
@@ -238,16 +273,23 @@ font-family: verdana;
 /* -------------------------/ форма создания Аккаунта /------------------------------------ */
 #divAccount {
         position : relative;       
-        border   : 1px solid orange ;
+       /* b order   : 1px solid orange ;
+        b order: 1px solid rgb(75, 75, 75);*/
+        border: 1px solid rgb(59, 59, 59);
         width    : 290px;    
-	height   : 430px;     
+	height   : 420px;     
           font-size        : 16px;
           background-color : #CACACA;/*#FFFACD; */
-          border-radius    : 5px;
+          border-radius    : 6px;
              margin        : 0 auto;  /*по центру экрана*/
              padding-left  : 30px;
-         box-shadow: 0 0 60px rgba(0,0,0,0.9); /* Параметры тени */
-         top : 150px;
+         /*box-shadow: 0 0 60px rgba(0,0,0,0.9); / * Параметры тени */
+         /*box-shadow: 0 0 100px rgba(555,555,555,0.7);*/
+         /*box-shadow: 0 0 120px rgba(999,999,9,0.6);*/
+         /*box-shadow: 0 0 120px rgba(56, 248, 8, 0.7);*/
+           box-shadow: 0 0 120px rgba(255, 255, 255, 0.7);
+           
+           top : 150px;
 }
 
 /* -------------------------/ ЗАГОЛОВОК формы /------------------------------------ */
@@ -281,7 +323,8 @@ border:solid 3px transparent;
 
 .sInput_Account
 {
-    border:solid 1px grey;
+    b order:solid 1px grey;
+    border: solid 1px rgb(75, 75, 75);
     padding : 4px;
          b order:solid 3px transparent;     
         -mo z-box-shadow:0 0 20px 3px #1E90FF;          /*тень*/
@@ -319,7 +362,7 @@ padding-top: 2px;
 }
 
 
-#divAccount span
+#di vAccount span
 {
 	font-size: 18px;  font-weight: bold;  margin-left :3px;  position : relative;  color : red;  cursor: help;
 }
@@ -355,38 +398,48 @@ padding-top: 2px;
 /* -------------------------/ форма входа на сайт /------------------------------------ */
 #divLogin {
         position: relative;       
-        border : 1px solid blue ;
+        b order : 1px solid blue ;
+        b order: 2px solid rgb(111, 111, 111);
+        border: 1px solid rgb(29, 29, 29);
         width : 290px; 
-        height : 170px;
+        height : 180px;
         top : 150px;
         font-size: 16px;
-        background-color: #FCD08F ; 
-        border-radius: 5px;
+        b ackground-color: #A3C489;/*#FCD08F ; */
+        /*background-image: -webkit-linear-gradient(top, rgb(191, 236, 151) 0%, rgb(70, 128, 37) 100%);*/
+        background-image: -webkit-linear-gradient(top, rgb(199, 199, 199) 0%, rgb(63, 65, 61) 100%);
+        border-radius: 7px;
         margin: 0 auto;  /*по центру экрана*/
         padding-left: 30px;
-           box-shadow: 0 0 60px rgba(0,0,0,0.9); /* Параметры тени */
+           /*box-shadow: 0 0 60px rgba(0,0,0,0.9); / * Параметры тени */
+          /* box-shadow: 0 0 100px rgba(555,555,555,0.7)*/
+          box-shadow: 0 0 100px rgba(0, 163, 255, 0.8);
 }
 
 
 /* -------------------------/ строки ввода данных /------------------------------------ */
 .sInput_Login       
-{
-      border:solid 1px grey;
-      padding : 4px;
-      -webkit-border-radius : 3px; /*Chrome  Safari*/ 
+{     
+      border: solid 1px rgb(78, 74, 74);
+      padding: 5px;
+      b order:solid 1px grey;
+      p adding : 4px;
+      -webkit-border-radius : 5px; /*Chrome  Safari*/ 
 	     b order		      : solid 3px transparent;
 	    -m oz-box-shadow		  : 0 0 20px 3px #1E90FF;
 	     -w ebkit-box-shadow	  : 0px 0px 7px 3px #1E90FF;
 	width : 250px;
 	font-size: 16px;
+      background: rgb(209, 209, 209);
 }
 
 /* -------------------------/ ссілка для создания Аккаунта/------------------------------------ */
 #divLogin #linkRegister
 {
     
-    margin: 10px 0px 0px 85px;
+    margin: 10px 0px 0px 75px;
     position : absolute; 
+    color: #3B84D3;
 }
 /*---------------------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------*/
@@ -407,11 +460,13 @@ padding-top: 2px;
     height: 30px;
     float: left;
     width: 0px;
-    border-right: 2px solid orange; /* Линия сверху текста */
+    border-right: 1px solid orange; /* Линия сверху текста */
+    padding: 2px;
     /* bo rder-radius: 5px 5px 5px 5px;*/
 }
 #divNavigation {
  /*   bo rder: 1px solid orange;*/
+    margin-top:20px;
     padding-left : 10px;
     Left: 50%;
     width: 1190;
@@ -435,34 +490,41 @@ padding-top: 2px;
     height:33px;
     display: block;
     float: left;
-    padding: 17px 15px 0 15px;
-    font: bold 16px Geneva, Arial, Helvetica, sans-serif; /*Arial;*/
+    padding: 17px 21px 0 21px;
+    font: bold 15px Arial, sans-serif, Helvetica,   Geneva;
     color: #363636;
     text-decoration: none;
    /* bac kground: url(../img/menu/navigation-separator.png) no-repeat right center;*/
 } 
 #divNavigation ul li a:hover {
     color: #FFF;
-    background: url(../img/menu/navigation-hover.png) repeat-x left top;
+    ba ckground: url(../img/menu/navigation-hover.png) repeat-x left top;
    /* b order-radius: 7px 7px 7px 7px;*/
 }
 #divNavigation ul li #active a {
     color: orange;/*#FFF;*/
-    background: url(../img/menu/navigation-hover.png) repeat-x left top;
+    bac kground: url(../img/menu/navigation-hover.png) repeat-x left top;
 }
 /* ----------------------------------------------------------------------------- */
 
-body {
-    background-color: white; /*#FFFFF0;*/
-}
+
 
 #divMainPage{
+     background-image: url(../img/body-bg1.jpg);
+     ba ckground: rgb(43, 43, 43);
+border-radius: 10px 10px 10px 10px;
+     top : 35px;
     position: relative ;
     margin:0 auto;
-    width : 1193px;
-    height : 1500px;
-   /* bo rder: 1px solid red; /* Параметры рамки */ 
+    width : 1000px;
+    height : 1200px;
+    bo rder: 1px solid black; /* Параметры рамки */ 
    /* p adding :20px;**/
+              b ox-shadow: 0 0 120px rgba(255, 255, 255, 0.7);
+    bo x-shadow: 0 0 120px rgba(255, 255, 253, 0.27);
+    border: 5px solid rgb(119, 155, 250);
+    box-shadow: 0 0 120px rgba(255, 255, 253, 0.65);
+   
 }
 
 #divLeftNavigator span {   /* название главных пунктов*/
@@ -475,9 +537,9 @@ hr
     width : 200px; /* разделительная полоса */
 }
 
-#divLeftNavigator {   /* навигация  слива */
+#divLeftNavigator {   /* навигация  слева */
     background: #FFF8DC; /* Цвет фона */
-    top : 60px;
+    top : 230px;
     height : 1930px; 
     width : 250px; 
     position: absolute;
@@ -488,9 +550,10 @@ hr
 }
 
 
-#divMainPage a:hover {  /*фон при наведенной ссылке*/
+#divNavigation ul li a:hover {  /* #divMainPage a:hover  фон при наведенной ссылке*/
    /* d isplay : block;*/
     background-color:orange;
+    
 }
 /*
 A----5:visited {    color: blue; / * Цвет  ссылки * /  	}   
@@ -504,6 +567,7 @@ A----5:visited {    color: blue; / * Цвет  ссылки * /  	}
     height: 145px;
     width: 200px;     /*op acity : 0.2;*/
     background: url(../img/logo4.png)  no-repeat left top;
+
 }
 
 #main_pict {

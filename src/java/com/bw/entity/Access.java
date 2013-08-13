@@ -105,7 +105,7 @@ private int bDisabled; //(вырубить доступ)
  
     
 
-      Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");                      
+      Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");                       
    try{
      
    // Подготовливаем данные для записи в БД 
@@ -133,15 +133,18 @@ private int bDisabled; //(вырубить доступ)
       //подтверждаем запись в БД
       oDC.commit();
      
-      ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
+     // ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
       
       
       
       return "Учетная запись создана !";  // нельзя менять т.к работает как Колбэк
  
    }catch (Exception e){
-          return "Ошибка создания записи @Access";  
+          return "Ошибка создания записи: Класс Access";  
     }
+   finally{
+    ConnectSybase.closeConnect("UA_DP_PGASA",oDC);  // так делать всегда!!1
+   }
       
     
  } 
@@ -180,12 +183,13 @@ String s = "";
             if ((s != "") && (s != null) && (sLogin.equals(s))) { // Если Логин есть в базе
                 return true;        //" true - такой Логин уже занят";       
             }
-            ConnectSybase.closeConnect("UA_DP_PGASA", oDC);
+            
         } catch (Exception _) {
             String sErr = _.getMessage();
             System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
             //return null;//"Ошибка приложения";
         } finally {      //ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
+             ConnectSybase.closeConnect("UA_DP_PGASA", oDC);
         }
         return false;  //"false - Логин свободен";
     }

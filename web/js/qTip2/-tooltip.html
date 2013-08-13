@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8"/>
+        
+		<!--  /* <script src="jquery.js" type="text/javascript"></script> 
+		 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>		  
+		 <script type="text/javascript" src="jquery-1.7.2.js"></script> 
+		 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>		  
+		 -->
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>		  <script src="jquery.dropDown.pack.js"></script>		  
+<script src="jquery.fancybox.js"></script>		 
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<link rel="stylesheet" type="text/css" href="fancybox.css"/>      <link rel="stylesheet" type="text/css" href="style.css"/>
+
+
+<!-- <script type="text/javascript" src="jquery-1.7.2.js"></script>		  -->
+		<!-- <link rel="stylesheet" type="text/css" href="jquery.qtip.min.css">
+		  <script src="jquery.qtip.min.js"></script>  -->
+    
+	<script type="text/javascript" src="jquery.qtip.js"></script>
+		<link rel="stylesheet" type="text/css" href="jquery.qtip.css"/>
+	
+		
+    </head>
+    <body>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<input id="inp" type="text" value="Focus and blur" title="Please enter your name" />
+<input id="inp1" type="text" value="Focus and blur" title="Please enter your name1" />
+<br>
+<br>
+<br>
+
+<script>
+//document.getElementById('di').innerHTML = 'Try message 1 again...';
+</script>
+
+<style type="text/css">
+
+/*#left{
+p osition:absolute;
+width:100px;
+height:900px;
+b ackground:blue;
+float:left;
+background-image: -webkit-linear-gradient(left, black 22%,  lightgrey 150%);
+back ground-image: -moz-linear-gradient(left, #707070 1%, #4c4c4c 99%);
+}
+
+ body{
+background-image: url(kvadr2.jpg);
+}
+
+#center{
+
+border:3px solid black;
+po sition:absolute;
+width:800px;
+height:900px;
+backg round:green;
+float:left;
+}
+
+#right{
+p osition:absolute;
+width:100px;
+height:900px;
+background:blue;
+float:left;
+} */
+
+#left textarea{
+resize: none;
+w  idth:200px;
+h  eight:50px
+
+}
+
+#left{
+border:1px solid black;
+background:rgb(173, 173, 173);
+position:absolute;
+width:560px;
+height:590px;
+left: 300px;
+top:100px;
+border-radius: 7px 7px 7px 7px;
+font-size : 16px;
+font-family: verdana;
+font-weight : bold;
+
+d   isplay:none;
+}
+
+
+#left, textarea{  /*отключаем выделение */
+-moz-user-select: -moz-none;
+-o-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+user-select: none;
+cursor : default;
+}
+
+#left div{		 
+            t ext-align: center;
+          bo rder:1px solid black;      
+           co lor:red;
+margin: 7px;		  
+}
+
+#left textarea{
+
+border-radius: 4px 4px 4px 4px;
+padding:7px;
+border:1px solid black;
+
+ outline: none; /*отключаем желтую подсветку*/
+
+
+font-size : 16px;
+font-family: verdana;
+margin-left : 20px;
+}
+
+
+#frameDivReportTest{
+position:absolute;
+left: 300px;
+top:100px;
+width:560px;
+height:590px;
+padding : 5px;
+border:1px solid black;
+background:rgb(150, 150, 255);
+
+display:none; /*изначально скрытый*/
+
+
+}
+
+#divReportTest{
+padding : 5px;
+border:1px solid black;
+background:rgb(173, 173, 173);
+pos ition:absolute;
+
+width:98%;
+height:90%;
+
+background: white;
+overflow:scroll; /* прокуртка*/
+z-index : 10;
+}
+
+
+</style>
+<div id="frameDivReportTest">
+<div id="divReportTest"></div>
+<input type="button" id="closeDivReportTest" value="Закрыть" style="margin-left: 470px; margin-top: 15px;" onClick="$('#frameDivReportTest').css('display','none')" />
+</div>
+
+<div  id="left">
+
+<div id="numVopr"> Вопрос</div>
+<textarea class="" rows="8" cols="60" id="tarea_vopros"  readonly=""  ></textarea>
+
+<br>
+<br>
+<div id="answers"> Варианты ответов (чтобы выбрать, кликните): </div>
+<textarea class="tarea" rows="2" cols="60" id="tarea1" readonly=""  ></textarea>
+<textarea class="tarea" rows="2" cols="60"  id="tarea2" readonly=""></textarea>
+<textarea class="tarea" rows="2" cols="60"  id="tarea3" readonly=""></textarea>
+<textarea class="tarea" rows="2" cols="60"  id="tarea4" readonly=""></textarea>
+<textarea class="tarea" rows="2" cols="60"  id="tarea5" readonly=""></textarea>
+
+
+<!-- <a href="#">Прервать тест</a> -->
+
+</div>
+
+
+<script>
+$(document).ready(function(){
+
+$(".tarea").mouseover(function() {
+var vert = $(this).css('left')+5;
+//alert(vert);
+$(this).css('background','rgb(149, 190, 253)');
+//$(this).css('left',vert.toString());
+});
+
+$(".tarea").mouseout(function() {
+$(this).css('background','white');
+});
+
+
+
+
+var count = 0; // счетчик вопросов
+var countPrav = 0;
+var sReportTest = "";
+
+var arr = [  /*'Сколько будет 1 + 1 ?',   '1', '2', '3', '4', '5',       '2',
+                'Сколько будет 3 + 3 ?',   '13', '42', '43', '433', '6',       '6',
+                'Сколько будет 2 + 2 ?',   '1', '3', '3', '4', '45',       '4',
+                'Сколько будет 22 + 22 ?',   '1', '2', '3', '44', '5',       '44', */
+			  
+     '1.	Web-страница (документ HTML) представляет собой: ',
+'a.	Текстовый файл с расширением txt или doc',
+'b.	Текстовый файл с расширением htm или html',
+'c.	Двоичный файл с расширением com или exe',
+'d.	Графический файл с расширением gif или jpg',
+'е.	Графический файл с расширением gif111 или jpg111',
+     'b.	Текстовый файл с расширением htm или html',
+
+     '2.	Для просмотра Web-страниц в Интернете используются программы: ',
+'a.	MicroSoft Word или Word Pad',
+'b.	MicroSoft Access или MicroSoft Works',
+'c.	Internet Explorer или Opera (Google Chrome)',
+'d.	HTMLPad или Front Page ',
+'e.	HTdsfMLPgfad или Fdfgront Pdfgage ',
+    'c.	Internet Explorer или Opera (Google Chrome)',
+/*	
+'3.	Тег - это: ',
+'a.	Специальная команда, записанная в угловых скобках < > ',
+'b.	Текст, в котором используются спецсимволы ',
+'c.	Указатель на другой файл или объект ',
+'d.	Фрагмент программы, включённой в состав Web-страницы ',
+'e.	Фрагмент ',
+      'a.	Специальная команда, записанная в угловых скобках < > ',
+
+'4.	Для чего предназначен тег <BODY> ? ',
+'a.	Идентификатор заголовка окна просмотра',
+'b.	Идентификатор заголовка документа HTML ',
+'c.	Идентификатор перевода строки ',
+'d.	Тело HTML документа',
+'e.	Фрагмент стиля страницы ',
+    'd.	Тело HTML документа',
+
+'5.	Для вставки изображения в документ HTML используется команда: ',
+'a.	<img src="ris.jpg"> ',
+'b.	<body background="ris.jpg"> ',
+'c.	<a href="ris.jpg"> ',
+'d.	<input="ris.jpg"> ',
+'e.	<input="ris1.jpg"> ',
+'a.	<img src="ris.jpg"> ',
+
+'6.	Гиперссылка задается тегом: ',
+'a.	<font color="file.htm">',
+'b.	<img src="http://www.chat.ru"> ',
+'c.	<a href="file.htm">текст</a> ',
+'d.	<embed="http://www.da.ru"> ',
+'e.	<embed="http://www.da.ru"> ',
+'c.	<a href="file.htm">текст</a> ',
+
+
+ 
+'7.	Гиперссылки на Web - странице могут обеспечить переход: ',
+'a.	только в пределах данной web – страницы',
+'b.	только на web - страницы данного сервера ',
+'c.	на любую web - страницу данного региона ',
+'d.	на любую web - страницу любого сервера Интернет ',
+'e.	на страницу локального сервера ',
+'d.	на любую web - страницу любого сервера Интернет ',
+
+'8.	Ссылка на адрес электронной почты задается тегом: ',
+'a.	kompas@email.ru',
+'b.	<a href="mailto:svetlana@narod.ru">текст</a> ',
+'c.	<a href="marina@mail.ru">текст</a> ',
+'d.	<piter@mailru.com> ',
+'e.	<kompas@email.ru> ',
+'b.	<a href="mailto:svetlana@narod.ru">текст</a> ',
+
+'9.	Гипертекст - это: ',
+'a.	Текст очень большого размера',
+'b.	Текст, в котором используется шрифт большого размера ',
+'c.	Структурированный текст, где возможны переходы по выделенным меткам',
+'d.	Текст, в который вставлены объекты с большим объемом информации',
+'e.	Закодированный текст',
+'c.	Структурированный текст, где возможны переходы по выделенным меткам',
+
+'10.	Для создания Web-страниц используются программы: ',
+'a.	DreamWeaver и Notepad++',
+'b.	Turbo Pascal и QBasic ',
+'c.	Visual Basic и ACDSee ',
+'d.	ScanDisk и Defrag ',
+'e.	Visual C ',
+'a.	DreamWeaver и Notepad++',
+
+'11.	Каким тегом определяется абзац текста?',
+'a.	<br>',
+'b.	<div>',
+'c.	<p>',
+'d.	<textarea>',
+'e.	<a>',
+'c.	<p>',
+
+'12.	Какие теги из перечисленных ниже определяют элементы-контейнеры?',
+'a.	<a>',
+'b.	<br>',
+'c.	<div>',
+'d.	<img>',
+'e.	<diiv>',
+'c.	<div>',
+
+'13.	За что отвечает параметр SIZE  тега <FONT> ?',
+'a.	Длинну строки',
+'b.	Расстояние между буквами',
+'c.	Расстояние между строчками',
+'d.	Размер шрифта',
+'e.	Размер абзаца',
+'d.	Размер шрифта', */
+
+'14.	Какой тег используется для организации списков?',
+'a.	<tr>',
+'b.	<hr>',
+'c.	<ol>',
+'d.	<th>',
+'e.	<br>',
+'c.	<ol>'
+ ];
+	
+	// инициализация
+  //$("#numVopr").text(arr[count+0]); // № вопроса
+  $("#tarea_vopros").val(arr[count+0]); // сам вопрос
+  $("#tarea1").val(arr[count+1]); // устанавливаем варианты ответов
+  $("#tarea2").val(arr[count+2]);
+  $("#tarea3").val(arr[count+3]);
+  $("#tarea4").val(arr[count+4]);
+  $("#tarea5").val(arr[count+5]);
+  
+
+  
+ // кликаем на ответ
+$(".tarea").click(function() {
+
+$("#left").hide("fade", {}, 300); // сворачиваем окно теста
+//$(this).effect("explode", {}, 1000);
+
+
+/*
+setTimeout(function() {    
+if ((count % 2) == 0) // если четное меняем фон окна через 0,3 секунды
+$("#left").css("background","rgb(173, 173, 173)");
+else // если не четное меняем фон окна 
+$("#left").css("background","rgb(134, 130, 130)");
+}, 300); // конец таймера
+*/
+
+
+if ($(this).val() == arr[count+6]) {  //проверка ответ правильный
+   ++countPrav;  // считаем правильные ответы
+  }       //alert(countPrav);
+
+  // формируем отчет
+sReportTest += '<xmp>Вопрос '+((count/7)+1)+ '\n' ;
+sReportTest +=  ''+arr[count+0]+ '' +'\n' ; // сам вопрос
+sReportTest += arr[count+1]+ '\n';
+sReportTest += arr[count+2]+ '\n';
+sReportTest += arr[count+3]+ '\n';
+sReportTest += arr[count+4]+ '\n';
+sReportTest += arr[count+5]+ '\n';
+sReportTest += 'Правильный ответ:  ' + arr[count+6]+ '\n';
+sReportTest += 'Ваш ответ:  ' + $(this).val()+ '\n </xmp>';
+
+//$('#divReportTest').css('display','block');
+//alert(sReportTest );
+
+
+  
+count+=7;  /*переходим к следующему вопросу, .....7 элементов занимает один вопрос в массиве*/
+
+
+setTimeout(function() {    // делаем задержку чтобы загрузились вопросы
+  $("#numVopr").text('Вопрос '+((count/7)+1) + " / " + arr.length/7); // № вопроса
+  
+  $("#tarea_vopros").val(arr[count+0]); // сам вопрос
+  
+  $("#tarea1").val(arr[count+1]); // устанавливаем варианты ответов
+  $("#tarea2").val(arr[count+2]);
+  $("#tarea3").val(arr[count+3]);
+  $("#tarea4").val(arr[count+4]);
+  $("#tarea5").val(arr[count+5]);
+  
+if ((count % 2) == 0) // если четное меняем фон окна через 0,3 секунды
+$("#left").css("background","rgb(173, 173, 173)");
+else // если не четное меняем фон окна 
+$("#left").css("background","rgb(134, 130, 130)");
+  
+}, 300); // конец таймера
+  
+
+  
+   if (arr[count+0] == null) { // В массиве больше нет вопросов 
+   //$("#left").hide();
+    //$('#left').hide('drop', { direction: 'left' }, 1000);
+   //alert("Тестирование завершено! Вы ответили правильно на "+countPrav+" вопрос(ов) из "+arr.length/7);   
+   
+   if (confirm("Тестирование завершено! Вы ответили правильно на "+countPrav+" вопрос(ов) из "+arr.length/7 + '\n Хотите посмотреть детальный отчет?')) {
+  //alert("Привет!")
+  sReportTest += " ------------------------------------------- <br> Вы ответили правильно на "+countPrav+" вопрос(ов) из "+arr.length/7 +'\n' ;
+  $('#divReportTest').html(sReportTest) ;
+  $('#frameDivReportTest').show();
+
+} else {
+  //alert("Вы нажали кнопку отмена")
+}
+
+   
+   
+  }
+  else
+  //$("#left").show("drop", "left", 800); // показываем след. вопрос
+   //$('#left').show('drop', { direction: 'right' },1000);
+   //$('#left').show('fade', { direction: 'right' },1000);
+   $('#left').show('blind', { direction: 'vertical' }, 500);
+   // $('#left').clone().prependTo("body").show('fade', {}, 1000);
+	
+  
+});
+
+//alert( shuffle(arr1) );
+
+});
+
+
+
+var arr1 = [0,1,2,3,4,5,6,7,8,9];
+ 
+/* получить случайное целое число из диапазона */
+function random(min, max) {
+    var range = max - min + 1;
+    return Math.floor(Math.random()*range) + min;
+}
+ 
+/* перемешать массив */
+function shuffle(arr) {
+    var r_i; // случайный индекс
+    var v; // временная переменная
+    for (var i = 0; i < arr.length-1; i++) {
+        /* получаем случайный индекс (кроме последнего) */
+        r_i = random(0, arr.length-1);
+        /* меняем местами случайный элемент массива с последним */
+        v = arr[r_i];
+        arr[r_i] = arr[arr.length-1];
+        arr[arr.length-1] = v;
+    }
+    return arr;
+}
+ 
+
+
+</script>
+
+
+
+<div class="?" id="center"></div>
+<div class="?" id="right"></div>
+
+
+
+<div id="di" class="scroll">Наибольшее распространение получили этиленгликолевые охлаждающие жидкости
+на основе этиленгликоля и воды (дистиллированной) с комплексом присадок.
+
+Антифризы получаются как водные растворы соответствующих концентратов. В процессе эксплуатации качество
+антифриза можно контролировать по плотности. Из охлаждающей жидкости в процессе эксплуатации в первую
+очередь испаряется вода, которую следует периодически доливать (дистиллированную). Необходимо следить
+за тем, чтобы в антифризы не попадали бензин и масла, так как они вызывают вспенивание и выброс жидкости
+из системы.
+
+Срок службы охлаждающих жидкостей типа «Тосол» и «Лена» ограничивается долговечностью присадок и обычно
+составляет 2 года; по пробегу для различных автомобилей в среднем составляет 50000 км.
+
+При первом техобслуживании подержанного автомобиля следует заменить охлаждающую жидкость. После слива
+старой жидкости заправьте систему чистой водой, пустите двигатель и дайте ему поработать на холостых
+оборотах 15—20 минут; затем слейте воду и заправьте систему новой охлаждающей жидкостью.
+
+<!-- http://www.csstablegenerator.com/?table_id=6 -->
+
+
+<div class="Tabl" >
+<table cellspacing="0"  >
+	<tr>  <td>№</td> <td>Имя</td>  <td>Фамилия</td>  </tr>
+	<tr>  <td>1</td>  <td>Петр</td>	 <td>Петров</td>   </tr>
+	<tr > <td>2</td>  <td>Иван</td>   <td>Иванов</td>   </tr>
+	<tr > <td>3</td>  <td>5ываы5</td>  <td>выа6</td>    </tr>
+	<tr > <td>4</td>  <td>55</td>  <td>6апв6</td>    </tr>
+	<tr >  <td>5</td> <td>ыва5</td>  <td>рвапрв6</td>    </tr>
+	<tr > <td>6</td>  <td>апр5</td>  <td>ва6</td>    </tr>
+	<tr >  <td>7</td> <td>55пор</td>  <td>6ап</td>    </tr>
+	<tr >  <td>8</td> <td>апв5ук5</td>  <td>а6</td>    </tr>
+	<tr >  <td>9</td> <td>5а</td>  <td>6ао</td>    </tr>
+	<tr >  <td>10</td> <td>ап5пр</td>  <td>вап6</td>    </tr>
+	<tr >  <td>11</td> <td>5в</td>  <td>апр6</td>    </tr>
+	
+</table>
+</div>
+
+</div>
+
+
+<style>
+
+.Tabl{
+width:240px;
+	h eight:200px;
+}
+
+.Tabl table{  /* вся таблица*/
+	width:100%;
+	height:100%;
+	ma rgin:0px;
+	pa dding:0px;
+	border-right:1px solid #3f7f00;
+	border-top:1px solid #3f7f00;
+}
+
+.Tabl table tr:hover{
+ font-weight:bold;
+  background: #f3bd48; /* Цвет фона строки при наведении */
+}
+
+.Tabl tr:nth-child(odd)     {    background-color: #e3ffa3 }  /*  не четные строки */
+.Tabl tr:nth-child(even)    {    background-color:#eeffc9; }  /* четные строки */
+
+.Tabl td{  /*одна  (каждая) ячейка*/
+	ve rtical-align:middle;
+		
+	border-bottom: 1px solid #3f7f00;
+	border-left: 1px solid #3f7f00;
+	
+	text-align:left;
+	padding:5px;
+	    padding-left:10px;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:normal;
+	color:#000000;
+}
+
+
+.Tabl tr:first-child td{  /*самая первая строка ЗАГОЛОВОК заливка*/
+	background:-o-linear-gradient(bottom, #5fbf00 5%, #3f7f00 100%);	
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #5fbf00), color-stop(1, #3f7f00) );
+	background:-moz-linear-gradient( center top, #5fbf00 5%, #3f7f00 100% );
+	background: -o-linear-gradient(top,#5fbf00,3f7f00);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#5fbf00", endColorstr="#3f7f00");	
+	
+	text-align:center;
+	font-size:18px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#ffffff; /*цвет шрифта*/
+	}
+/*	
+	
+
+
+
+ */
+</style>
+
+
+
+
+
+
+    
+<script type="text/javascript">
+
+
+
+
+
+ $('input').qtip({
+    content: {
+		title: {
+                text: 'Внимание!'
+               },
+		//text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> ',
+		     },
+                  //content: 'Stems are great for indicating' , // принудительно
+	   show: 'focus',
+       hide: 'blur',
+                   //hide: { // delay: 1000  },	//задержка
+        position: {
+            adjust: { x: 10 }, // принудительное смещение
+            my: 'left top',  // Position my top left...
+            at: 'center right' // at the bottom right of...
+        },
+	     style: {
+         classes: 'qtip-green qtip-shadow' // цвет и стиль
+		            //width : 15 // ширина
+        }
+ });
+	 
+	 
+
+window.onbeforeunload = function(){
+  
+ //   return "Хотите уйти?"
+  //return alert("d");
+};
+
+
+$(document).ready(function(){
+    
+// узнаем процент прокрутки окна
+$('.scroll').scroll(function(){
+//    alert ($(this).scrollTop()) ;
+//-    var top = $(this).scrollTop(),
+ //-       max = $('#boxcontent').height() - $(this).height();
+    
+    //$('#scrollpos').html( (top / max * 100).toFixed(2) + '%' );
+//-	    $('#scrollpos').html( (top / max * 100).toFixed(2) );
+    //$('#scrollpos').html(top);
+	var s = $(this).scrollTop();
+	$('#inp').val(s);
+	if (s > 30) 
+	$('#inp1').val( $(".scroll").height() )  ;
+	
+	
+}).scroll();
+
+});
+
+/*
+clock1 = setInterval("rand()", 2000);
+function rand(){
+var x = Math.floor(Math.random()*3.9999); 
+document.write(''+x);
+}  */
+
+//alert(x);
+
+
+</script>
+
+
+<style type="text/css">
+
+.qtip-content { font-size: 16px; margin : 3px;  line-height: 140%;}
+.qtip-title { font-size: 16px;  margin : 3px;  }
+.qtip { border-radius: 5px 5px 5px 5px; }
+
+
+.scroll {
+    width:500px;
+    height:300px; /* необходим фиксированный размер */
+    overflow:auto; /* прокрутка появляется по необходимости */
+    padding:10px 20px;
+    border:#999 1px solid;
+    background-color:#FAFAFA;
+}
+
+</style>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+		
+    </body>
+</html>

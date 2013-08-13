@@ -3,8 +3,62 @@
 // 
 // 
 
+ 
+  
 
 window.onload=function() { 
+
+// $(function() { /*Jquery Buttons*/
+//     
+//    $( "input[type=button]" )
+//      .button()
+//      .click(function( event ) {
+//        event.preventDefault();
+//      });
+//  });
+
+//$( document ).click( function (){
+//$("#space_galery").css("display","block");
+	//<a href="space_galery.html" title="Главная страница">Home</a> 
+//alert(1);     
+//});
+
+
+$("#mainPageContact, #mainPagePrivateOffice, #mainPageSettings").click( function (){
+     //alert("В стадии разработки!")
+      dhtmlx.message({ expire:4000, text:" <img style='padding-top:10px;' src='img/worked.jpg'/> Извините, данная страница находится в стадии разработки... <br><br>" })
+});
+          
+ 
+/*
+ тестовое окно
+dhtmlx.modalbox({ 
+		text:"<div >"+ 
+                
+               '<input  id="sEmail"   type="text" value="" placeholder="Е-Маил..."  maxlength="25" />   <br> <br>' +
+               '<input  id="sPassword" type="Password" value="" placeholder="Пароль..."  maxlength="25" />  <br> <br>' +
+               '<input   id="btLogin1" onClick="alert(1);" type="button" value="Вход" />  ' +
+               '<a id="linkRegister" href ="#" >Регистрация </a>   <br> <br><br><br><br><br><br><br><br><br><br><br><br><br> ' +
+                "</div>",
+			title:"Личный кабинет:&nbsp&nbsp&nbsp&nbsp   " ,
+                        width:"550px",
+                        height:"450px",
+			position:"center",
+			buttons:["Да"], //, "Нет" 
+			callback:function(index){
+			if (index==0) {  //
+                            //   $("#divLogin #sEmail").val( $("#sEmail_Account").val() );
+                            //   $("#divLogin #sPassword").val($("#sPassword_Account").val()) ;
+                               alert("DA!");
+                        }
+                        if (index==1) { 
+                        alert("net !");
+                        }
+				//dhtmlx.message("Button "+index+" was pressed")
+                           //     $(".sInput_Account").val("");     // очищаем строки регистрации 
+			}
+		});
+*/
 
 //-------------------------Форма Контактов
 // счетчик символов до 1000
@@ -31,7 +85,7 @@ window.onload=function() {
 	}); 
         
          // показываем форму контактов       
-        $("#mainPageContact").click( function (){     
+        $("#divHelp").click( function (){     
            $("#form_contact").css("display","block");  // $("#form_contact").show();  
            $("#FON_contact").css("display","block");
         //   $("body").css("overflow","hidden");
@@ -122,9 +176,24 @@ $("#mainPageAdmin").click(function(){
     
 //---------------- Удаляем сессию пользователя
     $("#mainPageExitSession").click(function(){    
-        if (confirm("Вы действительно хотите выйти?")) {
-            ajax_doDestroySession(); 
-        } else {   /* alert("Вы нажали кнопку отмена") */     }
+       
+       
+     dhtmlx.modalbox({  title:"Сообщение:" ,
+			text:" <br>Вы действительно хотите выйти?<br><br>",
+			width:"350px", 
+                        height:"165px", 
+			position:"center",
+			buttons:["Выйти!", "&nbsp;&nbsp;Остаться...&nbsp;&nbsp;"],
+			callback:function(index){
+			if (index==0) { 
+                              ajax_doDestroySession(); 
+                                   }
+			}
+		});  
+       
+       //if (confirm("Вы действительно хотите выйти?")) {
+       //     ajax_doDestroySession(); 
+       // } else {   /* alert("Вы нажали кнопку отмена") */     }
     });    
 
              
@@ -227,6 +296,7 @@ var oData= {   sDO_Account: doCreateAccount,
                        $("#divLogin").show();                  // показываем окно ВХОДА
                       
             	dhtmlx.modalbox({ 
+                        title: "Вход на сайт:" ,
 			text:"<br><b>Поздравляем! <br><br> Ваша учетная запись успешно создана, <br> желаете автоматически войти на сайт? </b><br><br>",
 			width:"350px",
 			position:"center",

@@ -1,0 +1,290 @@
+﻿
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+		<title>Библиотека jsMessage | Материалы сайта RUSELLER.COM</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!--[if lt IE 9]><script type='text/javascript' src='assets/javascript/html5.js'></script><![endif]-->
+		<script type="text/javascript" src="js/prettify.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/base.css">
+		<link rel="stylesheet" type="text/css" href="css/skeleton.css">
+		<link rel="stylesheet" type="text/css" href="css/prettify.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+
+		<script type="text/javascript" src="js/message.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/message_default.css" title="Default">
+		<link rel="stylesheet" type="text/css" href="css/message_growl_dark.css" title="Growl - dark">
+		<link rel="stylesheet" type="text/css" href="css/message_growl_shiny.css" title="Growl - shiny">
+		<link rel="stylesheet" type="text/css" href="css/message_solid.css" title="Solid">
+		<link rel="stylesheet" type="text/css" href="css/message_skyblue.css" title="SkyBlue">
+		<script type="text/javascript">
+			function setActiveStyleSheet(title){
+				var links = document.getElementsByTagName("link");
+				for (var i = 0; i < links.length; i++){
+					if (links[i].getAttribute("title"))
+						links[i].disabled = (links[i].getAttribute("title") != title);
+				}
+			}
+			setActiveStyleSheet("Default")
+
+
+			var count = 0;
+			var lines = [
+				"Простая и элегантная",
+				"Только 3kb (gzip)",
+				"Легко настроить",
+				{ type:"error", text:"Разные стили"},
+				"FF, Chrome, Safari, Opera, IE7+",
+				"Лицензия MIT",
+			];
+			function show_message(){
+				dhtmlx.message(lines[count%6]);
+				count++;
+			};
+			
+
+			function rich_confirm(){
+				dhtmlx.confirm("<img src='img/alert_medium.png'><strong>Уроки по веб строительству на сайте <a target='blank' href='http://www.ruseller.com'>RUSELLER.COM</a></strong><br/><br/> Вы можете использовать здесь любые элементы HTML - ссылки, изображения и так далее.");
+			}
+			function rich_alert(){
+				dhtmlx.alert("<img src='img/alert_medium.png'><strong>Уроки по веб строительству на сайте <a target='blank' href='http://www.ruseller.com'>RUSELLER.COM</a></strong><br/><br/> Вы можете использовать здесь любые элементы HTML - ссылки, изображения и так далее.");
+			}
+			function rich_message(){
+				dhtmlx.message({
+					text:"<img src='img/alert_medium.png'><strong>Уроки по веб строительству на сайте <a target='blank' href='http://www.ruseller.com'>RUSELLER.COM</a></strong><br/><br/> Вы можете использовать здесь любые элементы HTML - ссылки, изображения и так далее.",
+					expire:-1
+				});
+			}
+		</script>
+</head>
+	
+	<body onload="prettyPrint()">
+		<div class="container">
+			<header class="sixteen columns">
+				<div class="nine columns alpha">
+					<h1>js Message </h1>
+					<h2>Сообщения, предупреждения, подтверждения для ваших приложений</h2>
+					<p>Данная библиотека явялется одним из компонетов <a class="dhtmlx" href="http://dhtmlx.com/docs/products/dhtmlxSuite/index.shtml?message" target="_blank"> проекта DHTMLX</a>.<br> Она полностью независима.<br>
+					Занимает <strong class="dhtmlx">3kb</strong> в архиве.</p>
+				</div>
+			</header>
+			
+			<div class="sixteen columns">
+				<h3>Как использовать</h3>
+				<p>Подключаем библиотеку к странице в разделе <em>header</em>. В состав пакета входит файл с кодом JavaScript и файлы CSS со стилями оформления сообщений (можно использовать только один):</p>
+				<pre class="prettyprint">
+	&lt;script type=&quot;text/javascript&quot; src='../codebase/message.js'&gt;&lt;/script&gt;
+	
+	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../codebase/themes/message_default.css&quot; title=&quot;Default&quot;&gt;
+	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../codebase/themes/message_growl_dark.css&quot; title=&quot;Growl - dark&quot;&gt;
+	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../codebase/themes/message_growl_shiny.css&quot; title=&quot;Growl - shiny&quot;&gt;
+	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../codebase/themes/message_solid.css&quot; title=&quot;Solid&quot;&gt;
+	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../codebase/themes/message_skyblue.css&quot; title=&quot;SkyBlue&quot;&gt;
+				</pre>
+				<p><br/>Доступны три типа сообщений: предупреждение, подтверждение и простое сообщение.
+				Сообщение генерируется в JavaScript коде с помощью соответствующей функции, в параметрах которой указывается тип сообщения и его текст:</p>
+				<pre class="prettyprint">
+	dhtmlx.message({ 
+	    type:"confirm-warning", 
+	    text:"Текст вопроса"
+	})
+	//или
+	dhtmlx.confirm({
+	    title:"Заголовок",
+	    text:"Текст вопроса"
+	});
+	//или
+	dhtmlx.alert({
+	    title:"Заголовок",
+	    type:"alert-error",
+	    text:"Текст сообщения"
+	});
+				</pre>
+				
+				
+				<h3>Стилизация</h3>
+				<p>Для любого типа сообщений можно настроить внешний вид так, как нужно. Определяем свой класс CSS и привязываем его к сообщению с помощью параметра при вызове функции:</p>
+				<pre class="prettyprint">
+	&lt;style type=&quot;text/css&quot;&gt;
+		.dhtmlx-myCss{
+			font-weight:bold !important;
+			color:white !important;
+			background-color:red !important;
+		}
+	&lt;/style&gt;
+	&lt;script&gt;
+		dhtmlx.message({ type:&quot;myCss&quot;, text:&quot;Текст сообщения&quot; });
+	&lt;/script&gt;		
+				</pre>
+			
+				<h3>Опции</h3>
+					<h4>Предупреждение</h4>
+						<ul>
+							<li>title - (строка) текст заголовка (по умолчанию: 'Alert').</li>
+							<li>type - (строка) подтип или пользовательский класс CSS (по умолчанию:'alert').</li>
+							<li>text - (строка) текст сообщения.</li>
+							<li>ok - (строка) надпись на кнопке 'Ok'.</li>
+							<li>callback - (функция) возвартная функция, вызываемая при нажатии кнопки.</li>
+						</ul>
+					<p>Предупреждение и подтверждение блокируют клавиатуру во время своей работы. 
+					   Нажатие на ПРОБЕЛ или ENTER закроет окно сообщения с положительным результатом. 
+					   Нажатие на ESC закроет окно сообщения с отрицательным результатом. 
+					   (Вы можете использовать dhtmlx.message.keyboard = false; для отключения такого функционирования)</p>
+					<pre class="prettyprint">
+	dhtmlx.message({
+			title: "Заголовок",
+	                type: "alert",
+			text: "Текст сообщения.",
+			callback: function() {dhtmlx.alert("Окно закрыто");}
+	})
+//или
+	dhtmlx.alert({
+			text: "Текст сообщения.",
+			callback: function() {dhtmlx.alert("Окно закрыто");}
+	})
+//или	
+	dhtmlx.alert("Текст сообщения.");
+					
+					</pre>					
+					<h4>Подтверждение</h4>
+						<ul>
+							<li>title - (строка) текст заголовка (по умолчанию: 'Alert').</li>
+							<li>type - (строка) подтип или пользовательский класс CSS (по умолчанию:'alert').</li>
+							<li>text - (строка) текст сообщения.</li>
+							<li>ok - (строка) надпись на кнопке 'Ok'.</li>
+							<li>cancel - (строка) надпись на кнопке 'Cancel'.</li>
+							<li>callback - (функция) возвартная функция, вызываемая при нажатии кнопки.</li>
+						</ul>
+						<pre class="prettyprint">
+	dhtmlx.message({
+		type:"confirm",
+		text: "Текст сообщения",
+		callback: function() {dhtmlx.confirm("Окно закрыто");}
+	});
+//или
+	dhtmlx.confirm({
+		title: "Заголовок",
+	            type:"confirm-warning",
+		text: "Текст сообщения",
+		callback: function() {dhtmlx.confirm("Окно закрыто");}
+	});
+//или	
+	dhtmlx.confirm("Текст сообщения");
+						
+						</pre>
+						
+						<h4>Сообщение</h4>
+						<ul>
+							<li>type - (строка) подтип или пользовательский класс CSS (по умолчанию:'alert').</li>
+							<li>text - (строка) текст сообщения.</li>
+							<li>expire - время показа окна сообщения (миллисекунды). Можно использовать отрицательное число (-1) для снятия ограничения по времени показа.</li>
+						</ul>
+						
+						<pre class="prettyprint">
+	dhtmlx.message({
+		text:"Текст сообщения.",
+		expire:1000,
+		type:"customCss" // 'customCss' - css класс
+	});
+//или
+	dhtmlx.message("Текст сообщения.");
+						
+						</pre>
+				<h3>Дополнительные настройки</h3>
+				<p>Время вывода сообщения по умолчанию может быть изменено:</p>
+				<pre class="prettyprint">
+dhtmlx.message.expire = 4000; //Используем миллисекунды
+				</pre>
+
+				<p>Положение сообщения по умолчанию может быть изменено:</p>
+				<pre class="prettyprint">
+dhtmlx.message.position = "top";	 // Доступные значения "top" и "bottom"
+				</pre>
+
+				<p>Использование клавиатуры для взаимодействия с окнами сообщений может быть отключено:</p>
+				<pre class="prettyprint">
+dhtmlx.message.keyboard = false;	 // Используем логическое значение
+				</pre>
+				
+				
+				<h3>Подтипы сообщений</h3>
+				<p>Все типы сообщений могут использовать три варианта оформления для выделения важной информации:</p>
+				<pre class="prettyprint">
+	dhtmlx.message({ type:"error", "Текст сообщения."});
+	//или 
+	dhtmlx.message({ type:"alert-error", "Текст сообщения."});
+	//или
+	dhtmlx.message({ type:"confirm-error", "Текст сообщшения."});
+					
+				</pre>
+
+			</div>
+
+			
+			<div class="sixteen columns">
+				<h3>Библиотека в действии</h3>
+        <br>
+        <fieldset>
+		<legend>Тема</legend>
+		<select onchange="setActiveStyleSheet(this.value);">
+			<option selected="selected">Default</option>
+			<option>Growl - dark</option>
+			<option>Growl - shiny</option>
+			<option>Solid</option>
+			<option>SkyBlue</option>
+		</select>
+		</fieldset>
+
+<fieldset>
+		<legend>Сообщение</legend>
+		<input value="Сообщение" onclick='dhtmlx.message("Вы нажали кнопку!")' type="button"> 
+		<input value="Сообщение со стилем" onclick='dhtmlx.message({ type:"error", text:"Вы нажали кнопку <br> для сообщения со стилем!" })' type="button">
+		<input value="Расширенное содержание" onclick="rich_message();" type="button">
+	</fieldset>
+
+	<fieldset>
+		<legend>Предупреждение</legend>
+		<input value="Предупреждение" onclick='dhtmlx.alert("Текст предупреждения")' type="button">
+		<input value="Предупреждение с заголовком" onclick='dhtmlx.alert({title:"Заголвоок", text:"Текст предупреждения"})' type="button">
+		<input value="Предупреждение со стилем" onclick='dhtmlx.alert({type:"alert-error", title:"Заголовок", text:"Текст предупреждения"})' type="button">
+		<input value="Расширенное содержание" onclick="rich_alert();" type="button">
+	</fieldset>
+
+	<fieldset>
+		<legend>Подтверждение</legend>
+		<input value="Подтверждение" onclick='dhtmlx.confirm("Текст вопроса")' type="button">
+		<input value="Подтверждение с заголовком" onclick='dhtmlx.confirm({ title: "Заголовок", text:"Текст впороса"})' type="button">
+		<input value="Подтверждение со стилем" onclick='dhtmlx.confirm({type:"confirm-error", title:"Заголовок", text:"Текст вопроса"})' type="button">
+		<input value="Расширенное содержание" onclick="rich_confirm();" type="button">
+	</fieldset>
+
+			</div>
+		</div>
+		
+		<footer>
+			<div class="container">
+				<div class="ten columns offset-by-three repo-author">
+					<a href="http://dhtmlx.com/" target="_blank"><img src="img/logo.png" class="repo-author-logo"></a>
+					
+					<p>
+						<a href="http://dhtmlx.com/?message" target="_blank">DHTMLX</a> - библиотека JavaScript, 
+						которая предоставляет важный функционал для построения кросс-браузерного, основанного на AJAX интерфейса.
+						Используя готовые виджеты можно существенно ускорить процесс разработки приложения.
+					</p>
+				</div>
+			
+			</div>
+		</footer>
+		
+		<a href="https://github.com/DHTMLX/message" class="github-ribbon"><img src="Message%20library_files/red.png"></a>
+		<script type="text/javascript">
+			dhtmlx.message.expire = 8000;
+			window.setInterval(show_message, 3500);
+			show_message();
+			</script>
+			
+</body>
+</html>
