@@ -12,8 +12,8 @@ jaaspeel.small_width = '100';
 jaaspeel.small_height = '100';
 jaaspeel.small_params = 'ico=' + jaaspeel.small_image;
 
-jaaspeel.big_path = 'img/ugol/large.swf';
-jaaspeel.big_image = escape('img/ugol/large.jpg');
+jaaspeel.big_path = 'img/ugol/large1.swf';
+jaaspeel.big_image = escape('img/ugol/large1.jpg');
 jaaspeel.big_width = '650';
 jaaspeel.big_height = '650';
 jaaspeel.big_params = 'big=' + jaaspeel.big_image + '&ad_url=' + jaaspeel.ad_url;

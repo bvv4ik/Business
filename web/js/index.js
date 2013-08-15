@@ -203,6 +203,10 @@ $("#mainPageAdmin").click(function(){
     });    
 
              
+           $("#mainPageTest").click(function(){     
+            $("#left").css("display","block") ;    
+       });
+             
 //-------------------- Кликаем на ссылку создания Аккаунта 
         $("#divLogin #linkRegister").click(function(){     
             $("#divLogin").hide("slow");       // прячем окно ВХОДА
