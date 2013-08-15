@@ -123,7 +123,7 @@
 
 
 <center></center>
-<div style=" font-size: 12px; position:absolute; float:right; color:white; left: 30px; /*width:300px;*/ height:30px; top:91%;/*top:770px;*/  padding-top:7px; border-top:1px solid white ">Created by: Belyavtsev Sergey Vladimirovitch <br>All rights reserved</div>
+<div style=" font-size: 12px; position:absolute; float:right; color:white; left: 30px; /*width:300px;*/ height:30px; top:91%;/*top:770px;*/  padding-top:7px; border-top:1px solid white ">Created by: Belyavtsev Sergey Vladimirovitch <br>All rights reserved. 2013</div>
 
 
 
