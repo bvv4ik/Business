@@ -36,7 +36,7 @@
     <head>
          
          
-             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!--  <script type="text/javascript" src="---js/jquery-1.7.2.js"></script>       <script type="text/javascript" src="---js/ajax1.js"> </script>          <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
         
        
@@ -59,10 +59,15 @@
 	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
         -->
      	<script type="text/javascript" src="js/qTip2/jquery.qtip.js"> </script>
-	<link rel="stylesheet" type="text/css" href="js/qTip2/jquery.qtip.css"/>
+	<link rel="stylesheet" type="text/css" href="js/qTip2/jquery.qtip.css"/> <!-- манящий уголок  -->
         
-        
-        
+        <!--   
+        < %  
+        String str = "";//'<script src="js/peel.js" type="text/javascript"></script>';
+           if (oEmail == null){ 
+            < %=str%> 
+            }
+        %> -->
 
             <title> Главная страница </title>
     </head>
@@ -74,6 +79,8 @@
             if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %> 
+            
+            
             
 
         
@@ -137,6 +144,8 @@
 
 <!--          < %=oEmail%>        -->
 <!--           Добро пожаловать на главную страницу! -->
+<script src="js/peel.js" type="text/javascript"></script>
+
 
 <div id="divAllSessinList" >    
 <input type="button" value="Закрыть" style="position:relative; left:700px;" onClick="$('#divAllSessinList').css('display','none'); $('#FON_contact').css('display','none');" >
@@ -206,6 +215,7 @@
 					<li> <img src="img/user.png" style="position:relative; top:11px; left:5px; padding-right:5px;" align="left"/> <a id="mainPagePrivateOffice" href="#">Личный кабинет</a></li> 	<div id="separatop"></div>
 					<li> <img src="img/library1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageLibrary" href="#">Тесты</a>    </li>  <div id="separatop"></div>
                                         <li> <img src="img/mail1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageContact" href="#">Сообщения</a> </li>   <div id="separatop"></div>
+                                        <li> <img src="img/help1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageHelp" href="#">О сайте</a> </li>   <div id="separatop"></div> 
 					<li> <img src="img/exit1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageExitSession" href="#">Выход</a>	     </li>
 				</ul>
 			</div>
@@ -524,40 +534,187 @@ margin-left:7px;
 </style>
 
 
-<div id="space_galery" >
- 
- <div class="example" id="gall" >
-    <img src="images/pic1.jpg"><span>Picture 1 title<br>and description.</span> 
-    <img src="images/pic2.jpg"><span>Picture 2 description.</span> 
-    <img src="images/pic3.jpg"><span>Picture 3 description.</span> 
-    <img src="images/pic4.jpg"><span>Picture 4 description.</span> 
-    <img src="images/pic5.jpg"><span>Picture 5 description.</span> 
-    <img src="images/pic6.jpg"><span>Picture 6 description.</span> 
-<!--     <img src="images/pic7.jpg"><span>Picture 7 description.</span> 
-    <img src="images/pic8.jpg"><span>Picture 8 description.</span> 
-    <img src="images/pic9.jpg"><span>Picture 9 description.</span> 
-    <img src="images/pic10.jpg"><span>Picture 10 description.</span> 
-    <img src="images/pic11.jpg"><span>Picture 11 description.</span> 
-    <img src="images/pic12.jpg"><span>Picture 12 description.</span> 
-    <img src="images/pic13.jpg"><span>Picture 13 description.</span> 
-    <img src="images/pic14.jpg"><span>Picture 14 description.</span> 
-    <img src="images/pic15.jpg"><span>Picture 15 description.</span> 
- -->
+
+
+<!--  Helper  -->
+
+
+
+	<style type="text/css">
+a {
+    outline: none;
+}
+   
+#help {
+    display: block;
+    font-size: 12px;
+    position: fixed;
+    right: 0;
+    top: 250px;
+    width: 279px;
+    z-index: 5;
+    font-family: Tahoma,Verdana,Arial,Helvetica,sans-serif;
+}
+
+#help img{
+    border: 0px;
+}
+
+#help-panel {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: none;
+    float: right;
+    width: 240px;
+}
+#help-panel a:hover{
+     
+}
+
+#help-panel .collapse {
+    display: none;
+    float: left;
+    padding: 15px 10px;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+#help-panel .collapse a {
+    font-size: 11px;
+    color: black;
+    text-decoration: underline;
+    font-size: 12px;
+}
+
+#support-header {
+    background: url(img/helper/24-7-bg.gif) repeat-x scroll 0 0 transparent;
+    height: 17px;
+    padding: 2px 0 0 10px;	
+}
+
+#help-panel .main {
+    background: url(img/helper/item-bg.gif) repeat-x scroll 0 0 transparent;	
+
+    float: left;
+    height: 37px;
+    width: 240px;
+}
+
+#help-panel a.title {
+    background: url("img/helper/but-right.gif") no-repeat scroll 10px 15px transparent;
+    color: #444;
+    display: block;
+    font-weight: bold;
+    padding: 12px 10px 12px 22px;
+    font-size: 12px;
+}
+
+#help-panel a.title span {
+    color: #666;
+    display: block;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#help-panel a.selected {
+    background: url("img/helper/but-down.gif") no-repeat scroll 10px 15px transparent;
+    color:blue;
+    
+}
+#help-panel a:hover{
+    background: rgb(163, 163, 163);	 
+}
+
+#help a {
+    text-decoration: none;
+}
+
+#help-button {
+    float: right;
+}
+    
+</style>
 	
+	
+	<div id="help">
+
+<div id="help-panel" style="display: none;">
+
+    
+   
+    <!-- Блок телефонов -->
+    <div class="main"><a class="title" href="javascript:void(0);">Телефоны</a></div>    
+        <div class="collapse">
+            <strong>8-068-405-31-22</strong><br />
+            ПН-ПТ с 9.00 до 17.00,<br />
+            СБ с 10.00 до 15.00,<br />
+            Сергей
+        </div>
+    
+    
+    <!-- Блок службы поддержки -->
+    <div class="main"><a class="title" href="javascript:void(0);">Служба поддержки</a></div>    
+        <div class="collapse">
+        <a href="http://www.google.com" target="_blank">Ответы на частые вопросы</a><br><br>
+        <a href="http://www.google.com" target="_blank">Задать свой вопрос</a><br><br>
+        <a href="http://www.google.com" target="_blank">Просто вопрос</a><br><br>
+        </div>
+    
+    <!-- Блок перехода к форме заказа -->
+    <div class="main"><a class="title" href="#zakaz">Пункт меню1 (пустой)</a></div>  
+    
+    <!-- Блок перехода к частым вопросам  -->
+    <div class="main"><a class="title" href="#faq_block">Пункт меню2 (пустой)</a></div>  
+    
 </div>
 
- <div style="top:0;position:fixed;">
- <input type="button" value="Закрыть" style="padding:7px; margin:7px; background:yellow;" onClick=" "/>
-<!-- <hr style="clear:both;" />
-<h4>
-    <a href="http://www.script-tutorials.com/3d-gallery-using-javascript/">back to original article page</a>
-</h4>
- -->
-</div> 
+<a id="help-button" href="javascript:void(0);"><img alt="" src="img/helper/button.png"/></a>
 
-</div> 
+</div>
 
-                
+<script type="text/javascript">
+$(function(){
+    
+    var current_index = null;    
+    
+    $('#help-button').click(function(){        
+        $('#help-panel').toggle(300);
+    });
+    
+        
+    $('a.title').click(function(){        
+        
+        if(current_index != $('a.title').index(this)){
+            $('.collapse:visible').slideUp(500);
+            $('a.title').removeClass('selected');
+        }        
+        
+        if($(this).parent().next().attr('class') == 'collapse'){
+            
+            if($(this).parent().next().is(":hidden")){
+                $(this).addClass('selected');
+            } else if($(this).parent().next().is(":visible")) {
+                $(this).removeClass('selected');
+            }
+            $(this).parent().next().slideToggle(500);
+        }
+        
+        current_index = $('a.title').index(this);        
+    });
+    
+    
+    $('#help-panel').mouseleave(function(){
+      $('#help-panel').toggle(300); //$('#help-panel').slideToggle(500); 
+       //alert(1);
+    });
+ 
+    
+    
+});
+</script>
+
+
+
 		
         
         <% }

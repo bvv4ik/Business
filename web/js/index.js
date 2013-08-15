@@ -6,6 +6,7 @@
  
   
 
+
 window.onload=function() { 
 
 // $(function() { /*Jquery Buttons*/
@@ -22,6 +23,11 @@ window.onload=function() {
 	//<a href="space_galery.html" title="Главная страница">Home</a> 
 //alert(1);     
 //});
+//'<script src="js/peel.js" type="text/javascript"></script>'
+//$("head").append('<script>fd</script>');
+
+
+
 
 
 $("#mainPageContact, #mainPagePrivateOffice, #mainPageSettings").click( function (){
