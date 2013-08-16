@@ -1,7 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package com.bw.io;
 
 import java.sql.Connection;
@@ -9,14 +7,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import  java.sql.SQLException;
-
 import javax.naming.InitialContext;
 
 
-/**
- *
- * @author Ser
- */
+
+
 public class ConnectSybase {
     
    // Connection con = null;
@@ -37,19 +32,12 @@ public class ConnectSybase {
             Class.forName("com.sybase.jdbc3.jdbc.SybDataSource");
             
 
-         String url = "jdbc:sybase:Tds:SERGEY-PC:2048/"+sName;
-            oDC = DriverManager.getConnection(url, "sa", "1234567");
- //        String url = "jdbc:sybase:Tds:pgasa-edu-ua.org:5000/"+sName;
- //         oDC = DriverManager.getConnection(url, "sa", "123321123a");
+  //          String url = "jdbc:sybase:Tds:SERGEY-PC:2048/"+sName;
+  //          oDC = DriverManager.getConnection(url, "sa", "1234567");
+         String url = "jdbc:sybase:Tds:pgasa-edu-ua.org:5000/"+sName;
+          oDC = DriverManager.getConnection(url, "sa", "123321123a");
 
 
-            //String url = "jdbc:mysql://localhost:3306/students";
-                 
-            // String url = "jdbc:sybase:Tds:bw-comp:5000/"+sName;//Business
-           // oDC = DriverManager.getConnection(url, "sa", "123321123a");
-
-        
-           // return oDC;  
         //  oDC=((javax.sql.DataSource)new InitialContext().lookup(sName)).getConnection();
 //на самом деле достаточно только этой строчки, но лучше писать трай-кэтч.. чтоб всегда отлавливать проблеммы с соединением и вываливать их в лог.
         

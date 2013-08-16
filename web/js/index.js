@@ -4,98 +4,81 @@
 window.onload=function() { 
 
 
+ $("#divAccount").hide(); // При загрузке прячем форму Аккаунта:    
+dhtmlx.message.position = "bottom"; // устанавливаем позицию messages
+//dhtmlx.setActiveStyleSheet("SkyBlue"); // меняем тему messages
 
+
+// ---- страницы в разработке
 $("#mainPageContact, #mainPagePrivateOffice, #mainPageSettings").click( function (){
-      dhtmlx.message({ expire:4000, text:" <img style='padding-top:10px;' src='img/worked.jpg'/> Извините, данная страница находится в стадии разработки... <br><br>" })
+         dhtmlx.message({ expire:4000, text:" <img style='padding-top:10px;' src='img/worked.jpg'/> Извините, данная страница находится в стадии разработки... <br><br>" })
 });
           
  
-//-------------------------Форма Контактов
-// счетчик символов до 1000
+//----- Форма Контактов... счетчик символов до 1000
 	$("#textarea_contact").keyup(function () {
-	       var s = $("#textarea_contact").val().length;   	//alert(s);
+	       var s = $("#textarea_contact").val().length;  
 	       $("#blockMessageLength").html("(Осталось символов: " + "<b>"+ -(s-1000)+ "</b> )" );
-     });
+        });
 
 
-	//скрываем контакты
-    // var pos = $("#form_contact").position();
+//---- Скрываем форму контактов
 	$("#btClose_contact").click( function (){
-//	if (pos.left <= 0) {
-//		$("#form_contact").css("left","250px");
-//		pos.left = 250;
-//		}
-//		else{
-//		pos.left = -150;
-//		$("#form_contact").css("left","-150px");
-//		}
-          $("#form_contact").css("display","none");  
-          $("#FON_contact").css("display","none");  
-         // $("body").css("overflow","scroll");
-	}); 
-        
-         // показываем форму контактов       
-        $("#divHelp").click( function (){     
-           $("#form_contact").css("display","block");  // $("#form_contact").show();  
-           $("#FON_contact").css("display","block");
-        //   $("body").css("overflow","hidden");
-           
+               $("#form_contact").css("display","none");  
+               $("#FON_contact").css("display","none");  
+	});         
+//---- Показываем форму контактов       
+        $("#divHelpLeft").click( function (){     
+                $("#form_contact").css("display","block");  
+                $("#FON_contact").css("display","block");
         });
         
-//----------------------------------------------------------
-
-  
-$('.sInput_Account').qtip({ // подсказки
-    content: {
-		title: {
-                text: 'Информация:'
-                       }//,
-		//text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> '
-		     },
-                  //content: 'Stems are great for indicating' , // принудительно
-           show: 'focus',
-         //  show: {  delay: 1000  },	//задержка
-//                          show: {    effect: function(offset) {
-//                           $(this).slideDown(500); // "this" refers to the tooltip 
-//                           }
-//                           },	
-       hide: 'blur',
-        position: {
-            adjust: { x: 7 }, // принудительное смещение
-            my: 'left top',  // Position my top left...
-            at: 'center right' // at the bottom right of...
-        },
-	     style: {
-         classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green
-		            //width : 15 // ширина
-        }
- });
 
 
-
-// ---------------  При загрузке прячем форму Аккаунта:    
-    $("#divAccount").hide();
-    dhtmlx.message.position = "bottom";
-    //dhtmlx.setActiveStyleSheet("SkyBlue");
-     
-
-//---------------- сдвигаем логотип при наведении    
-$("#img_logo").mouseover(function(){ $(this).css("left","13px")  })  
-.mouseout(function(){   $(this).css("left","15px")   });   
+// ---- подсказки qtip
+     $('.sInput_Account').qtip({ 
+         content: {
+                     title: {
+                     text: 'Информация:'
+                            }//,
+                     //text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> '
+                          },
+                       //content: 'Stems are great for indicating' , // принудительно
+                show: 'focus',
+              //  show: {  delay: 1000  },	//задержка
+     //                          show: {    effect: function(offset) {
+     //                           $(this).slideDown(500); // "this" refers to the tooltip 
+     //                           }
+     //                           },	
+            hide: 'blur',
+             position: {
+                 adjust: { x: 7 }, // принудительное смещение
+                 my: 'left top',  // Position my top left...
+                 at: 'center right' // at the bottom right of...
+             },
+                  style: {
+              classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green
+                                 //width : 15 // ширина
+             }
+      });
 
 
 
-$("#mainPageAdmin").click(function(){ // загрузка данных о сессии
- ajax_getAllSession();
-});
+
+//---- сдвигаем логотип при наведении    
+     $("#img_logo").mouseover(function(){ $(this).css("left","13px")  }).mouseout(function(){   $(this).css("left","15px")   });   
+
+
+// ---- загрузка данных о сессии
+     $("#mainPageAdmin").click(function(){ 
+          ajax_getAllSession();
+     });
     
-//---------------- Удаляем сессию пользователя
+//----Удаляем сессию пользователя
     $("#mainPageExitSession").click(function(){    
      dhtmlx.modalbox({  title:"Сообщение:" ,
 			text:" <br>Вы действительно хотите выйти?<br><br>",
-			width:"350px", 
-                        height:"165px", 
-			position:"center",
+			width:"350px", height:"165px", position:"center",
 			buttons:["Выйти!", "&nbsp;&nbsp;Остаться...&nbsp;&nbsp;"],
 			callback:function(index){
 			if (index==0) {  ajax_doDestroySession();    }
@@ -103,27 +86,27 @@ $("#mainPageAdmin").click(function(){ // загрузка данных о сес
 		});  
     });    
 
-             
-$("#mainPageTest").click(function(){  // начинаем тест   
-$("#left").css("display","block") ;    
-});
+//---- начинаем тест                
+     $("#mainPageTest").click(function(){  
+             $("#left").css("display","block") ;    
+     });
 
 
-//-------------------- Кликаем на ссылку создания Аккаунта 
+//----- Кликаем на ссылку создания Аккаунта 
         $("#divLogin #linkRegister").click(function(){     
             $("#divLogin").hide("slow");       // прячем окно ВХОДА
             $("#divAccount").show("slow");     // показываем окно РЕГИСТРАЦИИ    //(window.location.href="http://localhost:8080/Business/main.jsp")
         });
         
        
-//-------------------- Кликаем на крестик зарытия Окна Регистрации           
+//---- Кликаем на крестик зарытия Окна Регистрации           
         $("#btClose_Account").click(function(){     
             $("#divAccount").hide("slow");                // прячем окно РЕГИСТРАЦИИ
             $("#divLogin").show("slow");                  // показываем окно ВХОДА
         });
      
         
-// ------------------ Кликаем на кнопку создания Аккаунта
+// ------- Кликаем на кнопку для отправки запроса об создания Аккаунта
         $("#divAccount #btReg").click(function(){     
             if ($("#sEmail_Account").val() == "")
                            dhtmlx.message({ type:"error", expire:4000, text:" Введите Е-Маил! <br>" })
@@ -142,27 +125,27 @@ $("#left").css("display","block") ;
     
     
    
-// ------------------ Кликаем на кнопку Входа на сайт
-$("#divLogin #btLogin").click(function(){  
+// ----- Кликаем на кнопку Входа на сайт
+     $("#divLogin #btLogin").click(function(){  
 
-// если пустой Логин или пароль
-    if  ( ($("#divLogin #sEmail").val() == "") | ($("#divLogin #sPassword").val() == "")  )  {        
-          dhtmlx.message({ type:"error", expire:3000, text:"Введите Е-Маил и пароль!" });  // выводим сообщение
-          off($("#divLogin #btLogin"),true);     // блокируем кнопку входа
-          setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 3000)  // через время разблокируем кнопку
-    }
-  else  // если Логин и Пароль заполнены, то:
-      {   
-          off($("#divLogin #btLogin"),true); // блокируем кнопку входа
-        //  $("body").css("cursor","wait") ;  // курсор мфши в ожидание
-          // Через 3 секунды делаем:
-          setTimeout(function() {   ajax_doLogin();  // отправляем запрос на вход
-                                    off($("#divLogin #btLogin"),false);  // разблокируем  кнопку 
-                                    }, 3000) 
-                                 
-          dhtmlx.message({ type:"default", expire:3000, text:"<br> <img src='img/wait.gif'/> &nbsp; Ожидайте... <br><br>" });
-      }
-});    
+     // если пустой Логин или пароль
+         if  ( ($("#divLogin #sEmail").val() == "") | ($("#divLogin #sPassword").val() == "")  )  {        
+               dhtmlx.message({ type:"error", expire:3000, text:"Введите Е-Маил и пароль!" });  // выводим сообщение
+               off($("#divLogin #btLogin"),true);     // блокируем кнопку входа
+               setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 3000)  // через время разблокируем кнопку
+         }
+       else  // если Логин и Пароль заполнены, то:
+           {   
+                    off($("#divLogin #btLogin"),true); // блокируем кнопку входа
+                                       //  $("body").css("cursor","wait") ;  // курсор мфши в ожидание
+                    // Через 3 секунды делаем:
+                    setTimeout(function() {   ajax_doLogin();  // отправляем запрос на вход
+                                              off($("#divLogin #btLogin"),false);  // разблокируем  кнопку 
+                                              }, 3000) 
+
+                    dhtmlx.message({ type:"default", expire:3000, text:"<br> <img src='img/wait.gif'/> &nbsp; Ожидайте... <br><br>" });
+           }
+     });    
     
 
 
@@ -269,7 +252,7 @@ function  ajax_doDestroySession(){
  $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
          ,success:function(o) {                                                              //эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
                          window.location.href="/index.jsp"  ; // обновляем главную стр.
-         }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
+         }, error:function(o,s) { alert("Произошла ошибка-- ajax_doDestroySession()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
          ,dataFilter:function(data, type) { return data;}
          });
 }
@@ -379,3 +362,14 @@ dhtmlx.modalbox({
     //  $("#divFon").append("<strong>Hello</strong>");
     // $("#divFon").append(s);   //alert(s.valueOf());
     //});
+    
+    
+                 // var pos = $("#form_contact").position();
+//	if (pos.left <= 0) {
+//		$("#form_contact").css("left","250px");
+//		pos.left = 250;
+//		}
+//		else{
+//		pos.left = -150;
+//		$("#form_contact").css("left","-150px");
+//		}
