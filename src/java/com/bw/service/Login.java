@@ -257,7 +257,7 @@ public class Login extends HttpServlet {
     	               //  timer.schedule(task, 100,1000);
                          // sIDCurrentSession = session.getId();
                          
-                          
+                           
                                                                               // нельзя чтобы в json было пустое значение
                         sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\" }"; //не менять
                         

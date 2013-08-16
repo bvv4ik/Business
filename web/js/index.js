@@ -358,8 +358,9 @@ var oData= { sDO: "theUserLogin",
  $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
       ,success:function(o) {                                                                                 //    эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
 
+           alert(o.sReturn);
            if (o.sReturn == null)  
-                alert('null');
+                alert('в ответ: null');
           if (o.sReturn == "Добро пожаловать на сайт!"){  (window.location.href="/index.jsp"); 
             }  
             else{
