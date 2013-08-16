@@ -208,10 +208,11 @@
                      <div  id="img_logo"> </div>
                       
                        <div id="divNavigation" >
-				<ul>                                                                                                                                                     
+				<ul>    <!--  <img src="img/key.png" style="position:relative; top:11px; left:5px;" align="left"/>   -->                                                                                                                                                 
                                        <!-- <li> <img src="img/help1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageHelp" href="#">Связь</a> </li>   <div id="separatop"></div>   -->
-                                        <li> <img src="img/key.png" style="position:relative; top:11px; left:5px;" align="left"/>                      <a id="mainPageAdmin" href="#" >На сайте</a>  	 </li> 	<div id="separatop"></div>
-					<li> <img src="img/nastr1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageSettings" href="#">Настройки</a>	 </li> 	<div id="separatop"></div>
+                                         
+                                        <img src="img/key.png" style="position: absolute; padding-top:8px;padding-left:8px;" /> <li> <a id="mainPageAdmin" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;На сайте</a>  	 </li> 	<div id="separatop"></div>
+					<img src="img/nastr1.png" style="position: absolute; padding-top:8px;padding-left:8px;" /> <li>  <a id="mainPageSettings" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Настройки</a>	 </li> 	<div id="separatop"></div>
 					<li> <img src="img/user.png" style="position:relative; top:11px; left:5px; padding-right:5px;" align="left"/> <a id="mainPagePrivateOffice" href="#">Личный кабинет</a></li> 	<div id="separatop"></div>
 					<li> <img src="img/test1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageTest" href="#">Тесты</a>    </li>  <div id="separatop"></div>
                                         <li> <img src="img/mail1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageContact" href="#">Сообщения</a> </li>   <div id="separatop"></div>
