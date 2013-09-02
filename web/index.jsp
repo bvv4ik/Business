@@ -48,7 +48,7 @@
     </head>
     <body>
 
-       <%    oEmail = 1 ; 
+       <%   // oEmail = 1 ; 
             if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %> 
