@@ -1,8 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%               //session.setAttribute("sLogin","Vasiliy");
                  //session.setAttribute("sLogin","text1");
                  // session.removeAttribute("sLogin");
@@ -20,35 +18,40 @@
   //Object oIP = session.getId();       //request.getRemoteAddr();      //request.getRemoteUser(); 
   //String sLogin = session.getAttribute("sLogin");       
 %>
-  
 <!DOCTYPE html>
 <html>
     <head>
-         <title> Главная страница </title>         
+         <title> Главная </title>         
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--  <script type="text/javascript" src="---js/jquery-1.7.2.js"></script>       <script type="text/javascript" src="---js/ajax1.js"> </script>          <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
-        
+         
+         <link rel="stylesheet" type="text/css" href="css/-reset.css"/>
+                                             <!--  <script type="text/javascript" src="---js/jquery-1.7.2.js"></script>       <script type="text/javascript" src="---js/ajax1.js"> </script>          <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
+        <script type="text/javascript" src="js/jquery-1.8.3.js"> </script>  <!--  Библ. jquery должна быть первой   -->
+        <script type="text/javascript" src="js/jquery-ui.js"> </script>        
         <script type="text/javascript" src="js/index.js"> </script>   
-        <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>
-        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
         
+        <!--  <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>          <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->
+        
+        <!--  <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> -->
+        
+        <link rel="stylesheet" href="css/jquery-ui-tabs.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css"/>
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
         
-        <script type="text/javascript" src='js/message/codebase/message.js'></script>
+        <script type="text/javascript" src='js/message/codebase/message.js'></script>        
         <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_default.css" title="Default"/>
-	<!--<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_dark.css" title="Growl - dark"/>
-	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_shiny.css" title="Growl - shiny"/>
-	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
-	<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
-        -->
+                                             <!--<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_dark.css" title="Growl - dark"/>
+                                             <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_shiny.css" title="Growl - shiny"/>
+                                             <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
+                                             <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
+                                             -->
      	<script type="text/javascript" src="js/qTip2/jquery.qtip.js"> </script>
 	<link rel="stylesheet" type="text/css" href="js/qTip2/jquery.qtip.css"/> <!-- манящий уголок  -->
         
     </head>
     <body>
 
-       <%    //oEmail = 1 ; 
+       <%   // oEmail = 1 ; 
             if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %> 
@@ -131,9 +134,361 @@
      
 <!-- ---------- ГЛАВНАЯ страница  ------------ -->                    
 <div  id="divMainPage">
-<div  id="img_logo"> </div>                                    <!--     <a id="linkAbout" style=" position:absolute; left:800px; top:40px; text-decoration: none; color:white;" target="_blank" href="space_galery1.html" title="">Инструменты создания<br> данного сайта...</a>             --> 
+<img id="exitSite" src="img/exit1.png" style="position:absolute;  top:2px; right:2px; cursor:pointer;" title="Выход">
+     <div  id="img_logo"> </div>                                    <!--     <a id="linkAbout" style=" position:absolute; left:800px; top:40px; text-decoration: none; color:white;" target="_blank" href="space_galery1.html" title="">Инструменты создания<br> данного сайта...</a>             --> 
+<div style=" position : relative; top: -50px; left: 260px; color:white; font-size: 26px; font-family: verdana; ">Знание - сила!</div>
 
-     <div id="divNavigation" >
+    
+
+
+
+  <script>   // инициализация закладок
+          
+          $(function() {    $( "#panelTabs" ).tabs( );     });  
+          $(function() {    $( "#subTabsMaterials" ).tabs();     });
+          $(function() {    $( "#subTabsPrifile" ).tabs();     });
+          $(function() {    $( "#subTabsStatistic" ).tabs();     });
+          $(function() {    $( "#subTabsStructure" ).tabs();     });  
+          
+          
+          
+             $(document).ready(function(){
+                  
+          // кликаем по картинке Таба и открываем этот Таб
+   $("#im1").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 0 );      });
+  $("#im2").click(function() {     $( "#panelTabs" ).tabs( "option", "active", 1 );       });
+  $("#im3").click(function() {    $( "#panelTabs" ).tabs( "option", "active", 2 );       });
+  $("#im4").click(function() {    $( "#panelTabs" ).tabs( "option", "active", 3 );       });
+  $("#im5").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 4 );       });
+  $("#im6").click(function() {    $( "#panelTabs" ).tabs( "option", "active", 5 );       });
+   
+    //$( "#tabs" ).tabs({ hide: { effect: "blind", duration: 100 } }); // анимация при показе - скрытии таба
+	 $( "#panelTabs" ).tabs({ show: { effect: "blind", duration: 200 } });
+       
+         });
+         
+  </script>
+
+  <style>
+
+       
+       #panelTabs > ul li img {                /*выравниваем картинки табов*/
+            width:20px; height:20px;  top:8px; left:8px;  position:relative;
+       }
+            
+      /* .ui-tabs .ui-tabs-nav li a {   outline: none;  font-size:15px; font-family: verdana;  }  /*отключаем желтую рамку на Табах*/ 
+ 
+       #panelTabs > ul{
+            padding-top: 5px;
+            padding-left: 15px;
+            ba ckground: -webkit-linear-gradient(top, rgb(97, 97, 97) 0%, rgb(0, 0, 0) 100%);
+            border: 1px solid black; /*#4B85E9*/
+       }
+            
+       #panelTabs{
+            w idth : 1000px;
+            height : 630px;
+            border :1px solid black;
+            ou  tline: 1px solid grey;
+       }
+            
+       #subTabsMaterials {
+            border :1px solid black;
+       }
+            
+       #panelTabs > ul li a{  cursor : default;  } 
+            
+       #panelTabs > ul li
+       {
+            he ight : 32px;   
+            outline : none;   /*отключаем желтую рамку на Табах*/ 
+            font-family: verdana;
+       }
+ 
+  </style>
+  
+
+<!--  Панель ТАБов  --> 
+ 
+<div id="panelTabs">
+     <!--  название корневых вкладок -->
+     <ul>
+          <li><img id="im1" src="img/tabs/mail1.png"  align="left"  />  <a href="#tabMessages">Сообщения</a></li>
+
+          <!--             <div style=" left: 150px;background: red; width:20px; height:20px; position:absolute;" align="left"> </div> <li>    <a href="#tabMessages">Сообщения</a></li>-->
+
+          <li> <img  id="im2" src="img/tabs/zadaniya.png" align="left"  /> <a href="#tabJob">Задания</a></li> 
+          <li>  <img  id="im3" src="img/tabs/test1.png" align="left" /> <a  href="#tabMaterials">Материалы</a></li>
+          <li> <img  id="im4" src="img/tabs/user.png" align="left" /> <a href="#tabPrifile">Профиль</a></li>
+          <li> <img  id="im5" src="img/tabs/stats1.png" align="left"  /> <a href="#tabStatistic">Статистика</a></li>
+          <li> <img  id="im6" src="img/tabs/structure.png" align="left"  /> <a href="#tabStructure">Структура</a></li>
+     </ul>
+          
+     <!-- внутренность корневых закладок -->
+     <!-- 1   --> 	 <div id="tabMessages">
+          
+
+          
+          
+<style>      
+     #filter label{
+          cu rsor:default;
+          color:blue;
+          ou tline :1px solid black;
+     }
+     
+     #filter table{
+          float:none;
+     }
+     
+     #filter table tr td label:hover{
+          te xt-align: justify;     
+          cursor:pointer;
+     }
+     
+     #filter table tr td{          
+          text-align:center;
+          padding: 3px;
+     }
+         
+     #filter input{
+          cursor:pointer;
+          display:none;
+     }
+     
+     #filter > table tr td div{ /*название типов*/
+     color: rgb(255, 79, 79);
+     float:left; 
+     font-weight:bold;
+     }
+
+    
+</style>    
+<script>
+
+$(document).ready(function(){
+setFilter(); // устанавливаем подчеркивания
+
+$("#filter table tr td input").click(function(){    
+setFilter();   // устанавливаем подчеркивания        // $(this).prev().css("checked","checked");   
+}); 
+     
+     
+       function setFilter() { // // устанавливаем подчеркивания
+            $("#filter table tr td input").each(function() {
+                 if ($(this).is( ":checked" ))
+                 {
+                      $(this).next().css("border-bottom","1px solid blue").css("font-weight","bold"); 
+                 }
+                 else{
+                      $(this).next().css("border-bottom","0px solid blue").css("font-weight","normal");  
+                 }               
+            });           
+       };
+       
+       
+       
+     
+     }); 
+</script>
+
+<br>        
+Фильтр сообщений:
+<br>        
+<br>        
+                         <!--    <fieldset id="filter">   <legend>Фильтр для сообщений:</legend> <!-- align="left" border="0" cellspacing="0" cellpadding="0"  -->
+<div id="filter">          
+     
+     <table>   
+          <tr>   
+               <td style="width:67px;"> <div>Тип:</div>   </td>
+               <td style="width:65px;"> <input type="radio" name="tip" id="1" />  <label for="1">Личные</label>  </td>   
+               <td style="width:110px;"> <input type="radio" name="tip" id="2" />  <label for="2">Общественные</label></td>
+               <td style="width:50px;"> <input type="radio" name="tip" id="3" checked="checked" />  <label for="3">Все</label> </td>
+                    
+          </tr> 
+     </table>      
+     <table>    
+          <tr>         
+               <td style="width:68px;"> <div>Период:</div></td>
+               <td style="width:70px;"> <input  type="radio" name="period" id="11"  />     <label for="11">1 Неделя</label></td>
+               <td style="width:70px;"><input  type="radio" name="period" id="22" checked="checked" />   <label for="22">1 Месяц</label></td>
+               <td style="width:80px;"><input  type="radio" name="period" id="33" />    <label for="33">6 Месяцев</label></td>
+               <td style="width:45px;"><input  type="radio" name="period" id="44" />    <label for="44">1 Год</label></td>
+               <td style="width:45px;"><input  type="radio" name="period" id="55" />    <label for="55">Все</label></td>
+          </tr>          
+     </table>               
+     <table>
+          <tr>         
+               <td style="width:70px;"> <div>Статус:</div></td>
+               <td style="width:70px;"> <input type="radio" name="status" id="111" />      <label for="111">Активные</label></td>
+               <td style="width:110px;"> <input type="radio" name="status" id="222" />       <label for="222">Завершенные</label></td>
+               <td style="width:40px;"> <input type="radio" name="status" id="333"  checked="checked" />    <label for="333">Все</label></td>
+          </tr> 
+     </table>
+          
+</div>                    
+<!--</fieldset> -->
+<br>
+<br>
+<br>
+ 
+<p>  Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+     </div>
+          
+     <!-- 2   -->  	<div id="tabJob">
+          <p>  Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+     </div>
+          
+     <!-- 3  -->  <div id="tabMaterials">
+          <br>
+          <br>
+          <br>
+          <div id="subTabsMaterials" >
+               <ul> <!--   style="background:#fac34e;" -->   
+                    <li><a href="#tab1"> 11111111 </a></li>
+                    <li><a href="#tab2">22222222</a></li> 
+                    <li><a href="#tab3">333333333</a></li>  	  
+               </ul>
+                    
+               <div id="tab1">
+                    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+               </div>
+                    
+               <div id="tab2">
+                    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+               </div>
+                    
+               <div id="tab3">
+                    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+               </div>
+                    
+          </div>
+     </div>
+          
+          
+     <!-- 4  -->  <div id="tabPrifile">
+          <br>
+          <br>
+          <br>
+          <div id="subTabsPrifile">
+               <ul>    
+                    <li><a href="#tab1111"> Коллектив </a></li>
+                    <li><a href="#tab2222">Документы</a></li> 
+                    <li><a href="#tab3333">Данные</a></li>  	  
+                    <li><a href="#tab4444">Администрирование</a></li>  	  
+                    <li><a href="#tab5555">Настройки</a></li>  	  
+               </ul>
+                    
+               <div id="tab1111">
+                    <p> 33243423</p>
+               </div>
+                    
+               <div id="tab2222">
+                    <p> 324234524534</p>
+               </div>
+                    
+               <div id="tab3333">
+                    <p>12312</p>
+               </div>
+                    
+               <div id="tab4444">
+                    <p>12312</p>
+               </div>
+                    
+               <div id="tab5555">
+                    <p>12312</p>
+               </div>
+          </div>
+     </div>
+          
+          
+          
+     <!-- 5  -->  <div id="tabStatistic">
+          <br>
+          <br>
+          <br>
+          <div id="subTabsStatistic">
+               <ul>    
+                    <li><a href="#tab111">Успеваемость</a></li>
+                    <li><a href="#tab222">Нагрузка</a></li> 
+                    <li><a href="#tab333">Социология</a></li>  	  
+               </ul>
+                    
+               <div id="tab111">
+                    <p>11111</p>
+               </div>
+                    
+               <div id="tab222">
+                    <p>22222</p>
+               </div>
+                    
+               <div id="tab333">
+                    <p>33333</p>
+               </div>
+                    
+          </div>			 
+     </div>
+          
+          
+          
+     <!-- 6  -->   <div id="tabStructure">
+          <br>
+          <br>
+          <br>
+          <div id="subTabsStructure">
+               <ul>    
+                    <li><a href="#tab11">Студенты</a></li>
+                    <li><a href="#tab22">Преподаватели</a></li> 
+                    <li><a href="#tab33">Руководство</a></li>  	  
+                    <li><a href="#tab44">Факультеты</a></li>  	  
+                    <li><a href="#tab55">Кафедры</a></li>  	  
+                    <li><a href="#tab66">Группы</a></li>  	  
+               </ul>
+                    
+               <div id="tab11">
+                    <p>11111</p>
+               </div>
+                    
+               <div id="tab22">
+                    <p>22222</p>
+               </div>
+                    
+               <div id="tab33">
+                    <p>33333</p>
+               </div>
+                    
+               <div id="tab44">
+                    <p>44</p>
+               </div>
+                    
+               <div id="tab55">
+                    <p>555</p>
+               </div>
+                    
+               <div id="tab66">
+                    <p>66</p>
+               </div>
+                    
+          </div>		 
+     </div>
+          
+          
+          
+          
+</div>
+
+
+
+<!--   -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ <div id="divNavigation" >
             <ul>    <!--  <img src="img/key.png" style="position:relative; top:11px; left:5px;" align="left"/>   -->                                                                                                                                                 
                     <!-- <li> <img src="img/help1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageHelp" href="#">Связь</a> </li>   <div id="separatop"></div>   -->
                     <img src="img/key.png" style="position: absolute; padding-top:8px;padding-left:8px;" /> <li> <a id="mainPageAdmin" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;На сайте</a>  	 </li> 	<div id="separatop"></div>
@@ -152,7 +507,6 @@
      $(function() {  $( "#menu" ).menu();  });	
      //$( "#menu" ).menu({ icons: { submenu: "ui-icon ui-icon-play" } }); // выставляем вид стрелки
 
- 
 /*  $("#mainPageLibrary").click(function() {
 $("#men").effect("fade", { mode: "show", direction: "horizontal" }, 400); 
  });
@@ -165,13 +519,16 @@ $("#men").effect("fade", { mode: "show", direction: "horizontal" }, 400);
 
 
 
+
 <!-- --------- МЕНЮ (окно)--------- -->
+
+<!--
 <div id="men" >
 <ul id="menu" >  
  
      <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> О ВУЗе </a>
           <ul>
-               <li><a href="#"> Структура </a></li> <!-- target="_blank" -->  
+               <li><a href="#"> Структура </a></li> <!-- target="_blank" -- >  
                <li><a href="#">Новости </a></li>  
                <li><a href="#">Структура </a></li> 
                <li><a href="#">Факультеты</a></li>
@@ -261,6 +618,8 @@ $("#men").effect("fade", { mode: "show", direction: "horizontal" }, 400);
 </ul>
 </div>
                      
+   -->
+
 
 
 
@@ -268,6 +627,10 @@ $("#men").effect("fade", { mode: "show", direction: "horizontal" }, 400);
                      
  <!--  конец главного листа   -->                     
 </div> 
+
+
+
+
 
 <!-- </div> нижний футер отступ -->
      <div style="width:1000px; height:120px;"> </div>  
@@ -695,7 +1058,6 @@ function shuffle(arr) {
 
 
 <!--  --------------------------------------------------  -->
-
 
 
 

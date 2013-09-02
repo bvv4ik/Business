@@ -1,7 +1,9 @@
-//$(document).ready(function() {  // });
+
+
+$(document).ready(function() {  // });
 
  
-window.onload=function() { 
+//window.onload=function() { 
 
 
  $("#divAccount").hide(); // При загрузке прячем форму Аккаунта:    
@@ -75,7 +77,7 @@ $("#mainPageContact, #mainPagePrivateOffice, #mainPageSettings").click( function
      });
     
 //----Удаляем сессию пользователя
-    $("#mainPageExitSession").click(function(){    
+    $("#mainPageExitSession, #exitSite").click(function(){    
      dhtmlx.modalbox({  title:"Сообщение:" ,
 			text:" <br>Вы действительно хотите выйти?<br><br>",
 			width:"350px", height:"165px", position:"center",
@@ -298,7 +300,7 @@ function ajax_getAllSession(){
 
 
 
-    }; // конец window.onload
+    }); // конец             //////window.onload
 
 
 

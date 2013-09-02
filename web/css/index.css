@@ -629,13 +629,14 @@ A----5:visited {    color: blue; / * Цвет  ссылки * /  	}
 */
 
 #img_logo {
-    bo rder: 1px solid orange; /* Параметры рамки */    
+    b order: 1px solid orange; /* Параметры рамки */    
     position: relative ;
     left : 15px;
     top : 15px;
-    height: 145px;
-    width: 200px;     /*op acity : 0.2;*/
+    height: 90px;
+        width: 140px;     /*op acity : 0.2;*/
     background: url(../img/logo4.png)  no-repeat left top;
+    background-size: contain;
 
 }
 
