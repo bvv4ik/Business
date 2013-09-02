@@ -142,66 +142,54 @@
 
 
 
-  <script>   // инициализация закладок
-          
+<script>   // обязательная инициализация закладок Jquery
           $(function() {    $( "#panelTabs" ).tabs( );     });  
           $(function() {    $( "#subTabsMaterials" ).tabs();     });
           $(function() {    $( "#subTabsPrifile" ).tabs();     });
           $(function() {    $( "#subTabsStatistic" ).tabs();     });
           $(function() {    $( "#subTabsStructure" ).tabs();     });  
-          
-          
-          
-             $(document).ready(function(){
+                            
+ $(document).ready(function(){
                   
-          // кликаем по картинке Таба и открываем этот Таб
-   $("#im1").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 0 );      });
-  $("#im2").click(function() {     $( "#panelTabs" ).tabs( "option", "active", 1 );       });
-  $("#im3").click(function() {    $( "#panelTabs" ).tabs( "option", "active", 2 );       });
-  $("#im4").click(function() {    $( "#panelTabs" ).tabs( "option", "active", 3 );       });
-  $("#im5").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 4 );       });
-  $("#im6").click(function() {    $( "#panelTabs" ).tabs( "option", "active", 5 );       });
+      // кликаем по картинке Таба и открываем этот Таб иначе не откроется по картинке
+  $("#im1").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 0 );   });
+  $("#im2").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 1 );   });
+  $("#im3").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 2 );   });
+  $("#im4").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 3 );   });
+  $("#im5").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 4 );   });
+  $("#im6").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 5 );   });
    
-    //$( "#tabs" ).tabs({ hide: { effect: "blind", duration: 100 } }); // анимация при показе - скрытии таба
-	 $( "#panelTabs" ).tabs({ show: { effect: "blind", duration: 200 } });
+  
+     // анимация при показе - скрытии таба                  //$( "#tabs" ).tabs({ hide: { effect: "blind", duration: 100 } }); 
+  $( "#panelTabs" ).tabs({ show: { effect: "blind", duration: 200 } });
        
-         });
-         
-  </script>
+});
+</script>
 
   <style>
 
+       #panelTabs{
+            height : 930px;
+            border :1px solid black;
+       }
        
        #panelTabs > ul li img {                /*выравниваем картинки табов*/
             width:20px; height:20px;  top:8px; left:8px;  position:relative;
-       }
-            
-      /* .ui-tabs .ui-tabs-nav li a {   outline: none;  font-size:15px; font-family: verdana;  }  /*отключаем желтую рамку на Табах*/ 
- 
+       }           
+                               /* .ui-tabs .ui-tabs-nav li a {   outline: none;  font-size:15px; font-family: verdana;  }  /*отключаем желтую рамку на Табах*/ 
        #panelTabs > ul{
             padding-top: 5px;
             padding-left: 15px;
-            ba ckground: -webkit-linear-gradient(top, rgb(97, 97, 97) 0%, rgb(0, 0, 0) 100%);
+                                     /*ba ckground: -webkit-linear-gradient(top, rgb(97, 97, 97) 0%, rgb(0, 0, 0) 100%);*/
             border: 1px solid black; /*#4B85E9*/
-       }
-            
-       #panelTabs{
-            w idth : 1000px;
-            height : 630px;
-            border :1px solid black;
-            ou  tline: 1px solid grey;
-       }
-            
-       #subTabsMaterials {
-            border :1px solid black;
-       }
-            
+       }                   
+                       /*#subTabsMaterials {     border :1px solid black;       }*/
        #panelTabs > ul li a{  cursor : default;  } 
             
        #panelTabs > ul li
        {
-            he ight : 32px;   
-            outline : none;   /*отключаем желтую рамку на Табах*/ 
+            height : 36px;   
+            outline : none;   /*отключаем браузерную желтую рамку на активных Табах */ 
             font-family: verdana;
        }
  
@@ -211,55 +199,34 @@
 <!--  Панель ТАБов  --> 
  
 <div id="panelTabs">
-     <!--  название корневых вкладок -->
+            <!--  название корневых вкладок -->
      <ul>
-          <li><img id="im1" src="img/tabs/mail1.png"  align="left"  />  <a href="#tabMessages">Сообщения</a></li>
-
-          <!--             <div style=" left: 150px;background: red; width:20px; height:20px; position:absolute;" align="left"> </div> <li>    <a href="#tabMessages">Сообщения</a></li>-->
-
+          <li> <img id="im1" src="img/tabs/mail1.png"  align="left"  />  <a href="#tabMessages">Сообщения</a></li>
           <li> <img  id="im2" src="img/tabs/zadaniya.png" align="left"  /> <a href="#tabJob">Задания</a></li> 
-          <li>  <img  id="im3" src="img/tabs/test1.png" align="left" /> <a  href="#tabMaterials">Материалы</a></li>
+          <li> <img  id="im3" src="img/tabs/test1.png" align="left" /> <a  href="#tabMaterials">Материалы</a></li>
           <li> <img  id="im4" src="img/tabs/user.png" align="left" /> <a href="#tabPrifile">Профиль</a></li>
           <li> <img  id="im5" src="img/tabs/stats1.png" align="left"  /> <a href="#tabStatistic">Статистика</a></li>
           <li> <img  id="im6" src="img/tabs/structure.png" align="left"  /> <a href="#tabStructure">Структура</a></li>
      </ul>
           
      <!-- внутренность корневых закладок -->
-     <!-- 1   --> 	 <div id="tabMessages">
-          
-
+     <!-- 1 закладка сообщений  --> 	 
+     <div id="tabMessages">
           
           
 <style>      
-     #filter label{
-          cu rsor:default;
-          color:blue;
-          ou tline :1px solid black;
+     #filterMsg {
+          padding-left: 40px;
      }
-     
-     #filter table{
-          float:none;
-     }
-     
-     #filter table tr td label:hover{
-          te xt-align: justify;     
-          cursor:pointer;
-     }
-     
-     #filter table tr td{          
-          text-align:center;
-          padding: 3px;
-     }
-         
-     #filter input{
-          cursor:pointer;
-          display:none;
-     }
-     
-     #filter > table tr td div{ /*название типов*/
-     color: rgb(255, 79, 79);
-     float:left; 
-     font-weight:bold;
+     #filterMsg label{      color:blue;  /*ou tline :1px solid black;*/      }
+     #filterMsg input{     cursor:pointer;     display:none;    }
+     #filterMsg table{   float:none;     }
+     #filterMsg table tr td label:hover{     cursor:pointer;      }
+     #filterMsg table tr td{    text-align:center;     padding: 3px;     }
+     #filterMsg table tr td div{ /*название типов*/
+       float:left; 
+       font-weight:bold;
+       cursor:default;
      }
 
     
@@ -269,35 +236,31 @@
 $(document).ready(function(){
 setFilter(); // устанавливаем подчеркивания
 
-$("#filter table tr td input").click(function(){    
+$("#filterMsg table tr td input").click(function(){    
 setFilter();   // устанавливаем подчеркивания        // $(this).prev().css("checked","checked");   
 }); 
-     
-     
+        
        function setFilter() { // // устанавливаем подчеркивания
-            $("#filter table tr td input").each(function() {
+            $("#filterMsg table tr td input").each(function() {
                  if ($(this).is( ":checked" ))
                  {
-                      $(this).next().css("border-bottom","1px solid blue").css("font-weight","bold"); 
+                      $(this).next().css("border-bottom","1px solid rgb(255, 60, 60)").css("font-weight","bold").css("color","rgb(255, 60, 60)"); 
                  }
                  else{
-                      $(this).next().css("border-bottom","0px solid blue").css("font-weight","normal");  
+                      $(this).next().css("border-bottom","0px solid blue").css("font-weight","normal").css("color","blue");  
                  }               
             });           
        };
-       
-       
-       
-     
-     }); 
+         
+}); 
 </script>
 
 <br>        
-Фильтр сообщений:
+Показать сообщения:
 <br>        
 <br>        
                          <!--    <fieldset id="filter">   <legend>Фильтр для сообщений:</legend> <!-- align="left" border="0" cellspacing="0" cellpadding="0"  -->
-<div id="filter">          
+<div id="filterMsg">          
      
      <table>   
           <tr>   
@@ -321,30 +284,47 @@ setFilter();   // устанавливаем подчеркивания        /
      <table>
           <tr>         
                <td style="width:70px;"> <div>Статус:</div></td>
-               <td style="width:70px;"> <input type="radio" name="status" id="111" />      <label for="111">Активные</label></td>
+               <td style="width:70px;"> <input type="radio" name="status" id="111" checked="checked" />      <label for="111">Активные</label></td>
                <td style="width:110px;"> <input type="radio" name="status" id="222" />       <label for="222">Завершенные</label></td>
-               <td style="width:40px;"> <input type="radio" name="status" id="333"  checked="checked" />    <label for="333">Все</label></td>
+               <td style="width:40px;"> <input type="radio" name="status" id="333"  />    <label for="333">Все</label></td>
           </tr> 
      </table>
           
-</div>                    
+</div>  
+ 
+                         
+<style>  
+     #divListMessages{
+          height: 500px;
+          border: 1px solid black;
+          overflow: scroll/*auto*/; /* прокрутка появляется по необходимости */
+     }
+</style>  
+
+<br>  
+<div id="divListMessages">
+     
+</div>
+                         
 <!--</fieldset> -->
 <br>
-<br>
-<br>
  
-<p>  Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-     </div>
-          
+
+</div>   <!--  конец закладки сообщений  -->
+
+
+
      <!-- 2   -->  	<div id="tabJob">
           <p>  Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
      </div>
-          
+ 
+     
+     
      <!-- 3  -->  <div id="tabMaterials">
           <br>
           <br>
           <br>
-          <div id="subTabsMaterials" >
+          <div id="subTabsMaterials" style="height:500px;">
                <ul> <!--   style="background:#fac34e;" -->   
                     <li><a href="#tab1"> 11111111 </a></li>
                     <li><a href="#tab2">22222222</a></li> 
@@ -367,11 +347,11 @@ setFilter();   // устанавливаем подчеркивания        /
      </div>
           
           
-     <!-- 4  -->  <div id="tabPrifile">
+     <!-- 4  -->  <div id="tabPrifile" >
           <br>
           <br>
           <br>
-          <div id="subTabsPrifile">
+          <div id="subTabsPrifile" style="height:500px;">
                <ul>    
                     <li><a href="#tab1111"> Коллектив </a></li>
                     <li><a href="#tab2222">Документы</a></li> 
@@ -408,7 +388,7 @@ setFilter();   // устанавливаем подчеркивания        /
           <br>
           <br>
           <br>
-          <div id="subTabsStatistic">
+          <div id="subTabsStatistic" style="height:500px;">
                <ul>    
                     <li><a href="#tab111">Успеваемость</a></li>
                     <li><a href="#tab222">Нагрузка</a></li> 
@@ -436,7 +416,7 @@ setFilter();   // устанавливаем подчеркивания        /
           <br>
           <br>
           <br>
-          <div id="subTabsStructure">
+          <div id="subTabsStructure" style="height:500px;">
                <ul>    
                     <li><a href="#tab11">Студенты</a></li>
                     <li><a href="#tab22">Преподаватели</a></li> 
@@ -482,12 +462,7 @@ setFilter();   // устанавливаем подчеркивания        /
 
 <!--   -->
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
  <div id="divNavigation" >
             <ul>    <!--  <img src="img/key.png" style="position:relative; top:11px; left:5px;" align="left"/>   -->                                                                                                                                                 
                     <!-- <li> <img src="img/help1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageHelp" href="#">Связь</a> </li>   <div id="separatop"></div>   -->
