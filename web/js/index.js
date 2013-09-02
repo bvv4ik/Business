@@ -222,7 +222,7 @@ var oData= { sDO: "theUserLogin",
 
  $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
       ,success:function(o) {                                                                                 //    эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-          alert(o.sReturn);
+        //  alert(o.sReturn);
           if (o.sReturn == null)  alert('в ответ вернулся : null');
           if (o.sReturn == "Добро пожаловать на сайт!"){  
                dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });

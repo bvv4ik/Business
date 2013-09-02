@@ -189,7 +189,7 @@ String s = "";
             String sErr = _.getMessage();
             System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
             //return null;//"Ошибка приложения";
-        } finally {      //ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
+        } finally {      
              ConnectSybase.closeConnect("UA_DP_PGASA", oDC);
         }
         return false;  //"false - Логин свободен";

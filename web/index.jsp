@@ -115,7 +115,7 @@
                          <div> <b>Ваш e-mail:</b> <input class="theInput"  type="text"  value="Serg@mail.ru" maxlength="30" readonly="" style="background: #cccccc; color: gray" /></div>
                          <div> <b>Тема сообщения:</b> <select class="theInput"  id="sel" >           <option value="" selected="selected"> --- выбрать тему ---</option>       <option value="Предлагаю...">Предлагаю...</option>  	  <option value="Нашел ошибку!">Нашел ошибку!</option> 	      <option value="Помогите...">Помогите...</option>      <option value="Желаю...">Желаю...</option>           </select></div>
                          <div  id="blockMessage" > <b>Сообщение:</b>  </div>
-                         <div  id="blockSelect" >   <textarea id="textarea_contact" rows="14" cols="57" placeholder="" maxlength="1000" ></textarea></div>                    
+                         <div  id="blockSelect" >   <textarea id="textarea_contact" rows="14" cols="57" placeholder="" maxlength="1000"  ></textarea></div>                    
                          <div  id="blockMessageLength"> (Осталось символов: <b>1000</b>)  </div>
                          <div>  <input class="theInput"  style="left : 320px; width:110px"  type="button"  value="Отправить" onClick="alert('Ваше сообщение типа отправлено!'); $('#textarea_contact').val(''); " > </div>
      </div>
@@ -148,7 +148,7 @@
                             
  $(document).ready(function(){
                   
-      // кликаем по картинке Таба и открываем этот Таб иначе не откроется по картинке
+      // кликаем по картинке Таба и открываем этот Таб иначе не откроется если кликнуть по картинке
   $("#im1").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 0 );   });
   $("#im2").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 1 );   });
   $("#im3").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 2 );   });
@@ -172,7 +172,7 @@
        }
        
        #panelTabs > ul li img {                /*выравниваем картинки табов*/
-            width:20px; height:20px;  top:8px; left:8px;  position:relative;
+            width:20px; height:20px;  top:8px; left:8px;  position:absolute;
        }           
                                /* .ui-tabs .ui-tabs-nav li a {   outline: none;  font-size:15px; font-family: verdana;  }  /*отключаем желтую рамку на Табах*/ 
        #panelTabs > ul{
@@ -182,7 +182,10 @@
             border: 1px solid black; 
        }                   
                       
-       #panelTabs > ul li a{  cursor : default;  }       
+       #panelTabs > ul li a{  cursor : default; 
+         bo rder: 1px solid red;
+         height: 23px;
+       }       
        #panelTabs > ul li
        {
             height : 36px;   
@@ -198,12 +201,12 @@
 <div id="panelTabs">
             <!--  название корневых вкладок -->
      <ul>
-          <li> <img id="im1" src="img/tabs/mail1.png"  align="left"  />  <a href="#tabMessages">Сообщения</a></li>
-          <li> <img  id="im2" src="img/tabs/zadaniya.png" align="left"  /> <a href="#tabJob">Задания</a></li> 
-          <li> <img  id="im3" src="img/tabs/test1.png" align="left" /> <a  href="#tabMaterials">Материалы</a></li>
-          <li> <img  id="im4" src="img/tabs/user.png" align="left" /> <a href="#tabPrifile">Профиль</a></li>
-          <li> <img  id="im5" src="img/tabs/stats1.png" align="left"  /> <a href="#tabStatistic">Статистика</a></li>
-          <li> <img  id="im6" src="img/tabs/structure.png" align="left"  /> <a href="#tabStructure">Структура</a></li>
+          <li> <img id="im1" src="img/tabs/mail1.png"  align="left"  />  <a href="#tabMessages">&emsp;&nbsp;Сообщения</a></li>
+          <li> <img  id="im2" src="img/tabs/zadaniya.png" align="left"  /> <a href="#tabJob">&emsp;&nbsp;Задания</a></li> 
+          <li> <img  id="im3" src="img/tabs/test1.png" align="left" /> <a  href="#tabMaterials">&emsp;&nbsp;Материалы</a></li>
+          <li> <img  id="im4" src="img/tabs/user.png" align="left" /> <a href="#tabPrifile">&emsp;&nbsp;Профиль</a></li>
+          <li> <img  id="im5" src="img/tabs/stats1.png" align="left"  /> <a href="#tabStatistic">&emsp;&nbsp;Статистика</a></li>
+          <li> <img  id="im6" src="img/tabs/structure.png" align="left"  /> <a href="#tabStructure">&emsp;&nbsp;Структура</a></li>
      </ul>
           
      <!-- внутренность корневых закладок -->
@@ -212,39 +215,36 @@
           
           
 <style>      
-     #filterMsg {
-          padding-left: 40px;
+     #filterMsg {   border: 1px solid black; padding: 10px; background: rgb(207, 207, 207); 
+         -moz-border-radius:5px;
+	    -khtml-border-radius: 5px;
+	    -webkit-border-radius: 5px;
      }
      #filterMsg label{      color:blue;  /*ou tline :1px solid black;*/      }
      #filterMsg input{     cursor:pointer;     display:none;    }
      #filterMsg table{   float:none;     }
      #filterMsg table tr td label:hover{     cursor:pointer;      }
-     #filterMsg table tr td{    text-align:center;     padding: 3px;     }
-     #filterMsg table tr td div{ /*название типов*/
-       float:left; 
-       font-weight:bold;
-       cursor:default;
+     #filterMsg table tr td{    text-align:center;     padding: 2px; padd ing-right: 12px;   }
+     #filterMsg table tr td div{ /*название фильтров*/
+       float:left;        font-weight:bold;      cursor:default;
      } 
 </style>
 
 
 <script>
 $(document).ready(function(){
-setFilter(); // устанавливаем подчеркивания
+setFilter(); // устанавливаем подчеркивания активных Радио
 
 $("#filterMsg table tr td input").click(function(){    
-setFilter();        // устанавливаем подчеркивания        // $(this).prev().css("checked","checked");   
+setFilter();        // устанавливаем подчеркивания  активных Радио      // $(this).prev().css("checked","checked");   
 }); 
         
-       function setFilter() { // // устанавливаем подчеркивания
+       function setFilter() {  // устанавливаем подчеркивания активных Радио
             $("#filterMsg table tr td input").each(function() {
                  if ($(this).is( ":checked" ))
-                 {
-                      $(this).next().css("border-bottom","1px solid rgb(255, 60, 60)").css("font-weight","bold").css("color","rgb(255, 60, 60)"); 
-                 }
-                 else{
-                      $(this).next().css("border-bottom","0px solid blue").css("font-weight","normal").css("color","blue");  
-                 }               
+                        $(this).next().css("border-bottom","1px solid rgb(12, 69, 214)").css("font-weight","bold").css("color","rgb(12, 69, 214)"); 
+                    else
+                        $(this).next().css("border-bottom","0px solid blue").css("font-weight","normal").css("color","blue");  
             });           
        };
          
@@ -252,15 +252,13 @@ setFilter();        // устанавливаем подчеркивания    
 </script>
 
 <br>        
-Показать сообщения:
-<br>        
-<br>        
-                         <!--    <fieldset id="filter">   <legend>Фильтр для сообщений:</legend> <!-- align="left" border="0" cellspacing="0" cellpadding="0"  -->
+<!--     <!-- align="left" border="0" cellspacing="0" cellpadding="0"  -->
 <div id="filterMsg">          
-     
+<div style="font-size:16px; font-weight: bold;  color:rgb(0, 112, 255);">Показать сообщения:</div>
+<br>    
      <table>   
           <tr>   
-               <td style="width:67px;"> <div>Тип:</div>   </td>
+               <td style="width:87px;"> <div>Тип:</div>   </td>
                <td style="width:65px;"> <input type="radio" name="tip" id="1" />  <label for="1">Личные</label>  </td>   
                <td style="width:110px;"> <input type="radio" name="tip" id="2" />  <label for="2">Общественные</label></td>
                <td style="width:50px;"> <input type="radio" name="tip" id="3" checked="checked" />  <label for="3">Все</label> </td>
@@ -268,7 +266,7 @@ setFilter();        // устанавливаем подчеркивания    
      </table>      
      <table>    
           <tr>         
-               <td style="width:68px;"> <div>Период:</div></td>
+               <td style="width:88px;"> <div>Период:</div></td>
                <td style="width:70px;"> <input  type="radio" name="period" id="11"  />     <label for="11">1 Неделя</label></td>
                <td style="width:70px;"> <input  type="radio" name="period" id="22" checked="checked" />   <label for="22">1 Месяц</label></td>
                <td style="width:80px;"> <input  type="radio" name="period" id="33" />    <label for="33">6 Месяцев</label></td>
@@ -278,16 +276,18 @@ setFilter();        // устанавливаем подчеркивания    
      </table>               
      <table>
           <tr>         
-               <td style="width:70px;"> <div>Статус:</div></td>
+               <td style="width:90px;"> <div>Статус:</div></td>
                <td style="width:70px;"> <input type="radio" name="status" id="111" checked="checked" />      <label for="111">Активные</label></td>
                <td style="width:110px;"> <input type="radio" name="status" id="222" />       <label for="222">Завершенные</label></td>
                <td style="width:40px;"> <input type="radio" name="status" id="333"  />    <label for="333">Все</label></td>
           </tr> 
      </table>
-          
+  
 </div>  
  
-                         
+     
+<!--</fieldset> -->
+     
 <style>  
      #divListMessages{
           height: 500px;
@@ -301,7 +301,7 @@ setFilter();        // устанавливаем подчеркивания    
      
 </div>
                          
-<!--</fieldset> -->
+
 <br>
  
 
@@ -325,7 +325,7 @@ setFilter();        // устанавливаем подчеркивания    
                     <li><a href="#tab2">22222222</a></li> 
                     <li><a href="#tab3">333333333</a></li>  	  
                </ul>
-                    
+                     <!--   <li><a href="trouble2.php">My id 1</a></li>-->
                <div id="tab1">
                     <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
                </div>
