@@ -24,16 +24,13 @@
          <title> Главная </title>         
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          
-         <link rel="stylesheet" type="text/css" href="css/-reset.css"/>
-                                             <!--  <script type="text/javascript" src="---js/jquery-1.7.2.js"></script>       <script type="text/javascript" src="---js/ajax1.js"> </script>          <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
+         <link rel="stylesheet" type="text/css" href="css/-reset.css"/> <!--  сброс браузерных стилей -->
+                                                                                            <!--  <script type="text/javascript" src="---js/jquery-1.7.2.js"></script>       <script type="text/javascript" src="---js/ajax1.js"> </script>          <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
         <script type="text/javascript" src="js/jquery-1.8.3.js"> </script>  <!--  Библ. jquery должна быть первой   -->
         <script type="text/javascript" src="js/jquery-ui.js"> </script>        
-        <script type="text/javascript" src="js/index.js"> </script>   
+        <script type="text/javascript" src="js/index.js"> </script>   <!--  мои стили  -->
 
-        
-        <!--  <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>          <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->
-        
-        <!--  <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> -->
+        <!--  <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>          <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->    <!--  <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> -->
         
         <link rel="stylesheet" href="css/jquery-ui-tabs.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css"/>
@@ -51,7 +48,7 @@
     </head>
     <body>
 
-       <%   // oEmail = 1 ; 
+       <%    oEmail = 1 ; 
             if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %> 
@@ -160,11 +157,12 @@
   $("#im6").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 5 );   });
    
   
-     // анимация при показе - скрытии таба                  //$( "#tabs" ).tabs({ hide: { effect: "blind", duration: 100 } }); 
+     // анимация при открытии - скрытии таба                  //$( "#tabs" ).tabs({ hide: { effect: "blind", duration: 100 } }); 
   $( "#panelTabs" ).tabs({ show: { effect: "blind", duration: 200 } });
        
 });
 </script>
+
 
   <style>
 
@@ -179,13 +177,12 @@
                                /* .ui-tabs .ui-tabs-nav li a {   outline: none;  font-size:15px; font-family: verdana;  }  /*отключаем желтую рамку на Табах*/ 
        #panelTabs > ul{
             padding-top: 5px;
-            padding-left: 15px;
+            padding-left: 25px;
                                      /*ba ckground: -webkit-linear-gradient(top, rgb(97, 97, 97) 0%, rgb(0, 0, 0) 100%);*/
-            border: 1px solid black; /*#4B85E9*/
+            border: 1px solid black; 
        }                   
-                       /*#subTabsMaterials {     border :1px solid black;       }*/
-       #panelTabs > ul li a{  cursor : default;  } 
-            
+                      
+       #panelTabs > ul li a{  cursor : default;  }       
        #panelTabs > ul li
        {
             height : 36px;   
@@ -227,17 +224,16 @@
        float:left; 
        font-weight:bold;
        cursor:default;
-     }
+     } 
+</style>
 
-    
-</style>    
+
 <script>
-
 $(document).ready(function(){
 setFilter(); // устанавливаем подчеркивания
 
 $("#filterMsg table tr td input").click(function(){    
-setFilter();   // устанавливаем подчеркивания        // $(this).prev().css("checked","checked");   
+setFilter();        // устанавливаем подчеркивания        // $(this).prev().css("checked","checked");   
 }); 
         
        function setFilter() { // // устанавливаем подчеркивания
@@ -268,17 +264,16 @@ setFilter();   // устанавливаем подчеркивания        /
                <td style="width:65px;"> <input type="radio" name="tip" id="1" />  <label for="1">Личные</label>  </td>   
                <td style="width:110px;"> <input type="radio" name="tip" id="2" />  <label for="2">Общественные</label></td>
                <td style="width:50px;"> <input type="radio" name="tip" id="3" checked="checked" />  <label for="3">Все</label> </td>
-                    
           </tr> 
      </table>      
      <table>    
           <tr>         
                <td style="width:68px;"> <div>Период:</div></td>
                <td style="width:70px;"> <input  type="radio" name="period" id="11"  />     <label for="11">1 Неделя</label></td>
-               <td style="width:70px;"><input  type="radio" name="period" id="22" checked="checked" />   <label for="22">1 Месяц</label></td>
-               <td style="width:80px;"><input  type="radio" name="period" id="33" />    <label for="33">6 Месяцев</label></td>
-               <td style="width:45px;"><input  type="radio" name="period" id="44" />    <label for="44">1 Год</label></td>
-               <td style="width:45px;"><input  type="radio" name="period" id="55" />    <label for="55">Все</label></td>
+               <td style="width:70px;"> <input  type="radio" name="period" id="22" checked="checked" />   <label for="22">1 Месяц</label></td>
+               <td style="width:80px;"> <input  type="radio" name="period" id="33" />    <label for="33">6 Месяцев</label></td>
+               <td style="width:45px;"> <input  type="radio" name="period" id="44" />    <label for="44">1 Год</label></td>
+               <td style="width:45px;"> <input  type="radio" name="period" id="55" />    <label for="55">Все</label></td>
           </tr>          
      </table>               
      <table>

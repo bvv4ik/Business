@@ -1,6 +1,3 @@
-/*сброс стилей Eric Meyer  v2.0 от 26 января 2011) */
-@import url(reset.css);
-
 
 
 
@@ -61,7 +58,7 @@
 ----------------------------------*/
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #b7e37a; background: #b7e37a url(images/ui-bg_flat_55_b7e37a_40x100.png) 50% 50% repeat-x; font-weight: bold; color: #363232; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #363232; text-decoration: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #26ad2b; background: #b7e37a url(images/ui-bg_flat_75_b7e37a_40x100.png) 50% 50% repeat-x; font-weight: bold; color: #363232; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid grey/*#26ad2b*/; background: #b7e37a url(images/ui-bg_flat_75_b7e37a_40x100.png) 50% 50% repeat-x; font-weight: bold; color: #363232; }
 .ui-state-hover a, .ui-state-hover a:hover, .ui-state-hover a:link, .ui-state-hover a:visited { color: #363232; text-decoration: none; }
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #26ad2b; background: white /*url(images/ui-bg_flat_100_e3e2e0_40x100.png) 50% 50% repeat-x*/; font-weight: bold; color: #363232; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #363232; text-decoration: none; }
