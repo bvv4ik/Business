@@ -162,12 +162,13 @@ String s = "";
             if ( s != null) { // Если Пароль есть у данного логина в базе
                 return s;        // отправляем Пароль        
             }
-            ConnectSybase.closeConnect("UA_DP_PGASA", oDC);
+            
         } catch (Exception _) {
             String sErr = _.getMessage();
             System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
             //return null;//"Ошибка приложения";
-        } finally {      //ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
+        } finally {      //ConnectSybase.closeConnect("UA_DP_PGASA",oDC);
+            ConnectSybase.closeConnect("UA_DP_PGASA", oDC); 
         }
         return "";  // "" - такого Пароля нет у Логина"; 
 }
