@@ -43,12 +43,12 @@
                                              <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
                                              -->
      	<script type="text/javascript" src="js/jquery.qtip.js"> </script>
-	<link rel="stylesheet" type="text/css" href="js/jquery.qtip.css"/> <!-- манящий уголок  -->
+	<link rel="stylesheet" type="text/css" href="css/jquery.qtip.css"/> <!-- манящий уголок  -->
         
     </head>
     <body>
 
-       <%    oEmail = 1 ; 
+       <%    //oEmail = 1 ; 
             if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %>  
