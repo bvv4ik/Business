@@ -582,7 +582,7 @@ padding-top: 2px;
 #divMainPage{
      background-image: url(../img/body-bg1.jpg);
      ba ckground: rgb(43, 43, 43);
-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
      top : 35px;
     position: relative ;
     margin:0 auto;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bw.entity;
+package test;
   import java.util.Timer;
 import java.util.TimerTask;
 /**
@@ -11,7 +11,7 @@ import java.util.TimerTask;
  */
 
 
-public class App {
+public class App_timer {
      
      
      public static Timer timer = new Timer();

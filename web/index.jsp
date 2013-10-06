@@ -24,7 +24,7 @@
          <title> Главная </title>         
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          
-         <link rel="stylesheet" type="text/css" href="css/-reset.css"/> <!--  сброс браузерных стилей -->
+         <link rel="stylesheet" type="text/css" href="css/reset.css"/> <!--  сброс браузерных стилей -->
                                                                                             <!--  <script type="text/javascript" src="---js/jquery-1.7.2.js"></script>       <script type="text/javascript" src="---js/ajax1.js"> </script>          <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
         <script type="text/javascript" src="js/jquery-1.8.3.js"> </script>  <!--  Библ. jquery должна быть первой   -->
         <script type="text/javascript" src="js/jquery-ui.js"> </script>        
@@ -42,13 +42,13 @@
                                              <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
                                              <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
                                              -->
-     	<script type="text/javascript" src="js/qTip2/jquery.qtip.js"> </script>
-	<link rel="stylesheet" type="text/css" href="js/qTip2/jquery.qtip.css"/> <!-- манящий уголок  -->
+     	<script type="text/javascript" src="js/jquery.qtip.js"> </script>
+	<link rel="stylesheet" type="text/css" href="js/jquery.qtip.css"/> <!-- манящий уголок  -->
         
     </head>
     <body>
 
-       <%   /// oEmail = 1 ; 
+       <%    oEmail = 1 ; 
             if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %>  
@@ -132,7 +132,7 @@
 <!-- ---------- ГЛАВНАЯ страница  ------------ -->                    
 <div  id="divMainPage">
 <img id="exitSite" src="img/exit1.png" style="position:absolute;  top:2px; right:2px; cursor:pointer;" title="Выход">
-     <div  id="img_logo"> </div>                                    <!--     <a id="linkAbout" style=" position:absolute; left:800px; top:40px; text-decoration: none; color:white;" target="_blank" href="space_galery1.html" title="">Инструменты создания<br> данного сайта...</a>             --> 
+     <div  id="img_logo"> </div>                                    <!--     <a id="linkAbout" style=" position:absolute; left:800px; top:40px; text-decoration: none; color:white;" target="_blank" href="space_galery.html" title="">Инструменты создания<br> данного сайта...</a>             --> 
 <div style=" position : relative; top: -50px; left: 260px; color:white; font-size: 26px; font-family: verdana; ">Знание - сила!</div>
 
     
@@ -216,15 +216,15 @@
           
 <style>      
      #filterMsg {   border: 1px solid black; padding: 10px; background: rgb(207, 207, 207); 
-         -moz-border-radius:5px;
-	    -khtml-border-radius: 5px;
-	    -webkit-border-radius: 5px;
+      border-radius: 5px 5px 5px 5px;
+      pa dding-left: 40px;
+
      }
      #filterMsg label{      color:blue;  /*ou tline :1px solid black;*/      }
      #filterMsg input{     cursor:pointer;     display:none;    }
      #filterMsg table{   float:none;     }
      #filterMsg table tr td label:hover{     cursor:pointer;      }
-     #filterMsg table tr td{    text-align:center;     padding: 2px; padd ing-right: 12px;   }
+     #filterMsg table tr td{    text-align:center;     padding: 6px; padding-bottom: 3px; padding-top: 3px; padd ing-right: 12px;   }
      #filterMsg table tr td div{ /*название фильтров*/
        float:left;        font-weight:bold;      cursor:default;
      } 
@@ -251,11 +251,26 @@ setFilter();        // устанавливаем подчеркивания  а
 }); 
 </script>
 
-<br>        
+<style>
+#filterHeader{
+     font-size:16px; font-weight: bold;  color: rgb(134, 134, 134);
+     bo rder: 1px solid black;
+     b order-bottom: none;
+width: 210px;
+left: 0px;
+t op: -29px;
+position: relative;
+b order-radius: 5px 5px 0px 0px;
+background: rgb(207, 207, 207);
+padding-bottom: 7px;
+}
+</style>
+
+     &emsp;
 <!--     <!-- align="left" border="0" cellspacing="0" cellpadding="0"  -->
 <div id="filterMsg">          
-<div style="font-size:16px; font-weight: bold;  color:rgb(0, 112, 255);">Показать сообщения:</div>
-<br>    
+<div id="filterHeader"style="">Показать сообщения:</div>
+   
      <table>   
           <tr>   
                <td style="width:87px;"> <div>Тип:</div>   </td>
@@ -323,20 +338,21 @@ setFilter();        // устанавливаем подчеркивания  а
                <ul> <!--   style="background:#fac34e;" -->   
                     <li><a href="#tab1"> 11111111 </a></li>
                     <li><a href="#tab2">22222222</a></li> 
-                    <li><a href="#tab3">333333333</a></li>  	  
+                    <li><a href="newhtml.html">My id 1</a></li> <!--  подгрузка через АЯКС  -->
+                    <!--   <li><a href="#tab3">333333333</a></li>  	  -->
                </ul>
-                     <!--   <li><a href="trouble2.php">My id 1</a></li>-->
+                     <!--   <li><a href="newhtml.html">My id 1</a></li>-->
                <div id="tab1">
-                    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+                    <p>1 Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
                </div>
                     
                <div id="tab2">
-                    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+                    <p>2 Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
                </div>
                     
-               <div id="tab3">
-                    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
-               </div>
+               <!--  <div id="tab3">
+                    <p> 3 Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+               </div>  -->
                     
           </div>
      </div>
