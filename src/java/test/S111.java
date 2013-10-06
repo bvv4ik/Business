@@ -10,6 +10,7 @@ import java.util.List;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Random;
 
 /**
  *
@@ -28,10 +29,29 @@ public class S111 {
 //    System.out.println(s);
     
     
-    String sss = "dsf sdf asg asdfg adfg";
+   // String sss = "dsf sdf asg asdfg adfg";
     
-    String s= "1234567890";
-  System.out.println(s.substring(7, 10));
+ //   String s= "1234567890";
+ // System.out.println(s.substring(7, 10));
+         
+          String sRandomCookie = "";
+                         for (int i = 0; i < 30; i++) { 
+                             Random rand = new Random();
+                             int nRandom = rand.nextInt();
+                             // No.2 Случайное целое число от 0 до 10
+                              nRandom = rand.nextInt(26);
+                              int a = (int) 'a';
+                              char b = (char) (a + nRandom);
+                              sRandomCookie += b;
+                            }
+                         System.out.println(sRandomCookie);
+int a = (int) 'a';
+System.out.println(a);
+char b = (char) (a + 1);
+System.out.println(b);
+
+                         
+ 
 
     
 

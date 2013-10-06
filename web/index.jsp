@@ -45,6 +45,8 @@
      	<script type="text/javascript" src="js/jquery.qtip.js"> </script>
 	<link rel="stylesheet" type="text/css" href="css/jquery.qtip.css"/> <!-- манящий уголок  -->
         
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>     
+        
     </head>
     <body>
 
@@ -62,13 +64,98 @@
 
  <!-- ----------- ВХОД форма ----------------- -->
            <div id="divLogin" > <br>                             <!-- value="ser111@ss.ss"    value="111"-->
-                <input  class="sInput_Login" id="sEmail"   type="text" value="" placeholder="Е-MAIL..."  maxlength="25" />   <br> <br>
+                <input  class="sInput_Login" id="sEmail"   type="text" value="" placeholder="Е-MAIL..."  maxlength="25" autocomplete="on" />   <br> <br>
                 <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" />  <br> <br>
-                <input  class="allButt" id="btLogin"  type="button" value="Вход" />  
-                <a id="linkRegister" href ="#" >Регистрация </a>   <br> <br>  <!--   http://localhost:8080/Business/register.jsp   -->
+                <!-- <a id="linkRegister" href ="#" >Регистрация </a>   <br> <br>     http://localhost:8080/Business/register.jsp   -->
+                <input type="checkbox" id="checkAgreement"  checked>  
+                <!--<label id="textCheckAgreement" for="111" style="color: rgb(180, 180, 180); cursor:pointer;">Я согласен на хранение своих персональных данных &emsp;</label>
+                <br><br> <br>
+                  -->
+                <a href="help.html" target="_blank"  style="text-decoration: none; color: rgb(180, 180, 180);">&nbsp; Я согласен на хранение своих персональных данных </a> <br> <br> <br> 
+                <input  class="allButt" id="btLogin" type="button" value="Вход" />  
            </div>
  
+ <style>
+ .sInput_Login{   /*отключаем желтую рамку на Табах*/
+ outline: none;  
+ }  
+ 
+ .disabled { opacity: 0.3; filter: alpha(opacity=30); }
+ 
+ </style>
 
+ <script>
+
+
+$("#btLogin").click(function(){  
+   //  document.cookie = "name111=Ser5";
+});
+
+ 
+  //   document.cookie = "name22222=Ser5";
+
+
+
+
+$(document).ready(function(){
+     
+      // кнопка затемнена и отключена по умолчанию
+      $("#btLogin").addClass("disabled").attr("disabled", "disabled")           
+           
+      $(".sInput_Login").keyup(function(event) { // при откускании кнопок (в том числе интера)
+              
+              // проверяем поля на пустоту и включен ли чекбокс
+               if ( ($("#sEmail").val() == "") | ($("#sPassword").val() == "") | (!$("#checkAgreement").is(":checked" )) ) { 
+                       
+                       // если есть пустые поля или чекбокс не включен, значит отключаем кнопку
+                       $("#btLogin").addClass("disabled").attr("disabled", "disabled");
+               }
+                else {  // если поля заполнены и чекбокс включен то - // включаем кнопку
+                        $("#btLogin").removeClass("disabled").removeAttr("disabled");
+                         
+                         // если это была кнопка "интер" то программно кликаем по кнопке "входа"
+                        if ( (event.keyCode==13) /*& ($("#checkAgreement").is(":checked" )) */  ) {
+                           
+                                   $('#btLogin').click();
+                            
+                              //$.cookie("name555", "123");
+                                      //writeCookie("myCounter", 5);
+                              //var s= $.cookie("name555");
+                              // var s= document.cookie;
+                              //  alert(s);
+                            
+                         }
+                     }
+      });
+      
+      
+       // в момент изменения состояния чекбокса(включения - выключения)
+      $("#checkAgreement").change(function() {
+           // если все поля заполнены и чекбокс включен
+               if ($("#checkAgreement").is(":checked" ) & ($("#sEmail").val() != "") & ($("#sPassword").val() != "")   )
+           // включаем кнопку
+               $("#btLogin").removeClass("disabled").removeAttr("disabled");
+          else
+           // отключаем кнопку
+               $("#btLogin").addClass("disabled").attr("disabled", "disabled");
+       });
+
+
+   // если кликаем на текст - то программно кликам на сам чекбокс.
+    $("#textCheckAgreement").click(function() {    $("#checkAgreement").click();   });
+
+
+});
+     // ( ($("#sEmail").val() == "")
+     // if ( ($("#sEmail").val() == "") | ($("#sPassword").val() == "") ) 
+     // alert(1);
+      //$("#btLogin").addClass(disabled);
+ 
+ 
+ 
+      </script>
+ 
+ 
 <!-- ---------- АККАУНТ форма ---------  autocomplete="off" -->
        <div id="divAccount"  >
                <div id="divHeader_Account">Создание учетной записи: 

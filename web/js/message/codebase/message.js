@@ -53,6 +53,7 @@ if(!window.dhtmlx)
 			t.area.className = "dhtmlx_message_area";
 			t.area.style[t.position]="5px";
 			document.body.appendChild(t.area);
+                   
 		}
 
 		t.hide(text.id);

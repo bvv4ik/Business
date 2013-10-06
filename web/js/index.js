@@ -5,6 +5,12 @@ $(document).ready(function() {  // });
  
 //window.onload=function() { 
 
+ $( "#divLogin" ).tabs({ hide: { effect: "shake", duration: 400 } });
+//  $( "#divLogin" ).effect( "shake" );
+//Попытка войти через  Куку
+ajax_LoginForCookie(); 
+
+
 
  $("#divAccount").hide(); // При загрузке прячем форму Аккаунта:    
 dhtmlx.message.position = "bottom"; // устанавливаем позицию messages
@@ -130,23 +136,28 @@ $("#mainPageContact, #mainPagePrivateOffice, #mainPageSettings").click( function
 // ----- Кликаем на кнопку Входа на сайт
      $("#divLogin #btLogin").click(function(){  
 
-     // если пустой Логин или пароль
-         if  ( ($("#divLogin #sEmail").val() == "") | ($("#divLogin #sPassword").val() == "")  )  {        
-               dhtmlx.message({ type:"error", expire:3000, text:"Введите Е-Маил и пароль!" });  // выводим сообщение
-               off($("#divLogin #btLogin"),true);     // блокируем кнопку входа
-               setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 3000)  // через время разблокируем кнопку
-         }
-       else  // если Логин и Пароль заполнены, то:
-           {   
-                    off($("#divLogin #btLogin"),true); // блокируем кнопку входа
+//     // если пустой Логин или пароль
+//         if  ( ($("#divLogin #sEmail").val() == "") | ($("#divLogin #sPassword").val() == "")  )  {        
+//               dhtmlx.message({ type:"error", expire:3000, text:"Введите Е-Маил и пароль!" });  // выводим сообщение
+//               off($("#divLogin #btLogin"),true);     // блокируем кнопку входа
+//               setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 3000)  // через время разблокируем кнопку
+//         }
+//       else  // если Логин и Пароль заполнены, то:
+//           {   
+//                    off($("#divLogin #btLogin"),true); // блокируем кнопку входа
                                        //  $("body").css("cursor","wait") ;  // курсор мфши в ожидание
                     // Через 3 секунды делаем:
                     setTimeout(function() {   ajax_doLogin();  // отправляем запрос на вход
                                               off($("#divLogin #btLogin"),false);  // разблокируем  кнопку 
+                                              //document.cookie = "name333333=Ser25";
+                                            //  $.cookie("auth", "1234567_",{ expires: 5,  path: '/'    });
+                                             
+                                             // var s= $.cookie("name333333");
+                                             // alert(s);
                                               }, 3000) 
 
                     dhtmlx.message({ type:"default", expire:3000, text:"<br> <img src='img/wait.gif'/> &nbsp; Ожидайте... <br><br>" });
-           }
+         //  }
      });    
     
 
@@ -213,18 +224,24 @@ var countEnter = 5;      // по умолчанию
 function ajax_doLogin(){  
 
 if (countEnter == -1)   return; // блокировка отправки сообщений
-       
+
 var oData= { sDO: "theUserLogin",
              sEmail : $("#divLogin #sEmail").val(),
-             sPassword: $("#divLogin #sPassword").val(),
-             bBlocked: false
+             sPassword: $("#divLogin #sPassword").val()
+               // bBlocked: false,
+            // sCookie: str 
            };
 
  $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:/*false*/true
       ,success:function(o) {                                                                                 //    эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
         //  alert(o.sReturn);
+            // alert(o.sReturnCookie); //
           if (o.sReturn == null)  alert('в ответ вернулся : null');
           if (o.sReturn == "Добро пожаловать на сайт!"){  
+                
+                // сохраняем/обновляем Куку при успешном входе
+               $.cookie("auth", o.sReturnCookie, { expires: 2,  path: '/'    });
+                
                dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });
                setInterval(function() { (window.location.href="/index.jsp");  }, 1000);
           }  
@@ -279,6 +296,27 @@ function ajax_getAllSession(){
          });
 }
 
+function ajax_LoginForCookie(){
+    
+     // Ищем Куку
+     var str = $.cookie("auth");
+     var oData= {   sDO: "theUserLogin",
+                    sCookie: str   };
+ 
+ $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
+         ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+                //  alert(o.sReturnCookie); 
+                  
+                   
+                 // alert(o.sReturnCookie);                                                               
+//                 if (o.sReturn != null)    {                //alert(o.sReturn);
+//                     window.location.href="/index.jsp"  ;   // открываем/обновляем главную стр. 
+//                 }
+            
+         }, error:function(o,s) { alert("Произошла ошибка--!!--theSendCoockie "+o.status+":"+o.statusText+" ("+o.responseText+")");  }
+         ,dataFilter:function(data, type) { return data;}
+         });
+}
 
 
 //

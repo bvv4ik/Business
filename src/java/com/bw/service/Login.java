@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Random;
 //import java.util.Timer;
 import java.util.TimerTask;
 import javax.servlet.Servlet;
@@ -137,7 +138,8 @@ public class Login extends HttpServlet {
                             sDO = "" , 
                                 sEmail = "",
                                 sPassword = "",
-                              
+                                
+                                sCookie = "",
                                sSess = ""
                             ;
            
@@ -198,11 +200,23 @@ public class Login extends HttpServlet {
                sEmail = request.getParameter("sEmail");
                sPassword = request.getParameter("sPassword");
      
+               sCookie = request.getParameter("sCookie");
             
-            
+               
+               
+               
     //------------- ВХОД пользователя ---------------
-            if ("theUserLogin".equals(sDO)) {
-                
+            if ("theUserLogin".equals(sDO)){
+           
+              // если кука не пустая то по куки достаем Логин и Пароль из базы
+           if ("1234567_".equals(sCookie)){ 
+               // sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\" }"; //не менять
+               
+               // sEmail = "1";
+               // sPassword = "2";
+               }     
+                 
+                 
       
                 Access A = new Access();
                 if (A.bLoginExists(sEmail) == true) { // true - Емаил существует в базе
@@ -210,6 +224,20 @@ public class Login extends HttpServlet {
                     Pass = A.getPassword(sEmail);   // смотрим  Пароль по Емайлу
                     if (sPassword.equals(Pass))  {      // если Пароли совпадают
                     
+                           //создаем строку из 50 случайных символов для Куки
+                         String sRandomCookie = "";
+                         for (int i = 0; i < 50; i++) { 
+                             Random rand = new Random();
+                             int nRandom = rand.nextInt();
+                             // No.2 Случайное целое число от 0 до 10
+                              nRandom = rand.nextInt(26);
+                              int a = (int) 'a';
+                              char b = (char) (a + nRandom);
+                              sRandomCookie += b;
+                            }
+ 
+                          
+                         
                            HttpSession session = request.getSession(true);    //создаем сессию для пользователя
                            session.setAttribute("sEmail", sEmail);
                            session.setAttribute("sPassword", sPassword);
@@ -259,7 +287,7 @@ public class Login extends HttpServlet {
                          
                            
                                                                               // нельзя чтобы в json было пустое значение
-                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\" }"; //не менять
+                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" +sRandomCookie+ "\" }"; //не менять
                         
                                 
 //                        while (TimerCount < 5){
@@ -285,8 +313,14 @@ public class Login extends HttpServlet {
                  //(Осталось попыток: " +countEnter+" )"+
                  }
          
+                
+                
+                
+                
             }
 
+            
+            
             
             
             
