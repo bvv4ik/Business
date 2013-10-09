@@ -55,36 +55,108 @@
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %>  
   
-        
+         
 <!-- ------------- ФОН ----------------- -->
 <div id="divFon" >     
       
-    <div id="divError"> </div> <!--  может кода понадобится  для отладки -->
+         <div id="divError" > 
+         </div>      <!--  может быть кода понадобится  для отладки -->
   
-
+         	
  <!-- ----------- ВХОД форма ----------------- -->
-           <div id="divLogin" > <br>                             <!-- value="ser111@ss.ss"    value="111"-->
-                <input  class="sInput_Login" id="sEmail"   type="text" value="" placeholder="Е-MAIL..."  maxlength="25" autocomplete="on" />   <br> <br>
-                <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" />  <br> <br>
-                <!-- <a id="linkRegister" href ="#" >Регистрация </a>   <br> <br>     http://localhost:8080/Business/register.jsp   -->
-                <input type="checkbox" id="checkAgreement"  checked>  
-                <!--<label id="textCheckAgreement" for="111" style="color: rgb(180, 180, 180); cursor:pointer;">Я согласен на хранение своих персональных данных &emsp;</label>
-                <br><br> <br>
-                  -->
-                <a href="help.html" target="_blank"  style="text-decoration: none; color: rgb(180, 180, 180);">&nbsp; Я согласен на хранение своих персональных данных </a> <br> <br> <br> 
-                <input  class="allButt" id="btLogin" type="button" value="Вход" />  
+           <div id="divLogin" > 
+                <img hidden id="imgFirstLoginHelp" src="img/help1.png" alt="help"  width="32" height="32" style=" position: absolute; top: -30px;left: 420px;" />
+                <br>                             <!-- value="ser111@ss.ss"    value="111"-->
+               <center> 
+                <input  class="sInput_Login" id="sEmail"   type="text" value="" placeholder="Е-MAIL..."  maxlength="55" autocomplete="on" title="" /> 
+                <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
+                <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" />  
+                <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="ФАМИЛИЯ (не обязательно)"  maxlength="25" />  
+                <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" />   
+                
+                <input  hidden type="checkbox" id="checkAgreement"  checked> 
+                <a  hidden href="agreement.html" target="_blank"  style="font-size: 13px; cursor: help; text-decoration: none; color: rgb(180, 180, 180);">
+                     &nbsp; Я согласен на хранение своих персональных данных (?). </a>
+                </center> 
+                     <!-- 
+                     • Если Вы уже ЗАРЕГИСТРИРОВАННЫ - введите свой пароль. <br><br> • Если Вы НОВЫЙ пользователь - придумайте новый пароль, система зарегистрирует вас при Воходе автоматически. <br><br> <div id='delTitle22' style='  display:block; cursor: pointer; color:blue;' onClick='javascript: delTitle2();' >  <ins>Не уведомлять на этом компьютере.</ins> </div> <br>  
+                     • Если Вы уже ЗАРЕГИСТРИРОВАННЫ - введите свой Емаил. <br><br> • Если Вы НОВЫЙ пользователь - введите Емаил, система зарегистрирует вас при Воходе автоматически. <br><br> <div id='delTitle11' style=' display:block; cursor: pointer; color:blue;' onClick='javascript: delTitle1();' > <ins>Не уведомлять на этом компьютере.</ins> </div> <br> 
+                     onclick='alert(2);'
+                       TckbВведите Емаил, независимо от того: Вы НОВЫЙ или ЗАРЕГИСТРИРОВАННЫЙ пользователь! <br><br>Это многофункциональная форма авторизации.
+                     пароль который вы вводили при регистрации или , если вы входите впервые. Пароль должен быть не меньше 10 символов. Статус пароля:
+                <!--<a href="#" style="font-size: 13px; cursor: help; color: blue; padding-left: 20px;">Дополнительно...</a>
+                 <a id="linkRegister" href ="#" >Регистрация </a>   <br> <br>     http://localhost:8080/Business/register.jsp   
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Дополнительно...             Это Единая форма для входа или регистрации.  
+                <a id="linkRegister" href ="#" >Регистрация </a>   <br>   -->
+                <center> 
+                <input  style ="margin-top: 20px;" class="allButt" id="btLogin" type="button" value="&nbsp;&nbsp;&nbsp;  Вход  &nbsp;&nbsp;&nbsp;" /> </center> 
            </div>
  
  <style>
- .sInput_Login{   /*отключаем желтую рамку на Табах*/
- outline: none;  
- }  
+
  
  .disabled { opacity: 0.3; filter: alpha(opacity=30); }
  
  </style>
 
  <script>
+
+     // плавное мигание объекта
+     $.fn.wait = function(time, type) {
+          time = time || 100;
+          type = type || "fx";
+          return this.queue(type, function() {
+               var self = this;
+               setTimeout(function() {
+                    $(self).dequeue();
+               }, time);
+          });
+     };
+     // прекращаем минание при наведении
+     var b = true;  $("#imgFirstLoginHelp").mouseover(function(){    b = false;   });
+     
+     function runIt() {
+          if (b) { $("#imgFirstLoginHelp").wait().animate({"opacity": 0.3},1000).wait().animate({"opacity": 1},900,runIt);  }
+     }
+     runIt();
+
+
+
+/*
+function showFirstLoginTitle() {
+     
+$('#imgFirstLoginHelp').qtip({
+    content: {
+         title: {
+                     text: 'Внимание!'
+                            },
+        text:   'Это многофункцональная система авторизации.<br><br>'+
+                '• Если Вы уже зарегистрированны, введите Ваш Емаил и пароль, жмите "Вход". <br><br>'+
+                '• Если Вы новый пользователь, в тех же полях введите Ваш Емаил, придумайте'+
+                ' пароль, жмите "Вход", и система'+
+                ' зарегистрирует Вас автоматически.<br><br>'+
+                'После первого успешного входа на сайт с данного компьютера/браузера данное сообщение исчезнет. <br>Последующие авторизации с данного компьютера/браузера будут происходить автоматически (или вручную при желании пользователя).'
+    },
+    show: {
+           ready: true
+    },
+    hide: {
+        event: 'click mouseleave'
+    },
+     position: {
+                 adjust: { x: 7, y:10 }, // принудительное смещение
+                 my: 'left top',  // Position my top left...
+                 at: 'top right' // at the bottom right of...
+             },
+              style: {
+              classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green
+             }
+});
+
+}
+
+*/
+
 
 
 $("#btLogin").click(function(){  
@@ -117,7 +189,7 @@ $(document).ready(function(){
                         if ( (event.keyCode==13) /*& ($("#checkAgreement").is(":checked" )) */  ) {
                            
                                    $('#btLogin').click();
-                            
+                     
                               //$.cookie("name555", "123");
                                       //writeCookie("myCounter", 5);
                               //var s= $.cookie("name555");
@@ -125,19 +197,30 @@ $(document).ready(function(){
                               //  alert(s);
                             
                          }
+                          
+                        
+                         
                      }
       });
       
       
+      
+      
        // в момент изменения состояния чекбокса(включения - выключения)
       $("#checkAgreement").change(function() {
-           // если все поля заполнены и чекбокс включен
+           
+         //  $("#btLogin").removeAttr("title");
+           // проверяем если все поля заполнены и чекбокс включен
                if ($("#checkAgreement").is(":checked" ) & ($("#sEmail").val() != "") & ($("#sPassword").val() != "")   )
            // включаем кнопку
                $("#btLogin").removeClass("disabled").removeAttr("disabled");
+               
           else
            // отключаем кнопку
+               
                $("#btLogin").addClass("disabled").attr("disabled", "disabled");
+               //.attr("title", "Включите чекбокс согласия хранить ваши персональные данные.");
+              
        });
 
 
@@ -146,6 +229,9 @@ $(document).ready(function(){
 
 
 });
+
+
+
      // ( ($("#sEmail").val() == "")
      // if ( ($("#sEmail").val() == "") | ($("#sPassword").val() == "") ) 
      // alert(1);
@@ -161,7 +247,7 @@ $(document).ready(function(){
                <div id="divHeader_Account">Создание учетной записи: 
                     <img id="btClose_Account" src="img/krest.jpg"   border="1"   title="Закрыть"  />
                </div>  <br>  
-		   <input id="sEmail_Account" class="sInput_Account" placeholder="Ваш Е-Маил..." title='Поле, обязательное для заполнения. Введите название вашего Е-Маил, который станет уникальным Логином для входа на этот сайт. <br>Так же ознакомьтесь: <a href="http://ru.wikipedia.org/wiki/Пароль" target="_blank" title="">Безопастность пароля</a>' type="text" value=""  maxlength="70" >                      
+		   <input id="sEmail_Account" class="sInput_Account" placeholder="Ваш Е-Маил..." title='Поле, обязательное для заполнения. Введите название вашего Е-Маил, который станет уникальным Логином для входа на этот сайт. <br>Так же ознакомьтесь: <a href="http://ru.wikipedia.org/wiki/Пароль" target="_blank" >Безопастность пароля</a>' type="text" value=""  maxlength="70" >                      
                    <input id="sPassword_Account" class="sInput_Account" placeholder="Пароль" title="Поле, обязательное для заполнения. Пароль должен содержать не менее 10 и не более 25 символов латинского алфавита и цифр (a-z, A-Z, 0-9). Для надежности очень желательно, чтобы пароль включал в себя не только маленькие латинские буквы, но так же заглавные буквы и цифры. Пример безопастного пароля:  <b>Ivan33bn81T</b> , <br>Примеры небесопастных паролей: <b>qwerty</b>, <b>123</b>, <b>7654321</b>. <br>Не экономьте несколько символов на своей безопастности! )) "  type="password" value=""  maxlength="25" >   
                    <input id="sPassword2_Account" class="sInput_Account" placeholder="Пароль (повторно)" title="Поле обязательное для заполнения. <br> Защита от невнимательности! :)"   type="password" value=""  maxlength="25" >   <br>
 		   <input id="sFirstName_Account" class="sInput_Account" placeholder="Имя" title="Желательно, но необязательно :)"  type="text" value="" autocomplete="off"  maxlength="25" > <br> 
@@ -172,8 +258,8 @@ $(document).ready(function(){
                                                     <!-- <h1>    Добро пожаловать <    %=oLogin%>  <    %=oLastName%> <    %=oFirstName%> <   %=oSureName%>    </h1> !-->
 
     <!--  подпись   -->
-<div style="font-size: 12px; position:absolute; float:right; color:white; left: 30px; height:30px; top:91%; padding-top:7px; border-top:1px solid white ">Created by: Belyavtsev Sergey Vladimirovitch <br>All rights reserved. 2013</div>
-
+<!--  <div style="font-size: 12px; position:absolute; float:right; color:white; left: 30px; height:30px; top:91%; padding-top:7px; border-top:1px solid white ">Created by: Belyavtsev Sergey Vladimirovitch <br>All rights reserved. 2013</div>
+-->
 
 
   

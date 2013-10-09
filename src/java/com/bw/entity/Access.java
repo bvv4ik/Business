@@ -39,7 +39,7 @@ private int bDisabled; //(вырубить доступ)
  public Access _nID(int i) { nID = i; return this; }
  public Access _nID_SubjectHuman(int i) { nID_SubjectHuman=i; return this; }
  public Access _sLogin(String s) { sLogin=s; return this;  }
- public Access sPassword(String s) { sPassword=s; return this;  }
+ public Access _sPassword(String s) { sPassword=s; return this;  }
  public Access _bDisabled (int b){  bDisabled=b; return this; }
  
  // Getters
@@ -150,6 +150,8 @@ private int bDisabled; //(вырубить доступ)
  } 
  
  
+ 
+ 
     
 public static String getPassword (String sLogin) {    
 String s = "";
@@ -172,7 +174,32 @@ String s = "";
         }
         return "";  // "" - такого Пароля нет у Логина"; 
 }
-     
+ 
+
+public static String getNID(String sLogin) {    
+String s = "";
+        Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+        try {
+            ResultSet oSet = oDC.prepareStatement("SELECT TOP 1 nID FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
+            if (oSet.next()) {
+                s = oSet.getString(1);   
+            }
+            if ( s != null) { // Если nID есть у данного логина в базе
+                return s;        // отправляем nID        
+            }
+            
+        } catch (Exception _) {
+            String sErr = _.getMessage();
+            System.err.println("ERROR: " + sErr + "_" + " ---- getNID");   //это вывод в лог-файл
+            
+        } finally {      
+            ConnectSybase.closeConnect("UA_DP_PGASA", oDC); 
+        }
+        return "";  // "" - такого nID нет у Логина"; 
+}
+
+
+
     public static boolean bLoginExists(String sLogin) {
         String s = "";
         Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");

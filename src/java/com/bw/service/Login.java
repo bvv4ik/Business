@@ -224,8 +224,10 @@ public class Login extends HttpServlet {
                     Pass = A.getPassword(sEmail);   // смотрим  Пароль по Емайлу
                     if (sPassword.equals(Pass))  {      // если Пароли совпадают
                     
+                         
+                         String sNID = A.getNID(sEmail); // Получаем NID Логина
                            //создаем строку из 50 случайных символов для Куки
-                         String sRandomCookie = "";
+                         String sCreateCookie = "";
                          for (int i = 0; i < 50; i++) { 
                              Random rand = new Random();
                              int nRandom = rand.nextInt();
@@ -233,9 +235,10 @@ public class Login extends HttpServlet {
                               nRandom = rand.nextInt(26);
                               int a = (int) 'a';
                               char b = (char) (a + nRandom);
-                              sRandomCookie += b;
+                              sCreateCookie += b;
                             }
- 
+                              sCreateCookie = sNID+"&"+ sCreateCookie;
+                               
                           
                          
                            HttpSession session = request.getSession(true);    //создаем сессию для пользователя
@@ -287,7 +290,7 @@ public class Login extends HttpServlet {
                          
                            
                                                                               // нельзя чтобы в json было пустое значение
-                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" +sRandomCookie+ "\" }"; //не менять
+                        sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCreateCookie+ "\" }"; //не менять
                         
                                 
 //                        while (TimerCount < 5){

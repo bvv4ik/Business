@@ -1,17 +1,119 @@
+//window.onload=function() { 
 
+
+ function showTitleFirstLogin() {
+        
+     $("#imgFirstLoginHelp").qtip({ 
+         content: { title: {  text: 'Информация:', button: 'Close'}  //
+                      ,text: "• Если Вы уже ЗАРЕГИСТРИРОВАННЫ - просто введите свой Емаил, пароль и входите. <br><br> • Если Вы НОВЫЙ пользователь - в тех же полях введите Емаил, придумайте пароль, при Входе система зарегистрирует вас автоматически. <br><br> <div id='Title111' style=' display:block; cursor: pointer; color:blue;' onClick='javascript: delTitle1();' > • Данное уведомление исчезнет после Вашего первого успешного Входа на сайт с данного компьютера/браузера. </div> <br> "
+                          },      //content: 'Stems are great for indicating' , // принудительно
+                
+                //show: 'focus',
+                show: {
+                      ready: true
+                  },
+                
+             //  show: {  delay: 1000  },	//задержка
+     //                           show: {    effect: function(offset) {
+     //                           $(this).slideDown(500); // "this" refers to the tooltip 
+     //                           }
+     //                           },
+     
+            //hide: 'blur',
+      
+      hide: {
+       event: 'mouseon'
+    },
+//              hide: {   
+//                    // event: 'unfocus'
+//                   //   event: 'click'
+//                      
+//                  //target: $('#delTitle11').click(),
+//                  //event: 'unfocus',
+//                 event: 'blur'
+//                  //solo: true
+//                  //event: false
+//                  
+//                      
+//                },
+             position: {
+                 adjust: { x: 17, y: 13 }, // принудительное смещение
+                 my: 'left top',  // Position my top left...
+                 at: 'right top' // at the bottom right of...
+             },
+                  style: {
+              classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green //,width : 15 // ширина
+             }
+      });
+      
+      
+      }
+      
+
+
+// Если отключены Куки - закрываем Вкладку страницы
+if (!navigator.cookieEnabled) {
+   alert('Внимание, отключены Сookie в вашем баузере, без Сookie работа с этим сайтом невозможна!');
+   window.close();
+}
+
+       //$("#sEmail").attr("title","Пароль"); 
+       //$("#sEmail").removeAttr("title"); //  
+
+// функции включения-отключения подсказок
+function delTitle1() {  
+     $.cookie('last', 'x', { expires: 777,  path: '/' });  
+   //  $(".sInput_Login").qtip({  show: false    });     
+     
+}
+//function delTitle2() {  
+//     $.cookie('titleCookie2', 'x1', { expires: 777,  path: '/' });  
+//     $(".sInput_Login").qtip({  show: false    });  
+//     //alert(2);
+//}
+
+
+
+
+
+ 
 
 $(document).ready(function() {  // });
 
+// Если отключены Куки закрываем окно Входа - регистрации
+ if (!navigator.cookieEnabled) {     $( "#divLogin").hide();     }  //return;
+
+$("#sEmail").focus();
+
+
  
-//window.onload=function() { 
-
- $( "#divLogin" ).tabs({ hide: { effect: "shake", duration: 400 } });
-//  $( "#divLogin" ).effect( "shake" );
-//Попытка войти через  Куку
-ajax_LoginForCookie(); 
+// обнуляем Куки для тестов ....
+//$.cookie('last', null);
+//$.cookie('titleCookie2', null);
+//$.cookie('auth', null);
 
 
 
+var str = $.cookie("last");     // Ищем куку last
+if (str == null){        // если ее нет то меняем название кнопки "Вход" на "Вход / Регистрация"
+        //  $( "#btLogin" ).val("Вход / Регистрация");     // не обязательно
+        // $( "#imgFirstLoginHelp" ).removeAttr("hidden");      // подсказка
+        // showFirstLoginTitle();
+
+}
+
+
+
+
+           // Открываем табы с эффектом замедления
+         $( "#divLogin" ).tabs({ hide: { effect: "shake", duration: 400 } });
+
+
+// Попытка войти через  Куку
+// ajax_LoginForCookie(); 
+
+
+ 
  $("#divAccount").hide(); // При загрузке прячем форму Аккаунта:    
 dhtmlx.message.position = "bottom"; // устанавливаем позицию messages
 //dhtmlx.setActiveStyleSheet("SkyBlue"); // меняем тему messages
@@ -44,32 +146,74 @@ $("#mainPageContact, #mainPagePrivateOffice, #mainPageSettings").click( function
 
 
 // ---- подсказки qtip
-     $('.sInput_Account').qtip({ 
-         content: {
-                     title: {
-                     text: 'Информация:'
-                            }//,
-                     //text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> '
-                          },
-                       //content: 'Stems are great for indicating' , // принудительно
-                show: 'focus',
-              //  show: {  delay: 1000  },	//задержка
-     //                          show: {    effect: function(offset) {
-     //                           $(this).slideDown(500); // "this" refers to the tooltip 
-     //                           }
-     //                           },	
-            hide: 'blur',
-             position: {
-                 adjust: { x: 7 }, // принудительное смещение
-                 my: 'left top',  // Position my top left...
-                 at: 'center right' // at the bottom right of...
-             },
-                  style: {
-              classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green
-                                 //width : 15 // ширина
-             }
-      });
+//     $('.sInput_Account').qtip({ 
+//         content: { title: {  text: 'Информация:' }//,
+//                     //text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> '
+//                          },      //content: 'Stems are great for indicating' , // принудительно
+//                show: 'focus',  //  show: {  delay: 1000  },	//задержка
+//     //                           show: {    effect: function(offset) {
+//     //                           $(this).slideDown(500); // "this" refers to the tooltip 
+//     //                           }
+//     //                           },	
+//            hide: 'blur',
+//             position: {
+//                 adjust: { x: 7 }, // принудительное смещение
+//                 my: 'left top',  // Position my top left...
+//                 at: 'center right' // at the bottom right of...
+//             },
+//                  style: {
+//              classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green //,width : 15 // ширина
+//             }
+//      });
 
+// ---- подсказки qtip 1
+
+
+
+
+   
+      
+      
+//$("#sEmail").focus();
+
+
+if ($.cookie("last") == null){   // если куки нет, значит пользователь здесь впервые .....   
+        $("#imgFirstLoginHelp").removeAttr("hidden"); // делаем мигающую иконку видимой
+        showTitleFirstLogin();     // вызываем сообщение
+}
+
+
+       
+ 
+ //---- подсказки qtip
+//     $('.sInput_Login').qtip({ 
+//         content: {
+//                     title: {
+//                     text: 'Информация:'
+//                            }//,
+//                     //text: 'Введите пароль, потому что это для вашей же безопастности! <br><a href="home.html" title="Главная страница">Home</a> '
+//                          },
+//                       //content: 'Stems are great for indicating' , // принудительно
+//                show: 'focus',
+//                show: {
+//                      ready: true
+//                  },
+//              //  show: {  delay: 1000  },	//задержка
+//     //                          show: {    effect: function(offset) {
+//     //                           $(this).slideDown(500); // "this" refers to the tooltip 
+//     //                           }
+//     //                           },	
+//            hide: 'blur',
+//             position: {
+//                 adjust: { x: 7 }, // принудительное смещение
+//                 my: 'left top',  // Position my top left...
+//                 at: 'center right' // at the bottom right of...
+//             },
+//                  style: {
+//              classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green
+//                                 //width : 15 // ширина
+//             }
+//      });
 
 
 
@@ -89,7 +233,10 @@ $("#mainPageContact, #mainPagePrivateOffice, #mainPageSettings").click( function
 			width:"350px", height:"165px", position:"center",
 			buttons:["Выйти!", "&nbsp;&nbsp;Остаться...&nbsp;&nbsp;"],
 			callback:function(index){
-			if (index==0) {  ajax_doDestroySession();    }
+			if (index==0) {  
+                             ajax_doDestroySession();   // Удаляем сессию 
+                             $.cookie('auth', null);   // Удаляем куку  
+                             }
 			}
 		});  
     });    
@@ -239,9 +386,14 @@ var oData= { sDO: "theUserLogin",
           if (o.sReturn == null)  alert('в ответ вернулся : null');
           if (o.sReturn == "Добро пожаловать на сайт!"){  
                 
-                // сохраняем/обновляем Куку при успешном входе
+                // сохраняем/обновляем временную Куку при успешном входе
                $.cookie("auth", o.sReturnCookie, { expires: 2,  path: '/'    });
-                
+               
+                // сохраняем/обновляем постоянную Куку при успешном входе
+               var d = new Date(); d = d.toString().replace(/\ /g,"_"); // замена всех пробелов на подчеркивание
+               $.cookie("last", d, { expires: 9999,  path: '/'    });
+               //alert ($.cookie("last"));
+               
                dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });
                setInterval(function() { (window.location.href="/index.jsp");  }, 1000);
           }  
@@ -296,27 +448,27 @@ function ajax_getAllSession(){
          });
 }
 
-function ajax_LoginForCookie(){
-    
-     // Ищем Куку
-     var str = $.cookie("auth");
-     var oData= {   sDO: "theUserLogin",
-                    sCookie: str   };
- 
- $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
-         ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-                //  alert(o.sReturnCookie); 
-                  
-                   
-                 // alert(o.sReturnCookie);                                                               
-//                 if (o.sReturn != null)    {                //alert(o.sReturn);
-//                     window.location.href="/index.jsp"  ;   // открываем/обновляем главную стр. 
-//                 }
-            
-         }, error:function(o,s) { alert("Произошла ошибка--!!--theSendCoockie "+o.status+":"+o.statusText+" ("+o.responseText+")");  }
-         ,dataFilter:function(data, type) { return data;}
-         });
-}
+//function ajax_LoginForCookie(){
+//    
+//     // Ищем Куку
+//     var str = $.cookie("auth");
+//     var oData= {   sDO: "theUserLogin",
+//                    sCookie: str   };
+// 
+// $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
+//         ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+//                //  alert(o.sReturnCookie); 
+//                  
+//                   
+//                 // alert(o.sReturnCookie);                                                               
+////                 if (o.sReturn != null)    {                //alert(o.sReturn);
+////                     window.location.href="/index.jsp"  ;   // открываем/обновляем главную стр. 
+////                 }
+//            
+//         }, error:function(o,s) { alert("Произошла ошибка--!!--theSendCoockie "+o.status+":"+o.statusText+" ("+o.responseText+")");  }
+//         ,dataFilter:function(data, type) { return data;}
+//         });
+//}
 
 
 //
