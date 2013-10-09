@@ -72,10 +72,10 @@
                 <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
                 <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" />  
                 <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="ФАМИЛИЯ (не обязательно)"  maxlength="25" />  
-                <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" />   
-                
-                <input  hidden type="checkbox" id="checkAgreement"  checked> 
-                <a  hidden href="agreement.html" target="_blank"  style="font-size: 13px; cursor: help; text-decoration: none; color: rgb(180, 180, 180);">
+                <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" />  </center>   
+                 <br hidden id="brLogin">  
+                <center> <input hidden  type="checkbox" id="checkAgreement"  checked> 
+                <a hidden  id="sTextAgreement" href="agreement.html" target="_blank"  style="font-size: 13px; cursor: help; text-decoration: none; color: rgb(180, 180, 180);">
                      &nbsp; Я согласен на хранение своих персональных данных (?). </a>
                 </center> 
                      <!-- 

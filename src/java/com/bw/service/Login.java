@@ -202,14 +202,24 @@ public class Login extends HttpServlet {
      
                sCookie = request.getParameter("sCookie");
             
+               // if ("theUserLoginCoockie".equals(sDO)){                }
                
                
                
+               if ("theUserExists".equals(sDO)){
+                 Access Ac = new Access();
+                if (Ac.bLoginExists(sEmail) /*== true*/){ // true - Емаил существует в базе
+                 sReturn = "{\"sReturnExists\":\"" + "YES" + "\"}";
+                 
+               }
+               }
+                    
     //------------- ВХОД пользователя ---------------
             if ("theUserLogin".equals(sDO)){
            
-              // если кука не пустая то по куки достаем Логин и Пароль из базы
-           if ("1234567_".equals(sCookie)){ 
+              //Вход по Куке
+                 // если кука не пустая то по куки достаем Логин и Пароль из базы
+           if (!"".equals(sCookie)){ 
                // sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\" }"; //не менять
                
                // sEmail = "1";
@@ -217,11 +227,11 @@ public class Login extends HttpServlet {
                }     
                  
                  
-      
+            // Вход по Логину - Паролю 
                 Access A = new Access();
                 if (A.bLoginExists(sEmail) == true) { // true - Емаил существует в базе
-                    String Pass = "";
-                    Pass = A.getPassword(sEmail);   // смотрим  Пароль по Емайлу
+                   // String Pass = "";
+                    String Pass = A.getPassword(sEmail);   // смотрим  Пароль по Емайлу
                     if (sPassword.equals(Pass))  {      // если Пароли совпадают
                     
                          
@@ -311,8 +321,19 @@ public class Login extends HttpServlet {
 
                     }
                 else{  // несуществующий Логин
-                 //countEnter--;   
-                 sReturn = "{\"sReturn\":\"" + "Неверный Логин или Пароль!" +  "\"}";
+                                         //countEnter--;   
+                                         //sReturn = "{\"sReturn\":\"" + "Неверный Логин или Пароль!" +  "\"}";
+                   //Регистрируем  
+                  Access Aсс = new Access();
+                  String s = Aсс.userRegistration(sEmail, sPassword);
+                  sReturn = "{   \"sReturn\":\""+s+"\"    }"; 
+                  //sReturn = "{   \"sReturn\":\""+s+"\"   \"sReturnFirst\":\""+s+"\"    }"; 
+                
+                // sssss@ds.dd
+                 
+                     
+                     
+                     
                  //(Осталось попыток: " +countEnter+" )"+
                  }
          

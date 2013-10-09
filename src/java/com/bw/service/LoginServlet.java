@@ -156,7 +156,7 @@ try{
    
    if ("RegisteredUser".equals(sDO))   {
       Access A = new Access();
-      String s = A.userRegistration(sLoginEmail, sPasswordReg1, sPasswordReg2);
+      String s = A.userRegistration(sLoginEmail, sPasswordReg1);
            
       sReturnLogin = "{\"sReturnLogin\":\""+s+"\"}"; 
       }    

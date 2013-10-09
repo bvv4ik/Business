@@ -279,6 +279,19 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
         });
     
     
+     $(".sInput_Login").keyup(function(){     
+          var sMail = $("#sEmail").val();
+          if  (  ( IsValidateEmail( sMail )) & ($("#sPassword").val().length > 10 )  ){
+
+            ajax_userExists(sMail);      
+           // alert(resultUserExists);
+            
+   }
+   
+});
+    
+         
+    
    
 // ----- Кликаем на кнопку Входа на сайт
      $("#divLogin #btLogin").click(function(){  
@@ -293,22 +306,61 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
 //           {   
 //                    off($("#divLogin #btLogin"),true); // блокируем кнопку входа
                                        //  $("body").css("cursor","wait") ;  // курсор мфши в ожидание
+                     
+   if(!IsValidateEmail(  $("#sEmail").val()  ))
+        {
+                           dhtmlx.message({ type:"error", expire:4000, text:" Введите правильный E-Mail! <br>" }) 
+                         return;                    
+         }           
                     // Через 3 секунды делаем:
                     setTimeout(function() {   ajax_doLogin();  // отправляем запрос на вход
                                               off($("#divLogin #btLogin"),false);  // разблокируем  кнопку 
-                                              //document.cookie = "name333333=Ser25";
-                                            //  $.cookie("auth", "1234567_",{ expires: 5,  path: '/'    });
-                                             
-                                             // var s= $.cookie("name333333");
-                                             // alert(s);
+
                                               }, 3000) 
 
                     dhtmlx.message({ type:"default", expire:3000, text:"<br> <img src='img/wait.gif'/> &nbsp; Ожидайте... <br><br>" });
          //  }
      });    
     
+var resultUserExists = ""; 
+function  ajax_userExists(str){         
 
-
+  var oData= {   sDO: "theUserExists",
+                  sEmail: str      };
+ 
+ $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
+         ,success:function(o) {
+              
+              var s = o.sReturnExists;
+              alert(s);
+          
+             if (s == "YES")   
+               alert("Exists");
+          
+             if (s != "YES")                 {
+                     // показываем доп. поля 
+                   $( "#sName" ).removeAttr("hidden");    
+                   $( "#sLastName" ).removeAttr("hidden");    
+                   $( "#sINN" ).removeAttr("hidden");    
+                   $( "#checkAgreement" ).removeAttr("hidden");
+                   $( "#sTextAgreement" ).removeAttr("hidden");
+                   $( "#brLogin" ).removeAttr("hidden");
+                   
+                   $( "#divLogin" ).css("height","375");
+                   
+                     } 
+             
+             
+                     //    window.location.href="/index.jsp"  ; // обновляем главную стр.
+         }, error:function(o,s) { alert("Произошла ошибка-- ajax_userExists()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
+         ,dataFilter:function(data, type) { return  data;}
+         });
+         
+//         if (result == "1")
+//             return "1";
+//        if (result != "1")
+//             return "0";
+}
  
 
 
@@ -375,7 +427,6 @@ if (countEnter == -1)   return; // блокировка отправки соо�
 var oData= { sDO: "theUserLogin",
              sEmail : $("#divLogin #sEmail").val(),
              sPassword: $("#divLogin #sPassword").val()
-               // bBlocked: false,
             // sCookie: str 
            };
 
@@ -389,9 +440,9 @@ var oData= { sDO: "theUserLogin",
                 // сохраняем/обновляем временную Куку при успешном входе
                $.cookie("auth", o.sReturnCookie, { expires: 2,  path: '/'    });
                
-                // сохраняем/обновляем постоянную Куку при успешном входе
-               var d = new Date(); d = d.toString().replace(/\ /g,"_"); // замена всех пробелов на подчеркивание
-               $.cookie("last", d, { expires: 9999,  path: '/'    });
+                // сохраняем/обновляем постоянную Куку при успешном входе, чтобы не высвечивались подсказки
+               var date = new Date(); date = date.toString().replace(/\ /g,"_"); // замена всех пробелов на подчеркивание
+               $.cookie("last", date, { expires: 9999,  path: '/'    });
                //alert ($.cookie("last"));
                
                dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });

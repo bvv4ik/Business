@@ -77,16 +77,16 @@ private int bDisabled; //(вырубить доступ)
  
  
 
- public static String userRegistration (String sEmail, String sPassword, String sPassword2) throws Exception {
+ public static String userRegistration (String sEmail, String sPassword/*, String sPassword2*/) throws Exception {
   
  
 // HttpSession session = request.getSession(true);  
 //   Object o = session.getAttribute("sLogin");
 
-   if  ( (sEmail==null) | (sPassword==null) | (sPassword2==null)/* | (sEmail==null)*/ )
+   if  ( (sEmail==null) | (sPassword==null) /*| (sPassword2==null)/* | (sEmail==null)*/ )
         return "Одна или несколько строк Null";
  
-     if  ( (sEmail.equals("")) | (sPassword.equals("")) | (sPassword2.equals("")) /* | (sEmail.equals(""))*/ )  // проверка на пустые строки
+     if  ( (sEmail.equals("")) | (sPassword.equals("")) /*| (sPassword2.equals(""))*/ /* | (sEmail.equals(""))*/ )  // проверка на пустые строки
   return "Внимание, не все поля формы заполнены!";
    
 //     if ((!bValidMail(sEmail))) // если "" то Емаил Ошибочный
@@ -95,8 +95,11 @@ private int bDisabled; //(вырубить доступ)
     if ((!bValidString(sEmail)) | (!bValidString(sPassword))) // Если true то прис. недопустимые символы
   return "Логин или Пароль содержат недопустимые символы!";
 
-     if (!sPassword.equals(sPassword2)) //проверка двух полей паролей на идентичность
-  return "Поля паролей не совпадают!";       
+      if (sPassword.length() < 11 ) //проверка двух полей паролей на идентичность
+  return "Пароль должен быть больше 10 символов!";       
+
+//     if (!sPassword.equals(sPassword2)) //проверка двух полей паролей на идентичность
+//  return "Поля паролей не совпадают!";       
      
      if (bLoginExists(sEmail)) // если true то логин уже существует в Базе
     return "Этот Логин уже занят! ";
