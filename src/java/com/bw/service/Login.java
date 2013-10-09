@@ -208,10 +208,11 @@ public class Login extends HttpServlet {
                
                if ("theUserExists".equals(sDO)){
                  Access Ac = new Access();
-                if (Ac.bLoginExists(sEmail) /*== true*/){ // true - Емаил существует в базе
+                if (Ac.bLoginExists(sEmail) == true){ // true - Емаил существует в базе
                  sReturn = "{\"sReturnExists\":\"" + "YES" + "\"}";
-                 
                }
+                else
+                sReturn = "{\"sReturnExists\":\"" + "NO" + "\"}";     
                }
                     
     //------------- ВХОД пользователя ---------------
@@ -323,18 +324,16 @@ public class Login extends HttpServlet {
                 else{  // несуществующий Логин
                                          //countEnter--;   
                                          //sReturn = "{\"sReturn\":\"" + "Неверный Логин или Пароль!" +  "\"}";
-                   //Регистрируем  
-                  Access Aсс = new Access();
-                  String s = Aсс.userRegistration(sEmail, sPassword);
-                  sReturn = "{   \"sReturn\":\""+s+"\"    }"; 
-                  //sReturn = "{   \"sReturn\":\""+s+"\"   \"sReturnFirst\":\""+s+"\"    }"; 
-                
-                // sssss@ds.dd
-                 
-                     
-                     
-                     
-                 //(Осталось попыток: " +countEnter+" )"+
+                         //Регистрируем  
+                        Access Aсс = new Access();
+                        String s = Aсс.userRegistration(sEmail, sPassword);
+                        sReturn = "{   \"sReturn\":\""+s+"\"    }"; 
+                        //sReturn = "{   \"sReturn\":\""+s+"\"   \"sReturnFirst\":\""+s+"\"    }"; 
+                           
+                           HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+                           session.setAttribute("sEmail", sEmail);
+                           session.setAttribute("sPassword", sPassword);
+                       //(Осталось попыток: " +countEnter+" )"+
                  }
          
                 

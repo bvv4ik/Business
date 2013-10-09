@@ -5,7 +5,7 @@
         
      $("#imgFirstLoginHelp").qtip({ 
          content: { title: {  text: 'Информация:', button: 'Close'}  //
-                      ,text: "• Если Вы уже ЗАРЕГИСТРИРОВАННЫ - просто введите свой Емаил, пароль и входите. <br><br> • Если Вы НОВЫЙ пользователь - в тех же полях введите Емаил, придумайте пароль, при Входе система зарегистрирует вас автоматически. <br><br> <div id='Title111' style=' display:block; cursor: pointer; color:blue;' onClick='javascript: delTitle1();' > • Данное уведомление исчезнет после Вашего первого успешного Входа на сайт с данного компьютера/браузера. </div> <br> "
+                      ,text: "• Если Вы уже <span style='color: green;'>ЗАРЕГИСТРИРОВАННЫ</span> - просто введите свой Емаил, пароль и входите. <br><br> • Если Вы <span style='color: orange;'>НОВЫЙ</span>  пользователь - в тех же полях введите Емаил, придумайте пароль и входите, <u>система зарегистрирует вас автоматически!</u> <br><br> <div id='Title111' style=' display:block; color:grey;' > • Данное уведомление исчезнет после Вашего первого успешного Входа на сайт с данного компьютера/браузера. </div> <br> "
                           },      //content: 'Stems are great for indicating' , // принудительно
                 
                 //show: 'focus',
@@ -62,15 +62,10 @@ if (!navigator.cookieEnabled) {
 
 // функции включения-отключения подсказок
 function delTitle1() {  
-     $.cookie('last', 'x', { expires: 777,  path: '/' });  
+     $.cookie('last', 'x', { expires: 7777,  path: '/' });  
    //  $(".sInput_Login").qtip({  show: false    });     
      
 }
-//function delTitle2() {  
-//     $.cookie('titleCookie2', 'x1', { expires: 777,  path: '/' });  
-//     $(".sInput_Login").qtip({  show: false    });  
-//     //alert(2);
-//}
 
 
 
@@ -88,7 +83,7 @@ $("#sEmail").focus();
 
  
 // обнуляем Куки для тестов ....
-//$.cookie('last', null);
+$.cookie('last', null);
 //$.cookie('titleCookie2', null);
 //$.cookie('auth', null);
 
@@ -280,13 +275,13 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
     
     
      $(".sInput_Login").keyup(function(){     
-          var sMail = $("#sEmail").val();
-          if  (  ( IsValidateEmail( sMail )) & ($("#sPassword").val().length > 10 )  ){
+          var mail = $("#sEmail").val();
+          if  (  ( IsValidateEmail( mail )) & ($("#sPassword").val().length > 2 )  ){
 
-            ajax_userExists(sMail);      
-           // alert(resultUserExists);
+           ajax_userExists();  
+           // alert(ret);
             
-   }
+  }
    
 });
     
@@ -322,42 +317,42 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
          //  }
      });    
     
-var resultUserExists = ""; 
-function  ajax_userExists(str){         
 
-  var oData= {   sDO: "theUserExists",
-                  sEmail: str      };
+function  ajax_userExists(){         
+//var ret = '';
+  var oData= {    sDO: "theUserExists",
+                  sEmail: $("#sEmail").val()   };
  
  $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
          ,success:function(o) {
               
+             
               var s = o.sReturnExists;
-              alert(s);
-          
-             if (s == "YES")   
-               alert("Exists");
-          
+             // alert(s);
+            
              if (s != "YES")                 {
                      // показываем доп. поля 
-                   $( "#sName" ).removeAttr("hidden");    
-                   $( "#sLastName" ).removeAttr("hidden");    
-                   $( "#sINN" ).removeAttr("hidden");    
-                   $( "#checkAgreement" ).removeAttr("hidden");
-                   $( "#sTextAgreement" ).removeAttr("hidden");
-                   $( "#brLogin" ).removeAttr("hidden");
-                   
+                   $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement, #brLogin" ).removeAttr("hidden");    
                    $( "#divLogin" ).css("height","375");
                    
+//                   $( "#sLastName" ).removeAttr("hidden");    
+//                   $( "#sINN" ).removeAttr("hidden");    
+//                   $( "#checkAgreement" ).removeAttr("hidden");
+//                   $( "#sTextAgreement" ).removeAttr("hidden");
+//                   $( "#brLogin" ).removeAttr("hidden");
+//                   $( "#divLogin" ).css("height","375");
                      } 
-             
-             
+                     else{
+                   $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement,#brLogin" ).attr("hidden","hidden");    
+                   $( "#divLogin" ).css("height","190");
+                       }   
                      //    window.location.href="/index.jsp"  ; // обновляем главную стр.
          }, error:function(o,s) { alert("Произошла ошибка-- ajax_userExists()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
          ,dataFilter:function(data, type) { return  data;}
          });
          
 //         if (result == "1")
-//             return "1";
+            // return ret;
 //        if (result != "1")
 //             return "0";
 }
@@ -380,7 +375,7 @@ var oData= {   sDO_Account: doCreateAccount,
       ,success:function(o) {                                                       //эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
                                                                                     //----$(".MyParams").val(""); // очищаем строки     //o.sReturn        
                
-            if (o.sReturn_Account == "Учетная запись создана !") {
+            if (o.sReturn_Account == "Добро пожаловать на сайт!") { // "Учетная запись создана !"
                        $("#divAccount").hide();                // прячем окно РЕГИСТРАЦИИ
                        $("#divLogin").show();                  // показываем окно ВХОДА
                       
@@ -442,7 +437,7 @@ var oData= { sDO: "theUserLogin",
                
                 // сохраняем/обновляем постоянную Куку при успешном входе, чтобы не высвечивались подсказки
                var date = new Date(); date = date.toString().replace(/\ /g,"_"); // замена всех пробелов на подчеркивание
-               $.cookie("last", date, { expires: 9999,  path: '/'    });
+               $.cookie("last", date, { expires: 7777,  path: '/'    });
                //alert ($.cookie("last"));
                
                dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });
