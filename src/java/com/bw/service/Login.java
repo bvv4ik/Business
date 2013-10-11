@@ -213,6 +213,9 @@ public class Login extends HttpServlet {
                }
                 else
                 sReturn = "{\"sReturnExists\":\"" + "NO" + "\"}";     
+                
+                
+                 Thread.sleep(2000);
                }
                     
     //------------- ВХОД пользователя ---------------
@@ -236,7 +239,7 @@ public class Login extends HttpServlet {
                     if (sPassword.equals(Pass))  {      // если Пароли совпадают
                     
                          
-                         String sNID = A.getNID(sEmail); // Получаем NID Логина
+                         String sNID = A.getNID(sEmail); // Получаем NID пользователя по Емайлу
                            //создаем строку из 50 случайных символов для Куки
                          String sCreateCookie = "";
                          for (int i = 0; i < 50; i++) { 
@@ -277,8 +280,7 @@ public class Login extends HttpServlet {
                              
                              aAllSession.add(sArrSession); // переносим в Список Массивов для хранения
                              
-                             
-                             
+                          
                                  
 //                             aListAllSession.add(
 //                                     
@@ -293,14 +295,15 @@ public class Login extends HttpServlet {
                         // Запись инфы в базу о пользователе при Входе пользователя
                          AccessOf.saveInfoWhenUserLogined(sEmail);
                          
-                         // включаем таймер
-                      //   TimerTask task = new RunMeTask(); 
-                        // this.request1 = request ;
-    	               //  timer.schedule(task, 100,1000);
-                         // sIDCurrentSession = session.getId();
+                                                            // включаем таймер
+                                                         //   TimerTask task = new RunMeTask(); 
+                                                          //  timer.schedule(task, 100,1000);
                          
-                           
-                                                                              // нельзя чтобы в json было пустое значение
+                         AccessAuth AA = new AccessAuth();
+                         AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
+                         
+                         
+                                               // нельзя чтобы в json было пустое значение
                         sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCreateCookie+ "\" }"; //не менять
                         
                                 
@@ -310,7 +313,7 @@ public class Login extends HttpServlet {
 //                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sessionId",
 //                                  };       
 //                            aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
-//                             Thread.sleep(1000);
+                     //        Thread.sleep(1000);
 //                        }
                         
                         
@@ -334,6 +337,7 @@ public class Login extends HttpServlet {
                            session.setAttribute("sEmail", sEmail);
                            session.setAttribute("sPassword", sPassword);
                        //(Осталось попыток: " +countEnter+" )"+
+                         //  Thread.sleep(2000);
                  }
          
                 

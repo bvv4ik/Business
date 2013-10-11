@@ -1,6 +1,8 @@
 //window.onload=function() { 
 
 
+         
+         
  function showTitleFirstLogin() {
         
      $("#imgFirstLoginHelp").qtip({ 
@@ -83,7 +85,7 @@ $("#sEmail").focus();
 
  
 // обнуляем Куки для тестов ....
-$.cookie('last', null);
+//$.cookie('last', null);
 //$.cookie('titleCookie2', null);
 //$.cookie('auth', null);
 
@@ -96,7 +98,6 @@ if (str == null){        // если ее нет то меняем назван�
         // showFirstLoginTitle();
 
 }
-
 
 
 
@@ -274,18 +275,59 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
         });
     
     
-     $(".sInput_Login").keyup(function(){     
-          var mail = $("#sEmail").val();
-          if  (  ( IsValidateEmail( mail )) & ($("#sPassword").val().length > 2 )  ){
-
-           ajax_userExists();  
-           // alert(ret);
-            
-  }
+    //var t1 = new Date();
+    //var res = (t.getMinutes()+" "+t.getSeconds()); 
+         
+         
+   //var mail = $("#sEmail").val();
    
+         
+     var oTimer = null; // создаем таймер
+    
+     $("#sEmail").keyup(function(){     // .sInput_Login
+          
+          if  (  ( !IsValidateEmail( $("#sEmail").val() ))   ){ // иначе прячим доп. поля
+              
+                 //return;
+          }
+          
+            $( '#imgLoading' ).fadeIn( 500 );
+    
+              if (oTimer != null) {  clearTimeout(oTimer);  } // обнуляем таймер при новом нажатии мыши
+       
+               oTimer =   window.setTimeout(function() { 
+                    $( '#imgLoading' ).fadeOut( 1 );
+                    if  (  ( IsValidateEmail( $("#sEmail").val() )) /*& ($("#sPassword").val().length > 2 )*/  ){
+                         ajax_userExists();  
+                     }  
+                     else{
+                            $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement,#brLogin" ).attr("hidden","hidden");    
+                            $( "#divLogin" ).css("height","190");
+                            $( "#btLogin" ).val("Вход").css("width","100px"); 
+                         }
+                
+               oTimer  = null;  // при выполнении функции в таймере, включаем работу таймеа
+          }, 1500);
+             
+             
 });
     
-         
+
+
+//if (oTimer != null) {  clearTimeout(oTimer);  } // обнуляем таймер при новом нажатии мыши
+//       
+//          oTimer =   window.setTimeout(function() {    
+//               if  (  ( IsValidateEmail( $("#sEmail").val() )) /*& ($("#sPassword").val().length > 2 )*/  ){
+//                    ajax_userExists();  
+//               }    
+//               oTimer  = null;  // при выполнении функции в таймере, включаем работу таймеа
+//          }, 2000);
+//             
+//             
+//$( '#imgLoading' ).fadeIn( 500 );
+   //var t = new Date();
+        //  alert(t.getMinutes()+" "+t.getSeconds());         
+       
     
    
 // ----- Кликаем на кнопку Входа на сайт
@@ -319,42 +361,40 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
     
 
 function  ajax_userExists(){         
-//var ret = '';
+
+$( '#imgLoading' ).fadeIn( 1 );
+//,   #divBlack
+//   $( '#sEmail,   #sPassword' ).attr("readonly","readonly");  
+
   var oData= {    sDO: "theUserExists",
                   sEmail: $("#sEmail").val()   };
  
  $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
          ,success:function(o) {
               
-             
-              var s = o.sReturnExists;
-             // alert(s);
+             var s = o.sReturnExists;   // alert(s);
             
-             if (s != "YES")                 {
-                     // показываем доп. поля 
-                   $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement, #brLogin" ).removeAttr("hidden");    
-                   $( "#divLogin" ).css("height","375");
-                   
-//                   $( "#sLastName" ).removeAttr("hidden");    
-//                   $( "#sINN" ).removeAttr("hidden");    
-//                   $( "#checkAgreement" ).removeAttr("hidden");
-//                   $( "#sTextAgreement" ).removeAttr("hidden");
-//                   $( "#brLogin" ).removeAttr("hidden");
-//                   $( "#divLogin" ).css("height","375");
-                     } 
-                     else{
-                   $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement,#brLogin" ).attr("hidden","hidden");    
-                   $( "#divLogin" ).css("height","190");
-                       }   
-                     //    window.location.href="/index.jsp"  ; // обновляем главную стр.
+          if (s != "YES") { // Если Емайла нет в базе  // показываем доп. поля 
+                              $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement, #brLogin" ).removeAttr("hidden");    
+                              $( "#divLogin" ).css("height","375");
+                              //$( "#btLogin" ).val("Вход (Авторегистрация)" );
+                              $( "#btLogin" ).val("Вход (Авторегистрация)").css("width","230px");
+                           } 
+                               else{    // иначе прячим доп. поля
+                                     $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement,#brLogin" ).attr("hidden","hidden");    
+                                     $( "#divLogin" ).css("height","190");
+                                     $( "#btLogin" ).val("Вход").css("width","100px");
+                                   }   
+                       
+                       $( "#imgLoading" ).fadeOut( 500 );
+                      // $( "#divBlack" ).fadeOut( 500 );//.removeAttr("hidden");
+                      // $( "#sEmail, #sPassword" ).removeAttr("readonly");
+                     
+                    
          }, error:function(o,s) { alert("Произошла ошибка-- ajax_userExists()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
          ,dataFilter:function(data, type) { return  data;}
          });
          
-//         if (result == "1")
-            // return ret;
-//        if (result != "1")
-//             return "0";
 }
  
 

@@ -55,24 +55,30 @@
                  //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
        { %>  
   
-         
+
+       
 <!-- ------------- ФОН ----------------- -->
 <div id="divFon" >     
-      
+      <!--  
          <div id="divError" > 
-         </div>      <!--  может быть кода понадобится  для отладки -->
-  
-         	
+         </div> <br>      <!--  может быть кода понадобится  для отладки -->
+         
+
+
+                      	
  <!-- ----------- ВХОД форма ----------------- -->
            <div id="divLogin" > 
+                <div hidden id="divBlack"  style="-webkit-border-radius: 6px;  top: -1px; left: -1px; position: absolute; opacity: 0.5; width: 100%; height: 100%; border: 1px solid red; background: black; z-index: 1000;"> </div>                            
+                <img  hidden id="imgLoading" src="img/loading6.gif" width="105" height="16" style=" left: 154px; top: -67px; position: absolute" />      
                 <img hidden id="imgFirstLoginHelp" src="img/help1.png" alt="help"  width="32" height="32" style=" position: absolute; top: -30px;left: 420px;" />
                 <br>                             <!-- value="ser111@ss.ss"    value="111"-->
                <center> 
                 <input  class="sInput_Login" id="sEmail"   type="text" value="" placeholder="Е-MAIL..."  maxlength="55" autocomplete="on" title="" /> 
                 <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
-                <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" />  
-                <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="ФАМИЛИЯ (не обязательно)"  maxlength="25" />  
-                <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" />  </center>   
+               
+                <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
+                <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="ФАМИЛИЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
+                <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  </center>   
                  <br hidden id="brLogin">  
                 <center> <input hidden  type="checkbox" id="checkAgreement"  checked> 
                 <a hidden  id="sTextAgreement" href="agreement.html" target="_blank"  style="font-size: 13px; cursor: help; text-decoration: none; color: rgb(180, 180, 180);">
@@ -93,12 +99,20 @@
            </div>
  
  <style>
-
- 
  .disabled { opacity: 0.3; filter: alpha(opacity=30); }
- 
  </style>
 
+ <!-- Эта проверка обязательно должна быть здесь, когда главная страница еще не загружена! нельзя перемещать в общий JS файл! -->
+ <script> 
+   //$.cookie("auth", 111, { expires: 2,  path: '/'    });
+ var sAuth = $.cookie("auth");     // Ищем куку last
+if (sAuth != null){     
+//alert(1);
+// теперь отправляем куку на сервер ...
+
+}
+ </script>
+ 
  <script>
 
      // плавное мигание объекта
