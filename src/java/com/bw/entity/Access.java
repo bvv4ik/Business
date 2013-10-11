@@ -95,7 +95,7 @@ private int bDisabled; //(вырубить доступ)
     if ((!bValidString(sEmail)) | (!bValidString(sPassword))) // Если true то прис. недопустимые символы
   return "Логин или Пароль содержат недопустимые символы!";
 
-      if (sPassword.length() < 11 ) //проверка двух полей паролей на идентичность
+      if (sPassword.length() <= 1 ) //проверка двух полей паролей на идентичность
   return "Пароль должен быть больше 10 символов!";       
 
 //     if (!sPassword.equals(sPassword2)) //проверка двух полей паролей на идентичность

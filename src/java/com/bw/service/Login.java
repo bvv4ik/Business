@@ -134,7 +134,7 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
 
-        String              sReturn = "",
+        String              sReturn = "nul",
                             sDO = "" , 
                                 sEmail = "",
                                 sPassword = "",
@@ -142,8 +142,9 @@ public class Login extends HttpServlet {
                                 sCookie = "",
                                sSess = ""
                             ;
-           
- // sSess = request.getSession().getId(); 
+           boolean bRegisterUser = false;
+ 
+           // sSess = request.getSession().getId(); 
         
         try {
 
@@ -200,12 +201,12 @@ public class Login extends HttpServlet {
                sEmail = request.getParameter("sEmail");
                sPassword = request.getParameter("sPassword");
      
-               sCookie = request.getParameter("sCookie");
+               sCookie = request.getParameter("sCookieLogin");
             
                // if ("theUserLoginCoockie".equals(sDO)){                }
                
                
-               
+               //------------- проверка существования Емайла---------------
                if ("theUserExists".equals(sDO)){
                  Access Ac = new Access();
                 if (Ac.bLoginExists(sEmail) == true){ // true - Емаил существует в базе
@@ -214,21 +215,36 @@ public class Login extends HttpServlet {
                 else
                 sReturn = "{\"sReturnExists\":\"" + "NO" + "\"}";     
                 
-                
-                 Thread.sleep(2000);
+                Thread.sleep(2000); // задержка отправки ответа на 2 сек.
                }
-                    
+               
+               //------------- ВХОД пользователя через куку ---------------
+               if ("theLoginForCookie".equals(sDO)){ 
+              
+                    AccessAuth AA = new AccessAuth();
+                    ArrayList<String> list1 = new ArrayList<String>();
+                    list1 = AA.findUserFromCookie(sCookie);
+                           
+                  //  if ((list1.get(0) == "") | (list1.get(1) == "")){
+                   //   sReturn = "{  \"sReturn\"  :  \"Ошибка2!\"  }"; //не менять
+                   //      return;
+                   // }
+                           String s1 =  list1.get(0); // Емаил
+                           String s2 =  list1.get(1);  // Пароль
+                           
+                           HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+                           session.setAttribute("sEmail", s1); //sEmail
+                           session.setAttribute("sPassword", s2); //sPassword
+
+                     // Отправляем ответ, что на сайт юзера можно пускать и отправляем куку, для обновления времени.
+                    sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCookie + "\" }"; //не менять
+               }
+               
     //------------- ВХОД пользователя ---------------
             if ("theUserLogin".equals(sDO)){
            
-              //Вход по Куке
-                 // если кука не пустая то по куки достаем Логин и Пароль из базы
-           if (!"".equals(sCookie)){ 
-               // sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\" }"; //не менять
-               
-               // sEmail = "1";
-               // sPassword = "2";
-               }     
+           
+        
                  
                  
             // Вход по Логину - Паролю 
@@ -240,20 +256,12 @@ public class Login extends HttpServlet {
                     
                          
                          String sNID = A.getNID(sEmail); // Получаем NID пользователя по Емайлу
-                           //создаем строку из 50 случайных символов для Куки
-                         String sCreateCookie = "";
-                         for (int i = 0; i < 50; i++) { 
-                             Random rand = new Random();
-                             int nRandom = rand.nextInt();
-                             // No.2 Случайное целое число от 0 до 10
-                              nRandom = rand.nextInt(26);
-                              int a = (int) 'a';
-                              char b = (char) (a + nRandom);
-                              sCreateCookie += b;
-                            }
-                              sCreateCookie = sNID+"&"+ sCreateCookie;
-                               
-                          
+                         AccessAuth AA = new AccessAuth(); 
+                         String sGenerate = AA.generateString();
+
+                         String sCreateCookie = sNID+"&"+sGenerate; // Строка Коки Юзера
+
+                         
                          
                            HttpSession session = request.getSession(true);    //создаем сессию для пользователя
                            session.setAttribute("sEmail", sEmail);
@@ -299,7 +307,7 @@ public class Login extends HttpServlet {
                                                          //   TimerTask task = new RunMeTask(); 
                                                           //  timer.schedule(task, 100,1000);
                          
-                         AccessAuth AA = new AccessAuth();
+                        // AccessAuth AA = new AccessAuth();
                          AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
                          
                          
@@ -324,21 +332,31 @@ public class Login extends HttpServlet {
                             }
 
                     }
-                else{  // несуществующий Логин
-                                         //countEnter--;   
-                                         //sReturn = "{\"sReturn\":\"" + "Неверный Логин или Пароль!" +  "\"}";
-                         //Регистрируем  
-                        Access Aсс = new Access();
-                        String s = Aсс.userRegistration(sEmail, sPassword);
-                        sReturn = "{   \"sReturn\":\""+s+"\"    }"; 
-                        //sReturn = "{   \"sReturn\":\""+s+"\"   \"sReturnFirst\":\""+s+"\"    }"; 
-                           
-                           HttpSession session = request.getSession(true);    //создаем сессию для пользователя
-                           session.setAttribute("sEmail", sEmail);
-                           session.setAttribute("sPassword", sPassword);
-                       //(Осталось попыток: " +countEnter+" )"+
-                         //  Thread.sleep(2000);
-                 }
+                    else{   // несуществующий Логин // значит попытка регистрации
+                             //Регистрируем  
+                            Access Aсс = new Access();
+                            String s = Aсс.userRegistration(sEmail, sPassword);
+                            sReturn = "{   \"sReturn\":\""+s+"\"    }"; 
+                            //sReturn = "{   \"sReturn\":\""+s+"\"   \"sReturnFirst\":\""+s+"\"    }"; 
+
+                               HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+                               session.setAttribute("sEmail", sEmail);
+                               session.setAttribute("sPassword", sPassword);
+                             //(Осталось попыток: " +countEnter+" )"+
+                             //  Thread.sleep(2000);
+
+                                 Date d = new Date(/*tmp*/);
+                                 DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+                                 String sTimeLogin = df.format(d);
+
+                             String sNID = A.getNID(sEmail); // Получаем NID пользователя по Емайлу
+                             AccessAuth AA = new AccessAuth(); 
+                             String sGenerate = AA.generateString();
+                             String sCreateCookie = sNID+"&"+sGenerate; // Строка Коки Юзера
+
+                             AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
+
+                     }
          
                 
                 
@@ -347,7 +365,10 @@ public class Login extends HttpServlet {
             }
 
             
+            if (bRegisterUser){
             
+                     
+            }
             
             
             

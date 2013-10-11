@@ -28,12 +28,12 @@
                                                                                             <!--  <script type="text/javascript" src="---js/jquery-1.7.2.js"></script>       <script type="text/javascript" src="---js/ajax1.js"> </script>          <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
         <script type="text/javascript" src="js/jquery-1.8.3.js"> </script>  <!--  Библ. jquery должна быть первой   -->
         <script type="text/javascript" src="js/jquery-ui.js"> </script>        
-        <script type="text/javascript" src="js/index.js"> </script>   <!--  мои стили  -->
+        <script type="text/javascript" src="js/index.js"> </script>   <!--  мои скрипты  -->
 
         <!--  <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>          <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->    <!--  <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> -->
         
         <link rel="stylesheet" href="css/jquery-ui-tabs.css" />
-        <link rel="stylesheet" type="text/css" href="css/index.css"/>
+        <link rel="stylesheet" type="text/css" href="css/index.css"/>   <!--  мои стили  -->
         
         <script type="text/javascript" src='js/message/codebase/message.js'></script>        
         <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_default.css" title="Default"/>
@@ -85,6 +85,7 @@
                      &nbsp; Я согласен на хранение своих персональных данных (?). </a>
                 </center> 
                      <!-- 
+                     <span style="cursor: help;">?</span>
                      • Если Вы уже ЗАРЕГИСТРИРОВАННЫ - введите свой пароль. <br><br> • Если Вы НОВЫЙ пользователь - придумайте новый пароль, система зарегистрирует вас при Воходе автоматически. <br><br> <div id='delTitle22' style='  display:block; cursor: pointer; color:blue;' onClick='javascript: delTitle2();' >  <ins>Не уведомлять на этом компьютере.</ins> </div> <br>  
                      • Если Вы уже ЗАРЕГИСТРИРОВАННЫ - введите свой Емаил. <br><br> • Если Вы НОВЫЙ пользователь - введите Емаил, система зарегистрирует вас при Воходе автоматически. <br><br> <div id='delTitle11' style=' display:block; cursor: pointer; color:blue;' onClick='javascript: delTitle1();' > <ins>Не уведомлять на этом компьютере.</ins> </div> <br> 
                      onclick='alert(2);'
@@ -105,12 +106,15 @@
  <!-- Эта проверка обязательно должна быть здесь, когда главная страница еще не загружена! нельзя перемещать в общий JS файл! -->
  <script> 
    //$.cookie("auth", 111, { expires: 2,  path: '/'    });
- var sAuth = $.cookie("auth");     // Ищем куку last
+ $(document).ready(function(){
+ var sAuth = $.cookie("auth");     // Ищем куку auth
 if (sAuth != null){     
-//alert(1);
-// теперь отправляем куку на сервер ...
+     ajax_LoginForCookie(sAuth); // пробуем войти через КУку отправляем куку на сервер ...
+//alert(sAuth);
 
 }
+});
+
  </script>
  
  <script>
@@ -318,7 +322,9 @@ $(document).ready(function(){
      
 <!-- ---------- ГЛАВНАЯ страница  ------------ -->                    
 <div  id="divMainPage">
-<img id="exitSite" src="img/exit1.png" style="position:absolute;  top:8px; right:8px; cursor:pointer;" title="Выход">
+<img id="exitSite" src="img/exit1.png" style="position:absolute;  top:8px; right:8px; cursor:pointer;" title="Выход - только удаление сессии">
+<img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии и Куки">
+
      <div  id="img_logo"> </div>                                    <!--     <a id="linkAbout" style=" position:absolute; left:800px; top:40px; text-decoration: none; color:white;" target="_blank" href="space_galery.html" title="">Инструменты создания<br> данного сайта...</a>             --> 
 <div style=" position : relative; top: -50px; left: 260px; color:white; font-size: 26px; font-family: verdana; ">Знание - сила!</div>
 
@@ -1236,7 +1242,7 @@ function shuffle(arr) {
 
 
 
-		
+	
         
         <% }
      %>
@@ -1244,7 +1250,7 @@ function shuffle(arr) {
 </body>
 </html>
 
-     
+
 
 
 

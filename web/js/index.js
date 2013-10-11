@@ -86,7 +86,6 @@ $("#sEmail").focus();
  
 // обнуляем Куки для тестов ....
 //$.cookie('last', null);
-//$.cookie('titleCookie2', null);
 //$.cookie('auth', null);
 
 
@@ -231,11 +230,18 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
 			callback:function(index){
 			if (index==0) {  
                              ajax_doDestroySession();   // Удаляем сессию 
-                             $.cookie('auth', null);   // Удаляем куку  
+                            // $.cookie('auth', null);   // Удаляем куку  
                              }
 			}
 		});  
     });    
+
+ $("#exitSite2").click(function(){    
+   ajax_doDestroySession();   // Удаляем сессию 
+   $.cookie('auth', null);   // Удаляем куку  
+  // window.location.href="/index.jsp"; // переходим на страницу входа
+});    
+
 
 //---- начинаем тест                
      $("#mainPageTest").click(function(){  
@@ -472,7 +478,7 @@ var oData= { sDO: "theUserLogin",
           if (o.sReturn == null)  alert('в ответ вернулся : null');
           if (o.sReturn == "Добро пожаловать на сайт!"){  
                 
-                // сохраняем/обновляем временную Куку при успешном входе
+                // сохраняем временную Куку при успешном входе
                $.cookie("auth", o.sReturnCookie, { expires: 2,  path: '/'    });
                
                 // сохраняем/обновляем постоянную Куку при успешном входе, чтобы не высвечивались подсказки
@@ -533,18 +539,25 @@ function ajax_getAllSession(){
          ,dataFilter:function(data, type) { return data;}
          });
 }
-
-//function ajax_LoginForCookie(){
+//
+//function ajax_LoginForCookie(sCookie){
 //    
-//     // Ищем Куку
-//     var str = $.cookie("auth");
-//     var oData= {   sDO: "theUserLogin",
-//                    sCookie: str   };
+//     var oData= {   sDO: "theLoginForCookie",
+//                    sCookieLogin: sCookie   };
 // 
 // $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
 //         ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-//                //  alert(o.sReturnCookie); 
-//                  
+//                //  alert(o.sReturnCookie);
+//                alert(o.sReturn);
+//                  if (o.sReturn == "Добро пожаловать на сайт!"){
+//                       
+//                       // просто обновляем время временной Куки при входе по этой куке, на сервере не меняем
+//                       $.cookie("auth", o.sReturnCookie, { expires: 2,  path: '/'    });
+//                       
+//                       // обновляем страницу и входим
+//                        dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });
+//                        setInterval(function() { (window.location.href="/index.jsp");  }, 1000);
+//                  }
 //                   
 //                 // alert(o.sReturnCookie);                                                               
 ////                 if (o.sReturn != null)    {                //alert(o.sReturn);
@@ -577,6 +590,50 @@ function ajax_getAllSession(){
 
 
     }); // конец             //////window.onload
+
+
+
+
+
+
+
+function ajax_LoginForCookie(sCookie){
+    
+     var oData= {   sDO: "theLoginForCookie",
+                    sCookieLogin: sCookie   };
+ 
+ $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
+         ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+                //  alert(o.sReturnCookie);
+              //  alert(o.sReturn);
+                  if (o.sReturn == "Добро пожаловать на сайт!"){
+                       
+                       //alert(111);
+                       // просто обновляем время временной Куки (на компе ) при входе по этой куке, на сервере не меняем
+                       $.cookie("auth", o.sReturnCookie, { expires: 2,  path: '/'    });
+                       
+                      // window.location.href="/index.jsp";
+                       // обновляем страницу и входим
+                         
+                        
+                        $( '#imgLoading' ).fadeIn( 500 );
+                        dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });
+                        setInterval(function() { (window.location.href="/index.jsp");  }, 3000);
+                  }
+                   
+                 // alert(o.sReturnCookie);                                                               
+//                 if (o.sReturn != null)    {                //alert(o.sReturn);
+//                     window.location.href="/index.jsp"  ;   // открываем/обновляем главную стр. 
+//                 }
+            
+         }, error:function(o,s) { alert("Произошла ошибка--!!--theSendCoockie "+o.status+":"+o.statusText+" ("+o.responseText+")");  }
+         ,dataFilter:function(data, type) { return data;}
+         });
+}
+
+
+
+
 
 
 

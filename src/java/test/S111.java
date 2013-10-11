@@ -34,7 +34,7 @@ public class S111 {
  //   String s= "1234567890";
  // System.out.println(s.substring(7, 10));
          
-          String sRandomCookie = "";
+     /*     String sRandomCookie = "";
                          for (int i = 0; i < 30; i++) { 
                              Random rand = new Random();
                              int nRandom = rand.nextInt();
@@ -49,12 +49,21 @@ int a = (int) 'a';
 System.out.println(a);
 char b = (char) (a + 1);
 System.out.println(b);
-
+*/
+         
+       String sCookie =   "31&cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr";
+       
+       if (sCookie.indexOf("&") != -1){          // если есть знак "/"
+             String sCookie1 = sCookie.substring(0, sCookie.indexOf("&")); // Берем все что сначала строки и до знака "/"
+       System.out.println(sCookie1);
                          
- 
+       }
+       
+       if (sCookie.indexOf("&") != -1){             // если есть знак "/"
+              String sCookie2 = sCookie.substring(sCookie.lastIndexOf("&")+1); // берем все что после "/" и до конца
 
-    
-
+          System.out.println(sCookie2);
+       }
         
     
     }
