@@ -35,9 +35,9 @@ public class AccessAuth {
           try {
 
                
-                ResultSet oSet = oDC.prepareStatement("SELECT count(*) FROM AccessAuth where nID_Access = " + nID_Access).executeQuery();
+                ResultSet oSet = oDC.prepareStatement("SELECT nCount=count(*) FROM AccessAuth where nID_Access = " + nID_Access).executeQuery();
                if (oSet.next()) {
-                    i = oSet.getInt(1);
+                    i = oSet.getInt("nCount");
                }
 
                if (i <= countMax) {  // если 0, 1 или 2 или 3 записи всего, то просто добавляем
@@ -91,8 +91,8 @@ public class AccessAuth {
                  // Получаем Емаил и Пароль по ИД
                 ResultSet oSet = oDC.prepareStatement("SELECT sLogin, sPassword FROM Access where nID = " + nID_Access).executeQuery();               
                 if (oSet.next()) {
-                    sLogin = oSet.getString(1);
-                    sPassword = oSet.getString(2);
+                    sLogin = oSet.getString("sLogin");
+                    sPassword = oSet.getString("sPassword");
                 }
                 
                 

@@ -118,7 +118,7 @@ if (!navigator.cookieEnabled) {
 // функции включения-отключения подсказок
 function delTitle1() {  
      $.cookie('last', 'x', { expires: 7777,  path: '/' });  
-   //  $(".sInput_Login").qtip({  show: false    });     
+   //  $(".oAuthForm").qtip({  show: false    });     
      
 }
 
@@ -131,7 +131,7 @@ function delTitle1() {
 $(document).ready(function() {  // });
 
 // Если отключены Куки закрываем окно Входа - регистрации
- if (!navigator.cookieEnabled) {     $( "#divLogin").hide();     }  //return;
+ if (!navigator.cookieEnabled) {     $( ".oAuthForm").hide();     }  //return;
 
 $("#sEmail").focus();
 
@@ -154,7 +154,7 @@ if (str == null){        // если ее нет то меняем назван�
 
 
            // Открываем табы с эффектом замедления
-         $( "#divLogin" ).tabs({ hide: { effect: "shake", duration: 400 } });
+         $( ".oAuthForm" ).tabs({ hide: { effect: "shake", duration: 400 } });
 
 
 // Попытка войти через  Куку
@@ -234,7 +234,7 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
        
  
  //---- подсказки qtip
-//     $('.sInput_Login').qtip({ 
+//     $('.oAuthForm').qtip({ 
 //         content: {
 //                     title: {
 //                     text: 'Информация:'
@@ -303,8 +303,8 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
 
 
 //----- Кликаем на ссылку создания Аккаунта 
-        $("#divLogin #linkRegister").click(function(){     
-            $("#divLogin").hide("slow");       // прячем окно ВХОДА
+        $(".oAuthForm #linkRegister").click(function(){     
+            $(".oAuthForm").hide("slow");       // прячем окно ВХОДА
             $("#divAccount").show("slow");     // показываем окно РЕГИСТРАЦИИ    //(window.location.href="http://localhost:8080/Business/main.jsp")
         });
         
@@ -312,7 +312,7 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
 //---- Кликаем на крестик зарытия Окна Регистрации           
         $("#btClose_Account").click(function(){     
             $("#divAccount").hide("slow");                // прячем окно РЕГИСТРАЦИИ
-            $("#divLogin").show("slow");                  // показываем окно ВХОДА
+            $(".oAuthForm").show("slow");                  // показываем окно ВХОДА
         });
      
         
@@ -343,7 +343,7 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
          
      var oTimer = null; // создаем таймер
     
-     $("#sEmail").keyup(function(){     // .sInput_Login
+     $("#sEmail").keyup(function(){     // .oAuthForm
           
           if  (  ( !IsValidateEmail( $("#sEmail").val() ))   ){ // иначе прячим доп. поля
               
@@ -361,7 +361,7 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
                      }  
                      else{
                             $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement,#brLogin" ).attr("hidden","hidden");    
-                            $( "#divLogin" ).css("height","190");
+                            $( ".oAuthForm" ).css("height","190");
                             $( "#btLogin" ).val("Вход").css("width","100px"); 
                          }
                 
@@ -390,17 +390,17 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
     
    
 // ----- Кликаем на кнопку Входа на сайт
-     $("#divLogin #btLogin").click(function(){  
+     $(".oAuthForm #btLogin").click(function(){  
 
 //     // если пустой Логин или пароль
-//         if  ( ($("#divLogin #sEmail").val() == "") | ($("#divLogin #sPassword").val() == "")  )  {        
+//         if  ( ($(".oAuthForm #sEmail").val() == "") | ($(".oAuthForm #sPassword").val() == "")  )  {        
 //               dhtmlx.message({ type:"error", expire:3000, text:"Введите Е-Маил и пароль!" });  // выводим сообщение
-//               off($("#divLogin #btLogin"),true);     // блокируем кнопку входа
-//               setTimeout(function() {    off($("#divLogin #btLogin"),false);    }, 3000)  // через время разблокируем кнопку
+//               off($(".oAuthForm #btLogin"),true);     // блокируем кнопку входа
+//               setTimeout(function() {    off($(".oAuthForm #btLogin"),false);    }, 3000)  // через время разблокируем кнопку
 //         }
 //       else  // если Логин и Пароль заполнены, то:
 //           {   
-//                    off($("#divLogin #btLogin"),true); // блокируем кнопку входа
+//                    off($(".oAuthForm #btLogin"),true); // блокируем кнопку входа
                                        //  $("body").css("cursor","wait") ;  // курсор мфши в ожидание
                      
    if(!IsValidateEmail(  $("#sEmail").val()  ))
@@ -410,7 +410,7 @@ if ($.cookie("last") == null){   // если куки нет, значит по�
          }           
                     // Через 3 секунды делаем:
                     setTimeout(function() {   ajax_doLogin();  // отправляем запрос на вход
-                                              off($("#divLogin #btLogin"),false);  // разблокируем  кнопку 
+                                              off($(".oAuthForm #btLogin"),false);  // разблокируем  кнопку 
 
                                               }, 3000) 
 
@@ -435,13 +435,13 @@ $( '#imgLoading' ).fadeIn( 1 );
             
           if (s != "YES") { // Если Емайла нет в базе  // показываем доп. поля 
                               $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement, #brLogin" ).removeAttr("hidden");    
-                              $( "#divLogin" ).css("height","375");
+                              $( ".oAuthForm" ).css("height","375");
                               //$( "#btLogin" ).val("Вход (Авторегистрация)" );
                               $( "#btLogin" ).val("Вход (Авторегистрация)").css("width","230px");
                            } 
                                else{    // иначе прячим доп. поля
                                      $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement,#brLogin" ).attr("hidden","hidden");    
-                                     $( "#divLogin" ).css("height","190");
+                                     $( ".oAuthForm" ).css("height","190");
                                      $( "#btLogin" ).val("Вход").css("width","100px");
                                    }   
                        
@@ -476,7 +476,7 @@ var oData= {   sDO_Account: doCreateAccount,
                
             if (o.sReturn_Account == "Добро пожаловать на сайт!") { // "Учетная запись создана !"
                        $("#divAccount").hide();                // прячем окно РЕГИСТРАЦИИ
-                       $("#divLogin").show();                  // показываем окно ВХОДА
+                       $(".oAuthForm").show();                  // показываем окно ВХОДА
                       
                      dhtmlx.modalbox({ 
                              title: "Вход на сайт:" ,
@@ -486,8 +486,8 @@ var oData= {   sDO_Account: doCreateAccount,
                              buttons:["Да", "Нет"],
                              callback:function(index){
                                   if (index==0) {  // если нажата кнопка с индексом 0 (ДА)
-                                         $("#divLogin #sEmail").val( $("#sEmail_Account").val() );
-                                         $("#divLogin #sPassword").val($("#sPassword_Account").val()) ;
+                                         $(".oAuthForm #sEmail").val( $("#sEmail_Account").val() );
+                                         $(".oAuthForm #sPassword").val($("#sPassword_Account").val()) ;
                                                                    //  http://localhost:8080/CreateAccount?sDO=theCreateAccount&sEmail=ser412@d3f.dd&sPassword=12&sPassword2=12&sLastName=ser1&sFirstName=bel1
                                          ajax_doLogin();
                                          }
@@ -519,8 +519,8 @@ function ajax_doLogin(){
 if (countEnter == -1)   return; // блокировка отправки сообщений
 
 var oData= { sDO: "theUserLogin",
-             sEmail : $("#divLogin #sEmail").val(),
-             sPassword: $("#divLogin #sPassword").val()
+             sEmail : $(".oAuthForm #sEmail").val(),
+             sPassword: $(".oAuthForm #sPassword").val()
             // sCookie: str 
            };
 
@@ -731,8 +731,8 @@ dhtmlx.modalbox({
 			buttons:["Да"], //, "Нет" 
 			callback:function(index){
 			if (index==0) {  //
-                            //   $("#divLogin #sEmail").val( $("#sEmail_Account").val() );
-                            //   $("#divLogin #sPassword").val($("#sPassword_Account").val()) ;
+                            //   $(".oAuthForm #sEmail").val( $("#sEmail_Account").val() );
+                            //   $(".oAuthForm #sPassword").val($("#sPassword_Account").val()) ;
                                alert("DA!");
                         }
                         if (index==1) { 

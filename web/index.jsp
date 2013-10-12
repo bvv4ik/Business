@@ -74,11 +74,11 @@
                 <br>                             <!-- value="ser111@ss.ss"    value="111"-->
                <center> 
                 <input  class="sAuthField sLogin" id="sEmail"   type="text" value="" placeholder="Е-MAIL..."  maxlength="55" autocomplete="on" title="" /> 
-                <input  class="sAuthField sPassword sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
+                <input  class="sAuthField sPassword" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
                
-                <input  hidden class="sAuthField sName sInput_Login" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
-                <input  hidden class="sAuthField sLastName sInput_Login" id="sLastName" type="text" value="" placeholder="ФАМИЛИЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
-                <input  hidden class="sAuthField nINN sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  </center>   
+                <input  hidden class="sAuthField sName" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
+                <input  hidden class="sAuthField sLastName" id="sLastName" type="text" value="" placeholder="ФАМИЛИЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
+                <input  hidden class="sAuthField nINN" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  </center>   
                  <br hidden id="brLogin">  
                 <center> <input hidden  type="checkbox" id="checkAgreement"  checked> 
                 <a hidden  id="sTextAgreement" href="agreement.html" target="_blank"  style="font-size: 13px; cursor: help; text-decoration: none; color: rgb(180, 180, 180);">
