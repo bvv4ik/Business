@@ -104,9 +104,9 @@ body{
 
 /* стилизация placeholder*/ /* стили для webkit */
 .sInput_Account::-webkit-input-placeholder {  color:#00f;    opacity: 0.5; }
-.sInput_Login::-webkit-input-placeholder {    color:#00f;    opacity: 0.4; } /* Полупрозрачный фон */
+.oAuthForm .sAuthField::-webkit-input-placeholder {    color:#00f;    opacity: 0.4; } /* Полупрозрачный фон */
 .sInput_Account:-moz-placeholder { color:#00f;    opacity: 0.5; }
-.sInput_Login::-moz-placeholder {  color:#00f;   opacity: 0.4; }/* Полупрозрачный фон */
+.oAuthForm .sAuthField::-moz-placeholder {  color:#00f;   opacity: 0.4; }/* Полупрозрачный фон */
 
 
 #btClose_contact:hover{
@@ -466,7 +466,7 @@ padding-top: 2px;
 ---------------------------------------------------------------------------------------*/
 
 /* -------------------------/ форма входа на сайт /------------------------------------ */
-#divLogin {
+.oAuthForm {
         position: relative;       
         b order : 1px solid blue ;
         b order: 2px solid rgb(111, 111, 111);
@@ -488,13 +488,15 @@ padding-top: 2px;
 
 
 /* -------------------------/ строки ввода данных /------------------------------------ */
-.sInput_Login       
+.sAuthField
 {     
       border: solid 1px rgb(78, 74, 74);
       padding: 8px;
       b order:solid 1px grey;
       margin-bottom : 13px;
       -webkit-border-radius : 5px; /*Chrome  Safari*/ 
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 	     b order		      : solid 3px transparent;
 	    -m oz-box-shadow		  : 0 0 20px 3px #1E90FF;
 	     -w ebkit-box-shadow	  : 0px 0px 7px 3px #1E90FF;
@@ -507,7 +509,7 @@ padding-top: 2px;
 }
 
 /* -------------------------/ ссілка для создания Аккаунта/------------------------------------ */
-#divLogin #linkRegister
+.oAuthForm #linkRegister
 {
     
     margin: 10px 0px 0px 75px;

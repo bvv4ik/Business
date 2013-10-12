@@ -67,18 +67,18 @@
 
                       	
  <!-- ----------- ВХОД форма ----------------- -->
-           <div id="divLogin" > 
+           <div class="oAuthForm" > 
                 <div hidden id="divBlack"  style="-webkit-border-radius: 6px;  top: -1px; left: -1px; position: absolute; opacity: 0.5; width: 100%; height: 100%; border: 1px solid red; background: black; z-index: 1000;"> </div>                            
                 <img  hidden id="imgLoading" src="img/loading6.gif" width="105" height="16" style=" left: 154px; top: -67px; position: absolute" />      
-                <img hidden id="imgFirstLoginHelp" src="img/help1.png" alt="help"  width="32" height="32" style=" position: absolute; top: -30px;left: 420px;" />
+                <img hidden  id="imgFirstLoginHelp" src="img/help1.png" alt="help"  width="32" height="32" style=" position: absolute; top: -30px;left: 420px;" />
                 <br>                             <!-- value="ser111@ss.ss"    value="111"-->
                <center> 
-                <input  class="sInput_Login" id="sEmail"   type="text" value="" placeholder="Е-MAIL..."  maxlength="55" autocomplete="on" title="" /> 
-                <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
+                <input  class="sAuthField sLogin" id="sEmail"   type="text" value="" placeholder="Е-MAIL..."  maxlength="55" autocomplete="on" title="" /> 
+                <input  class="sAuthField sPassword sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
                
-                <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
-                <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="ФАМИЛИЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
-                <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  </center>   
+                <input  hidden class="sAuthField sName sInput_Login" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
+                <input  hidden class="sAuthField sLastName sInput_Login" id="sLastName" type="text" value="" placeholder="ФАМИЛИЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
+                <input  hidden class="sAuthField nINN sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  </center>   
                  <br hidden id="brLogin">  
                 <center> <input hidden  type="checkbox" id="checkAgreement"  checked> 
                 <a hidden  id="sTextAgreement" href="agreement.html" target="_blank"  style="font-size: 13px; cursor: help; text-decoration: none; color: rgb(180, 180, 180);">
@@ -192,7 +192,7 @@ $(document).ready(function(){
       // кнопка затемнена и отключена по умолчанию
       $("#btLogin").addClass("disabled").attr("disabled", "disabled")           
            
-      $(".sInput_Login").keyup(function(event) { // при откускании кнопок (в том числе интера)
+      $(".oAuthForm .sLogin").keyup(function(event) { // при откускании кнопок (в том числе интера)
               
               // проверяем поля на пустоту и включен ли чекбокс
                if ( ($("#sEmail").val() == "") | ($("#sPassword").val() == "") | (!$("#checkAgreement").is(":checked" )) ) { 
@@ -1247,6 +1247,25 @@ function shuffle(arr) {
         <% }
      %>
 
+     <!-- Стандартные шаблоны для тултипов -->
+     <div class="oDialogs">
+         
+         <div class="oFirstAuthorizationInfo" style="display: none;">
+             • Если Вы уже <span style="color: green;">ЗАРЕГИСТРИРОВАННЫ</span> - просто введите свой Емаил, пароль и входите.<span class="sCustom"></span><br>
+             <br> • Если Вы <span style='color: orange;'>НОВЫЙ</span>  пользователь - в тех же полях введите Емаил, придумайте пароль и входите, <u>система зарегистрирует вас автоматически!</u><br>
+             <br> 
+             <div id='Title111' style=' display:block; color:grey;' > • Данное уведомление исчезнет после Вашего первого успешного Входа на сайт с данного компьютера/браузера. </div><br>
+         </div>
+         <div class="oFailPassword" style="display: none;">
+             • Вы ввели не верный пароль! Всего у Вас 5 попыток!
+         </div>
+         <div class="oChangePassword" style="display: none;">
+             • Уважаемый <span class="sFIO"></span>(<span class="sStatus"></span>)! Укажите пожалуйста новый пароль!<br>
+         </div>
+     </div>
+    
+     
+     
 </body>
 </html>
 

@@ -1,55 +1,100 @@
 //window.onload=function() { 
-
-
+//".oAuth .sLogin"
+//
+        //любая собственная функция, если этот диалог понадобится отображать многократно з разных мест.()
+        function showTitleFirstLogin() {//my()
+            info(".oAuthForm .sLogin"//"#imgFirstLoginHelp"
+                ,".oDialogs .oFirstAuthorizationInfo"//"• Уважаемый <span class'sFIO'></span>! Если Вы уже <span style='color: green;'>ЗАРЕГИСТРИРОВАННЫ</span> - просто введите свой Емаил, пароль и входите. <br><br> • Если Вы <span style='color: orange;'>НОВЫЙ</span>  пользователь - в тех же полях введите Емаил, придумайте пароль и входите, <u>система зарегистрирует вас автоматически!</u> <br><br> <div id='Title111' style=' display:block; color:grey;' > • Данное уведомление исчезнет после Вашего первого успешного Входа на сайт с данного компьютера/браузера. </div> <br> "
+                ,{sCustom:"Траляля!"} //null//{sFIO:"Петя Васечкин",sStatus:"Руководитель"}//oParams
+                ,0//5
+                ,null/*function(sName,sButtom){
+                    if(sName=="onClickButton"){//"onBeforeOpen,onAfterOpen,onClickButton,onBeforeClose,onAfterClose"
+                        //что-то делаем при сработовшем событии "на закрытии,открытии,клике и т.д."
+                        //
+                        //doAny();
+                    }
+                }*/
+                ,"TopRight"
+            );
+        }
          
+         //Функция-обертка, для заполнения и отображения любого сообщения, с вызовом стандартного для системы плагина
+        function info(oThere,oThat,oParams,nAutohideSeconds,doEvent,sPosition) {
+            if(typeof oThere=="string"){
+                oThere=$(oThere).parent();
+            }
+            if(typeof oThat=="string"){
+                oThat=$(oThat);
+            }
+            if(oParams!=null){
+                $.each(oParams, function(sName,sValue){
+                    //alert("sName="+sName+",sValue="+sValue+",$(oThere).find(.sName)"+$(oThere).find("."+sName).length);
+                    $(oThere).find("."+sName).text(sValue);
+                });
+            }
+            if(nAutohideSeconds==null){
+                nAutohideSeconds=0;
+            }
+            
+            infoCustom(oThere,{  text: 'Информация:', button: 'Close'},oThat,sPosition,nAutohideSeconds,doEvent);
+        }
          
- function showTitleFirstLogin() {
-        
-     $("#imgFirstLoginHelp").qtip({ 
-         content: { title: {  text: 'Информация:', button: 'Close'}  //
-                      ,text: "• Если Вы уже <span style='color: green;'>ЗАРЕГИСТРИРОВАННЫ</span> - просто введите свой Емаил, пароль и входите. <br><br> • Если Вы <span style='color: orange;'>НОВЫЙ</span>  пользователь - в тех же полях введите Емаил, придумайте пароль и входите, <u>система зарегистрирует вас автоматически!</u> <br><br> <div id='Title111' style=' display:block; color:grey;' > • Данное уведомление исчезнет после Вашего первого успешного Входа на сайт с данного компьютера/браузера. </div> <br> "
-                          },      //content: 'Stems are great for indicating' , // принудительно
-                
-                //show: 'focus',
-                show: {
-                      ready: true
-                  },
-                
-             //  show: {  delay: 1000  },	//задержка
-     //                           show: {    effect: function(offset) {
-     //                           $(this).slideDown(500); // "this" refers to the tooltip 
-     //                           }
-     //                           },
-     
-            //hide: 'blur',
-      
-      hide: {
-       event: 'mouseon'
-    },
-//              hide: {   
-//                    // event: 'unfocus'
-//                   //   event: 'click'
-//                      
-//                  //target: $('#delTitle11').click(),
-//                  //event: 'unfocus',
-//                 event: 'blur'
-//                  //solo: true
-//                  //event: false
-//                  
-//                      
-//                },
-             position: {
-                 adjust: { x: 17, y: 13 }, // принудительное смещение
-                 my: 'left top',  // Position my top left...
-                 at: 'right top' // at the bottom right of...
-             },
-                  style: {
-              classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green //,width : 15 // ширина
-             }
-      });
-      
-      
-      }
+         //Вызов стандартного для системы плагина, для отображения любого сообщения
+        function infoCustom(oThereHTML, oTitle, oWhatHTML,sPosition,nAutohideSeconds,doEvent) {
+           if(sPosition==null){
+               sPosition="DownLeft";
+           }
+           var oPosition=
+               sPosition=="DownLeft"?
+                   {
+                    adjust: { x: 17, y: 13 }, // принудительное смещение
+                    my: 'left top',  // Position my top left...//TODO: НАСТРОИТЬ!
+                    at: 'left down' // at the bottom right of...
+                   }
+               :sPosition=="DownRight"?
+                   {//TODO: НАСТРОИТЬ!
+                    adjust: { x: 17, y: 13 }, // принудительное смещение
+                    my: 'left top',  // Position my top left...
+                    at: 'right top' // at the bottom right of...
+                   }
+               :sPosition=="TopLeft"?
+                   {//TODO: НАСТРОИТЬ!
+                    adjust: { x: 17, y: 13 }, // принудительное смещение
+                    my: 'left top',  // Position my top left...
+                    at: 'right top' // at the bottom right of...
+                   }
+               :sPosition=="TopRight"?
+                   {
+                    adjust: { x: 17, y: 13 }, // принудительное смещение
+                    my: 'left top',  // Position my top left...
+                    at: 'right top' // at the bottom right of...
+                   }
+               :
+                   null
+               ;
+           if(doEvent!=null){
+               //doEvent("onOpen");
+               doEvent("onClickButton","IThinking");
+           }
+
+           $(oThereHTML).qtip({ 
+               content:{
+                           title: oTitle
+                           ,text: $(oWhatHTML).html()
+                       },
+                      show: {
+                            ready: true
+                        },
+               hide: {
+                   event: 'mouseon'
+                }
+               ,position:
+                   oPosition
+                   ,style: {
+                       classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green //,width : 15 // ширина
+                     }
+            });
+        }
       
 
 
