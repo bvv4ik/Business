@@ -1,11 +1,19 @@
-//window.onload=function() { 
+var oText={
+    sFirstAuthInfo_Custom:"Траляля!"
+    ,sLastAuthInfo_Custom:"Труляля!"
+    ,sLastAuthInfo_Custom1:"Труляля!"
+};
+
+//
+//
+////window.onload=function() { 
 //".oAuth .sLogin"
 //
         //любая собственная функция, если этот диалог понадобится отображать многократно з разных мест.()
         function showTitleFirstLogin() {//my()
             info(".oAuthForm .sLogin"//"#imgFirstLoginHelp"
                 ,".oDialogs .oFirstAuthorizationInfo"//"• Уважаемый <span class'sFIO'></span>! Если Вы уже <span style='color: green;'>ЗАРЕГИСТРИРОВАННЫ</span> - просто введите свой Емаил, пароль и входите. <br><br> • Если Вы <span style='color: orange;'>НОВЫЙ</span>  пользователь - в тех же полях введите Емаил, придумайте пароль и входите, <u>система зарегистрирует вас автоматически!</u> <br><br> <div id='Title111' style=' display:block; color:grey;' > • Данное уведомление исчезнет после Вашего первого успешного Входа на сайт с данного компьютера/браузера. </div> <br> "
-                ,{sCustom:"Траляля!"} //null//{sFIO:"Петя Васечкин",sStatus:"Руководитель"}//oParams
+                ,{sCustom:oText.sFirstAuthInfo_Custom} //null//{sFIO:"Петя Васечкин",sStatus:"Руководитель"}//oParams
                 ,0//5
                 ,null/*function(sName,sButtom){
                     if(sName=="onClickButton"){//"onBeforeOpen,onAfterOpen,onClickButton,onBeforeClose,onAfterClose"
