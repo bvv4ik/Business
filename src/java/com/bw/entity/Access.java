@@ -77,35 +77,39 @@ private int bDisabled; //(вырубить доступ)
  
  
 
- public static String userRegistration (String sEmail, String sPassword/*, String sPassword2*/) throws Exception {
-  
+ public static String userRegistration (String sEmail, String sPassword) throws Exception {
  
-// HttpSession session = request.getSession(true);  
-//   Object o = session.getAttribute("sLogin");
+                                                  //HttpSession session = request.getSession(true);  
+                                                 //   Object o = session.getAttribute("sLogin");
 
-   if  ( (sEmail==null) | (sPassword==null) /*| (sPassword2==null)/* | (sEmail==null)*/ )
-        return "Одна или несколько строк Null";
- 
-     if  ( (sEmail.equals("")) | (sPassword.equals("")) /*| (sPassword2.equals(""))*/ /* | (sEmail.equals(""))*/ )  // проверка на пустые строки
-  return "Внимание, не все поля формы заполнены!";
-   
-//     if ((!bValidMail(sEmail))) // если "" то Емаил Ошибочный
-//  return "Введите правильный Е-Маил!"; 
-     
-    if ((!bValidString(sEmail)) | (!bValidString(sPassword))) // Если true то прис. недопустимые символы
-  return "Логин или Пароль содержат недопустимые символы!";
+    /* основная проверка введенных пользователем данных осуществляется на клиенте через JS, 
+       эта проверка данных на всякий случай размещена на сервере, чтобы отключив JS, нельзя было отправить прямой 
+       запрос и зарегистрироватся с неверными данными иди создать ошибку, когда в базу например будет внесена запись с
+       запрещенными символами и из-за этого она заглчит.  
+     */
+      
+      if ((sEmail == null) | (sPassword == null)) {
+           return "Одна или несколько строк Null";
+      } 
+      else if ((sEmail.equals("")) | (sPassword.equals("")) ) // проверка на пустые строки
+      { 
+           return "Внимание, заполните поля!";
+      }
+      else if ((!bValidString(sEmail)) | (!bValidString(sPassword))) // Если true то прис. недопустимые символы 
+      {
+           return "Логин или Пароль содержат недопустимые символы!";
+      }
+      else if (sPassword.length() < 10) //проверка длинны пароля
+      {
+           return "Длинна пароля должна быть больше 10 символов!";
+      }
+      else if (bLoginExists(sEmail)) // если true то логин уже существует в Базе
+      {
+           return "Этот Логин уже занят!";
+      }
 
-      if (sPassword.length() <= 1 ) //проверка двух полей паролей на идентичность
-  return "Пароль должен быть больше 10 символов!";       
-
-//     if (!sPassword.equals(sPassword2)) //проверка двух полей паролей на идентичность
-//  return "Поля паролей не совпадают!";       
-     
-     if (bLoginExists(sEmail)) // если true то логин уже существует в Базе
-    return "Этот Логин уже занят! ";
-   
-     
- 
+//     if ((!bValidMail(sEmail))) // если "" то Емаил Ошибочный  //  return "Введите правильный Е-Маил!"; 
+//     if (!sPassword.equals(sPassword2)) //проверка двух полей паролей на идентичность   //  return "Поля паролей не совпадают!";            
     
 
       Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");                       
@@ -116,37 +120,29 @@ private int bDisabled; //(вырубить доступ)
       oDC.prepareStatement("INSERT INTO TheSubject (nID_OfSubject) VALUES (1)").executeUpdate();
       // вставляем по умолчанию запись "1" т.е "человек"
       
-      //----- oDC.prepareStatement("insert Contact values()").executeUpdate();
       ResultSet oSet2 = oDC.prepareStatement("SELECT @@identity").executeQuery();
       int n = oSet2.next()  ?  oSet2.getInt(1)  :  0 ;
-      //System.out.println("----------------------------");   System.out.println(n);
     
       oDC.prepareStatement("INSERT INTO TheSubjectHuman(nID_TheSubject, sTheSubjectHuman, sLastName, sFirstName, sSurName, sDTbirth, sDTdeath, nSex ) " +
       "VALUES ("+n+",'Человек','Фамилия','Имя','Отчество','1900-11-11 11:11:11','1900-11-11 11:11:11',1)").executeUpdate();
 
       ResultSet oSet3 =oDC.prepareStatement("SELECT @@identity").executeQuery();
       int n1 = oSet3.next() ? oSet3.getInt(1)  :  0;
-      //System.out.println("----------------------------");   System.out.println(n1);
        
       oDC.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, sPassword, bDisabled ) VALUES ("+n1+",'"+sEmail+"','"+sPassword+"',1)").executeUpdate();
       ResultSet oSet4 =oDC.prepareStatement("SELECT @@identity").executeQuery();
       int n2 = oSet4.next() ? oSet4.getInt(1)  :  0;
 
       
-      //подтверждаем запись в БД
-      oDC.commit();
-     
-     // ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
-      
-      
-      
-      return "Добро пожаловать на сайт!";  // нельзя менять т.к работает как Колбэк "Учетная запись создана !"
+      oDC.commit();  //подтверждаем запись в БД
+        
+      return "Добро пожаловать на сайт!";     // нельзя менять т.к работает как Колбэк "Учетная запись создана !"
  
    }catch (Exception e){
-          return "Ошибка создания записи: Класс Access";  
+          return "Непредвиденная ошибка создания записи: Класс Access";  
     }
    finally{
-    ConnectSybase.closeConnect("UA_DP_PGASA",oDC);  // так делать всегда!!1
+        ConnectSybase.closeConnect("UA_DP_PGASA",oDC);  // так делать всегда!!1
    }
       
     
@@ -179,7 +175,7 @@ String s = "";
 }
  
 
-public static String getNID(String sLogin) {    
+public String getNID(String sLogin) {    
 String s = "";
         Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
         try {

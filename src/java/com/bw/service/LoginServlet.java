@@ -26,13 +26,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
 import javax.servlet.Servlet;
+import javax.servlet.annotation.WebServlet;
 
 import javax.servlet.http.*;
 //import javax.servlet.*;
 
 //import com.bw.entity.Access;
 //import com.bw.entity.AccessOf;
-
+@WebServlet(name = "Login", urlPatterns = {"/LoginServlet"})
 
 //@Servlet(urlMappings={"/MyApp"})
 

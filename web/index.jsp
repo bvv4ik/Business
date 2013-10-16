@@ -59,21 +59,17 @@
        
 <!-- ------------- ФОН ----------------- -->
 <div id="divFon" >     
-      <!--  
-         <div id="divError" > 
-         </div> <br>      <!--  может быть кода понадобится  для отладки -->
+      <!--    <div id="divError" >    </div> <br>      <!--  может быть кода понадобится  для отладки -->
          
-
-
                       	
  <!-- ----------- ВХОД форма ----------------- -->
-           <div id="divLogin" > 
-                <div hidden id="divBlack"  style="-webkit-border-radius: 6px;  top: -1px; left: -1px; position: absolute; opacity: 0.5; width: 100%; height: 100%; border: 1px solid red; background: black; z-index: 1000;"> </div>                            
+           <div  id="divLogin" > 
+                <form  name="formName" class="formLogin" >
                 <img  hidden id="imgLoading" src="img/loading6.gif" width="105" height="16" style=" left: 154px; top: -67px; position: absolute" />      
-                <img hidden id="imgFirstLoginHelp" src="img/help1.png" alt="help"  width="32" height="32" style=" position: absolute; top: -30px;left: 420px;" />
-                <br>                             <!-- value="ser111@ss.ss"    value="111"-->
+               <!-- <img hidden id="imgFirstLoginHelp" src="img/help1.png" alt="help"  width="32" height="32" style=" position: absolute; top: -30px;left: 420px;" /> -->
+                <br>               <!-- value="ser111@ss.ss"    value="111"   autocomplete="on" -->
                <center> 
-                <input  class="sInput_Login" id="sEmail"   type="text" value="" placeholder="Е-MAIL..."  maxlength="55" autocomplete="on" title="" /> 
+                <input  class="sInput_Login" id="sEmail"   type="text" maxlength="55" autocomplete="on" placeholder="Е-MAIL..."  /> 
                 <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
                
                 <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
@@ -84,42 +80,49 @@
                 <a hidden  id="sTextAgreement" href="agreement.html" target="_blank"  style="font-size: 13px; cursor: help; text-decoration: none; color: rgb(180, 180, 180);">
                      &nbsp; Я согласен на хранение своих персональных данных (?). </a>
                 </center> 
+                
                      <!-- 
                      <span style="cursor: help;">?</span>
                      • Если Вы уже ЗАРЕГИСТРИРОВАННЫ - введите свой пароль. <br><br> • Если Вы НОВЫЙ пользователь - придумайте новый пароль, система зарегистрирует вас при Воходе автоматически. <br><br> <div id='delTitle22' style='  display:block; cursor: pointer; color:blue;' onClick='javascript: delTitle2();' >  <ins>Не уведомлять на этом компьютере.</ins> </div> <br>  
                      • Если Вы уже ЗАРЕГИСТРИРОВАННЫ - введите свой Емаил. <br><br> • Если Вы НОВЫЙ пользователь - введите Емаил, система зарегистрирует вас при Воходе автоматически. <br><br> <div id='delTitle11' style=' display:block; cursor: pointer; color:blue;' onClick='javascript: delTitle1();' > <ins>Не уведомлять на этом компьютере.</ins> </div> <br> 
-                     onclick='alert(2);'
-                       TckbВведите Емаил, независимо от того: Вы НОВЫЙ или ЗАРЕГИСТРИРОВАННЫЙ пользователь! <br><br>Это многофункциональная форма авторизации.
                      пароль который вы вводили при регистрации или , если вы входите впервые. Пароль должен быть не меньше 10 символов. Статус пароля:
-                <!--<a href="#" style="font-size: 13px; cursor: help; color: blue; padding-left: 20px;">Дополнительно...</a>
-                 <a id="linkRegister" href ="#" >Регистрация </a>   <br> <br>     http://localhost:8080/Business/register.jsp   
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Дополнительно...             Это Единая форма для входа или регистрации.  
-                <a id="linkRegister" href ="#" >Регистрация </a>   <br>   -->
+                <!--                <a id="linkRegister" href ="#" >Регистрация </a>   <br>   -->
                 <center> 
                 <input  style ="margin-top: 20px;" class="allButt" id="btLogin" type="button" value="&nbsp;&nbsp;&nbsp;  Вход  &nbsp;&nbsp;&nbsp;" /> </center> 
+                <button hidden id="btSubmit" type="submit"> Submit </button>
+                </form>
+  <!-- <form  autocomplete="on"> action="\Login" 
+  First name:<input type="text" name="fname"><br>
+  Last name: <input type="text" name="lname"><br>
+  E-mail: <input type="email" name="email" autocomplete="off"><br>
+  <input type="submit">
+  </form>
+  -->
            </div>
  
- <style>
- .disabled { opacity: 0.3; filter: alpha(opacity=30); }
- </style>
+ 
+ 
 
  <!-- Эта проверка обязательно должна быть здесь, когда главная страница еще не загружена! нельзя перемещать в общий JS файл! -->
  <script> 
-   //$.cookie("auth", 111, { expires: 2,  path: '/'    });
- $(document).ready(function(){
- var sAuth = $.cookie("auth");     // Ищем куку auth
-if (sAuth != null){     
-     ajax_LoginForCookie(sAuth); // пробуем войти через КУку отправляем куку на сервер ...
-//alert(sAuth);
-
-}
-});
-
+      //$.cookie("auth", 111, { expires: 2,  path: '/'    });
+      $(document).ready(function(){
+           var sAuth = $.cookie("auth");     // Ищем куку auth
+           if (sAuth != null){     
+                ajax_LoginForCookie(sAuth); // пробуем войти через КУку отправляем куку на сервер ...
+                //alert(sAuth);
+           }
+      });
  </script>
+ 
+ 
+  <style>
+ .disabled { opacity: 0.3; filter: alpha(opacity=30); }
+ </style>
  
  <script>
 
-     // плавное мигание объекта
+/*     // плавное мигание объекта
      $.fn.wait = function(time, type) {
           time = time || 100;
           type = type || "fx";
@@ -137,52 +140,7 @@ if (sAuth != null){
           if (b) { $("#imgFirstLoginHelp").wait().animate({"opacity": 0.3},1000).wait().animate({"opacity": 1},900,runIt);  }
      }
      runIt();
-
-
-
-/*
-function showFirstLoginTitle() {
-     
-$('#imgFirstLoginHelp').qtip({
-    content: {
-         title: {
-                     text: 'Внимание!'
-                            },
-        text:   'Это многофункцональная система авторизации.<br><br>'+
-                '• Если Вы уже зарегистрированны, введите Ваш Емаил и пароль, жмите "Вход". <br><br>'+
-                '• Если Вы новый пользователь, в тех же полях введите Ваш Емаил, придумайте'+
-                ' пароль, жмите "Вход", и система'+
-                ' зарегистрирует Вас автоматически.<br><br>'+
-                'После первого успешного входа на сайт с данного компьютера/браузера данное сообщение исчезнет. <br>Последующие авторизации с данного компьютера/браузера будут происходить автоматически (или вручную при желании пользователя).'
-    },
-    show: {
-           ready: true
-    },
-    hide: {
-        event: 'click mouseleave'
-    },
-     position: {
-                 adjust: { x: 7, y:10 }, // принудительное смещение
-                 my: 'left top',  // Position my top left...
-                 at: 'top right' // at the bottom right of...
-             },
-              style: {
-              classes: 'qtip-rounded qtip-tipped' // цвет и стиль qtip-shadow qtip-green
-             }
-});
-
-}
-
 */
-
-
-
-$("#btLogin").click(function(){  
-   //  document.cookie = "name111=Ser5";
-});
-
- 
-  //   document.cookie = "name22222=Ser5";
 
 
 
@@ -207,12 +165,7 @@ $(document).ready(function(){
                         if ( (event.keyCode==13) /*& ($("#checkAgreement").is(":checked" )) */  ) {
                            
                                    $('#btLogin').click();
-                     
-                              //$.cookie("name555", "123");
-                                      //writeCookie("myCounter", 5);
-                              //var s= $.cookie("name555");
-                              // var s= document.cookie;
-                              //  alert(s);
+                                   // var s= document.cookie;                     
                             
                          }
                           
@@ -234,10 +187,8 @@ $(document).ready(function(){
                $("#btLogin").removeClass("disabled").removeAttr("disabled");
                
           else
-           // отключаем кнопку
-               
+           // отключаем кнопку Входа            
                $("#btLogin").addClass("disabled").attr("disabled", "disabled");
-               //.attr("title", "Включите чекбокс согласия хранить ваши персональные данные.");
               
        });
 
@@ -261,7 +212,7 @@ $(document).ready(function(){
  
  
 <!-- ---------- АККАУНТ форма ---------  autocomplete="off" -->
-       <div id="divAccount"  >
+       <div hidden id="divAccount"  >
                <div id="divHeader_Account">Создание учетной записи: 
                     <img id="btClose_Account" src="img/krest.jpg"   border="1"   title="Закрыть"  />
                </div>  <br>  
@@ -269,7 +220,7 @@ $(document).ready(function(){
                    <input id="sPassword_Account" class="sInput_Account" placeholder="Пароль" title="Поле, обязательное для заполнения. Пароль должен содержать не менее 10 и не более 25 символов латинского алфавита и цифр (a-z, A-Z, 0-9). Для надежности очень желательно, чтобы пароль включал в себя не только маленькие латинские буквы, но так же заглавные буквы и цифры. Пример безопастного пароля:  <b>Ivan33bn81T</b> , <br>Примеры небесопастных паролей: <b>qwerty</b>, <b>123</b>, <b>7654321</b>. <br>Не экономьте несколько символов на своей безопастности! )) "  type="password" value=""  maxlength="25" >   
                    <input id="sPassword2_Account" class="sInput_Account" placeholder="Пароль (повторно)" title="Поле обязательное для заполнения. <br> Защита от невнимательности! :)"   type="password" value=""  maxlength="25" >   <br>
 		   <input id="sFirstName_Account" class="sInput_Account" placeholder="Имя" title="Желательно, но необязательно :)"  type="text" value="" autocomplete="off"  maxlength="25" > <br> 
-		   <input id="sLastName_Account" class="sInput_Account" placeholder="Фамилия" title="Пока не обязательно."   type="text" value="" autocomplete="off" maxlength="25">   <br>  <br>
+		   <input id="sLastName_Account" class="sInput_Account" placeholder="Фамилия" title="Пока не обязательно."   type="text" value="" autocomplete="on" maxlength="25">   <br>  <br>
                    <input class="allButt" id="btReg"  type="button" value="Создать" />             
             </div>     
 </div>
@@ -322,8 +273,8 @@ $(document).ready(function(){
      
 <!-- ---------- ГЛАВНАЯ страница  ------------ -->                    
 <div  id="divMainPage">
-<img id="exitSite" src="img/exit1.png" style="position:absolute;  top:8px; right:8px; cursor:pointer;" title="Выход - только удаление сессии">
-<img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии и Куки">
+<img id="exitSite" src="img/exit1.png" style="position:absolute;  top:8px; right:8px; cursor:pointer;" title="Один клик - обычный выход, зажатая левая кнопка мыши более 2 секунд - закрытие вкладки">
+<!-- <img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии и Куки"> -->                    
 
      <div  id="img_logo"> </div>                                    <!--     <a id="linkAbout" style=" position:absolute; left:800px; top:40px; text-decoration: none; color:white;" target="_blank" href="space_galery.html" title="">Инструменты создания<br> данного сайта...</a>             --> 
 <div style=" position : relative; top: -50px; left: 260px; color:white; font-size: 26px; font-family: verdana; ">Знание - сила!</div>

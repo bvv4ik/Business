@@ -91,7 +91,8 @@ public class AccessAuth {
                  // Получаем Емаил и Пароль по ИД
                 ResultSet oSet = oDC.prepareStatement("SELECT sLogin, sPassword FROM Access where nID = " + nID_Access).executeQuery();               
                 if (oSet.next()) {
-                    sLogin = oSet.getString(1);
+                   sLogin = oSet.getString(1);
+// ????                 /* ??? */  sLogin = oSet.getString("sLogin");
                     sPassword = oSet.getString(2);
                 }
                 

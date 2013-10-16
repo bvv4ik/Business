@@ -1,6 +1,4 @@
-//@Servlet(urlMappings={"/MyApp"})
-//@WebServlet(name="mytest", urlPatterns={"/myurl"}) 
-//(name="mytest", urlPatterns={"/myurl"}) ;
+
 package com.bw.service;
 
 import javax.swing.Timer;
@@ -21,8 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 //import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,243 +37,123 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+
+
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
-//@Servlet(urlMappings={"/CreateAccount"})
-//@WebServlet(  
-//        name = "CreateAccount",
-//        urlPatterns = {"/CreateAccount", "/helloanno"},
-//        asyncSupported = false,
-//        initParams = {
-//                @WebInitParam(name = "name", value = "admin"),
-//                @WebInitParam(name = "param1", value = "value1"),
-//                @WebInitParam(name = "param2", value = "value2")
-//        }
-//)
 
 
-public class Login extends HttpServlet {
 
-     
-          
-  //   public static java.util.Timer timer = new java.util.Timer();
-   //  public static int TimerCount = 0;
-     
-     
-//   public  class RunMeTask extends TimerTask   //extends HttpServlet
-//  {     
-//	@Override
-//	public void run() { 		//System.out.println("Run Me ~");    
-//                TimerCount++;    
-//                
-//                String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
-//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sEmail",
-//                                  };
-//                             
-//                     aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
-//                 //sIDCurrentSession =  HttpServletRequest.getSession().getId();
-//                 HttpSession session = request.getSession();
-//                 if (request. session.getId() == null)
-//                     //    sIDSession
-//                      Login.
-//                     
-//                if (TimerCount == 50)
-//                timer.cancel();
-//	}
-//}   
-//   
+
+  public class Login extends HttpServlet {
    
-      
-     
+    private Logger logger = Logger.getLogger(Login.class); /*getClass()*/
     
-  
-     
-     
-     //============================
-// private static TimerTask task = new TimerTask() {
-//  
-//  @Override
-//  public void run() //(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-//    
-//  {     //Do work!         //    aListAllSession.remove(0);
-//           //System.out.println("1");
-//            //aAllSession.remove(0);    
-//       String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
-//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sEmail",
-//                                  };
-//                        
-//                   aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
-//               //     sIDCurrentSession =  HttpServletRequest.getSession().getId();
-//                 //HttpSession session = Login.getSession();
-//                 Login.
-//                   
-//            timer.cancel();  
-//           //if (request.getSession() == null){
-//          //if (request.getSession() == null){
-//          //  }
-//               
-//      }
-//};
-
-    
- 
-   
-  //  public static String sIDCurrentSession = "";
-   
     public static ArrayList<String> aListAllSession = new ArrayList<String>();
     //public ArrayList<String> aListAllSession = new ArrayList<String>();
-    //public String sIsOnline = "Online";
     public static ArrayList<String[]> aAllSession = new ArrayList<String[]>();
-    private int countEnter = 5;
-//    public static HttpServletRequest request1;
+    
+
     
     protected void processRequest( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+//            private void createSession()  {
+//    HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+//                           session.setAttribute("sEmail", sEmail);
+//                           session.setAttribute("sPassword", sPassword);
+//    }
+       DOMConfigurator.configure("log4j.xml");    
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
-
-        String              sReturn = "nul",
+        
+        String s22 = request.getLocalAddr();
+        String s33 = request.getServletPath();
+        String s11 = "1";
+        
+        
+        
+        String              sReturn = "-nol-",
                             sDO = "" , 
                                 sEmail = "",
-                                sPassword = "",
-                                
-                                sCookie = "",
-                               sSess = ""
+                                sPassword = "",                           
+                                sCookie = ""
+                                //sSess = ""
                             ;
-           boolean bRegisterUser = false;
- 
-           // sSess = request.getSession().getId(); 
+        
+         logger.info("Hello from Servlet---");    
         
         try {
 
-//       HttpSession session = request.getSession(true);  
+//      HttpSession session = request.getSession(true);  
 //   Object o = session.getAttribute("sLogin");
+          
+       
+           DOMConfigurator.configure("/log4j.xml");       
+          logger.info("Hello from Servlet");    
              
-            
-//      TimerTask task = new TimerTask() {
-//       
-//
-//        
-//  @Override
-//  public  void  run() //(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-//    
-//  {     //Do work!         //    aListAllSession.remove(0);
-//     //HttpServletRequest request2;//
-//     // HttpSession session1 = request1.getSession();
-//      //  String sessionId  = session1.getId(); 
-//       //System.out.println("1");
-//            //aAllSession.remove(0);    
-//
-//       
-//      String sessionId  = sSess;
-//     //  HttpSession session = Login.request.getSession();
-//       //String sessionId = session.getId();
-//       // HttpServletRequest request2;// = getSession().getId();
-//       //String sessionId  =  request2.getSession().getId();
-//               //Login.request1.getSession().getId();
-//       
-//              // HttpServletRequest.getSession().getId();
-//       String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
-//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sessionId",
-//                                  };       
-//                        HttpSession session = request.getSession();
-//                       // Login.request.getSession().getId();
-//                   aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
-//                   
-//                   TimerCount++;   
-//                   
-//                   //sIDCurrentSession
-//                   
-//                    if (TimerCount == 5)
-////                timer.cancel();
-//            timer.cancel();  
-////           sIDCurrentSession =  session.getId();            
-//         //  sIDCurrentSession = request.getPathInfo();
-//           
-//      }
-//};    
-         
-             
-             
-               sDO = request.getParameter("sDO"); //вытягиваем параметры
+               sDO = request.getParameter("sDO");   //вытягиваем параметры
                sEmail = request.getParameter("sEmail");
                sPassword = request.getParameter("sPassword");
-     
                sCookie = request.getParameter("sCookieLogin");
             
-               // if ("theUserLoginCoockie".equals(sDO)){                }
                
                
-               //------------- проверка существования Емайла---------------
-               if ("theUserExists".equals(sDO)){
-                 Access Ac = new Access();
-                if (Ac.bLoginExists(sEmail) == true){ // true - Емаил существует в базе
-                 sReturn = "{\"sReturnExists\":\"" + "YES" + "\"}";
-               }
-                else
-                sReturn = "{\"sReturnExists\":\"" + "NO" + "\"}";     
-                
-                Thread.sleep(2000); // задержка отправки ответа на 2 сек.
-               }
-               
-               //------------- ВХОД пользователя через куку ---------------
+//------------- проверка существования Емайла---------------
+             if ("theUserExists".equals(sDO)) {
+                  Access Ac = new Access();
+                  if (Ac.bLoginExists(sEmail) == true) {    // true - Емаил существует в базе
+                       sReturn = "{\"sReturn\":\"" + "EmailExists" + "\"}";
+                  } else {
+                       sReturn = "{\"sReturn\":\"" + "NoEmailExists" + "\"}";
+                  }
+                                                            //Thread.sleep(2000); // задержка отправки ответа на 2 сек.
+             }
+
+//------------- ВХОД пользователя через куку ---------------
                if ("theLoginForCookie".equals(sDO)){ 
               
                     AccessAuth AA = new AccessAuth();
                     ArrayList<String> list1 = new ArrayList<String>();
                     list1 = AA.findUserFromCookie(sCookie);
                            
-                  //  if ((list1.get(0) == "") | (list1.get(1) == "")){
-                   //   sReturn = "{  \"sReturn\"  :  \"Ошибка2!\"  }"; //не менять
-                   //      return;
-                   // }
                            String s1 =  list1.get(0); // Емаил
                            String s2 =  list1.get(1);  // Пароль
                            
-                           HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+                           HttpSession session = request.getSession(true);    //создаем сессию для пользователя с его данными!
                            session.setAttribute("sEmail", s1); //sEmail
                            session.setAttribute("sPassword", s2); //sPassword
 
                      // Отправляем ответ, что на сайт юзера можно пускать и отправляем куку, для обновления времени.
                     sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCookie + "\" }"; //не менять
                }
+              
                
-    //------------- ВХОД пользователя ---------------
+//------------- ВХОД пользователя через ввод Емайла и пароля ---------------
             if ("theUserLogin".equals(sDO)){
-           
-           
-        
                  
-                 
-            // Вход по Логину - Паролю 
                 Access A = new Access();
-                if (A.bLoginExists(sEmail) == true) { // true - Емаил существует в базе
-                   // String Pass = "";
-                    String Pass = A.getPassword(sEmail);   // смотрим  Пароль по Емайлу
-                    if (sPassword.equals(Pass))  {      // если Пароли совпадают
+                if (A.bLoginExists(sEmail) == true) {       // true - Емаил существует в базе
+                    String Pass = A.getPassword(sEmail);    // смотрим  Пароль по Емайлу
+                    if (sPassword.equals(Pass))  {          // если Пароли совпадают
                     
-                         
-                         String sNID = A.getNID(sEmail); // Получаем NID пользователя по Емайлу
-                         AccessAuth AA = new AccessAuth(); 
-                         String sGenerate = AA.generateString();
+                            Date d = new Date();       // узнаем текущее время
+                            DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+                            String sTimeLogin = df.format(d);
 
-                         String sCreateCookie = sNID+"&"+sGenerate; // Строка Коки Юзера
+                              String sNID = A.getNID(sEmail);     // Получаем NID пользователя по его Емайлу
+                              AccessAuth AA = new AccessAuth(); 
+                              String sGenerate = AA.generateString();  // генерируем строку 50 символов для куки
+                              String sCreateCookie = sNID+"&"+sGenerate;   // соединяем в одну строку
+                              // сохраняем Куку в Базу
+                              AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
 
-                         
-                         
-                           HttpSession session = request.getSession(true);    //создаем сессию для пользователя
-                           session.setAttribute("sEmail", sEmail);
-                           session.setAttribute("sPassword", sPassword);
-                        
-                                 Date d = new Date(/*tmp*/);
-                                 DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-                                 String sTimeLogin = df.format(d);
-                        
-                                 //Date d1 = new Date(session.getLastAccessedTime());         DateFormat df1 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");                                  String sLastAccessedTime = df1.format(d1);
-                                 
-                           // формируем ячейки таблицы      
-                        //aListAllSession.add(sEmail+"   "+session.getId()+"   "+sTimeLogin+"   "+request.getRemoteAddr()+"   "+ request.getServerName());
-                      
-                       
+                                 HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+                                 session.setAttribute("sEmail", sEmail);
+                                 session.setAttribute("sPassword", sPassword);
+                 
+                                               
+             
                         String[] sArrSession = {  // создаем строковый  массив с инф. о пользователе
                                   sEmail,
                                   session.getId(),
@@ -285,50 +162,29 @@ public class Login extends HttpServlet {
                                   request.getRemoteAddr(),
                                   request.getServerName()
                                   };
-                             
-                             aAllSession.add(sArrSession); // переносим в Список Массивов для хранения
-                             
-                          
-                                 
-//                             aListAllSession.add(
-//                                     
-//                              "<td>"+sEmail+"</td>"+ 
-//                              "<td>"+session.getId()+"</td>"+ 
-//                              "<td>"+sTimeLogin+"</td>"+
-//                              "<td>"+sLastAccessedTime  +"</td>"+ 
-//                              "<td>"+request.getRemoteAddr()+"</td>"+
-//                              "<td>"+request.getServerName()+"</td>");
-                       
-                        
-                        // Запись инфы в базу о пользователе при Входе пользователя
-                         AccessOf.saveInfoWhenUserLogined(sEmail);
+                         aAllSession.add(sArrSession); // переносим в Список Массивов для хранения
+                              
+     
+                        // Запись в базу инфы о пользователе при его Входе
+                            AccessOf.saveInfoWhenUserLogined(sEmail);
                          
                                                             // включаем таймер
                                                          //   TimerTask task = new RunMeTask(); 
                                                           //  timer.schedule(task, 100,1000);
                          
-                        // AccessAuth AA = new AccessAuth();
-                         AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
-                         
-                         
+                       
                                                // нельзя чтобы в json было пустое значение
                         sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCreateCookie+ "\" }"; //не менять
                         
                                 
-//                        while (TimerCount < 5){
-//                             TimerCount++;
 //                         String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
 //                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sessionId",
 //                                  };       
 //                            aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
-                     //        Thread.sleep(1000);
-//                        }
                         
-                        
-                        //sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}";
-                    } else { // неверный пароль
-                   //         countEnter--; 
-                            sReturn = "{\"sReturn\":\"" + "Неверный Логин или Пароль!" + "\"}";
+                        ;
+                    } else {    // неверный пароль FailPassword   Неверный Логин или Пароль
+                            sReturn = "{\"sReturn\":\"" + "FailPassword!" + "\"}";
                             }
 
                     }
@@ -336,25 +192,26 @@ public class Login extends HttpServlet {
                              //Регистрируем  
                             Access Aсс = new Access();
                             String s = Aсс.userRegistration(sEmail, sPassword);
-                            sReturn = "{   \"sReturn\":\""+s+"\"    }"; 
-                            //sReturn = "{   \"sReturn\":\""+s+"\"   \"sReturnFirst\":\""+s+"\"    }"; 
+                              if (s.equals("Добро пожаловать на сайт!")){ // регистрация  удалась, то полдолжаем
+                               //  return;
 
                                HttpSession session = request.getSession(true);    //создаем сессию для пользователя
                                session.setAttribute("sEmail", sEmail);
                                session.setAttribute("sPassword", sPassword);
-                             //(Осталось попыток: " +countEnter+" )"+
-                             //  Thread.sleep(2000);
 
-                                 Date d = new Date(/*tmp*/);
+                                 Date d = new Date();
                                  DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
                                  String sTimeLogin = df.format(d);
 
-                             String sNID = A.getNID(sEmail); // Получаем NID пользователя по Емайлу
-                             AccessAuth AA = new AccessAuth(); 
-                             String sGenerate = AA.generateString();
-                             String sCreateCookie = sNID+"&"+sGenerate; // Строка Коки Юзера
+                                   String sNID = A.getNID(sEmail); // Получаем NID пользователя по Емайлу
+                                   AccessAuth AA = new AccessAuth(); 
+                                   String sGenerate = AA.generateString();
+                                   String sCreateCookie = sNID+"&"+sGenerate; // Строка Коки Юзера
 
-                             AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
+                                   AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
+                             }
+                              
+                              sReturn = "{   \"sReturn\"  :  \""+s+"\"    }";  // ответ в любом случае
 
                      }
          
@@ -364,20 +221,13 @@ public class Login extends HttpServlet {
                 
             }
 
-            
-            if (bRegisterUser){
-            
+
                      
-            }
-            
-            
-            
             if ("theDestroySession".equals(sDO)) {
                 HttpSession session = request.getSession(true);    //создаем сессию для пользователя
                 session.invalidate();
                 
-                sReturn = "{\"sReturn\":\"" + "Сессия удалена!" + "\"}";
-                
+                sReturn = "{\"sReturn\":\"" + "Deleted!" + "\"}";      
             } 
             
             
@@ -512,4 +362,112 @@ public class Login extends HttpServlet {
    
   
   //timer2.schedule( task, date ); //date - java.util.Date
-                 
+        
+
+
+
+//------------------------ таймеры
+          
+//      TimerTask task = new TimerTask() {
+     
+//  @Override
+//  public  void  run() //(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+//    
+//  {     //Do work!         //    aListAllSession.remove(0);
+//     //HttpServletRequest request2;//
+//     // HttpSession session1 = request1.getSession();
+//      //  String sessionId  = session1.getId(); 
+//       //System.out.println("1");
+//            //aAllSession.remove(0);    
+//
+//       
+//      String sessionId  = sSess;
+//     //  HttpSession session = Login.request.getSession();
+//       //String sessionId = session.getId();
+//       // HttpServletRequest request2;// = getSession().getId();
+//       //String sessionId  =  request2.getSession().getId();
+//               //Login.request1.getSession().getId();
+//       
+//              // HttpServletRequest.getSession().getId();
+//       String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
+//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sessionId",
+//                                  };       
+//                        HttpSession session = request.getSession();
+//                       // Login.request.getSession().getId();
+//                   aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
+//                   
+//                   TimerCount++;   
+//                   
+//                   //sIDCurrentSession
+//                   
+//                    if (TimerCount == 5)
+////                timer.cancel();
+//            timer.cancel();  
+////           sIDCurrentSession =  session.getId();            
+//         //  sIDCurrentSession = request.getPathInfo();
+//           
+//      }
+//};    
+
+
+//-------------------------------
+
+//   public static java.util.Timer timer = new java.util.Timer();
+     
+     
+//   public  class RunMeTask extends TimerTask   //extends HttpServlet
+//  {     
+//	@Override
+//	public void run() { 		//System.out.println("Run Me ~");    
+//                TimerCount++;    
+//                
+//                String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
+//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sEmail",
+//                                  };
+//                             
+//                     aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
+//                 //sIDCurrentSession =  HttpServletRequest.getSession().getId();
+//                 HttpSession session = request.getSession();
+//                 if (request. session.getId() == null)
+//                     //    sIDSession
+//                      Login.
+//                     
+//                if (TimerCount == 50)
+//                timer.cancel();
+//	}
+//}   
+  
+   
+      
+     
+    
+  
+     
+     
+     //============================
+// private static TimerTask task = new TimerTask() {
+//  
+//  @Override
+//  public void run() //(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+//    
+//  {     //Do work!         //    aListAllSession.remove(0);
+//           //System.out.println("1");
+//            //aAllSession.remove(0);    
+//       String[] sArrSession1 = {  // создаем строковый  массив с инф. о пользователе
+//                                  "sEmail", "sEmail", "sEmail", "sEmail", "sEmail", "sEmail",
+//                                  };
+//                        
+//                   aAllSession.add(sArrSession1); // переносим в Список Массивов для хранения
+//               //     sIDCurrentSession =  HttpServletRequest.getSession().getId();
+//                 //HttpSession session = Login.getSession();
+//                 Login.
+//                   
+//            timer.cancel();  
+//           //if (request.getSession() == null){
+//          //if (request.getSession() == null){
+//          //  }
+//               
+//      }
+//};
+
+    
