@@ -15,7 +15,7 @@ public class Test2 {
        
       public static void main(String[] args) throws Exception {
       // DOMConfigurator.configure(Config.sPathConfig() + "log4j.xml");     
-       DOMConfigurator.configure("log4j.xml");
+       DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
        System.out.println(" run Test2 2222222222");    
     logger.debug("Log4j appender configuration is successful !!");
        logger.info("Twest");   

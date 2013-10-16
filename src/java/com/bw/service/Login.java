@@ -63,14 +63,15 @@ import org.apache.log4j.xml.DOMConfigurator;
 //                           session.setAttribute("sEmail", sEmail);
 //                           session.setAttribute("sPassword", sPassword);
 //    }
-       DOMConfigurator.configure("log4j.xml");    
+       //DOMConfigurator.configure("log4j.xml");    
+          
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
         
         String s22 = request.getLocalAddr();
         String s33 = request.getServletPath();
+        String s111 = getServletContext().getRealPath(""); //+ File.separator + "WEB-INF" + File.separator + "config" + File.separator;
         String s11 = "1";
-        
         
         
         String              sReturn = "-nol-",
@@ -81,16 +82,18 @@ import org.apache.log4j.xml.DOMConfigurator;
                                 //sSess = ""
                             ;
         
-         logger.info("Hello from Servlet---");    
-        
+       //  logger.info("Hello from Servlet---");    
+        //String path = "D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/" ;
         try {
 
 //      HttpSession session = request.getSession(true);  
 //   Object o = session.getAttribute("sLogin");
-          
+         
+       DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
        
-           DOMConfigurator.configure("/log4j.xml");       
-          logger.info("Hello from Servlet");    
+       //    DOMConfigurator.configure("/log4j.xml");       
+         logger.info(" Hello from Servlet");    
+         logger.error(" Hello from Servlet---------");    
              
                sDO = request.getParameter("sDO");   //вытягиваем параметры
                sEmail = request.getParameter("sEmail");
@@ -125,7 +128,8 @@ import org.apache.log4j.xml.DOMConfigurator;
                            session.setAttribute("sPassword", s2); //sPassword
 
                      // Отправляем ответ, что на сайт юзера можно пускать и отправляем куку, для обновления времени.
-                    sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCookie + "\" }"; //не менять
+                    sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCookie + "\" }"; 
+                   // sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}"; //не менять
                }
               
                
@@ -227,7 +231,7 @@ import org.apache.log4j.xml.DOMConfigurator;
                 HttpSession session = request.getSession(true);    //создаем сессию для пользователя
                 session.invalidate();
                 
-                sReturn = "{\"sReturn\":\"" + "Deleted!" + "\"}";      
+                sReturn = "{\"sReturn\":\"" + "Destroyed!" + "\"}";      
             } 
             
             

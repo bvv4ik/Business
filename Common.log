@@ -1,0 +1,14 @@
+2013-10-16 19:57:29,705 INFO  service.LoginHello from Servlet
+2013-10-16 19:58:10,043 INFO  service.LoginHello from Servlet
+2013-10-16 19:58:39,173 INFO  service.LoginHello from Servlet
+2013-10-16 20:00:41,016 INFO  service.Login Hello from Servlet
+2013-10-16 20:00:42,413 INFO  service.Login Hello from Servlet
+2013-10-16 20:00:54,376 INFO  service.Login Hello from Servlet
+2013-10-16 20:02:55,251 INFO  service.Login Hello from Servlet
+2013-10-16 20:04:46,147 INFO  service.Login Hello from Servlet
+2013-10-16 20:07:21,374 INFO  service.Login Hello from Servlet
+2013-10-16 20:07:21,374 ERROR service.Login Hello from Servlet---------
+2013-10-16 20:07:23,008 INFO  service.Login Hello from Servlet
+2013-10-16 20:07:23,008 ERROR service.Login Hello from Servlet---------
+2013-10-16 20:07:27,089 INFO  service.Login Hello from Servlet
+2013-10-16 20:07:27,089 ERROR service.Login Hello from Servlet---------

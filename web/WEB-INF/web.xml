@@ -12,8 +12,24 @@
         metadata-complete="false"
 >
 
+       
          
     <!-- <web-app> -->
+    
+    
+               <servlet>
+                  <servlet-name>ConfigInit</servlet-name>
+                  <servlet-class>com.bw.service.ConfigInit</servlet-class>
+                  <load-on-startup>1</load-on-startup>
+              </servlet>
+
+                  <servlet-mapping>
+                  <servlet-name>ConfigInit</servlet-name>
+                  <url-pattern>/ConfigInit</url-pattern>
+              </servlet-mapping>
+   
+    
+
     <servlet>
         <servlet-name>showdb</servlet-name>
         <servlet-class>students.web.ShowDB</servlet-class>
@@ -43,6 +59,12 @@
         <servlet-name>PlaceServlet</servlet-name>
         <servlet-class>com.bw.service.PlaceServlet</servlet-class>
     </servlet>
+    
+    
+    
+ 
+         
+
     
     
     <servlet-mapping>
