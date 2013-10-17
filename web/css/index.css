@@ -279,7 +279,7 @@ height : 275px !important;
         width    : 100px;    
 	height   : 100px; 
         background: blue;
-        display: none;
+        display: block;
 }
 
 

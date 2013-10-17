@@ -24,6 +24,11 @@
         <appender-ref ref ="Common"/>
     </category>
     
+    <category name="com.bw.entity" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="Common"/>
+    </category>
+    
      <!-- - ->
     <category name="business.model" additivity="false">
         <priority value   ="DEBUG"/>

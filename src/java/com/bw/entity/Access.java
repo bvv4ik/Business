@@ -58,19 +58,27 @@ private int bDisabled; //(вырубить доступ)
  public int getIdAccess (String sLogin) throws Exception   { 
  int i = 0;
      Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+     
+     try{
+          ResultSet oSet =oDC.prepareStatement("SELECT TOP 1 nID FROM Access where sLogin = '"+sLogin+"'").executeQuery();
+          if(oSet.next()){
+          i = oSet.getInt(1);
+          //_nID(Integer.parseInt(oSet.getString(1)));
+          //_nID_SubjectHuman(Integer.parseInt(oSet.getString(2)));
+          //_sLogin(oSet.getString(3));
+          //_bDisabled(Integer.parseInt(oSet.getString(4)));
+            }
+
+         // ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
+         // return i;
  
- ResultSet oSet =oDC.prepareStatement("SELECT TOP 1 nID FROM Access where sLogin = '"+sLogin+"'").executeQuery();
- if(oSet.next()){
- i = oSet.getInt(1);
- //_nID(Integer.parseInt(oSet.getString(1)));
- //_nID_SubjectHuman(Integer.parseInt(oSet.getString(2)));
- //_sLogin(oSet.getString(3));
- //_bDisabled(Integer.parseInt(oSet.getString(4)));
+   }catch (Exception e){
+         // return "Непредвиденная ошибка создания записи: Класс Access";  
+    }
+   finally{
+        ConnectSybase.closeConnect("UA_DP_PGASA",oDC);  // так делать всегда!!1
+        return i;
    }
- 
- ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
- return i;
- 
 }
  
  

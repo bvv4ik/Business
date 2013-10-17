@@ -59,7 +59,7 @@
        
 <!-- ------------- ФОН ----------------- -->
 <div id="divFon" >     
-      <!--    <div id="divError" >    </div> <br>      <!--  может быть кода понадобится  для отладки -->
+      <div id="divError" onClick="ajax_sendEmail(); "  >    </div> <br>     <!--  alert(1);   <!--  может быть кода понадобится  для отладки -->
          
                       	
  <!-- ----------- ВХОД форма ----------------- -->
@@ -274,7 +274,9 @@ $(document).ready(function(){
 <!-- ---------- ГЛАВНАЯ страница  ------------ -->                    
 <div  id="divMainPage">
 <img id="exitSite" src="img/exit1.png" style="position:absolute;  top:8px; right:8px; cursor:pointer;" title="Один клик - обычный выход, зажатая левая кнопка мыши более 2 секунд - закрытие вкладки">
-<!-- <img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии и Куки"> -->                    
+<!--    -->                    
+<img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии "> 
+
 
      <div  id="img_logo"> </div>                                    <!--     <a id="linkAbout" style=" position:absolute; left:800px; top:40px; text-decoration: none; color:white;" target="_blank" href="space_galery.html" title="">Инструменты создания<br> данного сайта...</a>             --> 
 <div style=" position : relative; top: -50px; left: 260px; color:white; font-size: 26px; font-family: verdana; ">Знание - сила!</div>

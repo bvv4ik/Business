@@ -18,6 +18,11 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 public class ConfigInit extends HttpServlet {
 
+   static String sPath; 
+   // Setters
+   public ConfigInit _sPath(String s) { sPath = s; return this; }
+   // Getters
+   public String  sPath() { return sPath; }
   
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
              throws ServletException, IOException {
@@ -25,10 +30,14 @@ public class ConfigInit extends HttpServlet {
           PrintWriter out = response.getWriter();
           try {
                               
-                 DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
+                 //DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
+              DOMConfigurator.configure(getServletContext().getRealPath("")+"/WEB-INF/config/"  + "log4j.xml");
+                 _sPath(getServletContext().getRealPath("")+"/WEB-INF/config/"  + "log4j.xml");             
                  
           } finally {               
                out.close();
+    
+                 
           }
      }
 

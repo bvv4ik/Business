@@ -62,6 +62,9 @@ $(function(){
 //----- обнуляем Куки для тестов ....
      //$.cookie('last', null);
      //$.cookie('auth', null);
+  
+//---- создаем ложную Куку для проверки записи Алерта в лог log4j+!
+   //    $.cookie("auth", "ffffgdf", { expires: 2,  path: '/'/*, secure: true */ });
 
 //---- Открываем Табы с эффектом замедления
      $( "#divLogin" ).tabs({ hide: { effect: "shake", duration: 400 } });
@@ -101,10 +104,15 @@ $(function(){
 // ---- загрузка данных о сессии
      $("#mainPageAdmin").click(function(){    ajax_getAllSession();   });
     
-//----Удаляем сессию пользователя
+//----Удаляем сессию пользователя и куку
     $("#exitSite").click(function(){    
                              ajax_doDestroySession();  // Удаляем сессию 
                              $.cookie('auth', null);   // Удаляем куку  	
+    });    
+    
+    //----Удаляем токо сессию пользователя
+    $("#exitSite2").click(function(){    
+                             ajax_doDestroySession();  // Удаляем сессию 
     });    
     
 //---- начинаем тест                
@@ -147,6 +155,7 @@ $(function(){
 // ----- Кликаем на кнопку Входа на сайт
      $("#divLogin #btLogin").click(function(){  
 
+         //
             // если пустой Логин или пароль
      if  ( ($("#divLogin #sEmail").val() == "") | ($("#divLogin #sPassword").val() == "")  )  {        
                dhtmlx.message({ type:"error",  expire:3000, text:"Введите Е-Маил и пароль!" });    // выводим сообщение
@@ -216,8 +225,9 @@ var oData= { sDO: "theUserLogin",
                  var date = new Date();                            //date = date.toString().replace(/\ /g,"_");    // замена всех пробелов на подчеркивание
                  $.cookie("last", date, { expires: 7777,  path: '/' /*, secure: true*/});
                          // так нужно обновлять страницу, чтобы произошла запись в Автокомплит и обновление страницы
-                // $("#btSubmit").click();  
-                                   window.location.href="/index.jsp";  //dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });
+                 
+                 $("#btSubmit").click();  
+               // window.location.href="/index.jsp";  //dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });
 
            } else if (o.sReturn == "FailPassword!"){              
             
@@ -253,23 +263,29 @@ var oData= { sDO: "theUserLogin",
 
 
 
-// --------AJAX  ----------------  список всех сессий   ---------------------------
+
+// --------AJAX  ----------------  получаем список всех сессий   ---------------------------
      function ajax_getAllSession(){         
-        var oData= {   sDO: "theGetAllSessionList"   };
+        var oData= {   sDO: "theGetAllSessionList"    };
 
       $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
               ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
 
-                      if (o.sReturn != null)    { 
+                     // if (o.sReturn != "")    { 
                            $("#divAllSessinList table").html(o.sReturn);
                            $("#divAllSessinList").css("display","block");
                            $("#FON_contact").css("display","block");
-                      }
+                     // }
 
               }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
               ,dataFilter:function(data, type) { return data;}
               });
      }
+
+
+
+
+
 
 
 
@@ -286,19 +302,18 @@ String.prototype.replaceAll = function(search, replace){
 var sHash=location.hash;  // Получаем ХЭШ
 //var sHash1 = sHash.replaceAll("#","\"").replaceAll("=","\":\"").replaceAll("&","\", \"").replaceAll("%26","&") +"\""; // превращаем в обьект
  
-// не очень надержная проверка, если ХЭШ будет с ошибками то может не распарсить правиьно.
+// не очень надержная проверка, если ХЭШ будет с ошибками то может не распарсить правильно.
 if (sHash != "") { //если ХЭШ не пустой то 
 // превращаем его в обьект
 var sHash = "{"+ sHash.replaceAll("#","\"").replaceAll("=","\":\"").replaceAll("&","\", \"").replaceAll("%26","&") +"\"}"; 
 var myobj = JSON.parse(sHash);
-//alert(myobj.sCookieLogin);
-//alert(myobj.sDO); // 
+//alert(myobj.sCookieLogin); //alert(myobj.sDO); // 
 
      if(myobj.sCookieLogin!=null){ // Если в КЭШЕ есть Кука, то пытаемся по ней войти
         location.hash = "";
         ajax_LoginForCookie(myobj.sCookieLogin);
      }
-     
+   
 
 
 }
@@ -354,6 +369,24 @@ window.onhashchange = locationHashChanged;*/
 // http://localhost:8080/Login?sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu
 // http://localhost:8080/?#sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu
 
+// --------AJAX  ----------------  получаем список всех сессий   ---------------------------
+     function ajax_sendEmail(){         
+        var oData= {   sDO: "theSendEmail",
+                       sEmail : $("#divLogin #sEmail").val()    };
+    // alert(11);
+      $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
+              ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+
+                  if (o.sReturn == "MailSendOk!") {
+                       alert("Письмо со ссылкой отправлено");     
+                  }
+
+              }, error:function(o,s) { alert("Произошла ошибка-- theSendEmail !!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
+              ,dataFilter:function(data, type) { return data;}
+              });
+     }
+
+
 function ajax_LoginForCookie(sCookie){
      var oData= {   sDO: "theLoginForCookie",
                     sCookieLogin: sCookie   };
@@ -366,7 +399,11 @@ function ajax_LoginForCookie(sCookie){
                         $.cookie("auth", o.sReturnCookie, { expires: 2,  path: '/' /*, secure: true*/});
                             // обновляем страницу
                         window.location.href="/index.jsp"
-                  }
+  
+                } else if (o.sReturn == "Ложная кука!"){
+                            dhtmlx.message({ type:"error", expire:7000, text:"Ай ай ай! <br>Так делать не хорошо!" });
+                         }
+                  
          }, error:function(o,s) { alert("Произошла ошибка--!!--theLoginForCookie "+o.status+":"+o.statusText+" ("+o.responseText+")");  }
          ,dataFilter:function(data, type) { return data;}
          });

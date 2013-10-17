@@ -5,6 +5,7 @@ import javax.swing.Timer;
 
 import com.bw.entity.*;
 import com.bw.io.ConnectLdap;
+import com.bw.io.MailText;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -48,7 +49,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 
   public class Login extends HttpServlet {
    
-    private Logger logger = Logger.getLogger(Login.class); /*getClass()*/
+    private Logger oLog = Logger.getLogger(getClass()); /*getClass()*/
     
     public static ArrayList<String> aListAllSession = new ArrayList<String>();
     //public ArrayList<String> aListAllSession = new ArrayList<String>();
@@ -58,21 +59,12 @@ import org.apache.log4j.xml.DOMConfigurator;
     
     protected void processRequest( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//            private void createSession()  {
-//    HttpSession session = request.getSession(true);    //создаем сессию для пользователя
-//                           session.setAttribute("sEmail", sEmail);
-//                           session.setAttribute("sPassword", sPassword);
-//    }
-       //DOMConfigurator.configure("log4j.xml");    
+
           
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
         
-        String s22 = request.getLocalAddr();
-        String s33 = request.getServletPath();
-        String s111 = getServletContext().getRealPath(""); //+ File.separator + "WEB-INF" + File.separator + "config" + File.separator;
-        String s11 = "1";
-        
+        DOMConfigurator.configure(getServletContext().getRealPath("")+"/WEB-INF/config/"  + "log4j.xml");
         
         String              sReturn = "-nol-",
                             sDO = "" , 
@@ -82,18 +74,14 @@ import org.apache.log4j.xml.DOMConfigurator;
                                 //sSess = ""
                             ;
         
-       //  logger.info("Hello from Servlet---");    
-        //String path = "D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/" ;
+
         try {
 
 //      HttpSession session = request.getSession(true);  
 //   Object o = session.getAttribute("sLogin");
-         
-       DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
-       
-       //    DOMConfigurator.configure("/log4j.xml");       
-         logger.info(" Hello from Servlet");    
-         logger.error(" Hello from Servlet---------");    
+            
+   //      oLog.info(" Hello from Servlet===333");    
+        // oLog.error(" Hello from Servlet---------111");    
              
                sDO = request.getParameter("sDO");   //вытягиваем параметры
                sEmail = request.getParameter("sEmail");
@@ -101,6 +89,26 @@ import org.apache.log4j.xml.DOMConfigurator;
                sCookie = request.getParameter("sCookieLogin");
             
                
+//------------- Отправка ссылки для "входа без пароля" на Емаил---------------
+             if ("theSendEmail".equals(sDO)) {               
+                  
+                  Access A = new Access(); 
+                  if (A.bLoginExists(sEmail) == true) {       // true - Емаил существует в базе
+                  
+                  AccessAuth AA = new AccessAuth();
+                  String sCookieDB = AA.findCookie(sEmail) ;  // берем куку пользователя (самую старую)  // еще нужно будет сделать, генерацию и добавление куки в базу при нажатии на "отправить ссылку на почту"
+
+                  MailText mt = new MailText();   //sEmail   
+                //  mt.sendMail(sEmail, "123");
+                  // надо сделать еще генерацию Куки для пользователей у которых нету куки в Базе ??? 
+                  mt.sendMail(sEmail, "Ваша ссылка для входа в PGASA без пароля:  \n\n  http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin="+sCookieDB +"  \n\n ") ;
+                  //  http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu
+                  
+                  sReturn = "{\"sReturn\":\"" + "MailSendOk!" + "\"}";
+                  } else {
+                         sReturn = "{\"sReturn\":\"" + "MailSendFail!" + "\"}";
+                         }
+             }
                
 //------------- проверка существования Емайла---------------
              if ("theUserExists".equals(sDO)) {
@@ -118,18 +126,24 @@ import org.apache.log4j.xml.DOMConfigurator;
               
                     AccessAuth AA = new AccessAuth();
                     ArrayList<String> list1 = new ArrayList<String>();
-                    list1 = AA.findUserFromCookie(sCookie);
-                           
+                    list1 = AA.findUserFromCookie(sCookie, request.getLocalAddr());
+                                          
                            String s1 =  list1.get(0); // Емаил
                            String s2 =  list1.get(1);  // Пароль
-                           
-                           HttpSession session = request.getSession(true);    //создаем сессию для пользователя с его данными!
-                           session.setAttribute("sEmail", s1); //sEmail
-                           session.setAttribute("sPassword", s2); //sPassword
 
-                     // Отправляем ответ, что на сайт юзера можно пускать и отправляем куку, для обновления времени.
-                    sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCookie + "\" }"; 
-                   // sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}"; //не менять
+                           if ((s1!="0")&(s2!="0")) {
+
+                                HttpSession session = request.getSession(true);    //создаем сессию для пользователя с его данными!
+                                session.setAttribute("sEmail", s1); //sEmail
+                                session.setAttribute("sPassword", s2); //sPassword
+
+                              // Отправляем ответ, что на сайт юзера можно пускать и отправляем куку, для обновления времени.
+                                sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCookie + "\" }"; 
+                           }
+                           else {
+                                sReturn = "{\"sReturn\":\"" + "Ложная кука!" + "\"}"; 
+                              // sReturn = "{\"sReturn\":\"" + "Добро пожаловать на сайт!" + "\"}"; //не менять
+                           }
                }
               
                
@@ -197,22 +211,21 @@ import org.apache.log4j.xml.DOMConfigurator;
                             Access Aсс = new Access();
                             String s = Aсс.userRegistration(sEmail, sPassword);
                               if (s.equals("Добро пожаловать на сайт!")){ // регистрация  удалась, то полдолжаем
-                               //  return;
+                               
+                                   HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+                                   session.setAttribute("sEmail", sEmail);
+                                   session.setAttribute("sPassword", sPassword);
 
-                               HttpSession session = request.getSession(true);    //создаем сессию для пользователя
-                               session.setAttribute("sEmail", sEmail);
-                               session.setAttribute("sPassword", sPassword);
+                                     Date d = new Date();
+                                     DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+                                     String sTimeLogin = df.format(d);
 
-                                 Date d = new Date();
-                                 DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-                                 String sTimeLogin = df.format(d);
+                                       String sNID = A.getNID(sEmail); // Получаем NID пользователя по Емайлу
+                                       AccessAuth AA = new AccessAuth(); 
+                                       String sGenerate = AA.generateString();
+                                       String sCreateCookie = sNID+"&"+sGenerate; // соединяем в одну куку
 
-                                   String sNID = A.getNID(sEmail); // Получаем NID пользователя по Емайлу
-                                   AccessAuth AA = new AccessAuth(); 
-                                   String sGenerate = AA.generateString();
-                                   String sCreateCookie = sNID+"&"+sGenerate; // Строка Коки Юзера
-
-                                   AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
+                                       AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
                              }
                               
                               sReturn = "{   \"sReturn\"  :  \""+s+"\"    }";  // ответ в любом случае
