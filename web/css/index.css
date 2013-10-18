@@ -3,34 +3,25 @@
 body{
 	margin:0px;
 	padding:0px;
-       
-}
-body {
-    ba ckground-color: white; /*#FFFFF0;*/
-    background-image: url(../img/body-bg1.jpg);
+        background-image: url(../img/body-bg1.jpg);
+        b ackground:  url(dark_wood_texture.jpg)  #282828;
+	f ont-family:Arial, Helvetica, sans-serif;
 }
 
-body{
-/*     background: rgb(58, 58, 58);
-     background-image: url(../img/body-bg1.jpg);*/
-}
+.disabled { opacity: 0.3; filter: alpha(opacity=30); }
+
 
 /*
 #left, textarea{  / *запрет выделения текста на странице* /
--moz-user-select: -moz-none;
--o-user-select: none;
--khtml-user-select: none;
--webkit-user-select: none;
-user-select: none;
-cursor : default;
+     -moz-user-select: -moz-none;
+     -o-user-select: none;
+     -khtml-user-select: none;
+     -webkit-user-select: none;
+     user-select: none;
+     cursor : default;
 }
 */
 
-/*
-body{
-	background:  url(dark_wood_texture.jpg)  #282828;
-	font-family:Arial, Helvetica, sans-serif;
-}*/
 
 #space_galery { /*по умолчанию space галерея скрыта*/
      display:none; 
