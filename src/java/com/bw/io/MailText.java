@@ -55,9 +55,9 @@ public class MailText {
     
        public static void main(String args[]) throws MessagingException, UnsupportedEncodingException { 
            MailText mt = new MailText();
-           mt.sendMail("serg_geka@mail.ru", "Ваша ссылка для входа в PGASA без пароля:  \n\n  http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu  \n\n ") ;
+           mt.sendMail("serg_geka@mail.ru", "Ваша ссылка для входа в PGASA без пароля:  \n\n  http://pgasa-edu-ua.org:8082/#sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu  \n\n ") ;
            //mt.sendMail("serg_geka@mail.ru", "привет!") ;
-     
+     // http://localhost:8080/#
 //        String subject = "Subject"; 
 //        String content = "Test"; 
 //        String smtpHost="smtp.gmail.com"; 
