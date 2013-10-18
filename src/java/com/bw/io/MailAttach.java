@@ -21,8 +21,8 @@ public class MailAttach {
         String content = "Test"; 
         String smtpHost="smtp.gmail.com"; 
         String address="serg_geka@mail.ru";  // 380684053122@sms.beeline.ua
-        String login="sergey.belyavtsev"; 
-        String password="Serg1313serg13"; 
+        String login="businesspgasa"; 
+        String password="123qweasdzxc12"; 
         String smtpPort="587";  
  
         String attachment = "c:/attach.jpg"; 
