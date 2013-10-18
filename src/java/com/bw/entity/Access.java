@@ -61,16 +61,13 @@ private int bDisabled; //(вырубить доступ)
      
      try{
           ResultSet oSet =oDC.prepareStatement("SELECT TOP 1 nID FROM Access where sLogin = '"+sLogin+"'").executeQuery();
-          if(oSet.next()){
-          i = oSet.getInt(1);
-          //_nID(Integer.parseInt(oSet.getString(1)));
-          //_nID_SubjectHuman(Integer.parseInt(oSet.getString(2)));
-          //_sLogin(oSet.getString(3));
-          //_bDisabled(Integer.parseInt(oSet.getString(4)));
+               if(oSet.next()){
+               i = oSet.getInt(1);
+               //_nID(Integer.parseInt(oSet.getString(1)));
+               //_nID_SubjectHuman(Integer.parseInt(oSet.getString(2)));
+               //_sLogin(oSet.getString(3));
+               //_bDisabled(Integer.parseInt(oSet.getString(4)));
             }
-
-         // ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
-         // return i;
  
    }catch (Exception e){
          // return "Непредвиденная ошибка создания записи: Класс Access";  
