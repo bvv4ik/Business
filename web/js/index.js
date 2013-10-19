@@ -69,13 +69,9 @@ function goto_func(){};
 // ---------------  Попытка войти через ссылку в почтовом ящике ----------------
 
      function LoginViaLink(){ 
-                           
      // http://localhost:8080/Login?sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu
-     
      // http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin=31%26clorpqywosuzgdjsdxntpurutpmxuctirpexlnnczxbhcrxgto 
-
           var sHash=location.hash;  // Получаем ХЭШ
-
                                     // не очень надержная проверка, если ХЭШ будет с ошибками то может не распарсить правильно.
           if (sHash != "") { //если ХЭШ не пустой то 
                      // превращаем ХЭШ в обьект
@@ -86,9 +82,7 @@ function goto_func(){};
                     location.hash = "";
                     ajax_LoginForCookie(oHash.sCookieLogin);
                }
-
           }
-
      }
 
 // ----------------------------  Работа с ХЕШЕМ, примеры от Вовы
@@ -175,33 +169,45 @@ function goto_ajax(){};
 // ------------------------------ Проверка Емайла ------------------------------
 //     Проверяем зарегистрирован юзер или только хочет регистироватся
 
-     function  ajax_userExists(){         
-     $( '#imgLoading' ).fadeIn( 1 );     // показываем прогресс бар
+function  ajax_userExists(){
+    $( '#imgLoading' ).fadeIn( 1 );     // показываем прогресс бар
 
-      var oData= {    sDO: "theUserExists",
-                       sEmail: $("#sEmail").val()   };
+    var oData= {
+        sDO: "theUserExists"
+        ,sEmail: $("#sEmail").val()
+    };
 
-      $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
-              ,success:function(o) {
+    $.ajax({
+        type:"POST"
+        ,dataType:"json"
+        ,url:"/Login"
+        ,data:oData
+        ,async:true
+        ,success:function(o) {
 
-               var s = o.sReturn;  
-               if (s == "NoEmailExists") {      // Если Емайла нет в базе  // показываем доп. поля для "нового пользователя" 
-                         $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement, #brLogin" ).removeAttr("hidden");    
-                         $( "#divLogin" ).css("height","375");
-                         $( "#btLogin" ).val("Вход (Авторегистрация)").css("width","230px");
+            var s = o.sReturn;  
+            if (s == "NoEmailExists") {      // Если Емайла нет в базе  // показываем доп. поля для "нового пользователя" 
+                $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement, #brLogin" ).removeAttr("hidden");    
+                $( "#divLogin" ).css("height","375");
+                $( "#btLogin" ).val("Вход (Авторегистрация)").css("width","230px");
 
-               } else if  (s == "EmailExists")  {         // иначе прячим доп. поля, т.к такой Емайл зареген
-                            $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement,#brLogin" ).attr("hidden","hidden");    
-                            $( "#divLogin" ).css("height","190");
-                            $( "#btLogin" ).val("Вход").css("width","100px");
-                       }   
+            } else if  (s == "EmailExists")  {         // иначе прячим доп. поля, т.к такой Емайл зареген
+                $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement,#brLogin" ).attr("hidden","hidden");    
+                $( "#divLogin" ).css("height","190");
+                $( "#btLogin" ).val("Вход").css("width","100px");
+            }   
 
-                 $( "#imgLoading" ).fadeOut( 500 );  // прячем прогресс бар при любом ответе
+            $( "#imgLoading" ).fadeOut( 500 );  // прячем прогресс бар при любом ответе
 
-              }, error:function(o,s) { alert("Произошла ошибка-- ajax_userExists()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
-              ,dataFilter:function(data, type) { return  data;}
-              });         
-     }
+        }
+        ,error:function(o,s) {
+            alert("Произошла ошибка-- ajax_userExists()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
+        }
+        ,dataFilter:function(data, type) {
+            return  data;
+        }
+    });         
+}
 
 
 
@@ -255,40 +261,62 @@ function goto_ajax(){};
 
 // -------------------  Удаляем сессию пользователя  -----------------------
 
-     function  ajax_doDestroySession(){         
-        var oData= {   sDO: "theDestroySession"       };
+function  ajax_doDestroySession(){         
+    var oData= {
+        sDO: "theDestroySession"
+    };
 
-      $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
-              ,success:function(o) {                                                              //эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-                              if (o.sReturn == "Destroyed!"){   
-                                   window.location.href="/index.jsp"  ; // обновляем главную стр.
-                              }
-              }, error:function(o,s) { alert("Произошла ошибка-- ajax_doDestroySession()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
-              ,dataFilter:function(data, type) { return data;}
-              });
-     }
+    $.ajax({
+        type:"POST"
+        ,dataType:"json"
+        ,url:"/Login"
+        ,data:oData
+        ,async:true
+        ,success:function(o) {                                                              //эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+            if (o.sReturn == "Destroyed!"){   
+                window.location.href="/index.jsp"  ; // обновляем главную стр.
+            }
+        }
+        ,error:function(o,s) {
+            alert("Произошла ошибка-- ajax_doDestroySession()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
+        }
+        ,dataFilter:function(data, type) {
+            return data;
+        }
+    });
+}
 
 
 
 
 // ---------------------  Получаем список всех сессий   --------------------------
 
-     function ajax_getAllSession(){         
-        var oData= {   sDO: "theGetAllSessionList"    };
+function ajax_getAllSession(){
+    var oData= {
+        sDO: "theGetAllSessionList"
+    };
 
-      $.ajax({type:"POST",dataType:"json",url:"/Login",data:oData,async:true
-              ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-
-                      if (o.sReturn != "-nol-")    { 
-                           $("#divAllSessinList table").html(o.sReturn);
-                           $("#divAllSessinList").css("display","block");
-                           $("#FON_contact").css("display","block");
-                      }
-
-              }, error:function(o,s) { alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");  }
-              ,dataFilter:function(data, type) { return data;}
-              });
-     }
+    $.ajax({
+        type:"POST"
+        ,dataType:"json"
+        ,url:"/Login"
+        ,data:oData
+        ,async:true
+        ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+            if (o.sReturn != "-nol-")    { 
+                $("#divAllSessinList table").html(o.sReturn);
+                $("#divAllSessinList").css("display","block");
+                $("#FON_contact").css("display","block");
+            }
+        }
+        ,error:function(o,s) {
+            alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
+        }
+        ,dataFilter:function(data, type) {
+            return data;
+        }
+    });
+}
 
 
 
