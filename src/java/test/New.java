@@ -4,35 +4,12 @@
  */
 package test;
 
-import test.Dog;
-import com.bw.io.ConnectLdap;
-import com.bw.io.ConnectSybase;
-import zLogic.Registration1;
-import zLogic.Authorization;
-import com.bw.entity.Access;
-
-import java.io.*;
-import java.text.*;
+import java.io.IOException;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-
-import test.AeSimpleSHA1.*;
-import test.Dog.*;
-//import com.bw.entity.access.Access ;
-
-import java.io.BufferedReader; 
-import java.io.IOException; 
-import java.io.InputStreamReader; 
-import java.io.UnsupportedEncodingException; 
-import java.security.NoSuchAlgorithmException; 
-import java.sql.Connection;
-
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.JSONArray;
 import org.json.simple.parser.*;
-import org.json.simple.*;
+import zLogic.Authorization;
 //import org.groupby.parser.JSON.*;
 //import org.groupby.parser.JSON.*;
 //import com.google.gson.Gson;
@@ -180,7 +157,7 @@ public class New {
    //LoginUsers lo = new LoginUsers();       
    //lo.AddLoginPasswordMailUser("4444", "4444", "4444", "sReturnLogin");
   
-//   Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+//   Connection oDC = AccessDB.oConnectionStatic("");
    
 
  //System.out.println(lo.CreateUserInDB("5555599--5"));

@@ -6,28 +6,12 @@ package test;
 
 //import com.bw.entity.TheSubjectHuman;
 
-import com.bw.entity.Access;
-import com.bw.entity.*;
-
-import com.bw.io.ConnectLdap;
-import com.bw.io.ConnectSybase;
-
-import zLogic.Registration1;
-import zLogic.Authorization;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.Date;
-import java.util.Calendar ;
-import java.util.GregorianCalendar;
-import java.util.SimpleTimeZone;
-import java.util.TimeZone;
-import java.text.SimpleDateFormat;
+import business.model.Place;
+import business.model.TheSubjectHuman;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import java.io.File; 
-import java.sql.Connection;
-
-import java.util.zip.ZipFile;
 //import com.bw.entity.access.Ser.*;
 
 /**
@@ -43,9 +27,9 @@ public class Ser {
     public static void main(String[] args) throws Exception {
         
         
- //       Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");    
+ //       Connection oDC = AccessDB.oConnectionStatic("");    
   //  oDC.prepareStatement("DROP table PlaceRegion1").executeUpdate();
-   // ConnectSybase.closeConnect("UA_DP_PGASA",oDC);    
+   // AccessDB.closeConnectionStatic("", oDC);    
         
         //PlaceRegion PR = new PlaceRegion();
         //PR.setRegion(1, "Николаевская область");

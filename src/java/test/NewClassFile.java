@@ -5,7 +5,8 @@
 package test;
 
 
-import com.bw.io.ConnectSybase;
+
+import business.AccessDB;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -104,10 +105,10 @@ public class NewClassFile {
   
   
    static void insertSrting (String s) throws SQLException   { 
-    Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");    
+    Connection oDC = AccessDB.oConnectionStatic("insertSrting");
       
     oDC.prepareStatement(s).executeUpdate();
-    ConnectSybase.closeConnect("UA_DP_PGASA",oDC);    
+    AccessDB.closeConnectionStatic("insertSrting", oDC);
     
      }
 

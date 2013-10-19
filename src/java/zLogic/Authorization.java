@@ -4,7 +4,7 @@
  */
 package zLogic;
 
-import com.bw.io.ConnectSybase;
+import business.AccessDB;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -42,7 +42,7 @@ public static String getFirstLastSureName(String Value, String sLogin) {
   String Last="";
   String First=""; 
   String Sure="";
- Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+ Connection oDC = AccessDB.oConnectionStatic("");
  try{
    // HttpSession session = request.getSession(true);  
    // Object o = session.getAttribute("sLogin");
@@ -71,7 +71,7 @@ public static String getFirstLastSureName(String Value, String sLogin) {
                     return "";
                     }
  finally{
-         ConnectSybase.closeConnect("UA_DP_PGASA",oDC);
+         AccessDB.closeConnectionStatic("", oDC);
         }
    
  }

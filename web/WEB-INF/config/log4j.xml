@@ -3,9 +3,8 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
-    <appender name="Common" class="org.apache.log4j.RollingFileAppender">
-         <param name="File" value="D:/My Documents/NetBeansProjects/Business/Common.log"/>  
-        <!--<param name="File" value="/Common.log"/>  -->
+    <appender name="AccessDB" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Log/Business/AccessDB.log"/>  
         <param name="MaxFileSize" value="10MB"/>
         <param name="MaxBackupIndex" value="5"/>
         <param name="Encoding" value="UTF-8"/>
@@ -13,63 +12,90 @@
             <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
         </layout>
     </appender> 
- 
-    <category name="test" additivity="false">
-        <priority value   ="INFO"/>
-        <appender-ref ref ="Common"/>
-    </category>
     
-    <category name="com.bw.service" additivity="false">
-        <priority value   ="INFO"/>
-        <appender-ref ref ="Common"/>
-    </category>
-    
-    <category name="com.bw.entity" additivity="false">
-        <priority value   ="INFO"/>
-        <appender-ref ref ="Common"/>
-    </category>
-    
-     <!-- - ->
-    <category name="business.model" additivity="false">
-        <priority value   ="DEBUG"/>
-        <appender-ref ref ="Common"/>
-    </category>
--->
+    <appender name="AccessREST" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Log/Business/AccessREST.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender> 
 
+    <appender name="Config" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Log/Business/Config.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender> 
 
+    <appender name="Log" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Log/Business/Log.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender> 
+                    
+    <appender name="Auth" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Log/Business/Service.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender> 
+        
+    <appender name="Cache" class="org.apache.log4j.RollingFileAppender">
+         <param name="File" value="/Log/Business/Cache.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender> 
 
-    
-    <root>
-         
-         <priority value="ERROR"/>
+    <appender name="Launch" class="org.apache.log4j.RollingFileAppender">
+         <param name="File" value="/Log/Business/Launch.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender> 
 
-         
-          <!-- 
-          <priority value="INFO"/> 
-                   <appender-ref ref="Common"/>
-         <appender-ref ref="com.bw.service"/>          
-         <priority value="ERROR"/>
-         <priority value="ERROR"/>              
-         -->
-          
-           <!--   <appender-ref ref="Common"/> -->
-     
-    </root>
+    <appender name="Model" class="org.apache.log4j.RollingFileAppender">
+         <param name="File" value="/Log/Business/Model.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender> 
 
-</log4j:configuration>
+    <appender name="Send" class="org.apache.log4j.RollingFileAppender">
+         <param name="File" value="/Log/Business/Send.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender> 
 
-
-<!--
-<?xml version="1.0" encoding="UTF-8" ?>
- <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"> 
-
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
- 
-
-
-    <appender name="Common" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="/Common.log"/>
-        <param name="MaxFileSize" value="200MB"/>
+    <appender name="Service" class="org.apache.log4j.RollingFileAppender">
+         <param name="File" value="/Log/Business/Service.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
         <param name="MaxBackupIndex" value="5"/>
         <param name="Encoding" value="UTF-8"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -77,21 +103,81 @@
         </layout>
     </appender> 
     
-    <category name="business.servlet.Service" additivity="false">
+    <appender name="_Misc" class="org.apache.log4j.RollingFileAppender">
+         <param name="File" value="/Log/Business/_Misc.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender> 
+    
+    <appender name="_Test" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Log/Business/_Test.log"/>  
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
+        </layout>
+    </appender>
+    
+
+    <category name="business.AccessDB" additivity="false">
         <priority value   ="INFO"/>
-        <appender-ref ref ="Common"/>
+        <appender-ref ref ="AccessDB"/>
+    </category>
+    <category name="business.AccessREST" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="AccessREST"/>
+    </category>
+    <category name="business.Config" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="Config"/>
+    </category>
+    <category name="business.Log" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="Log"/>
+    </category>
+    <category name="business.auth" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="Auth"/>
+    </category>
+    <category name="business.cache" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="Cache"/>
+    </category>
+    <category name="business.launch" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="Launch"/>
     </category>
     <category name="business.model" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="Model"/>
+    </category>
+    <category name="business.send" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="Send"/>
+    </category>
+    <category name="business.service" additivity="false">
+        <priority value   ="INFO"/>
+        <appender-ref ref ="Service"/>
+    </category>
+    
+    <category name="com.bw.io" additivity="false">
+        <priority value ="DEBUG"/>
+        <appender-ref ref ="_Misc"/>
+    </category>
+    <category name="test" additivity="false">
         <priority value   ="DEBUG"/>
-        <appender-ref ref ="Common"/>
+        <appender-ref ref ="_Test"/>
     </category>
 
 
-
+    
     <root>
-        <priority value="ERROR"/>
+         <priority value="ERROR"/>
     </root>
 
 </log4j:configuration>
-
--->

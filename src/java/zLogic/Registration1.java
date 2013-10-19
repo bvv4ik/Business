@@ -4,9 +4,8 @@
  */
 package zLogic;
 
-import com.bw.io.ConnectLdap;
-import com.bw.io.ConnectSybase;
-
+import business.AccessDB;
+import business.auth.AccessLDAP;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.regex.Matcher;
@@ -26,7 +25,7 @@ public class Registration1  {
     
  public static boolean bLoginExists (String sLogin) {    
     String s = ""; 
-    Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+    Connection oDC = AccessDB.oConnectionStatic("");
  try{
  
  ResultSet oSet =oDC.prepareStatement("SELECT * FROM Access WHERE sLogin='"+sLogin+"'").executeQuery();
@@ -44,7 +43,7 @@ public class Registration1  {
                     }
 finally {   
           }
-  ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
+  AccessDB.closeConnectionStatic("", oDC); 
   return false;  //"Логин свободен";
  }
  
@@ -106,7 +105,7 @@ return false;//""; //Ошибочный!
  
   // return "111"; 
   
-      Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");                      
+      Connection oDC = AccessDB.oConnectionStatic("");                      
   // try{
   
       
@@ -130,7 +129,7 @@ return false;//""; //Ошибочный!
       oDC.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, bDisabled ) VALUES ("+n1+",'"+sLogin+"',1)").executeUpdate();
 
       // пробуем записать Логин и Пароль в Лдап
-      if (!ConnectLdap.bWrite(sLogin, sPassword1)) // если false занчит ошибка подключения к Лдап
+      if (!AccessLDAP.bWrite(sLogin, sPassword1)) // если false занчит ошибка подключения к Лдап
       {
           oDC.rollback();
           return "Ошибка Лдап подключения, учетная запись не создана!";
@@ -139,8 +138,8 @@ return false;//""; //Ошибочный!
       // Если записалось в Лдап, то подтверждаем запись в БД
       oDC.commit();
      
-    //  ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
-      ConnectSybase.closeConnect("UA_DP_PGASA",oDC); 
+    //  AccessDB.closeConnectionStatic("", oDC); 
+      AccessDB.closeConnectionStatic("", oDC); 
       
       return "Учетная запись успешно создана!";  
               
@@ -171,7 +170,7 @@ return false;//""; //Ошибочный!
  if (!sPassword.equals("")) // если пароль не равен пустой строке
  if (!sEmail.equals("")) // если Емаил не равен пустой строке
  {
- Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");
+ Connection oDC = AccessDB.oConnectionStatic("");
  oDC.prepareStatement("INSERT INTO Access (nID_SubjectHuman, sLogin, bDisabled ) VALUES (2,'"+sLogin+"',1)").executeUpdate();
  
  ResultSet oSet =oDC.prepareStatement("SELECT @@identity").executeQuery();
@@ -195,7 +194,7 @@ return false;//""; //Ошибочный!
   System.out.println("----------------------------");
   System.out.println(n);
 
-  ConnectSybase.closeConnect("UA_DP_PGASA",oDC);
+  AccessDB.closeConnectionStatic("", oDC);
   }
  
  }

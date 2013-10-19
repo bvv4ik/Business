@@ -4,7 +4,6 @@
  */
 package test;
 
-import com.bw.io.ConnectSybase;
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,10 +20,10 @@ import java.sql.ResultSet;
 public class InsertFromFile {
 //    
 //    public void getA()   { 
-//    Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");    
+//    Connection oDC = AccessDB.oConnectionStatic("");    
 //      
 //    oDC.prepareStatement("INSERT INTO PlaceRegion1 (nID_PlaceCountry, sRegion) VALUES (1, '"+sRegion +"')").executeUpdate();
-//    ConnectSybase.closeConnect("UA_DP_PGASA",oDC);    
+//    AccessDB.closeConnectionStatic("", oDC);    
 //     }
     
    

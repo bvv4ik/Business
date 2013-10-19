@@ -4,7 +4,7 @@
  */
 package test;
 
-import com.bw.io.ConnectSybase;
+import business.AccessDB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
@@ -18,7 +18,7 @@ public class NewClassTest {
 //    String s = "";  // String utf = ""; 
 //    int i = 0;
 //     
-//     Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");    
+//     Connection oDC = AccessDB.oConnectionStatic("");    
 //     ResultSet oSet = oDC.prepareStatement("select nID, sCountry from PlaceCountry").executeQuery();
 //     while (oSet.next()){
 //     i++;
@@ -29,7 +29,7 @@ public class NewClassTest {
 //     } 
 //        //  if((i%2)!=0) если кратно 2
 //        //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
-//     ConnectSybase.closeConnect("UA_DP_PGASA",oDC);
+//     AccessDB.closeConnectionStatic("", oDC);
 // 
 //    System.out.println(s);
     
@@ -38,7 +38,7 @@ public class NewClassTest {
      String s = "";  // String utf = ""; 
      int i = 0;
   
-     Connection oDC = ConnectSybase.getConnect("UA_DP_PGASA");    
+     Connection oDC = AccessDB.oConnectionStatic("");    
      ResultSet oSet = oDC.prepareStatement("SELECT nID, sRegionType FROM PlaceRegionType").executeQuery();
      while (oSet.next()){
      i++;
@@ -47,7 +47,7 @@ public class NewClassTest {
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
-     ConnectSybase.closeConnect("UA_DP_PGASA",oDC);
+     AccessDB.closeConnectionStatic("", oDC);
    
      System.out.println(s);
       }    
