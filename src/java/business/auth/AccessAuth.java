@@ -30,26 +30,26 @@ public class AccessAuth {
        //   DOMConfigurator.configure(getServletContext().getRealPath("")+"/WEB-INF/config/"  + "log4j.xml");
      
      int i = 0;
-          Connection oDC = AccessDB.oConnectionStatic("");
+          Connection oConnection = AccessDB.oConnectionStatic("");
           try {
 
                
-                ResultSet oSet = oDC.prepareStatement("SELECT count(*) FROM AccessAuth where nID_Access = " + nID_Access).executeQuery();
+                ResultSet oSet = oConnection.prepareStatement("SELECT count(*) FROM AccessAuth where nID_Access = " + nID_Access).executeQuery();
                if (oSet.next()) {
                     i = oSet.getInt(1);
                }
 
                if (i <= countMax) {  // если меньше 4 записией в базе, то просто добавляем
-                    oDC.prepareStatement("INSERT INTO AccessAuth(nID_Access, sAuth, sDateMake) "
+                    oConnection.prepareStatement("INSERT INTO AccessAuth(nID_Access, sAuth, sDateMake) "
                     + "VALUES (" + nID_Access + ", '" + sAuth + "', '" + sDateMake + "')").executeUpdate();
                }
                     
                if (i > countMax) { // если больше допустимого кол-ва записей (4-х например)
 
                         // удяляем 1 самую верхнюю(старую)  запись       
-                    oDC.prepareStatement("DELETE top 1 FROM AccessAuth WHERE nID_Access = "+nID_Access).executeUpdate();         
+                    oConnection.prepareStatement("DELETE top 1 FROM AccessAuth WHERE nID_Access = "+nID_Access).executeUpdate();         
                         // добавляем новую запись
-                    oDC.prepareStatement("INSERT INTO AccessAuth(nID_Access, sAuth, sDateMake) "
+                    oConnection.prepareStatement("INSERT INTO AccessAuth(nID_Access, sAuth, sDateMake) "
                             + "VALUES (" + nID_Access + ", '" + sAuth + "', '" + sDateMake + "')").executeUpdate();
                }
                
@@ -58,7 +58,7 @@ public class AccessAuth {
           } catch (Exception e) {
               // return "Ошибка создания записи БД: Класс AccessAuth";
           } finally {
-               AccessDB.closeConnectionStatic("", oDC);  // так делать всегда!!1
+               AccessDB.closeConnectionStatic("", oConnection);  // так делать всегда!!1
           }
   
 }
@@ -77,7 +77,7 @@ public class AccessAuth {
         String sCookieDB = "";
                 
        ArrayList<String> list1 = new ArrayList<String>();
-          Connection oDC = AccessDB.oConnectionStatic("");
+          Connection oConnection = AccessDB.oConnectionStatic("");
           try {
                 //String sCookie =   "31&cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr";
                                   //  31%26cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr  
@@ -85,7 +85,7 @@ public class AccessAuth {
                 
               
                 // Получаем всю Куку из базы
-                ResultSet oSet1 = oDC.prepareStatement("SELECT top 1 sAuth FROM AccessAuth where sAuth = '" + sCookie+ "'").executeQuery();               
+                ResultSet oSet1 = oConnection.prepareStatement("SELECT top 1 sAuth FROM AccessAuth where sAuth = '" + sCookie+ "'").executeQuery();               
                 if (oSet1.next()) {
                     sCookieDB = oSet1.getString(1);
                 }
@@ -103,7 +103,7 @@ public class AccessAuth {
                                                       //  }
 
                                // Получаем Емаил и Пароль по ИД
-                              ResultSet oSet = oDC.prepareStatement("SELECT sLogin, sPassword FROM Access where nID = " + nIdCookie).executeQuery();               
+                              ResultSet oSet = oConnection.prepareStatement("SELECT sLogin, sPassword FROM Access where nID = " + nIdCookie).executeQuery();               
                               if (oSet.next()) {
                                   // sLogin = oSet.getString(1);
                                   // sPassword = oSet.getString(2);
@@ -126,7 +126,7 @@ public class AccessAuth {
                 
                 
                    // Получаем последний номер nID в таблице
-//                ResultSet oSet2 = oDC.prepareStatement("select max(nID) from AccessAuth").executeQuery();               
+//                ResultSet oSet2 = oConnection.prepareStatement("select max(nID) from AccessAuth").executeQuery();               
 //                if (oSet2.next()) {
 //                    nLastId = oSet1.getInt(1);
 //                }
@@ -142,7 +142,7 @@ public class AccessAuth {
           } catch (Exception e) {
               // return "Ошибка создания записи БД: Класс AccessAuth";
           } finally {
-               AccessDB.closeConnectionStatic("", oDC);  // так делать всегда!!1
+               AccessDB.closeConnectionStatic("", oConnection);  // так делать всегда!!1
                return list1;  // возвращаем в любом случае
           }
   
@@ -158,7 +158,7 @@ public class AccessAuth {
       //int nLastId = 0;
        String sCookieDB = "";
      
-          Connection oDC = AccessDB.oConnectionStatic("");
+          Connection oConnection = AccessDB.oConnectionStatic("");
           try {
      
                               //      SELECT sAuth FROM AccessAuth AA
@@ -166,7 +166,7 @@ public class AccessAuth {
                               //where Ac.sLogin = "ser111@ss.ss" 
             
                // Получаем самую старую по дате  Куку юзера из базы по Емайлу
-                ResultSet oSet1 = oDC.prepareStatement(  "SELECT top 1 sAuth FROM AccessAuth AA LEFT JOIN Access Ac ON Ac.nID = AA.nID_Access where Ac.sLogin = '" + sEmail+ "'" ).executeQuery();               
+                ResultSet oSet1 = oConnection.prepareStatement(  "SELECT top 1 sAuth FROM AccessAuth AA LEFT JOIN Access Ac ON Ac.nID = AA.nID_Access where Ac.sLogin = '" + sEmail+ "'" ).executeQuery();               
                 if (oSet1.next()) {
                     sCookieDB = oSet1.getString(1);
                 }
@@ -179,7 +179,7 @@ public class AccessAuth {
           } catch (Exception e) {
               // return "Ошибка создания записи БД: Класс AccessAuth";
           } finally {
-               AccessDB.closeConnectionStatic("", oDC);  // так делать всегда!!1
+               AccessDB.closeConnectionStatic("", oConnection);  // так делать всегда!!1
                return sCookieDB;  // возвращаем в любом случае
           }
   
@@ -207,10 +207,10 @@ public class AccessAuth {
      
 //    public boolean verifyCookieCount (int nID_Access, int count/*, String sAuth, String sDateMake*/) throws Exception {
 //          int i = 0;
-//          Connection oDC = AccessDB.oConnectionStatic("");
+//          Connection oConnection = AccessDB.oConnectionStatic("");
 //          try {
 //
-//                      ResultSet oSet =oDC.prepareStatement("SELECT count(*) FROM AccessAuth where nID_Access = "+nID_Access ).executeQuery();
+//                      ResultSet oSet =oConnection.prepareStatement("SELECT count(*) FROM AccessAuth where nID_Access = "+nID_Access ).executeQuery();
 //               if(oSet.next()){
 //                   i = oSet.getInt(1);
 //               }
@@ -222,7 +222,7 @@ public class AccessAuth {
 //          } catch (Exception e) {
 //               return false;//"Ошибка создания записи БД: Класс AccessAuth";
 //          } finally {
-//               AccessDB.closeConnectionStatic("", oDC)  // так делать всегда!!1
+//               AccessDB.closeConnectionStatic("", oConnection)  // так делать всегда!!1
 //          }
 //  
 //} 
@@ -230,16 +230,16 @@ public class AccessAuth {
 //    
 //     public void deleteTopCookie (int nID_Access) throws Exception {
 //         
-//          Connection oDC = AccessDB.oConnectionStatic("");
+//          Connection oConnection = AccessDB.oConnectionStatic("");
 //          try {
 //              
 //               // удяляем 1 самую верхнюю  запись       
-//               oDC.prepareStatement("DELETE top 1 FROM AccessAuth WHERE nID_Access = "+nID_Access).executeUpdate();            
+//               oConnection.prepareStatement("DELETE top 1 FROM AccessAuth WHERE nID_Access = "+nID_Access).executeUpdate();            
 //
 //          } catch (Exception e) {
 //              // return false;//"Ошибка создания записи БД: Класс AccessAuth";
 //          } finally {
-//               AccessDB.closeConnectionStatic("", oDC)  // так делать всегда!!1
+//               AccessDB.closeConnectionStatic("", oConnection)  // так делать всегда!!1
 //          }
 //  
 //} 

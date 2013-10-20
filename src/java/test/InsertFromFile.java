@@ -20,10 +20,10 @@ import java.sql.ResultSet;
 public class InsertFromFile {
 //    
 //    public void getA()   { 
-//    Connection oDC = AccessDB.oConnectionStatic("");    
+//    Connection oConnection = AccessDB.oConnectionStatic("");    
 //      
-//    oDC.prepareStatement("INSERT INTO PlaceRegion1 (nID_PlaceCountry, sRegion) VALUES (1, '"+sRegion +"')").executeUpdate();
-//    AccessDB.closeConnectionStatic("", oDC);    
+//    oConnection.prepareStatement("INSERT INTO PlaceRegion1 (nID_PlaceCountry, sRegion) VALUES (1, '"+sRegion +"')").executeUpdate();
+//    AccessDB.closeConnectionStatic("", oConnection);    
 //     }
     
    

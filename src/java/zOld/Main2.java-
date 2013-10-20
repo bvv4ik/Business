@@ -66,15 +66,15 @@ try{
    /* 9 */ sLoginIn=request.getParameter("sLogin"); 
    /* 10*/ sPassIn=request.getParameter("sPass"); 
    
-//oDC.prepareStatement("INSERT INTO groups (nID,sName,sInfo) VALUES (1,'Vasya','duk')").executeUpdate(); 
+//oConnection.prepareStatement("INSERT INTO groups (nID,sName,sInfo) VALUES (1,'Vasya','duk')").executeUpdate(); 
    
 if("addUser".equals(sDO)){//добавить юзера в базу
 
-Connection oDC = DBconn.getConnect("dbStudy"); //dbStudy
-oDC.prepareStatement("INSERT INTO main_table (m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment) VALUES ( '"  +
+Connection oConnection = DBconn.getConnect("dbStudy"); //dbStudy
+oConnection.prepareStatement("INSERT INTO main_table (m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment) VALUES ( '"  +
                      sFIO +"','"+sPredm+"','"+sNumUrok+"','"+sNumKab+"','"+sDate+"','"+sDay+"','"+sTime+"','"+sComment+ "')" ).executeUpdate();
 
-DBconn.closeConnect("dbStudy",oDC);
+DBconn.closeConnect("dbStudy",oConnection);
 
 sReturn="{\"sReturn\":\"Ok\",\"sDO\":\""+sDO+"\"}";
 }
@@ -82,13 +82,13 @@ sReturn="{\"sReturn\":\"Ok\",\"sDO\":\""+sDO+"\"}";
 //================================================
 
 if("Author".equals(sDO)){// Авторизация
-Connection oDC = DBconn.getConnect("dbStudy"); //dbStudy
-ResultSet oSet =oDC.prepareStatement("SELECT m_Login, m_Pass FROM table_author WHERE m_Login='"+sLoginIn+"'").executeQuery();
+Connection oConnection = DBconn.getConnect("dbStudy"); //dbStudy
+ResultSet oSet =oConnection.prepareStatement("SELECT m_Login, m_Pass FROM table_author WHERE m_Login='"+sLoginIn+"'").executeQuery();
 if(oSet.next()){
 sLoginDB= oSet.getString(1);
 sPassDB = oSet.getString(2);
 }
-DBconn.closeConnect("dbStudy",oDC);
+DBconn.closeConnect("dbStudy",oConnection);
 
 // Если пришедший пароль и логин соответствуют паролю и логину в базе:
 if ((sLoginIn.equals(sLoginDB)) & (sPassIn.equals(sPassDB)))
@@ -101,7 +101,7 @@ sReturnLogin="{\"sReturnLogin\":\" 2 Неверный логин или паро
 }
 //================================================
 
-       //       oDC.prepareStatement("SELECT m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment FROM main_table WHERE m_dayName='"+sDay+"', m_prepodName='"+sFIO+"', m_predmetName='"+sPredm+"'").executeQuery();
+       //       oConnection.prepareStatement("SELECT m_prepodName, m_predmetName, m_predmetNumber, m_kabinet, m_date, m_dayName, m_time, m_comment FROM main_table WHERE m_dayName='"+sDay+"', m_prepodName='"+sFIO+"', m_predmetName='"+sPredm+"'").executeQuery();
 if("DBfind-".equals(sDO)){
 
 Connection oDC1 = DBconn.getConnect("dbStudy"); //dbStudy
@@ -139,17 +139,17 @@ DBconn.closeConnect("dbStudy",oDC1);
 
                 /*
                         //Тут код работы с базой (я описал все с фиксированными параметрами, а ты можеш поподвязывать их к входящим параметрам сервлета)
-Connection oDC=myclass.DatabaseConnect.getConnectByName("MyBase");//вставь свой коннекшин, и не забывай в финале закрывать его.
+Connection oConnection=myclass.DatabaseConnect.getConnectByName("MyBase");//вставь свой коннекшин, и не забывай в финале закрывать его.
 
 
             if("add".equals(sDO)){//добавить юзера в базу
-                                       oDC.prepareStatement("INSERT INTO MyTable (nID,sName,sInfo) VALUES (1,’Vasya’,’durak’)").executeUpdate();
+                                       oConnection.prepareStatement("INSERT INTO MyTable (nID,sName,sInfo) VALUES (1,’Vasya’,’durak’)").executeUpdate();
             }else if("edit".equals(sDO)){//отредактировать данные юзера в базе
-oDC.prepareStatement("UPDATE MyTable SET sInfo=’sovsem durak’,sName=’Vasya Pupkin’ WHERE nID=1").executeUpdate();
+oConnection.prepareStatement("UPDATE MyTable SET sInfo=’sovsem durak’,sName=’Vasya Pupkin’ WHERE nID=1").executeUpdate();
             }else if("delete".equals(sDO)){//удалить юзера из базы
-                    oDC.prepareStatement("DELETE FROM MyTable WHERE nID=1").executeUpdate();
+                    oConnection.prepareStatement("DELETE FROM MyTable WHERE nID=1").executeUpdate();
             }else if("select".equals(sDO)){//выбрать данные юзера из базы
-ResultSet oSet=oDC.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
+ResultSet oSet=oConnection.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
 if(oSet.next()){
 sName=oSet.getString(2);
 //можно и так: sName=oSet.getString("sName");

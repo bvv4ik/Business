@@ -30,7 +30,7 @@ public class DBconn {
             
     
         public static Connection getConnect(String sName) {
-        Connection oDC=null; 
+        Connection oConnection=null; 
       //  PreparedStatement stmt = null;
        // ResultSet rs = null;
         try{
@@ -38,20 +38,20 @@ public class DBconn {
             Class.forName("com.mysql.jdbc.Driver");
             //String url = "jdbc:mysql://localhost:3306/students";
             String url = "jdbc:mysql://localhost:3306/dbStudy"; //+sName
-            oDC = DriverManager.getConnection(url, "root", "root");
+            oConnection = DriverManager.getConnection(url, "root", "root");
             
-        //  oDC=((javax.sql.DataSource)new InitialContext().lookup(sName)).getConnection();
+        //  oConnection=((javax.sql.DataSource)new InitialContext().lookup(sName)).getConnection();
 //на самом деле достаточно только этой строчки, но лучше писать трай-кэтч.. чтоб всегда отлавливать проблеммы с соединением и вываливать их в лог.
         }catch(Exception _){
             System.err.println("ERROR[getConnect](sName="+sName+"):"+_.getMessage());
             _.printStackTrace(System.out);
-        }return oDC;
+        }return oConnection;
     }
 
 //И такой метод, для закрытия:
-public static void closeConnect(String sName, Connection oDC) {
+public static void closeConnect(String sName, Connection oConnection) {
         try{
-            if(oDC!=null){oDC.close();}
+            if(oConnection!=null){oConnection.close();}
         }catch(Exception _){
             System.err.println("ERROR[closeConnect](sName="+sName+"):"+_.getMessage());
         }

@@ -46,15 +46,15 @@ private String sPlace;
     public void save(String nID_Cell, String nID_Part, String nID_Build) throws Exception {
 
         // 1.Получаем индекс юзера.
-        Connection oDC = AccessDB.oConnectionStatic("");
-        // ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
+        Connection oConnection = AccessDB.oConnectionStatic("");
+        // ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
         //int n=oSet.next()?oSet.getInt(1):0; 
         int n = 1; //индекс юзера, для тета "1";
-        oDC.prepareStatement("UPDATE Place SET nID_PlaceCell = " + nID_Cell + " where Place.nID = " + n).executeUpdate();
-        oDC.prepareStatement("UPDATE Place SET nID_PlacePart = " + nID_Part + " where Place.nID = " + n).executeUpdate();
-        oDC.prepareStatement("UPDATE Place SET nID_PlaceBuild = " + nID_Build + " where Place.nID = " + n).executeUpdate();
+        oConnection.prepareStatement("UPDATE Place SET nID_PlaceCell = " + nID_Cell + " where Place.nID = " + n).executeUpdate();
+        oConnection.prepareStatement("UPDATE Place SET nID_PlacePart = " + nID_Part + " where Place.nID = " + n).executeUpdate();
+        oConnection.prepareStatement("UPDATE Place SET nID_PlaceBuild = " + nID_Build + " where Place.nID = " + n).executeUpdate();
 
-        AccessDB.closeConnectionStatic("", oDC);
+        AccessDB.closeConnectionStatic("", oConnection);
 
     }
  public void setPlace1 (String sLogin) throws Exception   { 
@@ -63,12 +63,12 @@ private String sPlace;
   //  T.load(sLogin);
    // int i = T.nID();   
  
-     Connection oDC = AccessDB.oConnectionStatic("");    
+     Connection oConnection = AccessDB.oConnectionStatic("");    
     
-    // ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
+    // ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
      //int n=oSet.next()?oSet.getInt(1):0; 
  int n = 1;
-     //oDC.prepareStatement("UPDATE Place1 SET nID_TheSubject = "+i+" where PlaceCountry.nID = "+n+" ").executeUpdate();
+     //oConnection.prepareStatement("UPDATE Place1 SET nID_TheSubject = "+i+" where PlaceCountry.nID = "+n+" ").executeUpdate();
      
  int s1 = 1; // nID_Contact INT,
 
@@ -96,13 +96,13 @@ private String sPlace;
  int s22 = 0; //nCell INT,                     --(номер квартиры, комнаты и т.д.: 13,26)
  String s23 = "''"; //sCell VARCHAR(10),             --(буква к номеру квартиры/комнаты: а,б)            
 
-//oDC.prepareStatement("INSERT Place1 " +
-oDC.prepareStatement("INSERT INTO Place1 (nID_Contact, sCountry, sRegion, sPolis, sArea, sBranchType, sBranch, sBuildType, sCellType, nLevels, nParts, sBuild, sBuildBlock, nCellAt, nCellTo, nPart, sPartInfo, dX, dY, dZ, nLevel, nCell, sCell) " + 
+//oConnection.prepareStatement("INSERT Place1 " +
+oConnection.prepareStatement("INSERT INTO Place1 (nID_Contact, sCountry, sRegion, sPolis, sArea, sBranchType, sBranch, sBuildType, sCellType, nLevels, nParts, sBuild, sBuildBlock, nCellAt, nCellTo, nPart, sPartInfo, dX, dY, dZ, nLevel, nCell, sCell) " + 
          
          //"VALUES ("+s1+","+s2+","+s3+","+s4+","+s5+","+s6+","+s7+","+s8+","+s9+","+s10+","+s11+","+s12+","+s13+","+s14+","+s15+","+s16+","+s17+","+s18+","+s19+","+s20+","+s21+","+s22+","+s23+")").executeUpdate();
  "VALUES (1,'страна','регион','место','район','тип ул','назв ул','тип стр','тип час стр',0,0,'ном и буква','блок',0,0,0,'код',0,0,0,0,0,'буква' )").executeUpdate();
   
-     AccessDB.closeConnectionStatic("", oDC); 
+     AccessDB.closeConnectionStatic("", oConnection); 
  //   INSERT INTO Place1 (nID_Contact, sCountry, sRegion, sPolis, sArea, sBranchType, sBranch, sBuildType, sCellType, nLevels, nParts, sBuild, sBuildBlock, nCellAt, nCellTo, nPart, sPartInfo, dX, dY, dZ, nLevel, nCell, sCell) 
  //         VALUES (1,           'страна', 'регион','место','район','тип ул',  'назв ул','тип стр', 'тип час стр',0,     0,      'ном и буква','блок',0,0,0,'код',0,0,0,0,0,'буква')
      
@@ -120,14 +120,14 @@ oDC.prepareStatement("INSERT INTO Place1 (nID_Contact, sCountry, sRegion, sPolis
     T.load(sLogin);
     int i = T.nID();   
  
-     Connection oDC = AccessDB.oConnectionStatic("");    
+     Connection oConnection = AccessDB.oConnectionStatic("");    
     
-     ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
+     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
      int n=oSet.next()?oSet.getInt(1):0; 
  
-     oDC.prepareStatement("UPDATE PlaceCountry SET nID_TheSubject = "+i+" where PlaceCountry.nID = "+n+" ").executeUpdate();
+     oConnection.prepareStatement("UPDATE PlaceCountry SET nID_TheSubject = "+i+" where PlaceCountry.nID = "+n+" ").executeUpdate();
      
-     AccessDB.closeConnectionStatic("", oDC); 
+     AccessDB.closeConnectionStatic("", oConnection); 
     
  }
 

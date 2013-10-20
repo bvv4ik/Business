@@ -18,8 +18,8 @@ public class NewClassTest {
 //    String s = "";  // String utf = ""; 
 //    int i = 0;
 //     
-//     Connection oDC = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oDC.prepareStatement("select nID, sCountry from PlaceCountry").executeQuery();
+//     Connection oConnection = AccessDB.oConnectionStatic("");    
+//     ResultSet oSet = oConnection.prepareStatement("select nID, sCountry from PlaceCountry").executeQuery();
 //     while (oSet.next()){
 //     i++;
 // 
@@ -29,7 +29,7 @@ public class NewClassTest {
 //     } 
 //        //  if((i%2)!=0) если кратно 2
 //        //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
-//     AccessDB.closeConnectionStatic("", oDC);
+//     AccessDB.closeConnectionStatic("", oConnection);
 // 
 //    System.out.println(s);
     
@@ -38,8 +38,8 @@ public class NewClassTest {
      String s = "";  // String utf = ""; 
      int i = 0;
   
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT nID, sRegionType FROM PlaceRegionType").executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT nID, sRegionType FROM PlaceRegionType").executeQuery();
      while (oSet.next()){
      i++;
      //s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
@@ -47,7 +47,7 @@ public class NewClassTest {
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
    
      System.out.println(s);
       }    

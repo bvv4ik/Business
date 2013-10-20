@@ -30,10 +30,10 @@ public class TheSubject {
     
  public void load (String sLogin) throws Exception   { 
         
-    Connection oDC = AccessDB.oConnectionStatic("");                      
+    Connection oConnection = AccessDB.oConnectionStatic("");                      
   
     // получаем № записи TheSubject
-    ResultSet oSet = oDC.prepareStatement("SELECT TS.nID FROM TheSubject TS " + 
+    ResultSet oSet = oConnection.prepareStatement("SELECT TS.nID FROM TheSubject TS " + 
       "LEFT JOIN TheSubjectHuman TSH ON TS.nID = TSH.nID_TheSubject " +
       "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID " +
       "where  sLogin = '"+sLogin+"'").executeQuery()/*executeUpdate()*/;

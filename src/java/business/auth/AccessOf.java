@@ -59,12 +59,12 @@ private String sData;
      DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
      String sTime = df.format(d);
 
-     Connection oDC = AccessDB.oConnectionStatic("");
-     oDC.prepareStatement("INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
+     Connection oConnection = AccessDB.oConnectionStatic("");
+     oConnection.prepareStatement("INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
              + "VALUES (" + nID_Access + ",'Ip....','" + sTime + "','ссылка откуда...',1,'доп. инф')").executeUpdate();
      //1900-11-11 11:11:11
 
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
 
 
       

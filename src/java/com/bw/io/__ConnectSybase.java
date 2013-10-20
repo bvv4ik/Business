@@ -32,18 +32,18 @@ public class __ConnectSybase {
       */
      
      public static Connection getConnect(String sName) {
-        Connection oDC=null;     // PreparedStatement stmt = null;     // ResultSet rs = null;
+        Connection oConnection=null;     // PreparedStatement stmt = null;     // ResultSet rs = null;
         try{
 
             Class.forName("com.sybase.jdbc3.jdbc.SybDataSource");
             
 // настройки моей домашней базы
   //            String url = "jdbc:sybase:Tds:SERGEY-PC:2048/"+sName;
-   //          oDC = DriverManager.getConnection(url, "sa", "1234567");
+   //          oConnection = DriverManager.getConnection(url, "sa", "1234567");
              
 // удаленная база у Вовы дома
         String url = "jdbc:sybase:Tds:pgasa-edu-ua.org:5000/"+sName;
-         oDC = DriverManager.getConnection(url, "sa", "123321123a");
+         oConnection = DriverManager.getConnection(url, "sa", "123321123a");
 
 
 //на самом деле достаточно только этой строчки, но лучше писать трай-кэтч.. чтоб всегда отлавливать проблеммы с соединением и вываливать их в лог.
@@ -64,7 +64,7 @@ public class __ConnectSybase {
 
 
           }
-          return oDC;
+          return oConnection;
      }
 
      
@@ -73,12 +73,12 @@ public class __ConnectSybase {
      /**
       *  метод, для закрытия соединения с базой:
       * @param sName
-      * @param oDC
+      * @param oConnection
       */
      
-     public static void closeConnect(String sName, Connection oDC) {
+     public static void closeConnect(String sName, Connection oConnection) {
         try{
-            if(oDC!=null){oDC.close();}
+            if(oConnection!=null){oConnection.close();}
         }catch(Exception _){
             System.err.println("ERROR[closeConnect](sName="+sName+"):"+_.getMessage());
             

@@ -23,16 +23,16 @@ String sDO=request.getParameter("sDO"); //аналогично остальны�
 String sName="";
 		/*
 			//Тут код работы с базой (я описал все с фиксированными параметрами, а ты можеш поподвязывать их к входящим параметрам сервлета)
-Connection oDC = myclass.DatabaseConnect.getConnectByName("MyBase");//вставь свой коннекшин, и не забывай в финале закрывать его.
+Connection oConnection = myclass.DatabaseConnect.getConnectByName("MyBase");//вставь свой коннекшин, и не забывай в финале закрывать его.
 
             if(“add”.equals(sDO)){//добавить юзера в базу
-                               	oDC.prepareStatement("INSERT INTO MyTable (nID,sName,sInfo) VALUES (1,’Vasya’,’durak’)").executeUpdate();
+                               	oConnection.prepareStatement("INSERT INTO MyTable (nID,sName,sInfo) VALUES (1,’Vasya’,’durak’)").executeUpdate();
             }else if(“edit”.equals(sDO)){//отредактировать данные юзера в базе
-oDC.prepareStatement("UPDATE MyTable SET sInfo=’sovsem durak’,sName=’Vasya Pupkin’ WHERE nID=1").executeUpdate();
+oConnection.prepareStatement("UPDATE MyTable SET sInfo=’sovsem durak’,sName=’Vasya Pupkin’ WHERE nID=1").executeUpdate();
             }else if(“delete”.equals(sDO)){//удалить юзера из базы
-                    oDC.prepareStatement("DELETE FROM MyTable WHERE nID=1").executeUpdate();
+                    oConnection.prepareStatement("DELETE FROM MyTable WHERE nID=1").executeUpdate();
             }else if(“select”.equals(sDO)){//выбрать данные юзера из базы
-ResultSet oSet=oDC.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
+ResultSet oSet=oConnection.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
 if(oSet.next()){
 sName=oSet.getString(2);
 //можно и так: sName=oSet.getString(“sName”);

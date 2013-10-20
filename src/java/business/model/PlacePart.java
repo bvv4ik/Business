@@ -46,8 +46,8 @@ private Float dZ;
 //     int i = 0;  
 //     int nPart = Integer.parseInt(sPart);
 //    
-//     Connection oDC = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart ).executeQuery();
+//     Connection oConnection = AccessDB.oConnectionStatic("");    
+//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart ).executeQuery();
 //     if (oSet.next()){
 //         i = oSet.getInt(1);
 //       //  _nID(oSet.getInt(1));  // Возвращаем nID по названию Branch
@@ -55,7 +55,7 @@ private Float dZ;
 //      //   _nID_PlaceBranchType(PBT.nID());
 //       //  _sBranch(sBranch);
 //        }
-//     AccessDB.closeConnectionStatic("", oDC);      
+//     AccessDB.closeConnectionStatic("", oConnection);      
 //     return  i;
 // }
  
@@ -64,15 +64,15 @@ public String getAllPart(String   nID_PlaceBuild) throws Exception   {
  String s = "";  // String utf = ""; 
  int i = 0;
   
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT nPart FROM PlacePart where nID_PlaceBuild = "+nID_PlaceBuild).executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT nPart FROM PlacePart where nID_PlaceBuild = "+nID_PlaceBuild).executeQuery();
      while (oSet.next()){
      i++;
      s += (  ",\"a"+ i +"\":" + "\"" +oSet.getInt(1) + "\"");
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
      return s; //возвращаем список регионов в виде Json строки
    }
  

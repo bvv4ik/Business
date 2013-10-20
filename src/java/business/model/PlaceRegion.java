@@ -39,15 +39,15 @@ public class PlaceRegion {
  // Определяем nID Региона по одному выбранному названию региона    
 // public int getID (String sRegion) throws Exception   { 
 //     int i = 0;
-//     Connection oDC = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oDC.prepareStatement("SELECT * FROM PlaceRegion where sRegion = '"+sRegion +"'").executeQuery();
+//     Connection oConnection = AccessDB.oConnectionStatic("");    
+//     ResultSet oSet = oConnection.prepareStatement("SELECT * FROM PlaceRegion where sRegion = '"+sRegion +"'").executeQuery();
 //     if (oSet.next()){
 //        i = oSet.getInt(1);
 //        _nID(oSet.getInt(1)); // устанавливаем nID по названию региона
 //       // _nID_PlaceCountry(oSet.getInt(2)); //i = oSet.getInt(1);
 //       // _sRegion(sRegion);
 //        }
-//     AccessDB.closeConnectionStatic("", oDC); //   
+//     AccessDB.closeConnectionStatic("", oConnection); //   
 //     return i;
 // }
  
@@ -56,13 +56,13 @@ public class PlaceRegion {
  String s = "";  // String utf = "";  //int i = 0;
   
      
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT nID, sRegion FROM PlaceRegion where nID_PlaceCountry = "+nID_Country + "AND nID_PlaceRegionType = "+nID_RegionType).executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT nID, sRegion FROM PlaceRegion where nID_PlaceCountry = "+nID_Country + "AND nID_PlaceRegionType = "+nID_RegionType).executeQuery();
      while (oSet.next()){
      //i++;
       s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
      } 
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
      return s;    //возвращаем список регионов в виде Json строки
    }
  
@@ -70,9 +70,9 @@ public class PlaceRegion {
  
  public void setRegion (int nID_Country, String sRegion) throws Exception { 
    
-    Connection oDC = AccessDB.oConnectionStatic("");    
-    oDC.prepareStatement("INSERT INTO PlaceRegion1 (nID_PlaceCountry, sRegion) VALUES (1, '"+sRegion +"')").executeUpdate();
-    AccessDB.closeConnectionStatic("", oDC);    
+    Connection oConnection = AccessDB.oConnectionStatic("");    
+    oConnection.prepareStatement("INSERT INTO PlaceRegion1 (nID_PlaceCountry, sRegion) VALUES (1, '"+sRegion +"')").executeUpdate();
+    AccessDB.closeConnectionStatic("", oConnection);    
 };
  
 }

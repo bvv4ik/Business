@@ -27,9 +27,9 @@ public class Ser {
     public static void main(String[] args) throws Exception {
         
         
- //       Connection oDC = AccessDB.oConnectionStatic("");    
-  //  oDC.prepareStatement("DROP table PlaceRegion1").executeUpdate();
-   // AccessDB.closeConnectionStatic("", oDC);    
+ //       Connection oConnection = AccessDB.oConnectionStatic("");    
+  //  oConnection.prepareStatement("DROP table PlaceRegion1").executeUpdate();
+   // AccessDB.closeConnectionStatic("", oConnection);    
         
         //PlaceRegion PR = new PlaceRegion();
         //PR.setRegion(1, "Николаевская область");

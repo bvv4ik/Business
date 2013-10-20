@@ -25,7 +25,7 @@ private int nID;
                          String sLinkProvider, 
                          String sLink) throws Exception { 
       
-    Connection oDC = AccessDB.oConnectionStatic("");                      
+    Connection oConnection = AccessDB.oConnectionStatic("");                      
 
     // получаем № записи TheSubject   //a@a.aaa 
     TheSubject T = new TheSubject();
@@ -35,22 +35,22 @@ private int nID;
     //L._sLinkType(sLinkType);
     //L._sLinkTypeInfo(sLinkTypeInfo);
     
-    oDC.prepareStatement("INSERT INTO LinkType (sLinkType, sLinkTypeInfo) "
+    oConnection.prepareStatement("INSERT INTO LinkType (sLinkType, sLinkTypeInfo) "
             + "VALUES ("+sLinkType+",'"+sLinkType+"'").executeUpdate();
      
-    ResultSet oSet =oDC.prepareStatement("SELECT @@identity").executeQuery();
+    ResultSet oSet =oConnection.prepareStatement("SELECT @@identity").executeQuery();
     int n=oSet.next()?oSet.getInt(1):0; 
     
-    oDC.prepareStatement("INSERT INTO LinkProvider (nID_LinkType, nID_TheSubject, sLinkProvider) "
+    oConnection.prepareStatement("INSERT INTO LinkProvider (nID_LinkType, nID_TheSubject, sLinkProvider) "
               + "VALUES ("+n+",'"+i+"','"+sLinkProvider+"')").executeUpdate();
     
-    oDC.prepareStatement("INSERT INTO Contact VALUES()").executeUpdate();
+    oConnection.prepareStatement("INSERT INTO Contact VALUES()").executeUpdate();
     
-  //  ResultSet oSet2 =oDC.prepareStatement("SELECT @@identity").executeQuery();
+  //  ResultSet oSet2 =oConnection.prepareStatement("SELECT @@identity").executeQuery();
   //  int n1=oSet2.next()?oSet2.getInt(1):0;    
     
     
-    AccessDB.closeConnectionStatic("", oDC); 
+    AccessDB.closeConnectionStatic("", oConnection); 
   
   }   
  

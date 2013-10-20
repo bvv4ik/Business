@@ -45,9 +45,9 @@ private int nSex;
    // загружаем все данные из таблицы по логину 
  public void getTableData (String sLogin) throws Exception   { 
  //String L = ""; 
- Connection oDC = AccessDB.oConnectionStatic("");
+ Connection oConnection = AccessDB.oConnectionStatic("");
  
- ResultSet oSet =oDC.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
+ ResultSet oSet =oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
          + "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID where  sLogin = '"+sLogin+"'").executeQuery();
  if(oSet.next()){
  
@@ -62,7 +62,7 @@ private int nSex;
  _nSex(Integer.parseInt(oSet.getString(9)));
  
    }
- AccessDB.closeConnectionStatic("", oDC); 
+ AccessDB.closeConnectionStatic("", oConnection); 
     
 }
     
@@ -70,17 +70,17 @@ private int nSex;
     
 public static String getLastName(String sLogin) throws Exception  {
  String L = ""; 
- Connection oDC = AccessDB.oConnectionStatic("");
+ Connection oConnection = AccessDB.oConnectionStatic("");
  //try{
     
- ResultSet oSet =oDC.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
+ ResultSet oSet =oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
          + "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID where  sLogin = '"+sLogin+"'").executeQuery();
  if(oSet.next()){
  L = oSet.getString(4);
  //First = oSet.getString(5);
  //Sure = oSet.getString(6);
  }
- AccessDB.closeConnectionStatic("", oDC); 
+ AccessDB.closeConnectionStatic("", oConnection); 
  return L;
   
  }

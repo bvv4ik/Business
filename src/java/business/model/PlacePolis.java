@@ -47,12 +47,12 @@ public class PlacePolis {
   // Определяем nID Города по выбранному названию     
 //  public int getID (String sPolis) throws Exception   { 
 //   int i = 0;
-//     Connection oDC = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oDC.prepareStatement("SELECT * FROM PlacePolis1 where sPolis = '"+sPolis +"'").executeQuery();
+//     Connection oConnection = AccessDB.oConnectionStatic("");    
+//     ResultSet oSet = oConnection.prepareStatement("SELECT * FROM PlacePolis1 where sPolis = '"+sPolis +"'").executeQuery();
 //     if (oSet.next()){
 //        i = oSet.getInt(1);
 //        }
-//     AccessDB.closeConnectionStatic("", oDC);
+//     AccessDB.closeConnectionStatic("", oConnection);
 //     return i;
 //  }
   
@@ -66,8 +66,8 @@ public class PlacePolis {
  
  aResult.clear();
  
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement( 
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement( 
                  " SELECT sPRT6=PRT6.sRegionType,  sPR6=PR6.sRegion, sPPT66=PPT66.sPolisType, sPPP6=PPP6.sPolis, " 
                + " sPRT5=PRT5.sRegionType,  sPR5=PR5.sRegion, sPPT55=PPT55.sPolisType, sPPP5=PPP5.sPolis, " 
                + " sPRT4=PRT4.sRegionType,  sPR4=PR4.sRegion, sPPT44=PPT44.sPolisType, sPPP4=PPP4.sPolis, " 
@@ -147,7 +147,7 @@ public class PlacePolis {
  aResult.add(sArr2);
 
    }
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
    
  
  
@@ -283,15 +283,15 @@ public class PlacePolis {
  public String getAllPolis (String nID_Region, String nID_PolisType) throws Exception   { 
  String s = ""; int i = 0;
  
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT nID, sPolis FROM PlacePolis where nID_PlaceRegion = "+nID_Region + " AND nID_PlacePolisType = " + nID_PolisType).executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT nID, sPolis FROM PlacePolis where nID_PlaceRegion = "+nID_Region + " AND nID_PlacePolisType = " + nID_PolisType).executeQuery();
         while (oSet.next()& i<100){
         i++;
       // s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
         s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
         if (i<100) break; // не загружаем больше 100 записей
         }
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
     return s;
  }
  

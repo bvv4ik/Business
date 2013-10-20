@@ -54,12 +54,12 @@ private int nCellTo;
 // public int getID (String sBuild) throws Exception { 
 //     int i = 0;  
 //    
-//     Connection oDC = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlaceBuild1 where sBuild = '"+sBuild+"'").executeQuery();
+//     Connection oConnection = AccessDB.oConnectionStatic("");    
+//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceBuild1 where sBuild = '"+sBuild+"'").executeQuery();
 //     if (oSet.next()){
 //         i = oSet.getInt(1);
 //        }
-//     AccessDB.closeConnectionStatic("", oDC);      
+//     AccessDB.closeConnectionStatic("", oConnection);      
 //     return  i;
 // }
  
@@ -68,13 +68,13 @@ private int nCellTo;
         String s = "";
         int i = 0;
 
-        Connection oDC = AccessDB.oConnectionStatic("");
-        ResultSet oSet = oDC.prepareStatement("SELECT sBuild FROM PlaceBuild where nID_PlaceBranch = " + nID_Branch + " AND nID_PlaceBuildType = " + nID_BuildType + " AND nID_PlaceArea = " + nID_Area).executeQuery();
+        Connection oConnection = AccessDB.oConnectionStatic("");
+        ResultSet oSet = oConnection.prepareStatement("SELECT sBuild FROM PlaceBuild where nID_PlaceBranch = " + nID_Branch + " AND nID_PlaceBuildType = " + nID_BuildType + " AND nID_PlaceArea = " + nID_Area).executeQuery();
         while (oSet.next()) {
             i++;
             s += (",\"a" + i + "\":" + "\"" + oSet.getString(1) + "\"");
         }
-        AccessDB.closeConnectionStatic("", oDC);
+        AccessDB.closeConnectionStatic("", oConnection);
         return s;
     }
  
@@ -82,13 +82,13 @@ private int nCellTo;
 public String getAllBuild(int nID_PlaceBranch, int nID_PlaceBuildType) throws Exception   { 
  String s = "";  // String utf = ""; 
  int i = 0;
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT sBuild FROM PlaceBuild1 where nID_PlaceBranch = "+nID_PlaceBranch+" where nID_PlaceBuildType ="+nID_PlaceBuildType).executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT sBuild FROM PlaceBuild1 where nID_PlaceBranch = "+nID_PlaceBranch+" where nID_PlaceBuildType ="+nID_PlaceBuildType).executeQuery();
      while (oSet.next()){
      i++;
      s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
      } 
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
      return s; 
    }
  
@@ -96,11 +96,11 @@ public String getAllBuild(int nID_PlaceBranch, int nID_PlaceBuildType) throws Ex
     public void AddBuild(String nID_Branch, String nID_BuildType, String nID_Area, int nLevels, int nParts, String sBuild, String sBuildBlock, int nCellAt, int nCellTo) throws Exception {
         String s = "";
          // int i = 0;
-        Connection oDC = AccessDB.oConnectionStatic("");
-        oDC.prepareStatement("INSERT INTO PlaceBuild1 (nID_PlaceBranch, nID_PlaceBuildType, nID_PlaceArea, nLevels, nParts, sBuild, sBuildBlock, nCellAt, nCellTo) "
+        Connection oConnection = AccessDB.oConnectionStatic("");
+        oConnection.prepareStatement("INSERT INTO PlaceBuild1 (nID_PlaceBranch, nID_PlaceBuildType, nID_PlaceArea, nLevels, nParts, sBuild, sBuildBlock, nCellAt, nCellTo) "
                 + "VALUES (" + nID_Branch + ", " + nID_BuildType + ", " + nID_Area + ", " + nLevels + ", " + nParts + ", '" + sBuild + "','" + sBuildBlock + "', " + nCellAt + ", " + nCellTo + " )").executeUpdate();
 
-        AccessDB.closeConnectionStatic("", oDC);
+        AccessDB.closeConnectionStatic("", oConnection);
 
     }
  

@@ -42,12 +42,12 @@ public static String getFirstLastSureName(String Value, String sLogin) {
   String Last="";
   String First=""; 
   String Sure="";
- Connection oDC = AccessDB.oConnectionStatic("");
+ Connection oConnection = AccessDB.oConnectionStatic("");
  try{
    // HttpSession session = request.getSession(true);  
    // Object o = session.getAttribute("sLogin");
   
- ResultSet oSet =oDC.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
+ ResultSet oSet =oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
          + "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID where  sLogin = '"+sLogin+"'").executeQuery();
  if(oSet.next()){
  Last = oSet.getString(4);
@@ -71,7 +71,7 @@ public static String getFirstLastSureName(String Value, String sLogin) {
                     return "";
                     }
  finally{
-         AccessDB.closeConnectionStatic("", oDC);
+         AccessDB.closeConnectionStatic("", oConnection);
         }
    
  }

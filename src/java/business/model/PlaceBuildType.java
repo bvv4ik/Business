@@ -31,14 +31,14 @@ private String sBuildType;
  // Определяем nID Типа дома по одному выбранному типу
 public int getID (String sBuildType) throws Exception { 
      int i = 0;  
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlaceBuildType1 where sBuildType = '"+sBuildType+"'").executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceBuildType1 where sBuildType = '"+sBuildType+"'").executeQuery();
      if (oSet.next()){
          i = oSet.getInt(1);
         // _nID(oSet.getInt(1));  // Возвращаем nID по названию типа дома
          //_sBranchType(sBranchType);
         }
-     AccessDB.closeConnectionStatic("", oDC);      
+     AccessDB.closeConnectionStatic("", oConnection);      
      return  i;
  }
  
@@ -47,14 +47,14 @@ public String getAllBuildType() throws Exception   {
  String s = "";  // String utf = ""; 
  int i = 0;
   
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT sBuildType FROM PlaceBuildType1").executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT sBuildType FROM PlaceBuildType1").executeQuery();
      while (oSet.next()){
      i++;
      s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
      } 
        
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
      return s; //возвращаем список регионов в виде Json строки
    }
  

@@ -157,7 +157,7 @@ public class New {
    //LoginUsers lo = new LoginUsers();       
    //lo.AddLoginPasswordMailUser("4444", "4444", "4444", "sReturnLogin");
   
-//   Connection oDC = AccessDB.oConnectionStatic("");
+//   Connection oConnection = AccessDB.oConnectionStatic("");
    
 
  //System.out.println(lo.CreateUserInDB("5555599--5"));

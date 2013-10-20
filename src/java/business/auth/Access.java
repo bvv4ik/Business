@@ -84,11 +84,11 @@ public class Access {
     public int getIdAccess(String sLogin) throws Exception {
         String sCase = "getIdAccess"; //ОБРАЗЕЦ//так делать всегда!
         int i = 0;
-        Connection oDC = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ//так делать всегда!
+        Connection oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ//так делать всегда!
         PreparedStatement oStatement = null;
         //AccessDB oAccessDB=new AccessDB(); //ОБРАЗЕЦ
         try {
-            oStatement = oDC.prepareStatement("SELECT TOP 1 nID FROM Access where sLogin = '" + sLogin + "'");
+            oStatement = oConnection.prepareStatement("SELECT TOP 1 nID FROM Access where sLogin = '" + sLogin + "'");
 
             //AccessDB.transactBegin(oStatement, sCase, oLog);//ОБРАЗЕЦ//
             ResultSet oSet = oStatement.executeQuery();
@@ -106,7 +106,7 @@ public class Access {
             // return "Непредвиденная ошибка создания записи: Класс Access";  
         } finally {
             AccessDB.close(sCase, oStatement); //ОБРАЗЕЦ//так делать всегда!
-            AccessDB.closeConnectionStatic(sCase, oDC); //ОБРАЗЕЦ//так делать всегда!
+            AccessDB.closeConnectionStatic(sCase, oConnection); //ОБРАЗЕЦ//так делать всегда!
             return i;
         }
     }
@@ -138,36 +138,36 @@ public class Access {
 //     if (!sPassword.equals(sPassword2)) //проверка двух полей паролей на идентичность   //  return "Поля паролей не совпадают!";            
 
 
-        Connection oDC = AccessDB.oConnectionStatic("");
+        Connection oConnection = AccessDB.oConnectionStatic("");
         try {
 
             // Подготовливаем данные для записи в БД 
-            oDC.setAutoCommit(false);
-            oDC.prepareStatement("INSERT INTO TheSubject (nID_OfSubject) VALUES (1)").executeUpdate();
+            oConnection.setAutoCommit(false);
+            oConnection.prepareStatement("INSERT INTO TheSubject (nID_OfSubject) VALUES (1)").executeUpdate();
             // вставляем по умолчанию запись "1" т.е "человек"
 
-            ResultSet oSet = oDC.prepareStatement("SELECT @@identity").executeQuery();
+            ResultSet oSet = oConnection.prepareStatement("SELECT @@identity").executeQuery();
             int n = oSet.next() ? oSet.getInt(1) : 0;
 
-            oDC.prepareStatement("INSERT INTO TheSubjectHuman(nID_TheSubject, sTheSubjectHuman, sLastName, sFirstName, sSurName, sDTbirth, sDTdeath, nSex ) "
+            oConnection.prepareStatement("INSERT INTO TheSubjectHuman(nID_TheSubject, sTheSubjectHuman, sLastName, sFirstName, sSurName, sDTbirth, sDTdeath, nSex ) "
                     + "VALUES (" + n + ",'Человек','Фамилия','Имя','Отчество','1900-11-11 11:11:11','1900-11-11 11:11:11',1)").executeUpdate();
 
-            oSet = oDC.prepareStatement("SELECT @@identity").executeQuery();
+            oSet = oConnection.prepareStatement("SELECT @@identity").executeQuery();
             int n1 = oSet.next() ? oSet.getInt(1) : 0;
 
-            oDC.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, sPassword, bDisabled ) VALUES (" + n1 + ",'" + sEmail + "','" + sPassword + "',1)").executeUpdate();
-            oSet = oDC.prepareStatement("SELECT @@identity").executeQuery();
+            oConnection.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, sPassword, bDisabled ) VALUES (" + n1 + ",'" + sEmail + "','" + sPassword + "',1)").executeUpdate();
+            oSet = oConnection.prepareStatement("SELECT @@identity").executeQuery();
             int n2 = oSet.next() ? oSet.getInt(1) : 0;
 
 
-            oDC.commit();  //подтверждаем запись в БД
+            oConnection.commit();  //подтверждаем запись в БД
 
             return "Добро пожаловать на сайт!";     // нельзя менять т.к работает как Колбэк "Учетная запись создана !"
 
         } catch (Exception e) {
             return "Непредвиденная ошибка создания записи: Класс Access";
         } finally {
-            AccessDB.closeConnectionStatic("", oDC);  // так делать всегда!!1
+            AccessDB.closeConnectionStatic("", oConnection);  // так делать всегда!!1
         }
 
 
@@ -176,9 +176,9 @@ public class Access {
     public static String getPassword(String sLogin) {
         String sCase="getPassword";
         String s = "";
-        Connection oDC = AccessDB.oConnectionStatic("");
+        Connection oConnection = AccessDB.oConnectionStatic("");
         try {
-            ResultSet oSet = oDC.prepareStatement("SELECT TOP 1 sPassword FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
+            ResultSet oSet = oConnection.prepareStatement("SELECT TOP 1 sPassword FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
             if (oSet.next()) {
                 s = oSet.getString(1);
             }
@@ -191,17 +191,17 @@ public class Access {
             //String sErr = _.getMessage();
 //            System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
             //return null;//"Ошибка приложения";
-        } finally {      //AccessDB.closeConnectionStatic("", oDC);
-            AccessDB.closeConnectionStatic("", oDC);
+        } finally {      //AccessDB.closeConnectionStatic("", oConnection);
+            AccessDB.closeConnectionStatic("", oConnection);
         }
         return "";  // "" - такого Пароля нет у Логина"; 
     }
 
     public String getNID(String sLogin) {
         String s = "";
-        Connection oDC = AccessDB.oConnectionStatic("");
+        Connection oConnection = AccessDB.oConnectionStatic("");
         try {
-            ResultSet oSet = oDC.prepareStatement("SELECT TOP 1 nID FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
+            ResultSet oSet = oConnection.prepareStatement("SELECT TOP 1 nID FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
             if (oSet.next()) {
                 s = oSet.getString(1);
             }
@@ -214,16 +214,16 @@ public class Access {
             System.err.println("ERROR: " + sErr + "_" + " ---- getNID");   //это вывод в лог-файл
 
         } finally {
-            AccessDB.closeConnectionStatic("", oDC);
+            AccessDB.closeConnectionStatic("", oConnection);
         }
         return "";  // "" - такого nID нет у Логина"; 
     }
 
     public static boolean bLoginExists(String sLogin) {
         String s = "";
-        Connection oDC = AccessDB.oConnectionStatic("");
+        Connection oConnection = AccessDB.oConnectionStatic("");
         try {
-            ResultSet oSet = oDC.prepareStatement("SELECT TOP 1 sLogin FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
+            ResultSet oSet = oConnection.prepareStatement("SELECT TOP 1 sLogin FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
             if (oSet.next()) {
                 s = oSet.getString(1);   // System.out.println(s);
             }
@@ -238,7 +238,7 @@ public class Access {
             System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
             //return null;//"Ошибка приложения";
         } finally {
-            AccessDB.closeConnectionStatic("", oDC);
+            AccessDB.closeConnectionStatic("", oConnection);
         }
         return false;  //"false - Логин свободен";
     }

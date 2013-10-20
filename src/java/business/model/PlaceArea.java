@@ -39,12 +39,12 @@ private String sArea;
   // Определяем nID Района по одному выбранному названию Района    
   public int getID (String sArea) throws Exception   { 
   int i = 0;
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT * FROM PlaceArea1 where sArea = '"+sArea +"'").executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT * FROM PlaceArea1 where sArea = '"+sArea +"'").executeQuery();
      if (oSet.next()){
          i = oSet.getInt(1);
          }
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
      return i;
   }
  
@@ -52,13 +52,13 @@ private String sArea;
  public String getAllAreas (String   nID_PlacePolis) throws Exception   { 
  String s = "";//int i = 0;
  
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT sArea FROM PlaceArea where nID_PlacePolis ="+nID_PlacePolis).executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT sArea FROM PlaceArea where nID_PlacePolis ="+nID_PlacePolis).executeQuery();
         while (oSet.next()){
         //i++;
         s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
         } 
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
     return s;
  }
  

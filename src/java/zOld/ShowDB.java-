@@ -48,10 +48,10 @@ try{
   
 //   if("allDB".equals(sDO)) {
 //   
-//Connection oDC = DBconn.getConnect("dbStudy"); //dbStudy
-//ResultSet oSet=oDC.prepareStatement("SELECT * FROM main_table").executeQuery(); // выбрать все поля
+//Connection oConnection = DBconn.getConnect("dbStudy"); //dbStudy
+//ResultSet oSet=oConnection.prepareStatement("SELECT * FROM main_table").executeQuery(); // выбрать все поля
 //
-////----rs = oDC.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
+////----rs = oConnection.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
 ////------pw.println("<br> <a href =\" http://localhost:8080/Baza/ \"> Вернутся </a> <br> <br> ");
 //
 //pw.println("<table border=1>");
@@ -73,7 +73,7 @@ try{
 //    
 //    //sName=oSet.getString(2);
 //
-//DBconn.closeConnect("dbStudy",oDC);
+//DBconn.closeConnect("dbStudy",oConnection);
 //    }
 
 //==============================================

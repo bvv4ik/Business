@@ -43,12 +43,12 @@ private String sCell;
 //     
 //     int nPart = Integer.parseInt(sPart);
 //     
-//     Connection oDC = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart).executeQuery();
+//     Connection oConnection = AccessDB.oConnectionStatic("");    
+//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart).executeQuery();
 //     if (oSet.next()){
 //         i = oSet.getInt(1);
 //         }
-//     AccessDB.closeConnectionStatic("", oDC);      
+//     AccessDB.closeConnectionStatic("", oConnection);      
 //     return  i;
 // }
     
@@ -56,15 +56,15 @@ private String sCell;
  String s = "";  
  int i = 0;
   
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT nCell FROM PlaceCell where nID_PlacePart = "+nID_PlacePart).executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT nCell FROM PlaceCell where nID_PlacePart = "+nID_PlacePart).executeQuery();
      while (oSet.next()){
      i++;
      s += (  ",\"a"+ i +"\":" + "\"" +oSet.getInt(1) + "\"");
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
      return s; //возвращаем список регионов в виде Json строки
    }
  

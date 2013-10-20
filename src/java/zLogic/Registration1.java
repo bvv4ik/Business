@@ -25,10 +25,10 @@ public class Registration1  {
     
  public static boolean bLoginExists (String sLogin) {    
     String s = ""; 
-    Connection oDC = AccessDB.oConnectionStatic("");
+    Connection oConnection = AccessDB.oConnectionStatic("");
  try{
  
- ResultSet oSet =oDC.prepareStatement("SELECT * FROM Access WHERE sLogin='"+sLogin+"'").executeQuery();
+ ResultSet oSet =oConnection.prepareStatement("SELECT * FROM Access WHERE sLogin='"+sLogin+"'").executeQuery();
  if(oSet.next()){
         s = oSet.getString(3);   // System.out.println(s);
         }
@@ -43,7 +43,7 @@ public class Registration1  {
                     }
 finally {   
           }
-  AccessDB.closeConnectionStatic("", oDC); 
+  AccessDB.closeConnectionStatic("", oConnection); 
   return false;  //"Логин свободен";
  }
  
@@ -105,41 +105,41 @@ return false;//""; //Ошибочный!
  
   // return "111"; 
   
-      Connection oDC = AccessDB.oConnectionStatic("");                      
+      Connection oConnection = AccessDB.oConnectionStatic("");                      
   // try{
   
       
        
    // Подготовливаем данные для записи в БД 
-      oDC.setAutoCommit(false);
-      oDC.prepareStatement("INSERT INTO TheSubject (nID_OfSubject) VALUES (1)").executeUpdate();
+      oConnection.setAutoCommit(false);
+      oConnection.prepareStatement("INSERT INTO TheSubject (nID_OfSubject) VALUES (1)").executeUpdate();
    
-      //----- oDC.prepareStatement("insert Contact values()").executeUpdate();
-      ResultSet oSet2 =oDC.prepareStatement("SELECT @@identity").executeQuery();
+      //----- oConnection.prepareStatement("insert Contact values()").executeUpdate();
+      ResultSet oSet2 =oConnection.prepareStatement("SELECT @@identity").executeQuery();
       int n=oSet2.next()?oSet2.getInt(1):0;
       //System.out.println("----------------------------");   System.out.println(n);
     
-      oDC.prepareStatement("INSERT INTO TheSubjectHuman(nID_TheSubject, sTheSubjectHuman, sLastName, sFirstName, sSurName, sDTbirth, sDTdeath, nSex ) " +
+      oConnection.prepareStatement("INSERT INTO TheSubjectHuman(nID_TheSubject, sTheSubjectHuman, sLastName, sFirstName, sSurName, sDTbirth, sDTdeath, nSex ) " +
       "VALUES ("+n+",'Человек','Фамилия','Имя','Отчество','1900-11-11 11:11:11','1900-11-11 11:11:11',1)").executeUpdate();
 
-      ResultSet oSet3 =oDC.prepareStatement("SELECT @@identity").executeQuery();
+      ResultSet oSet3 =oConnection.prepareStatement("SELECT @@identity").executeQuery();
       int n1=oSet3.next()?oSet3.getInt(1):0;
       //System.out.println("----------------------------");   System.out.println(n1);
        
-      oDC.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, bDisabled ) VALUES ("+n1+",'"+sLogin+"',1)").executeUpdate();
+      oConnection.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, bDisabled ) VALUES ("+n1+",'"+sLogin+"',1)").executeUpdate();
 
       // пробуем записать Логин и Пароль в Лдап
       if (!AccessLDAP.bWrite(sLogin, sPassword1)) // если false занчит ошибка подключения к Лдап
       {
-          oDC.rollback();
+          oConnection.rollback();
           return "Ошибка Лдап подключения, учетная запись не создана!";
       }
 
       // Если записалось в Лдап, то подтверждаем запись в БД
-      oDC.commit();
+      oConnection.commit();
      
-    //  AccessDB.closeConnectionStatic("", oDC); 
-      AccessDB.closeConnectionStatic("", oDC); 
+    //  AccessDB.closeConnectionStatic("", oConnection); 
+      AccessDB.closeConnectionStatic("", oConnection); 
       
       return "Учетная запись успешно создана!";  
               
@@ -147,7 +147,7 @@ return false;//""; //Ошибочный!
 // catch (Exception _){
      //               String sErr=_.getMessage();
      //               System.err.println("ERROR: "+sErr+"_"+" ---- UserRegistration");//это вывод в лог-файл
-       //             oDC.rollback();
+       //             oConnection.rollback();
        //             return "Ошибка приложения , запись не создана !" + "---- UserRegistration" ; 
        //             }
 //finally {           } 
@@ -170,10 +170,10 @@ return false;//""; //Ошибочный!
  if (!sPassword.equals("")) // если пароль не равен пустой строке
  if (!sEmail.equals("")) // если Емаил не равен пустой строке
  {
- Connection oDC = AccessDB.oConnectionStatic("");
- oDC.prepareStatement("INSERT INTO Access (nID_SubjectHuman, sLogin, bDisabled ) VALUES (2,'"+sLogin+"',1)").executeUpdate();
+ Connection oConnection = AccessDB.oConnectionStatic("");
+ oConnection.prepareStatement("INSERT INTO Access (nID_SubjectHuman, sLogin, bDisabled ) VALUES (2,'"+sLogin+"',1)").executeUpdate();
  
- ResultSet oSet =oDC.prepareStatement("SELECT @@identity").executeQuery();
+ ResultSet oSet =oConnection.prepareStatement("SELECT @@identity").executeQuery();
  int n=oSet.next()?oSet.getInt(1):0;
  
  
@@ -185,16 +185,16 @@ return false;//""; //Ошибочный!
 
       "commit transaction";
 
- //ResultSet oSet =oDC.prepareStatement("SELECT @@identity").executeQuery();
+ //ResultSet oSet =oConnection.prepareStatement("SELECT @@identity").executeQuery();
  //int n=oSet.next()?oSet.getInt(1):0;
  //и в "n" у тебя будет твой индекс
 
- //oDC.prepareStatement(s1).executeUpdate();;
+ //oConnection.prepareStatement(s1).executeUpdate();;
   
   System.out.println("----------------------------");
   System.out.println(n);
 
-  AccessDB.closeConnectionStatic("", oDC);
+  AccessDB.closeConnectionStatic("", oConnection);
   }
  
  }

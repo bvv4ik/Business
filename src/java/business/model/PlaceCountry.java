@@ -43,8 +43,8 @@ public class PlaceCountry {
   
      //PlaceCountry PC = new PlaceCountry(sCountry); // получаем ID страны
      
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("select nID, sCountry from PlaceCountry").executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("select nID, sCountry from PlaceCountry").executeQuery();
      while (oSet.next()){
     //   i++;
     // s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\""); 
@@ -52,7 +52,7 @@ public class PlaceCountry {
      } 
         //   if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
      return s; //возвращаем список регионов в виде Json строки
    }
  
@@ -60,38 +60,38 @@ public class PlaceCountry {
 // Определяем nID Страны по одному выбранному названию Страны        
 //public int getID (String sCountry) throws Exception { 
 //     int i = 0;  
-//     Connection oDC = AccessDB.oConnectionStatic("");    
+//     Connection oConnection = AccessDB.oConnectionStatic("");    
 //    
-//     ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry +"'").executeQuery();
+//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry +"'").executeQuery();
 //     if (oSet.next()){
 //         i = oSet.getInt(1);  // Возвращаем nID по названию страны
 //         //_nID(oSet.getInt(1));  // Возвращаем nID по названию страны
 //         //_sCountry(sCountry);
 //        }
-//     AccessDB.closeConnectionStatic("", oDC);      //
+//     AccessDB.closeConnectionStatic("", oConnection);      //
 //     return  i;
 // }
 
 public void addCountry (String sCountry) throws Exception { 
    
-    Connection oDC = AccessDB.oConnectionStatic("");    
-    oDC.prepareStatement("INSERT INTO PlaceCountry (nID_TheSubject, sCountry) VALUES (2, '"+sCountry +"')").executeUpdate();
-    AccessDB.closeConnectionStatic("", oDC);    
+    Connection oConnection = AccessDB.oConnectionStatic("");    
+    oConnection.prepareStatement("INSERT INTO PlaceCountry (nID_TheSubject, sCountry) VALUES (2, '"+sCountry +"')").executeUpdate();
+    AccessDB.closeConnectionStatic("", oConnection);    
 };
 
  /*
  public void setPlaceCountry (String sCountry) throws Exception { 
           
-     Connection oDC = AccessDB.oConnectionStatic("");    
+     Connection oConnection = AccessDB.oConnectionStatic("");    
     
-     ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlaceCountry1 where sCountry = '"+sCountry +"'").executeQuery();
+     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry1 where sCountry = '"+sCountry +"'").executeQuery();
      if (oSet.next()){
         _nID(oSet.getInt(1)); // Устанавливаем nID по названию страны
         _sCountry(sCountry);
        
       }
         //_sCountry("Украина"); //Country;  // временнно не закончено
-      AccessDB.closeConnectionStatic("", oDC);
+      AccessDB.closeConnectionStatic("", oConnection);
        
  }
  */

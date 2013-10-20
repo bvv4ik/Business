@@ -105,10 +105,10 @@ public class NewClassFile {
   
   
    static void insertSrting (String s) throws SQLException   { 
-    Connection oDC = AccessDB.oConnectionStatic("insertSrting");
+    Connection oConnection = AccessDB.oConnectionStatic("insertSrting");
       
-    oDC.prepareStatement(s).executeUpdate();
-    AccessDB.closeConnectionStatic("insertSrting", oDC);
+    oConnection.prepareStatement(s).executeUpdate();
+    AccessDB.closeConnectionStatic("insertSrting", oConnection);
     
      }
 

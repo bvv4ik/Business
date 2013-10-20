@@ -39,14 +39,14 @@ public class Link {
 
    public void setLink (String sLogin, String sLinkProvider) throws Exception   { 
     
-    Connection oDC = AccessDB.oConnectionStatic("");    
+    Connection oConnection = AccessDB.oConnectionStatic("");    
     
-    oDC.prepareStatement("insert Contact values()").executeUpdate();
+    oConnection.prepareStatement("insert Contact values()").executeUpdate();
     
-    ResultSet oSet2 =oDC.prepareStatement("SELECT @@identity").executeQuery();
+    ResultSet oSet2 =oConnection.prepareStatement("SELECT @@identity").executeQuery();
     int n1=oSet2.next()?oSet2.getInt(1):0;    
     
-     AccessDB.closeConnectionStatic("", oDC); 
+     AccessDB.closeConnectionStatic("", oConnection); 
              
    }
     
@@ -56,7 +56,7 @@ public class Link {
 //LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID 
 //where  sLogin = 'a@a.aaa'
     
- //   oDC.prepareStatement("INSERT INTO Link (nID_Contact, nID_LinkProvider, sLink) "
+ //   oConnection.prepareStatement("INSERT INTO Link (nID_Contact, nID_LinkProvider, sLink) "
   //            + "VALUES ("+i+",'Ip....','"+sTime+"','ссылка откуда...',1,'доп. инф')").executeUpdate();
      //1900-11-11 11:11:11
       

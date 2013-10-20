@@ -38,14 +38,14 @@ private int nRegionTypeOrder;
  // Определяем nID Типа улицы по одному выбранному типу
 //public int getID (String sBranchType) throws Exception { 
 //     int i = 0;  
-//     Connection oDC = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oDC.prepareStatement("SELECT nID FROM PlaceBranchType1 where sBranchType = '"+sBranchType+"'").executeQuery();
+//     Connection oConnection = AccessDB.oConnectionStatic("");    
+//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceBranchType1 where sBranchType = '"+sBranchType+"'").executeQuery();
 //     if (oSet.next()){
 //         i = oSet.getInt(1);
 //        // _nID(oSet.getInt(1));  // Возвращаем nID по названию типа Улицы
 //         //_sBranchType(sBranchType);
 //        }
-//     AccessDB.closeConnectionStatic("", oDC);      
+//     AccessDB.closeConnectionStatic("", oConnection);      
 //     return  i;
 // }
  
@@ -53,15 +53,15 @@ private int nRegionTypeOrder;
 public String getAllRegionType() throws Exception   { 
  String s = "";  // String utf = "";  //int i = 0;
   
-     Connection oDC = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oDC.prepareStatement("SELECT nID, sRegionType FROM PlaceRegionType").executeQuery();
+     Connection oConnection = AccessDB.oConnectionStatic("");    
+     ResultSet oSet = oConnection.prepareStatement("SELECT nID, sRegionType FROM PlaceRegionType").executeQuery();
      while (oSet.next()){
      //i++;
       s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
-     AccessDB.closeConnectionStatic("", oDC);
+     AccessDB.closeConnectionStatic("", oConnection);
      return s; //возвращаем список регионов в виде Json строки
    }
 
