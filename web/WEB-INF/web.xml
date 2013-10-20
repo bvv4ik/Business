@@ -18,11 +18,11 @@
         <env-entry-value>com.sybase.jdbc3.jdbc.SybDriver</env-entry-value>
     </env-entry>
 
-    <env-entry>
+    <!--env-entry>
         <env-entry-name>sURL</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>http://pgasa-edu-ua.org:8082</env-entry-value>
-    </env-entry>
+    </env-entry-->
             
     <env-entry>
         <env-entry-name>sMailSMTP</env-entry-name>

@@ -80,11 +80,11 @@ public class Config {
         if (null == sValue) {
             if(bCashed(sName)){
                 sValue = (String) mVariable.get(sName);
-                if(sValue==null){
-                    sValue=sValueFile(sName);
-                    if(sValue!=null){
-                        mVariable.put(sName, sValue);
-                    }
+            }
+            if(sValue==null){
+                sValue=sValueFile(sName);
+                if(sValue!=null){
+                    mVariable.put(sName, sValue);
                 }
             }
             
@@ -102,16 +102,25 @@ public class Config {
         try {
             javax.naming.Context oContext = (javax.naming.Context) new javax.naming.InitialContext().lookup("java:comp/env");
             String sValue = "";
+            Object oValue=null;
             try {
-                sValue = oContext.lookup(sName).toString();
-            } catch (javax.naming.NamingException _) {
-                oLogStatic.error("[" + sCase + "](sName=" + sName + "):assign an empty string:", _);
-            }
-            mVariable.put(sName, sValue);
-            oLogStatic.info("[" + sCase + "](sName=" + sName + ",sValue=" + sValue + ")");
-            b=true;
-        } catch (Exception ex) {
-            oLogStatic.error("[" + sCase + "](sName=" + sName + "):", ex);
+                oValue = oContext.lookup(sName);
+            } catch (Exception oException) {
+                oLogStatic.info("[" + sCase + "](sName=" + sName + "):no value:" + oException.getMessage());
+            }                
+            try {
+                if(oValue!=null){
+                    sValue = oValue.toString();
+                    b=true;
+                    mVariable.put(sName, sValue);
+                }else{
+                    oLogStatic.warn("[" + sCase + "](sName=" + sName + "):null value:");
+                }
+            } catch (Exception oException) {
+                oLogStatic.error("[" + sCase + "](sName=" + sName + "):fail value:", oException);
+            }oLogStatic.info("[" + sCase + "](sName=" + sName + ",sValue=" + sValue + ")");
+        } catch (Exception oException) {
+            oLogStatic.error("[" + sCase + "](sName=" + sName + "):", oException);
         } return b;
     }
     /**
@@ -127,6 +136,7 @@ public class Config {
             oProperty.load(new FileInputStream(sPathConfig() + "application.properties"));
             sValue=oProperty.getProperty(sName);
             //mVariable.put(sName, sValue);
+            oLogStatic.info("[" + sCase + "](sName=" + sName + ",sValue=" + sValue + ")");
         } catch (Exception ex) {
             oLogStatic.error("[" + sCase + "](sName=" + sName + "):", ex);
         }
