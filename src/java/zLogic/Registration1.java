@@ -129,11 +129,11 @@ return false;//""; //Ошибочный!
       oConnection.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, bDisabled ) VALUES ("+n1+",'"+sLogin+"',1)").executeUpdate();
 
       // пробуем записать Логин и Пароль в Лдап
-      if (!AccessLDAP.bWrite(sLogin, sPassword1)) // если false занчит ошибка подключения к Лдап
-      {
-          oConnection.rollback();
-          return "Ошибка Лдап подключения, учетная запись не создана!";
-      }
+//      if (!AccessLDAP.bWrite(sLogin, sPassword1)) // если false занчит ошибка подключения к Лдап
+//      {
+//          oConnection.rollback();
+//          return "Ошибка Лдап подключения, учетная запись не создана!";
+//      }
 
       // Если записалось в Лдап, то подтверждаем запись в БД
       oConnection.commit();

@@ -1,45 +1,24 @@
 
 package business.service;
 
+
 import business.Config;
 import business.auth.AccessAuth;
 import business.auth.Access;
 import business.auth.AccessOf;
-import javax.swing.Timer;
-
 import business.send.MailText;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-//import javax.servlet.http.HttpServlet;
-
-import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Random;
-//import java.util.Timer;
-import java.util.TimerTask;
-import javax.servlet.Servlet;
-
 import javax.servlet.http.*;
-
-import javax.servlet.annotation.WebInitParam;
+//import javax.servlet.http.HttpServlet;
 import javax.servlet.annotation.WebServlet;
-
 import org.apache.log4j.Logger;
 //-import org.apache.log4j.xml.DOMConfigurator;
 
@@ -51,39 +30,32 @@ import org.apache.log4j.Logger;
 
   public class Login extends HttpServlet {
    
-    private Logger oLog = Logger.getLogger(getClass()); /*getClass()*/
-    
-    public static ArrayList<String> aListAllSession = new ArrayList<String>();
-    //public ArrayList<String> aListAllSession = new ArrayList<String>();
-    public static ArrayList<String[]> aAllSession = new ArrayList<String[]>();
+    private Logger oLog = Logger.getLogger(getClass());   
+    private ArrayList<String> aListAllSession = new ArrayList<String>();
+    private ArrayList<String[]> aAllSession = new ArrayList<String[]>();
     
 
     
     protected void processRequest( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-          
+       
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
         
 //-        DOMConfigurator.configure(getServletContext().getRealPath("")+"/WEB-INF/config/"  + "log4j.xml");
         
-        String              sReturn = "-nol-",
+        String              sReturn = "-none-",
                             sDO = "" , 
                                 sEmail = "",
                                 sPassword = "",                           
                                 sCookie = ""
-                                //sSess = ""
                             ;
         
 
         try {
 
-//      HttpSession session = request.getSession(true);  
-//   Object o = session.getAttribute("sLogin");
-            
-   //      oLog.info(" Hello from Servlet===333");    
-        // oLog.error(" Hello from Servlet---------111");    
+                              //      HttpSession session = request.getSession(true);  
+                              //       Object o = session.getAttribute("sLogin");
+                              //      oLog.info(" Hello from Servlet===333");    
              
                sDO = request.getParameter("sDO");   //вытягиваем параметры
                sEmail = request.getParameter("sEmail");
@@ -91,7 +63,8 @@ import org.apache.log4j.Logger;
                sCookie = request.getParameter("sCookieLogin");
             
                oLog.info("sDO="+sDO+",sEmail="+sEmail);
-//------------- Отправка ссылки для "входа без пароля" на Емаил---------------
+               
+//------------- Отправка на Емаил пользователя ссылки для "входа без пароля" ---------------
              if ("theSendEmail".equals(sDO)) {               
                   
                   Access A = new Access(); 
@@ -104,7 +77,8 @@ import org.apache.log4j.Logger;
                 //  mt.sendMail(sEmail, "123");
                   // надо сделать еще генерацию Куки для пользователей у которых нету куки в Базе ??? 
 //-                  mt.sendMail(sEmail, "Ваша ссылка для входа в PGASA без пароля:  \n\n  http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin="+sCookieDB +"  \n\n ") ;
-                  mt.sendMail(sEmail, "Ваша ссылка для входа в PGASA без пароля:  \n\n  "+Config.sValue("sURL") +"/#sDO=theLoginForCookie&sCookieLogin="+sCookieDB +"  \n\n ") ;
+                  //mt.sendMail(sEmail, "Ваша ссылка для входа в PGASA без пароля:  \n\n  "+Config.sValue("sURL") +"/#sDO=theLoginForCookie&sCookieLogin="+sCookieDB +"  \n\n ") ;
+                  mt.sendMail(sEmail, "Ваша ссылка для входа в PGASA без пароля:  \n\n  "+Config.sValue("sURL") +"/#sAuth="+sCookieDB +"  \n\n ") ;
                   //http://pgasa-edu-ua.org:8082/
                   //  http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu
                   
@@ -126,7 +100,7 @@ import org.apache.log4j.Logger;
              }
 
 //------------- ВХОД пользователя через куку ---------------
-               if ("theLoginForCookie".equals(sDO)){ 
+               if ("theLoginForCookie".equals(sDO)) { 
               
                     AccessAuth AA = new AccessAuth();
                     ArrayList<String> list1 = new ArrayList<String>();

@@ -50,21 +50,21 @@ private String sData;
     
  public static void saveInfoWhenUserLogined(String sEmail) throws Exception {
      
-      
-     Access Acc = new Access();
-     int nID_Access = Acc.getIdAccess(sEmail); // узнаем ИД предыдущей таблицы по Логину
-     //int i = Acc.nID();
+  
+      Access Acc = new Access();
+      int nID_Access = Acc.getIdAccess(sEmail); // узнаем ИД предыдущей таблицы по Логину
+      //int i = Acc.nID();
 
-     Date d = new Date();            // определяем текущую дату.
-     DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-     String sTime = df.format(d);
+      Date d = new Date();            // определяем текущую дату.
+      DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+      String sTime = df.format(d);
 
-     Connection oConnection = AccessDB.oConnectionStatic("");
-     oConnection.prepareStatement("INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
-             + "VALUES (" + nID_Access + ",'Ip....','" + sTime + "','ссылка откуда...',1,'доп. инф')").executeUpdate();
-     //1900-11-11 11:11:11
+      Connection oConnection = AccessDB.oConnectionStatic("");
+      oConnection.prepareStatement("INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
+              + "VALUES (" + nID_Access + ",'Ip....','" + sTime + "','ссылка откуда...',1,'доп. инф')").executeUpdate();
+      //1900-11-11 11:11:11
 
-     AccessDB.closeConnectionStatic("", oConnection);
+      AccessDB.closeConnectionStatic("", oConnection);
 
 
       

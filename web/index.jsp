@@ -82,11 +82,11 @@
                                         <!-- <img hidden id="imgFirstLoginHelp" src="img/help1.png" alt="help"  width="32" height="32" style=" position: absolute; top: -30px;left: 420px;" /> -->
                      <br>               <!-- value="ser111@ss.ss"    value="111"   autocomplete="on" -->
                      <center> 
-                     <input  class="sInput_Login" id="sEmail"   type="text" maxlength="55" autocomplete="on" placeholder="Е-MAIL..."  /> 
-                     <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="ПАРОЛЬ..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
+                     <input  class="sInput_Login" id="sEmail"   type="text" maxlength="55" autocomplete="on" placeholder="Е-Маил..."  /> 
+                     <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="Пароль..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
 
-                     <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="ИМЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
-                     <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="ФАМИЛИЯ (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
+                     <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="Имя (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
+                     <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="Фамилия (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
                      <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  </center>   
                       <br hidden id="brLogin">  
                      <center> <input hidden  type="checkbox" id="checkAgreement"  checked> 
@@ -103,24 +103,6 @@
            </div>
  
  
-
- 
-<!-- ---------- АККАУНТ форма (пока не нужна) ---------  autocomplete="off" 
-
-       <div hidden id="divAccount"  >
-               <div id="divHeader_Account">Создание учетной записи: 
-                    <img id="btClose_Account" src="img/krest.jpg"   border="1"   title="Закрыть"  />
-               </div>  <br>  
-		   <input id="sEmail_Account" class="sInput_Account" placeholder="Ваш Е-Маил..." title='Поле, обязательное для заполнения. Введите название вашего Е-Маил, который станет уникальным Логином для входа на этот сайт. <br>Так же ознакомьтесь: <a href="http://ru.wikipedia.org/wiki/Пароль" target="_blank" >Безопастность пароля</a>' type="text" value=""  maxlength="70" >                      
-                   <input id="sPassword_Account" class="sInput_Account" placeholder="Пароль" title="Поле, обязательное для заполнения. Пароль должен содержать не менее 10 и не более 25 символов латинского алфавита и цифр (a-z, A-Z, 0-9). Для надежности очень желательно, чтобы пароль включал в себя не только маленькие латинские буквы, но так же заглавные буквы и цифры. Пример безопастного пароля:  <b>Ivan33bn81T</b> , <br>Примеры небесопастных паролей: <b>qwerty</b>, <b>123</b>, <b>7654321</b>. <br>Не экономьте несколько символов на своей безопастности! )) "  type="password" value=""  maxlength="25" >   
-                   <input id="sPassword2_Account" class="sInput_Account" placeholder="Пароль (повторно)" title="Поле обязательное для заполнения. <br> Защита от невнимательности! :)"   type="password" value=""  maxlength="25" >   <br>
-		   <input id="sFirstName_Account" class="sInput_Account" placeholder="Имя" title="Желательно, но необязательно :)"  type="text" value="" autocomplete="off"  maxlength="25" > <br> 
-		   <input id="sLastName_Account" class="sInput_Account" placeholder="Фамилия" title="Пока не обязательно."   type="text" value="" autocomplete="on" maxlength="25">   <br>  <br>
-                   <input class="allButt" id="btReg"  type="button" value="Создать" />             
-            </div>     
-      </div>
--->   
-
 <!-- <h1>    Добро пожаловать <    %=oLogin%>  <    %=oLastName%> <    %=oFirstName%> <   %=oSureName%>    </h1> !-->
 
 <!--  Подпись внизу   -->
@@ -263,7 +245,7 @@
       pa dding-left: 40px;
 
      }
-     #filterMsg label{      color:blue;  /*ou tline :1px solid black;*/      }
+     #filterMsg label{      color:blue;      }
      #filterMsg input{     cursor:pointer;     display:none;    }
      #filterMsg table{   float:none;     }
      #filterMsg table tr td label:hover{     cursor:pointer;      }
@@ -1105,6 +1087,22 @@ function shuffle(arr) {
 
 
 
+ 
+<!-- ---------- АККАУНТ форма (пока не нужна) ---------  autocomplete="off" 
+
+       <div hidden id="divAccount"  >
+               <div id="divHeader_Account">Создание учетной записи: 
+                    <img id="btClose_Account" src="img/krest.jpg"   border="1"   title="Закрыть"  />
+               </div>  <br>  
+		   <input id="sEmail_Account" class="sInput_Account" placeholder="Ваш Е-Маил..." title='Поле, обязательное для заполнения. Введите название вашего Е-Маил, который станет уникальным Логином для входа на этот сайт. <br>Так же ознакомьтесь: <a href="http://ru.wikipedia.org/wiki/Пароль" target="_blank" >Безопастность пароля</a>' type="text" value=""  maxlength="70" >                      
+                   <input id="sPassword_Account" class="sInput_Account" placeholder="Пароль" title="Поле, обязательное для заполнения. Пароль должен содержать не менее 10 и не более 25 символов латинского алфавита и цифр (a-z, A-Z, 0-9). Для надежности очень желательно, чтобы пароль включал в себя не только маленькие латинские буквы, но так же заглавные буквы и цифры. Пример безопастного пароля:  <b>Ivan33bn81T</b> , <br>Примеры небесопастных паролей: <b>qwerty</b>, <b>123</b>, <b>7654321</b>. <br>Не экономьте несколько символов на своей безопастности! )) "  type="password" value=""  maxlength="25" >   
+                   <input id="sPassword2_Account" class="sInput_Account" placeholder="Пароль (повторно)" title="Поле обязательное для заполнения. <br> Защита от невнимательности! :)"   type="password" value=""  maxlength="25" >   <br>
+		   <input id="sFirstName_Account" class="sInput_Account" placeholder="Имя" title="Желательно, но необязательно :)"  type="text" value="" autocomplete="off"  maxlength="25" > <br> 
+		   <input id="sLastName_Account" class="sInput_Account" placeholder="Фамилия" title="Пока не обязательно."   type="text" value="" autocomplete="on" maxlength="25">   <br>  <br>
+                   <input class="allButt" id="btReg"  type="button" value="Создать" />             
+            </div>     
+      </div>
+-->   
 
 
 

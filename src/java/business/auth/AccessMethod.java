@@ -9,17 +9,27 @@ package business.auth;
  * @author Ser
  */
 public class AccessMethod {
-    
-   
-private int nID;
-private String  sAccessMethod;
+
+     private int nID;
+     private String sAccessMethod;
 
 // Setters
-public AccessMethod _nID(int i) { nID = i; return this; }
-public AccessMethod _sAccessMethod(String s) { sAccessMethod=s; return this; }
- 
- // Getters
- public int nID() { return nID; }
- public String sAccessMethod() { return sAccessMethod; }
-    
+     public AccessMethod _nID(int i) {
+          nID = i;
+          return this;
+     }
+
+     public AccessMethod _sAccessMethod(String s) {
+          sAccessMethod = s;
+          return this;
+     }
+
+     // Getters
+     public int nID() {
+          return nID;
+     }
+
+     public String sAccessMethod() {
+          return sAccessMethod;
+     }
 }

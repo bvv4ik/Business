@@ -31,7 +31,7 @@ public class AccessLDAP {
     
     
     
-    public static DirContext getConnectLdap (String name) throws Exception {
+    public DirContext getConnectLdap (String name) throws Exception {
       
        // try {
         Hashtable<String, Object> env = new Hashtable<String, Object>(11);      
@@ -51,7 +51,7 @@ public class AccessLDAP {
         //ctx.close();
     
     
-    public static void closeConnectLdap(String sName, DirContext ctx) {
+    public void closeConnectLdap(String sName, DirContext ctx) {
            try{
             if(ctx!=null){ctx.close();}
         }catch(Exception _){
@@ -61,7 +61,7 @@ public class AccessLDAP {
     
     
      
-     public static boolean bWrite (String sUserLogin, String sUserPassword) throws Exception{
+     public boolean bWrite (String sUserLogin, String sUserPassword) throws Exception{
          
          
          DirContext ctx = getConnectLdap("Test");  
@@ -100,7 +100,7 @@ public class AccessLDAP {
      
      
      
-     public static String sGetPassword (String sLogin) throws Exception{
+     public String sGetPassword (String sLogin) throws Exception{
           String Password = "";
                   
           if ((getConnectLdap("Test")) == null)
@@ -141,7 +141,7 @@ public class AccessLDAP {
      
      
      
-     	    public static boolean isLoginExists(String sLogin) {
+     	    public boolean isLoginExists(String sLogin) {
                     //throws Exception {
 	      // Boolean bResult = false;
               //  if (sLogin == "") {sLogin = "123";}
