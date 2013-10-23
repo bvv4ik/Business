@@ -33,7 +33,7 @@ root {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	behavior:url(../js/IE.htc);
+	behavior:url(../js/IE.htc); /* ????????????????????????? */
 	-webkit-box-shadow:0 2px 3px #9dac81;
 	-moz-box-shadow:0 2px 3px #9dac81;
 	box-shadow:0 2px 3px #9dac81;

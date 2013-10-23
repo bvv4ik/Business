@@ -161,11 +161,19 @@ function sDateShort(sDateGot){
 //Открыть диалог
 function showDialog(oThis,nWidth,nHeight,nDelayAutoclose){
     try{
-        $(".oDialog_Background").show();
-        var nYClient=document.body.clientHeight,nYDialog=$(oThis).height();
+        $(".oDialog_Background").show(); // Показываем фон
+        
+        
+        var nYClient=document.body.clientHeight;
+        nYDialog=$(oThis).height();
         var nUpDialog=window.scrollY+(nYDialog<nYClient?(nYClient-nYDialog)/2:23);
         $(oThis).css("left",((document.body.clientWidth-$(oThis).width())/2)+"px");
         $(oThis).css("top",nUpDialog+"px").show();
+        $(oThis).css("width", "300px"/*nWidth*/);
+        $(oThis).css("Height", "200px"/*nHeight*/);
+          
+        //alert(1);
+       // hideDialog(oThis);
         //doRepaint(oThis);//авто-перерисовка в некоторых случаях
         //nDelayAutoclose//функция-таймер для автозакрытия поЖ hideDialog(oThis)
     }catch(_){
@@ -194,9 +202,10 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
                 oReturn();
             }
             return;
-        }else{
-            var oThis=$(".oDialog:.oAsk");
-            if(aButttons==null){
+        }else{  
+            var oThis=$(".oDialog.oAsk");
+           
+           if(aButttons==null){
                 if(sHead=="yes"){
                     sHead="Сделайте выбор";
                     aButttons=[{
@@ -225,6 +234,8 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
                     }];
                 }
             }
+            
+            
             if(sHead!=null){
                 oThis.find(".oHead").html(sHead);
             }
@@ -234,17 +245,22 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
             oThis.find(".oBody").html(sBody);
             if(oReturn!=null){
                 oThis.find('.oButton:not(.default)').remove();
-                for(var n=0;n<aButttons.length;n++){
-                    var sName=aButttons[n].sName,sClass=aButttons[n].sClass,oNode;
+               
+               for(var n=0;n<aButttons.length;n++){
+                    var sName=aButttons[n].sName, 
+                    sClass=aButttons[n].sClass,
+                    oNode;
                     if(sClass==null){
                         sClass="oButtonGreen";
                     }
-                    oNode=oThis.find('.oButton:.default');
+                    oNode=oThis.find('.oButton.default');
                     oNode=oNode.clone().insertAfter(oThis.find('.oButton:last')).removeClass("default").addClass(sClass);
                     oNode.val(sName);
                     oFunctionQuestion=oReturn;
-                    oNode.attr("onclick","oReturnAsk("+n+");hideDialog(this);")
+                    oNode.attr("onclick", "alert(1); hideDialog(this);");
                 }
+                
+                
             }
             showDialog(oThis);                
         }
@@ -254,9 +270,9 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
 }
 
 
-function seeError(sBody,sDebug,sHead){
+function seeError(sHead,sBody,sDebug){
     try{
-        var oThis=$(".oDialog:.oError");
+        var oThis=$(".oDialog.oError");
         if(sHead=="attention"){
             sHead="Внимание!";
         }else if(sHead=="incomplete"){
@@ -300,7 +316,8 @@ function seeError(sBody,sDebug,sHead){
 
 //Тест диалога-вопроса
 function askTest(){
-    ask("В чем вопрос?","Вот",[{
+     //alert(1);
+    ask("В чем вопрос?","accept",[{
         sName:"Не быть",
         sClass:"oButtonRed"
     },{
@@ -335,9 +352,9 @@ function doDebug(sInfo,sFunction,sDebug){
 //===============
 $(function(){
     //важные обязательные дефолтные установки
-    $('a:[href=#]').attr('href',"javascript:void(0)");
+    $('a[href=#]').attr('href',"javascript:void(0)");
     $('.oButtonClose').attr("onclick","hideDialog(this);").attr("alt","Скрыть").attr("title","Скрыть окно");
-    $('img:.doHideDialog').attr("onclick","hideDialog(this);").attr("alt","Скрыть").attr("title","Скрыть окно")
+    $('img .doHideDialog').attr("onclick","hideDialog(this);").attr("alt","Скрыть").attr("title","Скрыть окно")
     .attr("src","img/dialogHide.png").attr("width","10").attr("height","10");
     //закрытие верхнего диалога по эскейпу
     $("body").keydown(function(event) {

@@ -76,9 +76,11 @@ public class Access {
      }
      //================================================
 
+     
+     
      // загружаем все данные из таблицы по логину 
      public int getIdAccess(String sLogin) throws Exception {
-          String sCase = "getIdAccess"; //ОБРАЗЕЦ//так делать всегда!
+          String sCase = "getIdAccess"; //ОБРАЗЕЦ  //так делать всегда!
           int i = 0;
           Connection oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ//так делать всегда!
           PreparedStatement oStatement = null;
@@ -91,9 +93,6 @@ public class Access {
                if (oSet.next()) {
                     i = oSet.getInt(1);
                     //_nID(Integer.parseInt(oSet.getString(1)));
-                    //_nID_SubjectHuman(Integer.parseInt(oSet.getString(2)));
-                    //_sLogin(oSet.getString(3));
-                    //_bDisabled(Integer.parseInt(oSet.getString(4)));
                }
                //AccessDB.transactCommit(oStatement, sCase, oLog);    //ОБРАЗЕЦ//
           } catch (Exception oException) {
@@ -106,10 +105,9 @@ public class Access {
           }
      }
 
+     
+     
      public String userRegistration(String sEmail, String sPassword) throws Exception {
-
-                              //HttpSession session = request.getSession(true);  
-                              //   Object o = session.getAttribute("sLogin");
 
           /* основная проверка введенных пользователем данных осуществляется на клиенте через JS, 
            эта проверка данных на всякий случай размещена на сервере, чтобы отключив JS, нельзя было отправить прямой 
@@ -119,29 +117,30 @@ public class Access {
 
           if ((sEmail == null) | (sPassword == null)) {
                return "Одна или несколько строк Null";
-          } else if ((sEmail.equals("")) | (sPassword.equals(""))) {// проверка на пустые строки
+          } else if ((sEmail.equals("")) | (sPassword.equals(""))) {   // проверка на пустые строки
                return "Внимание, заполните поля!";
-          } else if ((!bValidString(sEmail)) | (!bValidString(sPassword))) {// Если true то прис. недопустимые символы 
+          } else if ((!bValidString(sEmail)) | (!bValidString(sPassword))) {    // Если true то прис. недопустимые символы 
                return "Логин или Пароль содержат недопустимые символы!";
-          } else if (sPassword.length() < 10) {//проверка длинны пароля
+          } else if (sPassword.length() < 10) {   //проверка длинны пароля
                return "Длинна пароля должна быть больше 10 символов!";
-          } else if (bLoginExists(sEmail)) {// если true то логин уже существует в Базе
+          } else if (bLoginExists(sEmail)) {     // если true то логин уже существует в Базе
                return "Этот Логин уже занят!";
           }
-
-//     if ((!bValidMail(sEmail))) // если "" то Емаил Ошибочный  //  return "Введите правильный Е-Маил!"; 
-//     if (!sPassword.equals(sPassword2)) //проверка двух полей паролей на идентичность   //  return "Поля паролей не совпадают!";            
-
-
-          Connection oConnection = AccessDB.oConnectionStatic("");
+          
+          String sCase = "userRegistration"; //ОБРАЗЕЦ  //так делать всегда!
+          ResultSet oSet = null;    
+          PreparedStatement oStatement = null;
+          Connection oConnection = AccessDB.oConnectionStatic("userRegistration");
           try {
-
+               
                // Подготовливаем данные для записи в БД 
-               oConnection.setAutoCommit(false);
+                 oConnection.setAutoCommit(false);
+              // AccessDB.transactBegin(oStatement, sCase, oLog);    //Начинаем транзакцию   ОБРАЗЕЦ//  Так возникает ошибка! и в базу не пишет!
+              
                oConnection.prepareStatement("INSERT INTO TheSubject (nID_OfSubject) VALUES (1)").executeUpdate();
                // вставляем по умолчанию запись "1" т.е "человек"
-
-               ResultSet oSet = oConnection.prepareStatement("SELECT @@identity").executeQuery();
+               
+               oSet = oConnection.prepareStatement("SELECT @@identity").executeQuery();
                int n = oSet.next() ? oSet.getInt(1) : 0;
 
                oConnection.prepareStatement("INSERT INTO TheSubjectHuman(nID_TheSubject, sTheSubjectHuman, sLastName, sFirstName, sSurName, sDTbirth, sDTdeath, nSex ) "
@@ -152,17 +151,21 @@ public class Access {
 
                oConnection.prepareStatement("INSERT INTO Access (nID_TheSubjectHuman, sLogin, sPassword, bDisabled ) VALUES (" + n1 + ",'" + sEmail + "','" + sPassword + "',1)").executeUpdate();
                oSet = oConnection.prepareStatement("SELECT @@identity").executeQuery();
-              // int n2 = oSet.next() ? oSet.getInt(1) : 0;
 
 
-               oConnection.commit();  //подтверждаем запись в БД
-
+                  oConnection.commit();  //подтверждаем запись в БД
+               // AccessDB.transactCommit(oStatement, sCase, oLog);    //Подтверждаем транзакцию   ОБРАЗЕЦ//
+                
                return "Добро пожаловать на сайт!";     // нельзя менять т.к работает как Колбэк "Учетная запись создана !"
 
           } catch (Exception e) {
-               return "Непредвиденная ошибка создания записи: Класс Access";
+                oLog.error("[" + sCase + "]:Непредвиденная ошибка создания записи!", e);     //ОБРАЗЕЦ   //так делать всегда!
+             //   AccessDB.transactRollback(oStatement, sCase, oLog);    //ОБРАЗЕЦ//
+                return "Непредвиденная ошибка создания записи: Класс Access";
           } finally {
-               AccessDB.closeConnectionStatic("", oConnection);  // так делать всегда!!1
+               //AccessDB.closeConnectionStatic("", oConnection);  // так делать всегда!!1
+               AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ//так делать всегда!
+               AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ//так делать всегда!
           }
 
 

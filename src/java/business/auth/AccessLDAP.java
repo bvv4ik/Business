@@ -23,6 +23,10 @@ import javax.naming.directory.SearchControls;
 //import ru.auditory.ldap.LdapConnection;
 //import com.novell.ldap.*;
 
+/**
+ *   Тестовая версия, не используется.
+ * @author Sergey
+ */
 public class AccessLDAP {
     
     public String sReturnPasswordUser = "";

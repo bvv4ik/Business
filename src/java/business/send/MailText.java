@@ -20,12 +20,12 @@ public class MailText {
  
  private final String SUBJECT = "Subject"; 
         //private final String CONTENT = "Test"; 
- private final String SMTPHOST = Config.sValue("sMailSMTP"); //"smtp.gmail.com"; 
- private final String FROM = Config.sValue("sMailFrom"); //"serg_geka@mail.ru";
+ private final String SMTPHOST = Config.sValue("sMailSMTP");    //"smtp.gmail.com"; 
+ private final String FROM = Config.sValue("sMailFrom");        //"serg_geka@mail.ru";
         //private final String ADRESSTO = "serg_geka@mail.ru";
- private final String LOGIN = Config.sValue("sMailLogin"); //"businesspgasa";      // businesspgasa@gmail.com
- private final String PASSWORD = Config.sValue("sMailPassword"); //"123qweasdzxc12"; 
- private final String SMTPPORT = Config.sValue("sMailPortSMTP"); //"587"; 
+ private final String LOGIN = Config.sValue("sMailLogin");        //"businesspgasa";      // businesspgasa@gmail.com
+ private final String PASSWORD = Config.sValue("sMailPassword");    //"123qweasdzxc12"; 
+ private final String SMTPPORT = Config.sValue("sMailPortSMTP");    //"587"; 
  private final String TO = ""; 
  private Logger oLog = Logger.getLogger(getClass());
  
@@ -67,7 +67,7 @@ public class MailText {
 //        String smtpHost="smtp.gmail.com"; 
 //        String address="serg_geka@mail.ru";  // 380684053122@sms.beeline.ua
 //        String login="sergey.belyavtsev";  // 
-//        String password="Serg1313serg13"; 
+//        String password="Serg131"; 
 //        String smtpPort="587";     
 //        sendSimpleMessage (login, password, address, address, content, subject, smtpPort, smtpHost);         
     } 

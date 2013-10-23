@@ -105,19 +105,15 @@
  
 <!-- <h1>    Добро пожаловать <    %=oLogin%>  <    %=oLastName%> <    %=oFirstName%> <   %=oSureName%>    </h1> !-->
 
-<!--  Подпись внизу   -->
-<!--  <div style="font-size: 12px; position:absolute; float:right; color:white; left: 30px; height:30px; top:91%; padding-top:7px; border-top:1px solid white ">Created by: Belyavtsev Sergey Vladimirovitch <br>All rights reserved. 2013</div>
--->
-
+<!--  Подпись внизу   -->  <!--  <div style="font-size: 12px; position:absolute; float:right; color:white; left: 30px; height:30px; top:91%; padding-top:7px; border-top:1px solid white ">Created by: Belyavtsev Sergey Vladimirovitch <br>All rights reserved. 2013</div>  -->
 
   
         <% } else  // иначе если есть сессия рисуем ГЛАВНУЮ страницу     
         { %>    
 
-        
-        
+       
 <!--     Добро пожаловать на главную страницу! -->
-     <script src="js/peel.js" type="text/javascript"></script>  <!--  подключаем манящий уголок --> 
+     <script src="js/peel.js" type="text/javascript"></script>  <!--  подключаем манящий уголок только здесь --> 
 
 
 <!-- ----------  СПИСОК СЕССИЙ (окно) ---------- -->  
@@ -151,68 +147,39 @@
 
      
 <!-- ---------- ГЛАВНАЯ страница  ------------ -->                    
-<div  id="divMainPage">
-<img id="exitSite" src="img/exit1.png" style="position:absolute;  top:8px; right:8px; cursor:pointer;" title="Один клик - обычный выход, зажатая левая кнопка мыши более 2 секунд - закрытие вкладки">
-<!--  ДЛЯ ТЕСТОВ  
-<img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии "> 
--->                    
+     <div  id="divMainPage">
+     <img id="exitSite" src="img/exit1.png" style="position:absolute;  top:8px; right:8px; cursor:pointer;" title="Один клик - обычный выход, зажатая левая кнопка мыши более 2 секунд - закрытие вкладки">
+     <!--  ДЛЯ ТЕСТОВ  
+     <img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии "> 
+     -->                    
 
      <div  id="img_logo"> </div>                                    <!--     <a id="linkAbout" style=" position:absolute; left:800px; top:40px; text-decoration: none; color:white;" target="_blank" href="space_galery.html" title="">Инструменты создания<br> данного сайта...</a>             --> 
-<div style=" position : relative; top: -50px; left: 260px; color:white; font-size: 26px; font-family: verdana; ">Знание - сила!</div>
-
-    
+     <div style=" position : relative; top: -50px; left: 260px; color:white; font-size: 26px; font-family: verdana; ">Знание - сила!</div>
 
 
-
-<script>   // обязательная инициализация закладок Jquery
-          $(function() {    $( "#panelTabs" ).tabs( );     });  
-          $(function() {    $( "#subTabsMaterials" ).tabs();     });
-          $(function() {    $( "#subTabsPrifile" ).tabs();     });
-          $(function() {    $( "#subTabsStatistic" ).tabs();     });
-          $(function() {    $( "#subTabsStructure" ).tabs();     });  
-                            
- $(document).ready(function(){
-                  
-      // кликаем по картинке Таба и открываем этот Таб иначе не откроется если кликнуть по картинке
-  $("#im1").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 0 );   });
-  $("#im2").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 1 );   });
-  $("#im3").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 2 );   });
-  $("#im4").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 3 );   });
-  $("#im5").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 4 );   });
-  $("#im6").click(function() {   $( "#panelTabs" ).tabs( "option", "active", 5 );   });
-   
-  
-     // анимация при открытии - скрытии таба                  //$( "#tabs" ).tabs({ hide: { effect: "blind", duration: 100 } }); 
-  $( "#panelTabs" ).tabs({ show: { effect: "blind", duration: 200 } });
-       
-});
-</script>
 
 
   <style>
-
+         /*Стили для Табов*/
        #panelTabs{
             height : 930px;
             border :1px solid black;
        }
-       
        #panelTabs > ul li img {                /*выравниваем картинки табов*/
             width:20px; height:20px;  top:8px; left:8px;  position:absolute;
        }           
                                /* .ui-tabs .ui-tabs-nav li a {   outline: none;  font-size:15px; font-family: verdana;  }  /*отключаем желтую рамку на Табах*/ 
-       #panelTabs > ul{
+       #panelTabs > ul {
             padding-top: 5px;
             padding-left: 25px;
                                      /*ba ckground: -webkit-linear-gradient(top, rgb(97, 97, 97) 0%, rgb(0, 0, 0) 100%);*/
             border: 1px solid black; 
        }                   
                       
-       #panelTabs > ul li a{  cursor : default; 
-         bo rder: 1px solid red;
+       #panelTabs > ul li a {  cursor : default;          
          height: 23px;
        }       
-       #panelTabs > ul li
-       {
+       #panelTabs > ul li   {
             height : 36px;   
             outline : none;   /*отключаем браузерную желтую рамку на активных Табах */ 
             font-family: verdana;
@@ -238,114 +205,94 @@
      <!-- 1 закладка сообщений  --> 	 
      <div id="tabMessages">
           
-          
-<style>      
-     #filterMsg {   border: 1px solid black; padding: 10px; background: rgb(207, 207, 207); 
-      border-radius: 5px 5px 5px 5px;
-      pa dding-left: 40px;
-
-     }
-     #filterMsg label{      color:blue;      }
-     #filterMsg input{     cursor:pointer;     display:none;    }
-     #filterMsg table{   float:none;     }
-     #filterMsg table tr td label:hover{     cursor:pointer;      }
-     #filterMsg table tr td{    text-align:center;     padding: 6px; padding-bottom: 3px; padding-top: 3px; padd ing-right: 12px;   }
-     #filterMsg table tr td div{ /*название фильтров*/
-       float:left;        font-weight:bold;      cursor:default;
-     } 
-</style>
 
 
-<script>
-$(document).ready(function(){
-setFilter(); // устанавливаем подчеркивания активных Радио
+     <style>  
+          /*Стили для настроек*/
+          #filterMsg {   border: 1px solid black; padding: 10px; background: rgb(207, 207, 207); 
+           border-radius: 5px 5px 5px 5px;
+          }
+          #filterMsg label{   color:blue;    }
+          #filterMsg input{   cursor:pointer;  display:none;    }
+          #filterMsg table{   float:none;    }
+          #filterMsg table tr td label:hover{   cursor:pointer;    }
+          #filterMsg table tr td{    text-align:center;     padding: 6px; padding-bottom: 3px; padding-top: 3px;    }
+          #filterMsg table tr td div{      /*название фильтров*/
+            float:left;        font-weight:bold;      cursor:default;
+          } 
 
-$("#filterMsg table tr td input").click(function(){    
-setFilter();        // устанавливаем подчеркивания  активных Радио      // $(this).prev().css("checked","checked");   
-}); 
-        
-       function setFilter() {  // устанавливаем подчеркивания активных Радио
-            $("#filterMsg table tr td input").each(function() {
-                 if ($(this).is( ":checked" ))
-                        $(this).next().css("border-bottom","1px solid rgb(12, 69, 214)").css("font-weight","bold").css("color","rgb(12, 69, 214)"); 
-                    else
-                        $(this).next().css("border-bottom","0px solid blue").css("font-weight","normal").css("color","blue");  
-            });           
-       };
-         
-}); 
-</script>
+           #filterHeader{
+               font-size:16px; font-weight: bold;  color: rgb(134, 134, 134);
+               width: 210px;
+               left: 0px;
+               position: relative;
+               background: rgb(207, 207, 207);
+               padding-bottom: 7px;
+          }
+     </style>
 
-<style>
-#filterHeader{
-     font-size:16px; font-weight: bold;  color: rgb(134, 134, 134);
-     bo rder: 1px solid black;
-     b order-bottom: none;
-width: 210px;
-left: 0px;
-t op: -29px;
-position: relative;
-b order-radius: 5px 5px 0px 0px;
-background: rgb(207, 207, 207);
-padding-bottom: 7px;
-}
-</style>
 
-     &emsp;
-<!--     <!-- align="left" border="0" cellspacing="0" cellpadding="0"  -->
-<div id="filterMsg">          
-<div id="filterHeader"style="">Показать сообщения:</div>
-   
-     <table>   
-          <tr>   
-               <td style="width:87px;"> <div>Тип:</div>   </td>
-               <td style="width:65px;"> <input type="radio" name="tip" id="1" />  <label for="1">Личные</label>  </td>   
-               <td style="width:110px;"> <input type="radio" name="tip" id="2" />  <label for="2">Общественные</label></td>
-               <td style="width:50px;"> <input type="radio" name="tip" id="3" checked="checked" />  <label for="3">Все</label> </td>
-          </tr> 
-     </table>      
-     <table>    
-          <tr>         
-               <td style="width:88px;"> <div>Период:</div></td>
-               <td style="width:70px;"> <input  type="radio" name="period" id="11"  />     <label for="11">1 Неделя</label></td>
-               <td style="width:70px;"> <input  type="radio" name="period" id="22" checked="checked" />   <label for="22">1 Месяц</label></td>
-               <td style="width:80px;"> <input  type="radio" name="period" id="33" />    <label for="33">6 Месяцев</label></td>
-               <td style="width:45px;"> <input  type="radio" name="period" id="44" />    <label for="44">1 Год</label></td>
-               <td style="width:45px;"> <input  type="radio" name="period" id="55" />    <label for="55">Все</label></td>
-          </tr>          
-     </table>               
-     <table>
-          <tr>         
-               <td style="width:90px;"> <div>Статус:</div></td>
-               <td style="width:70px;"> <input type="radio" name="status" id="111" checked="checked" />      <label for="111">Активные</label></td>
-               <td style="width:110px;"> <input type="radio" name="status" id="222" />       <label for="222">Завершенные</label></td>
-               <td style="width:40px;"> <input type="radio" name="status" id="333"  />    <label for="333">Все</label></td>
-          </tr> 
-     </table>
-  
-</div>  
- 
-     
-<!--</fieldset> -->
-     
-<style>  
-     #divListMessages{
-          height: 500px;
-          border: 1px solid black;
-          overflow: scroll/*auto*/; /* прокрутка появляется по необходимости */
-     }
-</style>  
+     <script>
+          $(document).ready(function(){
+               setFilter(); // инициализация (подчеркивания) активных Радио
 
-<br>  
-<div id="divListMessages">
-     
-</div>
-                         
+               $("#filterMsg table tr td input").click(function(){    
+                    setFilter();        // устанавливаем подчеркивания  активных Радио      // $(this).prev().css("checked","checked");   
+               }); 
 
-<br>
- 
+               function setFilter() {  // устанавливаем подчеркивания активных Радио
+                    $("#filterMsg table tr td input").each(function() {
+                         if ($(this).is( ":checked" ))
+                              $(this).next().css("border-bottom","1px solid rgb(12, 69, 214)").css("font-weight","bold").css("color","rgb(12, 69, 214)"); 
+                         else
+                              $(this).next().css("border-bottom","0px solid blue").css("font-weight","normal").css("color","blue");  
+                    });           
+               };
 
-</div>   <!--  конец закладки сообщений  -->
+          }); 
+     </script>
+
+
+     <!--     <!-- align="left" border="0" cellspacing="0" cellpadding="0"  -->
+     <div id="filterMsg">          
+     <div id="filterHeader"style="">Показать сообщения:</div>
+
+          <table>   
+               <tr>   
+                    <td style="width:87px;"> <div>Тип:</div>   </td>
+                    <td style="width:65px;"> <input type="radio" name="tip" id="1" />  <label for="1">Личные</label>  </td>   
+                    <td style="width:110px;"> <input type="radio" name="tip" id="2" />  <label for="2">Общественные</label></td>
+                    <td style="width:50px;"> <input type="radio" name="tip" id="3" checked="checked" />  <label for="3">Все</label> </td>
+               </tr> 
+          </table>      
+          <table>    
+               <tr>         
+                    <td style="width:88px;"> <div>Период:</div></td>
+                    <td style="width:70px;"> <input  type="radio" name="period" id="11"  />     <label for="11">1 Неделя</label></td>
+                    <td style="width:70px;"> <input  type="radio" name="period" id="22" checked="checked" />   <label for="22">1 Месяц</label></td>
+                    <td style="width:80px;"> <input  type="radio" name="period" id="33" />    <label for="33">6 Месяцев</label></td>
+                    <td style="width:45px;"> <input  type="radio" name="period" id="44" />    <label for="44">1 Год</label></td>
+                    <td style="width:45px;"> <input  type="radio" name="period" id="55" />    <label for="55">Все</label></td>
+               </tr>          
+          </table>               
+          <table>
+               <tr>         
+                    <td style="width:90px;"> <div>Статус:</div></td>
+                    <td style="width:70px;"> <input type="radio" name="status" id="111" checked="checked" />      <label for="111">Активные</label></td>
+                    <td style="width:110px;"> <input type="radio" name="status" id="222" />       <label for="222">Завершенные</label></td>
+                    <td style="width:40px;"> <input type="radio" name="status" id="333"  />    <label for="333">Все</label></td>
+               </tr> 
+          </table>
+
+     </div>  
+
+
+     <br>   <!--  большое поле для сообщений сообщений  -->
+     <div id="divListMessages" style="height: 500px; border: 1px solid black; overflow: scroll">  </div>
+     <br>
+
+
+     </div>   <!--  конец закладки сообщений  -->
 
 
 
@@ -496,12 +443,11 @@ padding-bottom: 7px;
 
 
 
-<!--   -->
+<!--   
 <br>
 
  <div id="divNavigation" >
-            <ul>    <!--  <img src="img/key.png" style="position:relative; top:11px; left:5px;" align="left"/>   -->                                                                                                                                                 
-                    <!-- <li> <img src="img/help1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageHelp" href="#">Связь</a> </li>   <div id="separatop"></div>   -->
+            <ul>    
                     <img src="img/key.png" style="position: absolute; padding-top:8px;padding-left:8px;" /> <li> <a id="mainPageAdmin" href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;На сайте</a>  	 </li> 	<div id="separatop"></div>
                     <img src="img/nastr1.png" style="position: absolute; padding-top:8px;padding-left:8px;" /> <li>  <a id="mainPageSettings" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Настройки</a>	 </li> 	<div id="separatop"></div>
                     <li> <img src="img/user.png" style="position:relative; top:11px; left:5px; padding-right:5px;" align="left"/> <a id="mainPagePrivateOffice" href="#">Личный кабинет</a></li> 	<div id="separatop"></div>
@@ -511,13 +457,14 @@ padding-bottom: 7px;
                     <li> <img src="img/exit1.png" style="position:relative; top:11px; left:5px; padding-right:7px;" align="left"/> <a id="mainPageExitSession" href="#">Выход</a>	     </li>
             </ul> 
     </div>
-
+-->
 
 <script>
      /* ------ Базовая форма для Jquery UI меню */
      $(function() {  $( "#menu" ).menu();  });	
      //$( "#menu" ).menu({ icons: { submenu: "ui-icon ui-icon-play" } }); // выставляем вид стрелки
 
+// Эффекты
 /*  $("#mainPageLibrary").click(function() {
 $("#men").effect("fade", { mode: "show", direction: "horizontal" }, 400); 
  });
@@ -636,7 +583,7 @@ $("#men").effect("fade", { mode: "show", direction: "horizontal" }, 400);
 
 
                      
- <!--  конец главного листа   -->                     
+ <!--  конец листа ГЛАВНОЙ страницы  -->                     
 </div> 
 
 
@@ -694,20 +641,15 @@ a {  outline: none; }
 
 <script type="text/javascript">
 $(function(){
-    
     var current_index = null;    
-    
     $('#help-button').click(function(){        
         $('#help-panel').toggle(300);
     });
-    
-        
     $('a.title').click(function(){             
         if(current_index != $('a.title').index(this)){
             $('.collapse:visible').slideUp(500);
             $('a.title').removeClass('selected');
         }        
-        
         if($(this).parent().next().attr('class') == 'collapse'){        
             if($(this).parent().next().is(":hidden")){
                 $(this).addClass('selected');
@@ -716,14 +658,12 @@ $(function(){
             }
             $(this).parent().next().slideToggle(500); // показать
         }
-        
         current_index = $('a.title').index(this);        
     });
     
     $('#help-panel').mouseleave(function(){
       $('#help-panel').toggle(300); //$('#help-panel').slideToggle(500); // спрятать
     });    
-    
 });
 </script>
 
@@ -732,7 +672,9 @@ $(function(){
 
 
 
-<style type="text/css">
+
+
+<style>
 /* ----- тесты ------ */
 #left textarea{
      resize: none;
@@ -949,138 +891,126 @@ var arr = [  /*'Сколько будет 1 + 1 ?',   '1', '2', '3', '4', '5',  
 'c.	<ol>'
  ];
 	
-	// инициализация
-  //$("#numVopr").text(arr[count+0]); // № вопроса
-  $("#tarea_vopros").val(arr[count+0]); // сам вопрос
-  $("#tarea1").val(arr[count+1]); // устанавливаем варианты ответов
-  $("#tarea2").val(arr[count+2]);
-  $("#tarea3").val(arr[count+3]);
-  $("#tarea4").val(arr[count+4]);
-  $("#tarea5").val(arr[count+5]);
-  
-
-  
- // кликаем на ответ
-$(".tarea").click(function() {
-
-$("#left").hide("fade", {}, 300); // сворачиваем окно теста
-//$(this).effect("explode", {}, 1000);
-
-
-
-
-if ($(this).val() == arr[count+6]) {  //проверка ответ правильный
-   ++countPrav;  // считаем правильные ответы
-  }       //alert(countPrav);
-
-  // формируем отчет
-sReportTest += '<xmp>Вопрос '+((count/7)+1)+ '\n' ;
-sReportTest +=  ''+arr[count+0]+ '' +'\n' ; // сам вопрос
-sReportTest += arr[count+1]+ '\n';
-sReportTest += arr[count+2]+ '\n';
-sReportTest += arr[count+3]+ '\n';
-sReportTest += arr[count+4]+ '\n';
-sReportTest += arr[count+5]+ '\n';
-sReportTest += 'Правильный ответ:  ' + arr[count+6]+ '\n';
-sReportTest += 'Ваш ответ:  ' + $(this).val()+ '\n </xmp>';
-
-//alert(sReportTest );
-  
-count+=7;  /*переходим к следующему вопросу, .....7 элементов занимает один вопрос в массиве*/
-
-
-setTimeout(function() {    // делаем задержку чтобы загрузились вопросы
-  $("#numVopr").text('Вопрос '+((count/7)+1) + " / " + arr.length/7); // № вопроса
-  
-  $("#tarea_vopros").val(arr[count+0]); // сам вопрос
-  
-  $("#tarea1").val(arr[count+1]); // устанавливаем варианты ответов
-  $("#tarea2").val(arr[count+2]);
-  $("#tarea3").val(arr[count+3]);
-  $("#tarea4").val(arr[count+4]);
-  $("#tarea5").val(arr[count+5]);
-  
-if ((count % 2) == 0)     // если четное меняем фон окна через 0,3 секунды
-$("#left").css("background","rgb(173, 173, 173)");
-else       // если не четное меняем фон окна 
-$("#left").css("background","rgb(134, 130, 130)");
-  
-}, 300); // конец таймера
-  
-
-  
-   if (arr[count+0] == null) { // В массиве больше нет вопросов 
-
-   
-          if (confirm("Тестирование завершено! Вы ответили правильно на "+countPrav+" вопрос(ов) из "+arr.length/7 + '\n Хотите посмотреть детальный отчет?')) {
-            //alert("Привет!")
-            sReportTest += " ------------------------------------------- <br> Вы ответили правильно на "+countPrav+" вопрос(ов) из "+arr.length/7 +'\n' ;
-            $('#divReportTest').html(sReportTest) ;
-            $('#frameDivReportTest').show();
-               countPrav = 0;     // сбрасываем кол. правильных
-               count = 0;        // сбрасываем счетчик вопросов
-               sReportTest = ""; // сбрасываем отчет
-
-          }  else { // если нажать отмена (не показывать отчет)
-                     countPrav = 0;     // сбрасываем кол. правильных
-                     count = 0;        // сбрасываем счетчик вопросов
-                     sReportTest = ""; // сбрасываем отчет
-             }
-
-   }  else
-       //$("#left").show("drop", "left", 800); // показываем след. вопрос
-        //$('#left').show('drop', { direction: 'right' },1000);
-        //$('#left').show('fade', { direction: 'right' },1000);
-        $('#left').show('blind', { direction: 'vertical' }, 500);
-        // $('#left').clone().prependTo("body").show('fade', {}, 1000);
-	
-});
-
+     // инициализация
+     //$("#numVopr").text(arr[count+0]); // № вопроса
+     $("#tarea_vopros").val(arr[count+0]); // сам вопрос
+     $("#tarea1").val(arr[count+1]); // устанавливаем варианты ответов
+     $("#tarea2").val(arr[count+2]);
+     $("#tarea3").val(arr[count+3]);
+     $("#tarea4").val(arr[count+4]);
+     $("#tarea5").val(arr[count+5]);
+     
+        
+     // кликаем на ответ
+     $(".tarea").click(function() {
+          
+          $("#left").hide("fade", {}, 300); // сворачиваем окно теста
+          //$(this).effect("explode", {}, 1000);
+          
+          if ($(this).val() == arr[count+6]) {  //проверка ответ правильный
+               ++countPrav;  // считаем правильные ответы
+          }       //alert(countPrav);
+          
+          // формируем отчет
+          sReportTest += '<xmp>Вопрос '+((count/7)+1)+ '\n' ;
+          sReportTest +=  ''+arr[count+0]+ '' +'\n' ; // сам вопрос
+          sReportTest += arr[count+1]+ '\n';
+          sReportTest += arr[count+2]+ '\n';
+          sReportTest += arr[count+3]+ '\n';
+          sReportTest += arr[count+4]+ '\n';
+          sReportTest += arr[count+5]+ '\n';
+          sReportTest += 'Правильный ответ:  ' + arr[count+6]+ '\n';
+          sReportTest += 'Ваш ответ:  ' + $(this).val()+ '\n </xmp>';     
+          //alert(sReportTest );
+          
+          count+=7;  /*переходим к следующему вопросу, .....7 элементов занимает один вопрос в массиве*/
+                   
+          setTimeout(function() {    // делаем задержку чтобы загрузились вопросы
+               $("#numVopr").text('Вопрос '+((count/7)+1) + " / " + arr.length/7); // № вопроса
+               
+               $("#tarea_vopros").val(arr[count+0]); // сам вопрос             
+               $("#tarea1").val(arr[count+1]); // устанавливаем варианты ответов
+               $("#tarea2").val(arr[count+2]);
+               $("#tarea3").val(arr[count+3]);
+               $("#tarea4").val(arr[count+4]);
+               $("#tarea5").val(arr[count+5]);
+               
+               if ((count % 2) == 0)     // если четное меняем фон окна через 0,3 секунды
+                    $("#left").css("background","rgb(173, 173, 173)");
+               else       // если не четное меняем фон окна 
+                    $("#left").css("background","rgb(134, 130, 130)");           
+          }, 300); // конец таймера
+          
+                 
+          if (arr[count+0] == null) { // В массиве больше нет вопросов 
+                     
+               if (confirm("Тестирование завершено! Вы ответили правильно на "+countPrav+" вопрос(ов) из "+arr.length/7 + '\n Хотите посмотреть детальный отчет?')) {
+                    //alert("Привет!")
+                    sReportTest += " ------------------------------------------- <br> Вы ответили правильно на "+countPrav+" вопрос(ов) из "+arr.length/7 +'\n' ;
+                    $('#divReportTest').html(sReportTest) ;
+                    $('#frameDivReportTest').show();
+                    countPrav = 0;     // сбрасываем кол. правильных
+                    count = 0;        // сбрасываем счетчик вопросов
+                    sReportTest = ""; // сбрасываем отчет
+                    
+               }  else { // если нажать отмена (не показывать отчет)
+                    countPrav = 0;     // сбрасываем кол. правильных
+                    count = 0;        // сбрасываем счетчик вопросов
+                    sReportTest = ""; // сбрасываем отчет
+               }            
+          }  else{
+               $('#left').show('blind', { direction: 'vertical' }, 500); 
+               }
+               //$("#left").show("drop", "left", 800); // показываем след. вопрос
+               //$('#left').show('drop', { direction: 'right' },1000);
+               //$('#left').show('fade', { direction: 'right' },1000);
+               // $('#left').clone().prependTo("body").show('fade', {}, 1000);
+          
+     });
 });
 
 
 
 var arr1 = [0,1,2,3,4,5,6,7,8,9];
- 
+
 /* получить случайное целое число из диапазона */
 function random(min, max) {
-    var range = max - min + 1;
-    return Math.floor(Math.random()*range) + min;
+     var range = max - min + 1;
+     return Math.floor(Math.random()*range) + min;
 }
- 
+
 /* перемешать массив */
 function shuffle(arr) {
-    var r_i; // случайный индекс
-    var v; // временная переменная
-    for (var i = 0; i < arr.length-1; i++) {
-        /* получаем случайный индекс (кроме последнего) */
-        r_i = random(0, arr.length-1);
-        /* меняем местами случайный элемент массива с последним */
-        v = arr[r_i];
-        arr[r_i] = arr[arr.length-1];
-        arr[arr.length-1] = v;
-    }
-    return arr;
+     var r_i; // случайный индекс
+     var v; // временная переменная
+     for (var i = 0; i < arr.length-1; i++) {
+          /* получаем случайный индекс (кроме последнего) */
+          r_i = random(0, arr.length-1);
+          /* меняем местами случайный элемент массива с последним */
+          v = arr[r_i];
+          arr[r_i] = arr[arr.length-1];
+          arr[arr.length-1] = v;
+     }
+     return arr;
 }
- 
-
-
 </script>
-
 
 <!--  --------------------------------------------------  -->
 
 
 
-
-
-	
-        
+     
         <% }
      %>
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 
@@ -1138,8 +1068,6 @@ function shuffle(arr) {
                                  повышение квалификации по базовым направлениям (специальностями) - 3900 человек в год. Аккредитованных
                                  специальностей: IV уровень - 96 (79,3%), III уровень - 15 (12,4%), II уровень - 8 (6,6%).
                          </p>
-
                          <tr>
                  </div>
-
-               </div>  -->
+           </div>  -->
