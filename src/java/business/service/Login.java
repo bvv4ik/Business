@@ -7,6 +7,7 @@ import business.auth.AccessAuth;
 import business.auth.Access;
 import business.auth.AccessOf;
 import business.send.MailText;
+import com.bw.io._;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
 import javax.servlet.http.*;
 //import javax.servlet.http.HttpServlet;
 import javax.servlet.annotation.WebServlet;
@@ -38,8 +41,9 @@ import org.apache.log4j.Logger;
         request.setCharacterEncoding("utf-8");
 
         DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        int       sCountRequest = 5;
         
-        String    sReturn =  "{\"sReturn\":\"" + "-none-" + "\"}", // чтобы не возвращался NULL и небыло ошибки
+        String    sReturn =  "{\"sReturn\":\"" + "-none-" + "\"}", // чтобы не возвращался NULL и небыло ошибки                  
                   sDO = "" , 
                   sEmail = "",
                   sPassword = "",                           
@@ -55,6 +59,53 @@ import org.apache.log4j.Logger;
            
                oLog.info("sDO="+sDO+", sEmail="+sEmail);  
  
+             
+
+//---------- Ограничение попыток неавторизированного пользователя делать запросы.
+/*       Этот код должен находится в самом начале сервлета!
+ *    Создается статический HashMap на сервере и при каждом запросе неавторизированного пользователя
+ *    в эту таблицу записываются: "IP пользователя"     и     "число попыток" + "Дата и время"
+ *    если в течении Н минут пользователь привысит число запросов, то остальные запросы будут игнорироватся
+ *    в течении 2 минут.
+ * 
+ */       
+             if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
+                   String sUserIP = request.getLocalAddr();        // узнаем IP входящего пользователя
+                   String sIP = AccessAuth.map.get(sUserIP);   
+                   if (sIP != null) {       // если IP пользователя (делающего запрос) есть в списке, то:
+                              int nCount = Integer.parseInt(sIP.substring(0, 2));    // берем число его уже сделанных запросов
+                              String sTimeExpiredOld = sIP.substring(3, 22);         // берем (строку) дату окончания срока действия записи
+                              Date oTimeExpiredOld = df.parse(sTimeExpiredOld);      // (строку)дату окончания срока действия записи превращаем в обьект
+                              Date d = new Date();                                   // узнаем текущее время
+                              String sCurrentTime = df.format(d);
+                              Date oTimeCurrent = df.parse(sCurrentTime);  
+                              if (oTimeExpiredOld.getTime() > oTimeCurrent.getTime()) {   // если время окончания больше текущего, то 
+                                 if (nCount >= 5) {                                       //  проверяем сколько запросов сделано пользователем: мах 99.
+                                      sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}"; // сделано более 5 запросов в течении 2 минут...
+                                      sCountRequest = 0;
+                                      return;        // вываливаемся из сервлета и ничего больше не обрабатываем
+                                 }                   // обновляем счетчик, а время истечения срока оставляем старое
+                                 
+                                 AccessAuth.map.put(sUserIP, String.format("%02d", (nCount+1))+" "+sTimeExpiredOld);
+                                 sCountRequest = (5-nCount);
+                              } else {                  // удаляем устаревшую запись
+                                       AccessAuth.map.remove(sUserIP);
+                                             // Обновляем запись до 1
+                                             //Calendar cal = Calendar.getInstance();
+                                             //cal.add(Calendar.MINUTE, +2);         // добавляем к текущему времени 2 минуты - это время "окончания" записи. 
+                                             //String sTimeExpired = df.format(cal.getTime());
+                                             //AccessAuth.map.put(sUserIP, "1"+" "+sTimeExpired);
+                                     }
+                  } else {     //  добавляем 1-ю запись о пользователе если его IP нет в списке
+                       Calendar cal = Calendar.getInstance();
+                       cal.add(Calendar.MINUTE, +2);         // добавляем к текущему времени 2 минуты - это время "окончания" записи.
+                       String sTimeExpired = df.format(cal.getTime());
+                          AccessAuth.map.put(sUserIP, "01"+" "+sTimeExpired);
+                  }
+             }       
+             
+             
+              
                
 //------------- Отправка на Емаил пользователя ссылки для "входа без пароля" ---------------
              if ("theSendEmail".equals(sDO)) {
@@ -166,57 +217,8 @@ import org.apache.log4j.Logger;
             
 
 
-//---------- Ограничение попыток неавторизированного пользователя делать запросы.
-/*
- * Возможны пролемы если одновременно много пользователей будут входить на сайт
- * и обращатся к статичному массиву... при удалии одним пользоватлей записей, у другого пользователя
- * статичный массив изменится????? 
- * 
- */       
-             if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
-                  String sUserIP = request.getLocalAddr();        // узнаем IP входящего пользователя
-                  // если массив строк пустой, то создаем хотябы одну запись, иначе с пустым массивом нельзя работать
-                  if (AccessAuth.aUserCountTry.size() == 0) {
-                       AccessAuth.aUserCountTry.add("0 2000.01.01 11:07:55 111.111.111.111");
-                  }
-                  for (int i = 0; i <= AccessAuth.aUserCountTry.size() - 1; i++) {   // Ищем IP пользователя (делающего запрос) в списке
-                       //String s = AccessAuth.aUserCountTry.get(i);
-                       if (AccessAuth.aUserCountTry.get(i).contains(sUserIP)) {   // если IP пользователя (делающего запрос) в списке есть то
-                            int nCount = Integer.parseInt(AccessAuth.aUserCountTry.get(i).substring(0, 1)); // берем число его уже сделанных запросов
-                            String sTimeExpiredOld = AccessAuth.aUserCountTry.get(i).substring(2, 22); // берем (строку) дату окончания срока действия записи
-                             Date oTimeExpiredOld = df.parse(sTimeExpiredOld);      // (строку)дату окончания срока действия записи превращаем в обьект
-                              Date d = new Date();            // узнаем текущее время
-                              String sCurrentTime = df.format(d);
-                              Date oTimeCurrent = df.parse(sCurrentTime);  
 
-                            if (oTimeExpiredOld.getTime() > oTimeCurrent.getTime()) { // если время окончания больше текущего, то 
-                                 //  проверяем сколько запросов сделано пользователем:
-                                 if (nCount > 5) {
-                                      sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}"; // сделано более 5 запросов в течении 2 минут, доступ заблокирован.
-                                      return;
-                                 }
-                                 // обновляем счетчики
-                                 AccessAuth.aUserCountTry.set(i, (nCount + 1) + " " + sTimeExpiredOld + " " + sUserIP); // счетчик + 1, дата старая, адрес старый
-                                 return;
-
-                            } else {
-                                 // удаляем устаревшую запись
-                                 AccessAuth.aUserCountTry.remove(i);
-                            }
-
-                       }
-
-                  }
-                  
-                  Calendar cal = Calendar.getInstance();
-                  cal.add(Calendar.MINUTE, +2);         // добавляем к текущему времени 2 минуты - это время "окончания" записи 
-                  String sTimeExpired = df.format(cal.getTime());
-                    // Если нету ИП то просто добавляем новую запись о пользователе: "текущее Число попыток", "Время окончания", "IP"
-                    AccessAuth.aUserCountTry.add("1" + " " + sTimeExpired + " " + sUserIP);
-             }
-
-
-
+             
 //------------- Получение списка сессий (старое)             
 //            if ("theGetAllSessionList".equals(sDO)) {
 //                String s = "";
@@ -246,7 +248,9 @@ import org.apache.log4j.Logger;
               oLog.info("sDO=" + sDO + ", sEmail=" + sEmail);
          }                               //throw new RuntimeException(_); раскомментировав эту строку можно прерывать выполнение класса при этой ошибке
          finally {                       //этот код выполнится даже если произойдет ошибка (иногда это очень важно, чтоб, например - закрыть соединение
-              response.getWriter().write(sReturn);     // возвращаемые данные
+              sReturn = _.ConcatJson(sReturn, "{\"sReturnCount\":\"" + sCountRequest + "\"}"); 
+             response.getWriter().write(sReturn);     // возвращаемые данные
+              
          }
     }
 
@@ -277,6 +281,55 @@ import org.apache.log4j.Logger;
 
 
 //================== Свалка старого кода
+
+//---------------------------------------------               
+   /*          if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
+                  String sUserIP = request.getLocalAddr();        // узнаем IP входящего пользователя
+                  // если массив строк пустой, то создаем хотябы одну запись, иначе с пустым массивом нельзя работать
+                  if (AccessAuth.aUserCountTry.size() == 0) {
+                       AccessAuth.aUserCountTry.add("0 2000.01.01 11:07:55 111.111.111.111");
+                  }
+    
+                  for (int i = 0; i <= AccessAuth.aUserCountTry.size() - 1; i++) {   // Ищем IP пользователя (делающего запрос) в списке
+                       //String s = AccessAuth.aUserCountTry.get(i);
+                       if (AccessAuth.aUserCountTry.get(i).contains(sUserIP)) {   // если IP пользователя (делающего запрос) в списке есть то
+                            int nCount = Integer.parseInt(AccessAuth.aUserCountTry.get(i).substring(0, 1)); // берем число его уже сделанных запросов
+                            String sTimeExpiredOld = AccessAuth.aUserCountTry.get(i).substring(2, 22); // берем (строку) дату окончания срока действия записи
+                             Date oTimeExpiredOld = df.parse(sTimeExpiredOld);      // (строку)дату окончания срока действия записи превращаем в обьект
+                              Date d = new Date();              // узнаем текущее время
+                              String sCurrentTime = df.format(d);
+                              Date oTimeCurrent = df.parse(sCurrentTime);  
+
+                            if (oTimeExpiredOld.getTime() > oTimeCurrent.getTime()) { // если время окончания больше текущего, то 
+                                 //  проверяем сколько запросов сделано пользователем:
+                                 if (nCount > 5) {
+                                      sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}"; // сделано более 5 запросов в течении 2 минут, значит доступ заблокирован.
+                                      return;  // вываливаемся из сервлета
+                                 }
+                                 // обновляем счетчики
+                                 AccessAuth.aUserCountTry.set(i, (nCount + 1) + " " + sTimeExpiredOld + " " + sUserIP); // счетчик + 1, дата старая, адрес старый
+                                 //return; 
+
+                            } else {
+                                 // удаляем устаревшую запись
+                                 AccessAuth.aUserCountTry.remove(i);
+                            }
+                       }
+                  }
+                  Calendar cal = Calendar.getInstance();
+                  cal.add(Calendar.MINUTE, +2);         // добавляем к текущему времени 2 минуты - это время "окончания" записи 
+                  String sTimeExpired = df.format(cal.getTime());
+                    // Если нету ИП то просто добавляем новую запись о пользователе: "текущее Число попыток", "Время окончания", "IP"
+                    AccessAuth.aUserCountTry.add("1" + " " + sTimeExpired + " " + sUserIP);
+             }
+               
+      */       
+
+
+
+
+
+
 //                         try {
 //                         // Выборка всех записей сессии    
 //                        Enumeration keys = session.getAttributeNames();

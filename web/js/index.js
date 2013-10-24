@@ -125,7 +125,9 @@ function ajax_doLogin(){
                     }) 
                }
                
-               
+               alert(o.sReturnCount);
+               if (o.sReturnCount == "FailLimitRequest!"){ 
+               }
                
           }, 
           error:function(o,s) {

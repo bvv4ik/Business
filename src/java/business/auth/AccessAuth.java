@@ -5,6 +5,7 @@ import business.AccessDB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import org.apache.log4j.Logger;
 
@@ -17,8 +18,8 @@ public class AccessAuth {
                           //public static ArrayList<String[]> aUserCountTry = new ArrayList<String[]>();
      // Список массивов, в которых храним данные о попытках входа пользователей
      public static ArrayList<String> aUserCountTry = new ArrayList<String>();
-    
-     
+     //public static HashMap map = new HashMap();
+     public static HashMap<String, String> map = new HashMap<String, String>();
               
      /**
       * Сохраняем Куку пользователя в Базе при входе

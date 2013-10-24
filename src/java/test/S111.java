@@ -18,9 +18,12 @@ import java.util.Random;
  */
 public class S111 {
     
+    
+     
     public static void main(String[] args) throws SQLException, InterruptedException, IOException {
     
-        
+     String s = String.format("%02d", 1);
+          System.out.println(s);
 //    List list1 = new ArrayList(); 
 //    LoadTextFile lf1 = new LoadTextFile();
 //    list1 = lf1.ListFromFile("D:/Java_study/---Projects/KOATUU/1.txt");
@@ -51,19 +54,19 @@ char b = (char) (a + 1);
 System.out.println(b);
 */
          
-       String sCookie =   "31&cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr";
-       
-       if (sCookie.indexOf("&") != -1){          // если есть знак "/"
-             String sCookie1 = sCookie.substring(0, sCookie.indexOf("&")); // Берем все что сначала строки и до знака "/"
-       System.out.println(sCookie1);
-                         
-       }
-       
-       if (sCookie.indexOf("&") != -1){             // если есть знак "/"
-              String sCookie2 = sCookie.substring(sCookie.lastIndexOf("&")+1); // берем все что после "/" и до конца
-
-          System.out.println(sCookie2);
-       }
+//       String sCookie =   "31&cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr";
+//       
+//       if (sCookie.indexOf("&") != -1){          // если есть знак "/"
+//             String sCookie1 = sCookie.substring(0, sCookie.indexOf("&")); // Берем все что сначала строки и до знака "/"
+//       System.out.println(sCookie1);
+//                         
+//       }
+//       
+//       if (sCookie.indexOf("&") != -1){             // если есть знак "/"
+//              String sCookie2 = sCookie.substring(sCookie.lastIndexOf("&")+1); // берем все что после "/" и до конца
+//
+//          System.out.println(sCookie2);
+//       }
         
     
     }

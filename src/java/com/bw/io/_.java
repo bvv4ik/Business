@@ -23,6 +23,23 @@ public abstract class _ {
         return sDT(sFormat, GregorianCalendar.getInstance().getTime());
     }
 
+    
+     /**
+      *  Объединяет два объекта Json (содержащих экранирование)
+      * @param sInput  1-я строка, например: String s = "{\"sReturn\":\"Error, ошибка в сервлете \"}";
+      * @param sAdd   - 2-я строка 
+      * @return
+      */
+     public static String ConcatJson (String sInput, String sAdd) {
+     String s = "";
+     s = sInput.substring(0, sInput.length()-1) +", "+ sAdd.substring(1,sAdd.length());    
+     //   String s = "{\"sReturn\":\"Error, ошибка в сервлете \"}";
+     //   {"name":"foo","num":100,"balance":1000.21,"is_vip":true,"nickname":null}
+          return s;
+     }
+     
+    
+    
     /**
      * @param sFormat формат даты
      * @return строка форматированной текущей даты
