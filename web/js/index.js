@@ -50,6 +50,9 @@ function  ajax_userExists(){
                }   
 
                $( "#imgLoading" ).fadeOut( 500 );  // прячем прогресс бар при любом ответе
+               
+               $(".countRecuest").text(o.sReturnLimitRequest);
+               /// здесь доделать менять замки
 
           }
           ,error:function(o,s) {
@@ -97,8 +100,8 @@ function ajax_doLogin(){
                          expires: 2,  
                          path: '/'/*, secure: true */
                     });
-                    // сохраняем/обновляем постоянную Куку при успешном входе, чтобы больше не высвечивалась подсказка
-                    var date = new Date();                            //date = date.toString().replace(/\ /g,"_");    // замена всех пробелов на подчеркивание
+                    // сохраняем/обновляем постоянную Куку при успешном входе, чтобы больше не высвечивалась подсказка     //date = date.toString().replace(/\ /g,"_");    // замена всех пробелов на подчеркивание
+                    var date = new Date();                           
                     $.cookie("last", date, {
                          expires: 7777,  
                          path: '/'         //, secure: true   Работает только с HTTPs
@@ -117,17 +120,42 @@ function ajax_doLogin(){
                     "<br><br> • <a href='#' onClick='javascript: alert('потом');' > Сменить пароль (отправить СМС на номер 1234567890) </a> " +
                     "<br><br> "
                     }) 
-               } else if (o.sReturn == "FailLimitRequest!"){  // сделано более 5 запросов в течении 2 минут, доступ заблокирован.
+               } else { // Это выводится в любом случае (ошибка, не верные данные и т.д)
                     dhtmlx.message({
                          type:"info", 
                          expire:5000, 
-                         text: " Вы исчерпали число допустимых запросов! Ваш IP Заблокирован на 2 минуты! " 
+                         text: o.sReturn 
                     }) 
                }
                
-               alert(o.sReturnCount);
-               if (o.sReturnCount == "FailLimitRequest!"){ 
-               }
+               
+            //   alert((o.sReturnLimitRequest).length);
+             //  if (o.sReturnCount == "FailLimitRequest!"){ 
+             //  }
+               
+               
+              // if (o.sReturnLimitReques == "FailLimitRequest!"){  // сделано более 5 запросов в течении 2 минут, доступ заблокирован.
+                     $(".countRecuest").text(o.sReturnLimitRequest);
+                   //  alert(o.sReturnLimitRequest);     
+                       if (parseInt(o.sReturnLimitRequest) < 5) {
+                        $(".countRecuestDiv").css("background","url(../img/zamok_green.png)")
+                        .css("display","block");
+                        
+                        // показываем зеленый замок
+                        //  background: url(../img/zamok_green.png);
+                       }                                        
+                       if (parseInt(o.sReturnLimitRequest) <= 0) {
+                      //  делаем красный замок
+                      $(".countRecuestDiv").css("background","url(../img/zamok_red.png)");
+                          
+                       } 
+             //  } 
+//                    dhtmlx.message({
+//                         type:"info", 
+//                         expire:5000, 
+//                         text: " Вы исчерпали число допустимых запросов! Ваш IP Заблокирован на 2 минуты! " 
+//                    })                
+               
                
           }, 
           error:function(o,s) {
@@ -164,36 +192,6 @@ function  ajax_doDestroySession(){
                alert("Произошла ошибка-- ajax_doDestroySession()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
           }
           ,dataFilter:function(data, type) {  
-               return data;
-          }
-     });
-}
-
-
-
-// ---------------------  Получаем список всех сессий   --------------------------
-
-function ajax_getAllSession(){
-     var oData= {
-          sDO: "theGetAllSessionList"
-     };
-     $.ajax({
-          type:"POST"
-          ,dataType:"json"
-          ,url:"/Login"
-          ,data:oData
-          ,async:true
-          ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-               if (o.sReturn != "-none-")    { 
-                    $("#divAllSessinList table").html(o.sReturn);
-                    $("#divAllSessinList").css("display","block");
-                    $("#FON_contact").css("display","block");
-               }
-          }
-          ,error:function(o,s) {
-               alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
-          }
-          ,dataFilter:function(data, type) {
                return data;
           }
      });
@@ -281,6 +279,35 @@ function ajax_LoginForCookie(sCookie){
           }
      });
 }
+
+
+// ---------------------  Получаем список всех сессий   --------------------------
+
+//function ajax_getAllSession(){
+//     var oData= {
+//          sDO: "theGetAllSessionList"
+//     };
+//     $.ajax({
+//          type:"POST"
+//          ,dataType:"json"
+//          ,url:"/Login"
+//          ,data:oData
+//          ,async:true
+//          ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+//               if (o.sReturn != "-none-")    { 
+//                    $("#divAllSessinList table").html(o.sReturn);
+//                    $("#divAllSessinList").css("display","block");
+//                    $("#FON_contact").css("display","block");
+//               }
+//          }
+//          ,error:function(o,s) {
+//               alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
+//          }
+//          ,dataFilter:function(data, type) {
+//               return data;
+//          }
+//     });
+//}
 
 
 
@@ -425,7 +452,16 @@ function goto_event(){};
                     text:" Введите корректный E-Mail! <br>"
                }) 
                return;                    
-          }           
+          }  
+          // временно отключить 
+//          else  if( ($("#sPassword").val()).length < 10  ) {
+//               dhtmlx.message({
+//                    type:"error", 
+//                    expire:4000,  
+//                    text:" Длинна пароля должна быть больше 10 символов! <br>"
+//               }) 
+//               return;                    
+//          }                
 
           ajax_doLogin();  // отправляем запрос на вход                            
                             // dhtmlx.message({ type:"default", expire:9000, text:"<br> <img src='img/wait.gif'/> &nbsp; Ожидайте... <br><br>" });

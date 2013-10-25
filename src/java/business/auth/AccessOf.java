@@ -54,24 +54,24 @@ private String sData;
       * @param sIP
       * @throws Exception
       */
-     public static void saveInfoWhenUserTryLogined(String sEmail, String sIP, boolean bAgree) throws Exception {
+     public static void saveInfoTryLogined(String sEmail, String sIP, boolean bAgree) throws Exception {
 
-      Access Acc = new Access();
-      int nID_Access = Acc.getIdAccess(sEmail); // узнаем ИД предыдущей таблицы по Логину
+          Access Acc = new Access();
+          String nID_Access = Acc.getIdAccess(sEmail); // узнаем ИД предыдущей таблицы по Логину
 
-      Date d = new Date();            // определяем текущую дату.
-      DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-      String sTime = df.format(d);
-      
-      Connection oConnection = AccessDB.oConnectionStatic("");
-      try {  
-           oConnection.prepareStatement("INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
-                   + "VALUES (" + nID_Access + ",'" + sIP + "','" + sTime + "','ссылка откуда...',1,'доп. инф')").executeUpdate();                 //1900-11-11 11:11:11
-      } catch (Exception e) {
-           // return "Ошибка создания записи БД: Класс AccessAuth";
-      } finally {
-           AccessDB.closeConnectionStatic("", oConnection);    // так делать всегда!!1
-      }
+          Date d = new Date();            // определяем текущую дату.
+          DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+          String sTime = df.format(d);
+
+          Connection oConnection = AccessDB.oConnectionStatic("");
+          try {
+               oConnection.prepareStatement("INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
+                       + "VALUES (" + nID_Access + ",'" + sIP + "','" + sTime + "','ссылка откуда...',1,'доп. инф')").executeUpdate();                 //1900-11-11 11:11:11
+          } catch (Exception e) {
+               // return "Ошибка создания записи БД: Класс AccessAuth";
+          } finally {
+               AccessDB.closeConnectionStatic("", oConnection);    // так делать всегда!!1
+          }
 
 
 

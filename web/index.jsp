@@ -1,3 +1,4 @@
+<%@page import="business.auth.AccessAuth"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,7 +17,19 @@
   Object oSureName = session.getAttribute("sSureName");
   Object oIP = request.getServerName(); //getRemoteUser();//
   //Object oIP = session.getId();       //request.getRemoteAddr();      //request.getRemoteUser(); 
-  //String sLogin = session.getAttribute("sLogin");       
+  //String sLogin = session.getAttribute("sLogin");  
+  //String sLogin = AccessAuth.aUserCountTry; 
+  
+  String sLimitRequest = "---";
+  int nLimitRequest = 9;
+  if (AccessAuth.map.size() != 0) {
+            sLimitRequest = (AccessAuth.map.get(request.getLocalAddr())).substring(0, 2);
+            nLimitRequest = Integer.parseInt(sLimitRequest);
+            if (sLimitRequest == null) {
+                 sLimitRequest = "--";
+            };
+            
+       }
 %>
 <!DOCTYPE html>
 <html>
@@ -52,9 +65,9 @@
 
        <%    //oEmail = 1 ; 
             if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
-                 //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty())
+                 //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty()) < %=sLimitRequest% >
        { %>  
-  
+
                <!-- Эта проверка обязательно должна быть здесь, когда главная страница еще не загружена! нельзя перемещать в общий JS файл! -->
                <script> 
                     //$.cookie("auth", 111, { expires: 2,  path: '/'    });
@@ -85,9 +98,9 @@
                      <input  class="sInput_Login" id="sEmail"   type="text" maxlength="55" autocomplete="on" placeholder="Е-Маил..."  /> 
                      <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="Пароль..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
 
-                     <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="Имя (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
-                     <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="Фамилия (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  
-                     <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 182, 189);" />  </center>   
+                     <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="Имя (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  
+                     <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="Фамилия (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  
+                     <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  </center>   
                       <br hidden id="brLogin">  
                      <center> <input hidden  type="checkbox" id="checkAgreement"  checked> 
                      <a hidden  id="sTextAgreement" href="agreement.html" target="_blank"  style="font-size: 13px; cursor: help; text-decoration: none; color: rgb(180, 180, 180);">
@@ -96,6 +109,7 @@
 
                           <!--    <a id="linkRegister" href ="#" >Регистрация </a>   <br>   -->
                      <center> 
+                          <div  class="countRecuestDiv" title="С вашего IP (192.144.22.34) возможно отправить не более 5 запросов в течении 2 минут." style=" width:40px; height:40px; position:absolute; top: -2px; left:-68px; cursor:pointer; background: url(../img/zamok_green.png);" > <span class="countRecuest" style="position:relative; top:22px; font-size: 14px;"> <%=nLimitRequest%> </span> </div>
                      <input  style ="margin-top: 20px;" class="allButt" id="btLogin" type="button" value="&nbsp;&nbsp;&nbsp;  Вход  &nbsp;&nbsp;&nbsp;" /> </center> 
                          <button hidden id="btSubmit" type="submit"> Submit </button>
                 </form>

@@ -41,7 +41,7 @@ import org.apache.log4j.Logger;
         request.setCharacterEncoding("utf-8");
 
         DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-        int       sCountRequest = 5;
+        int       sLimitRequest = 9;
         
         String    sReturn =  "{\"sReturn\":\"" + "-none-" + "\"}", // чтобы не возвращался NULL и небыло ошибки                  
                   sDO = "" , 
@@ -65,7 +65,7 @@ import org.apache.log4j.Logger;
 /*       Этот код должен находится в самом начале сервлета!
  *    Создается статический HashMap на сервере и при каждом запросе неавторизированного пользователя
  *    в эту таблицу записываются: "IP пользователя"     и     "число попыток" + "Дата и время"
- *    если в течении Н минут пользователь привысит число запросов, то остальные запросы будут игнорироватся
+ *    если в течении 2 минут пользователь привысит число запросов (5 шт), то остальные запросы будут игнорироватся
  *    в течении 2 минут.
  * 
  */       
@@ -80,14 +80,14 @@ import org.apache.log4j.Logger;
                               String sCurrentTime = df.format(d);
                               Date oTimeCurrent = df.parse(sCurrentTime);  
                               if (oTimeExpiredOld.getTime() > oTimeCurrent.getTime()) {   // если время окончания больше текущего, то 
-                                 if (nCount >= 5) {                                       //  проверяем сколько запросов сделано пользователем: мах 99.
+                                 if (nCount <= 0) {                                       //  проверяем сколько запросов сделано пользователем: мах 99.
                                       sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}"; // сделано более 5 запросов в течении 2 минут...
-                                      sCountRequest = 0;
+                                      sLimitRequest = 0;
                                       return;        // вываливаемся из сервлета и ничего больше не обрабатываем
                                  }                   // обновляем счетчик, а время истечения срока оставляем старое
                                  
-                                 AccessAuth.map.put(sUserIP, String.format("%02d", (nCount+1))+" "+sTimeExpiredOld);
-                                 sCountRequest = (5-nCount);
+                                 AccessAuth.map.put(sUserIP, String.format("%02d", (nCount-1))+" "+sTimeExpiredOld);
+                                 sLimitRequest = nCount-1;
                               } else {                  // удаляем устаревшую запись
                                        AccessAuth.map.remove(sUserIP);
                                              // Обновляем запись до 1
@@ -96,11 +96,12 @@ import org.apache.log4j.Logger;
                                              //String sTimeExpired = df.format(cal.getTime());
                                              //AccessAuth.map.put(sUserIP, "1"+" "+sTimeExpired);
                                      }
+                              
                   } else {     //  добавляем 1-ю запись о пользователе если его IP нет в списке
                        Calendar cal = Calendar.getInstance();
                        cal.add(Calendar.MINUTE, +2);         // добавляем к текущему времени 2 минуты - это время "окончания" записи.
                        String sTimeExpired = df.format(cal.getTime());
-                          AccessAuth.map.put(sUserIP, "01"+" "+sTimeExpired);
+                          AccessAuth.map.put(sUserIP, "10"+" "+sTimeExpired);
                   }
              }       
              
@@ -155,21 +156,33 @@ import org.apache.log4j.Logger;
                
 //------------- ВХОД пользователя через ввод Емайла и пароля ---------------
              if ("theUserLogin".equals(sDO)) {
-
+                 String sCase = "theUserLogin";  // Для Лога
+                 String sCreateCookie = "";  // поправить, иногда создается пустая Кука?????
                   Access A = new Access();                  
                   if (A.bLoginExists(sEmail) == true) {        // true - Емаил существует в базе
-                       String Pass = A.getPassword(sEmail);    // смотрим  Пароль по Емайлу
-                       if (sPassword.equals(Pass)) {           // если Пароли совпадают
-                            Date d = new Date();               // узнаем текущую дату
-                            String sTimeLogin = df.format(d);
-                            String sNID = A.getNID(sEmail);     // Получаем NID пользователя по его Емайлу
-                            AccessAuth AA = new AccessAuth();
-                            String sGenerate = AA.generateString();  // генерируем строку 50 символов для куки
-                            String sCreateCookie = sNID + "&" + sGenerate;   // соединяем в одну строку (это Кука)
-                            AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3); // сохраняем Куку в Базу
-                            HttpSession session = request.getSession(true);    //создаем сессию для пользователя
-                            session.setAttribute("sEmail", sEmail);
-                            session.setAttribute("sPassword", sPassword);
+                       String sPass = A.getPassword(sEmail);    // смотрим  Пароль по Емайлу
+                       if (sPassword.equals(sPass)) {           // если Пароли совпадают
+
+                            
+//                            Date d = new Date();               // узнаем текущую дату
+//                            String sTimeLogin = df.format(d);
+//                            
+//                            String sNID = A.getIdAccess(sEmail);     // Получаем NID пользователя (из Access) по его Емайлу
+//                            if (sNID == null) {
+//                                 oLog.error("[" + sCase + "]  :   nID из Access вернулся пустой!!"); 
+//                                 return;   // прерываем дальнейший вход на сайт
+//                            }
+//                            AccessAuth AA = new AccessAuth();
+//                            String sGenerate = AA.generateString();    // генерируем строку 50 символов для куки
+//                            String sCreateCookie = sNID + "&" + sGenerate;     // соединяем в одну строку (это Кука)
+//                            AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);   // сохраняем Куку в Базу
+//                            
+//                            
+//                            HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+//                            session.setAttribute("sEmail", sEmail);
+//                            session.setAttribute("sPassword", sPassword);
+                            
+                            
                                         // String[] sArrSession = {  // создаем строковый  массив с инф. о пользователе
                                         //   sEmail,
                                         //   session.getId(),
@@ -179,30 +192,47 @@ import org.apache.log4j.Logger;
                                         //   request.getServerName()
                                         //   };
                                         //aAllSession.add(sArrSession); // переносим в Список Массивов для хранения
+                            
+                            HttpSession session = request.getSession(true);
+                            sCreateCookie = A.afretRegister(sEmail, sPassword, session, request.getLocalAddr());
+                            
                             // Запись в базу инфы о пользователе при попытке его Входа
-                            AccessOf.saveInfoWhenUserTryLogined(sEmail, request.getLocalAddr(), true); //  true доделать
+//                            AccessOf.saveInfoTryLogined(sEmail, request.getLocalAddr(), true); //  true доделать
 
                             // нельзя чтобы в json было пустое значение
                             sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCreateCookie + "\" }"; //не менять
                        } else {     // неверный пароль
                             sReturn = "{\"sReturn\":\"" + "FailPassword!" + "\"}";
                        }
-                  } else {   // несуществующий Логин // значит попытка регистрации //Регистрируем  
-                       Access Aсс = new Access();
-                       String s = Aсс.userRegistration(sEmail, sPassword);
+                  } else {   // несуществующий Логин // значит попытка регистрации //Регистрируем  и пускаем на сайт
+                       
+                       Access Ac = new Access();   
+                       String s = Ac.userRegistration(sEmail, sPassword);
                        if (s.equals("Добро пожаловать на сайт!")) {   // если регистрация удалась, то полдолжаем
-                            HttpSession session = request.getSession(true);    //создаем сессию для пользователя
-                            session.setAttribute("sEmail", sEmail);
-                            session.setAttribute("sPassword", sPassword);
-                            Date d = new Date();          // узнаем текущую дату
-                            String sTimeLogin = df.format(d);
-                            String sNID = A.getNID(sEmail);      // Получаем NID пользователя по Емайлу
-                            AccessAuth AA = new AccessAuth();
-                            String sGenerate = AA.generateString();   // генерируем строку 50 символов для куки
-                            String sCreateCookie = sNID + "&" + sGenerate;    // соединяем в одну куку
-                            AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
+
+                            HttpSession session = request.getSession(true);
+                            sCreateCookie = A.afretRegister(sEmail, sPassword, session, request.getLocalAddr());
+//                            Date d = new Date();          // узнаем текущую дату
+//                            String sTimeLogin = df.format(d);
+//
+//                            String sNID = A.getIdAccess(sEmail);     // Получаем NID пользователя (из Access) по его Емайлу
+//                            if (sNID == null) {
+//                               oLog.error("[" + sCase + "]  :   nID из Access вернулся пустой!!"); 
+//                               return;       // прерываем дальнейший вход на сайт
+//                            }
+//                            HttpSession session = request.getSession(true);    //создаем сессию для пользователя
+//                            session.setAttribute("sEmail", sEmail);
+//                            session.setAttribute("sPassword", sPassword);
+//                           
+//                            AccessAuth AA = new AccessAuth();
+//                            String sGenerate = AA.generateString();   // генерируем строку 50 символов для куки
+//                            String sCreateCookie = sNID + "&" + sGenerate;    // соединяем в одну куку
+//                            AA.saveCookieToDB(Integer.parseInt(sNID), sCreateCookie, sTimeLogin, 3);
+                            
+                            
                        }
-                       sReturn = "{   \"sReturn\"  :  \"" + s + "\"    }";  // ответ в любом случае
+                       sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCreateCookie + "\" }"; //не менять
+                       //sReturn = "{   \"sReturn\"  :  \"" + s + "\"    }";     // ответ в любом случае
                   }
              }
 
@@ -248,7 +278,7 @@ import org.apache.log4j.Logger;
               oLog.info("sDO=" + sDO + ", sEmail=" + sEmail);
          }                               //throw new RuntimeException(_); раскомментировав эту строку можно прерывать выполнение класса при этой ошибке
          finally {                       //этот код выполнится даже если произойдет ошибка (иногда это очень важно, чтоб, например - закрыть соединение
-              sReturn = _.ConcatJson(sReturn, "{\"sReturnCount\":\"" + sCountRequest + "\"}"); 
+              sReturn = _.ConcatJson(sReturn, "{\"sReturnLimitRequest\":\"" + sLimitRequest + "\"}"); 
              response.getWriter().write(sReturn);     // возвращаемые данные
               
          }
