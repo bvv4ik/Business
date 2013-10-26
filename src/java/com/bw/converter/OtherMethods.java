@@ -353,16 +353,16 @@ if (arrName.get(i).contains("СЕЛИЩА МІСЬКОГО ТИПУ, ПІДПО�
            // System.out.println("Всего элементов в массиве  "+list.size());
           //      System.out.println(s);
             
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException oException) {
+            oException.printStackTrace();
         } finally {
             try {
                 if (br != null) {
                     br.close();
                 }
 
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException oException) {
+                oException.printStackTrace();
             }
             
             return list;

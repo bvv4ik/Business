@@ -37,8 +37,8 @@ public class LoadTextFile {
     
          
             
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException oException) {
+            oException.printStackTrace();
         } finally {
             try {
                 if (br != null) {
@@ -47,8 +47,8 @@ public class LoadTextFile {
                 
                 
                  
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException oException) {
+                oException.printStackTrace();
             }
             
             return list;

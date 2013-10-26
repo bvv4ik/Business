@@ -28,9 +28,9 @@ public class Registration1  {
     Connection oConnection = AccessDB.oConnectionStatic("");
  try{
  
- ResultSet oSet =oConnection.prepareStatement("SELECT * FROM Access WHERE sLogin='"+sLogin+"'").executeQuery();
- if(oSet.next()){
-        s = oSet.getString(3);   // System.out.println(s);
+ ResultSet oRowset =oConnection.prepareStatement("SELECT * FROM Access WHERE sLogin='"+sLogin+"'").executeQuery();
+ if(oRowset.next()){
+        s = oRowset.getString(3);   // System.out.println(s);
         }
             if (sLogin.equals(s)) // Если Логин есть в базе
       return true ;//""; //"такой Логин уже есть";       
@@ -173,8 +173,8 @@ return false;//""; //Ошибочный!
  Connection oConnection = AccessDB.oConnectionStatic("");
  oConnection.prepareStatement("INSERT INTO Access (nID_SubjectHuman, sLogin, bDisabled ) VALUES (2,'"+sLogin+"',1)").executeUpdate();
  
- ResultSet oSet =oConnection.prepareStatement("SELECT @@identity").executeQuery();
- int n=oSet.next()?oSet.getInt(1):0;
+ ResultSet oRowset =oConnection.prepareStatement("SELECT @@identity").executeQuery();
+ int n=oRowset.next()?oRowset.getInt(1):0;
  
  
  s1 = "begin transaction " +
@@ -185,8 +185,8 @@ return false;//""; //Ошибочный!
 
       "commit transaction";
 
- //ResultSet oSet =oConnection.prepareStatement("SELECT @@identity").executeQuery();
- //int n=oSet.next()?oSet.getInt(1):0;
+ //ResultSet oRowset =oConnection.prepareStatement("SELECT @@identity").executeQuery();
+ //int n=oRowset.next()?oRowset.getInt(1):0;
  //и в "n" у тебя будет твой индекс
 
  //oConnection.prepareStatement(s1).executeUpdate();;

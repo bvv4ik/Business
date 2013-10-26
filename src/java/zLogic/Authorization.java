@@ -47,14 +47,14 @@ public static String getFirstLastSureName(String Value, String sLogin) {
    // HttpSession session = request.getSession(true);  
    // Object o = session.getAttribute("sLogin");
   
- ResultSet oSet =oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
+ ResultSet oRowset =oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
          + "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID where  sLogin = '"+sLogin+"'").executeQuery();
- if(oSet.next()){
- Last = oSet.getString(4);
- First = oSet.getString(5);
- Sure = oSet.getString(6);
+ if(oRowset.next()){
+ Last = oRowset.getString(4);
+ First = oRowset.getString(5);
+ Sure = oRowset.getString(6);
  //System.out.println(s);
- //String sPasswordDB = oSet.getString(2);
+ //String sPasswordDB = oRowset.getString(2);
  }
   
  //return "10"; 

@@ -137,8 +137,8 @@ public class Config {
             sValue=oProperty.getProperty(sName);
             //mVariable.put(sName, sValue);
             oLogStatic.info("[" + sCase + "](sName=" + sName + ",sValue=" + sValue + ")");
-        } catch (Exception ex) {
-            oLogStatic.error("[" + sCase + "](sName=" + sName + "):", ex);
+        } catch (Exception oException) {
+            oLogStatic.error("[" + sCase + "](sName=" + sName + "):", oException);
         }
         return sValue;
     }

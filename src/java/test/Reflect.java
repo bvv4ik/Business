@@ -23,7 +23,7 @@ public class Reflect {
            // System.out.println("Result = " + result);
            //}
          
-        }catch(Exception e){
+        }catch(Exception oException){
         }
         
         
@@ -33,7 +33,7 @@ public class Reflect {
 Class c = Test1.getClass();
 Method Main ;
 try{Main=c.getMethod("Main",Test1.class);
-     } catch (Exception ex) {}
+     } catch (Exception oException) {}
 if(Main!=null) {//вызываем}
     }
 */

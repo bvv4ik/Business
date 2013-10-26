@@ -168,8 +168,8 @@ public class AccessLDAP {
          
          return true;
      } 
-       catch (Exception e) {
-       // e.printStackTrace();
+       catch (Exception oException) {
+       // oException.printStackTrace();
            
     }
                 //finally {return false;}
@@ -188,7 +188,7 @@ public class AccessLDAP {
             } else {
                 //Логин/пароль не верен
             }
-        } catch (Exception e) {
+        } catch (Exception oException) {
             //Не удалось подключиться к лдапу под логином ресурса
         }
 }
@@ -248,8 +248,8 @@ public void getPasswordUser(String sUserLogin) throws Exception{
             
             //= answer.get("userPassword");
             ctx.close();
-            } catch (NamingException e) {
-                e.printStackTrace();
+            } catch (NamingException oException) {
+                oException.printStackTrace();
             }        
       
 }
@@ -278,8 +278,8 @@ public void setPasswordUser(/*String sUserPassword*/){
 	    iniDirContext.bind(name, ctx, matchAttrs);
             
             ctx.close();
-            } catch (NamingException e) {
-                e.printStackTrace();
+            } catch (NamingException oException) {
+                oException.printStackTrace();
             }
 
 }
@@ -323,8 +323,8 @@ public void modfyPasswordUser(/*String sUserPassword*/){
             
             
             ctx.close();
-            } catch (NamingException e) {
-                e.printStackTrace();
+            } catch (NamingException oException) {
+                oException.printStackTrace();
             }
         }
      

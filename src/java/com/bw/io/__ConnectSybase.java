@@ -48,15 +48,15 @@ public class __ConnectSybase {
 
 //на самом деле достаточно только этой строчки, но лучше писать трай-кэтч.. чтоб всегда отлавливать проблеммы с соединением и вываливать их в лог.
     
-          } catch (ClassNotFoundException e) {
+          } catch (ClassNotFoundException oException) {
                System.out.println("error: failed to load Sybase driver.");
-               e.printStackTrace();
-          } catch (SQLException e) {
+               oException.printStackTrace();
+          } catch (SQLException oException) {
                System.out.println("error: failed to create a connection object.");
-               e.printStackTrace();
-          } catch (Exception e) {
+               oException.printStackTrace();
+          } catch (Exception oException) {
                System.out.println("other error:");
-               e.printStackTrace();
+               oException.printStackTrace();
 //}
                //}catch(Exception _){   // пишем ошибку в лог
                //   System.err.println("ERROR[getConnect](sName="+sName+"):"+_.getMessage());

@@ -55,8 +55,8 @@ public class AeSha1_2 {
 //            }
 //            
 //            System.out.println("sun took       "+(System.currentTimeMillis()-start)+": "+save);
-//        } catch (Exception e) {
-//            System.out.println(e);
+//        } catch (Exception oException) {
+//            System.out.println(oException);
 //        }
     }
 }

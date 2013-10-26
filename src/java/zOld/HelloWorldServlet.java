@@ -56,8 +56,8 @@ public class HelloWorldServlet extends HttpServlet {
 
                 
             } */
-        } catch (Exception e) {
-            throw new ServletException(e);
+        } catch (Exception oException) {
+            throw new ServletException(oException);
         }
         pw.println("</table>");
         //------------------

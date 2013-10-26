@@ -118,8 +118,8 @@ public class MailRecive {
             input.close(); 
             out.close(); 
             return path; 
-        } catch (IOException e) { 
-            e.printStackTrace(); 
+        } catch (IOException oException) { 
+            oException.printStackTrace(); 
         } 
         return path; 
     } 

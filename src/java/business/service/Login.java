@@ -2,6 +2,7 @@
 package business.service;
 
 
+import business.AccessREST;
 import business.Config;
 import business.auth.AccessAuth;
 import business.auth.Access;
@@ -160,8 +161,8 @@ import org.apache.log4j.Logger;
                  String sCreateCookie = "";  // поправить, иногда создается пустая Кука?????
                   Access A = new Access();                  
                   if (A.bLoginExists(sEmail) == true) {        // true - Емаил существует в базе
-                       String sPass = A.getPassword(sEmail);    // смотрим  Пароль по Емайлу
-                       if (sPassword.equals(sPass)) {           // если Пароли совпадают
+                       String sPasswordDB = A.getPassword(sEmail);    // смотрим  Пароль по Емайлу
+                       if (sPassword.equals(sPasswordDB)) {           // если Пароли совпадают
 
                             
 //                            Date d = new Date();               // узнаем текущую дату
@@ -207,9 +208,21 @@ import org.apache.log4j.Logger;
                   } else {   // несуществующий Логин // значит попытка регистрации //Регистрируем  и пускаем на сайт
                        
                        Access Ac = new Access();   
-                       String s = Ac.userRegistration(sEmail, sPassword);
+                       String s = Ac.sUserRegistration(sEmail, sPassword);
                        if (s.equals("Добро пожаловать на сайт!")) {   // если регистрация удалась, то полдолжаем
 
+                           
+                           //AccessREST oAccessREST = new AccessREST();
+                           /*String sReturn1 = new AccessREST()
+                                ._URL(sPassword)
+                                ._Timeout(sLimitRequest)
+                                ._Param("name1", "value1")
+                                ._Param("name2", "value2")
+                                ._Param("name3", "value3")
+                                ._Param("name4", "value4")
+                                .sRequest();
+                            ;*/
+                           
                             HttpSession session = request.getSession(true);
                             sCreateCookie = A.afretRegister(sEmail, sPassword, session, request.getLocalAddr());
 //                            Date d = new Date();          // узнаем текущую дату
@@ -369,8 +382,8 @@ import org.apache.log4j.Logger;
 //                            sSess = sSess + (key + "_" + session.getValue(key) + "");
 //                            }
 //                        
-//                             } catch (Exception e) {
-//                                String sErr = e.getMessage();
+//                             } catch (Exception oException) {
+//                                String sErr = oException.getMessage();
 //                                System.err.println("--ERROR_CreateAccount:  " + sErr + " _ " + sReturn);  //это вывод в лог-файл
 //                                sReturn = "{\"sReturn\":\"Error, ошибка в сервлете \"}" + sErr;
 //                                     }  

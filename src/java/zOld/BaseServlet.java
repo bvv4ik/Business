@@ -32,17 +32,17 @@ oConnection.prepareStatement("UPDATE MyTable SET sInfo=’sovsem durak’,sName=
             }else if(“delete”.equals(sDO)){//удалить юзера из базы
                     oConnection.prepareStatement("DELETE FROM MyTable WHERE nID=1").executeUpdate();
             }else if(“select”.equals(sDO)){//выбрать данные юзера из базы
-ResultSet oSet=oConnection.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
-if(oSet.next()){
-sName=oSet.getString(2);
-//можно и так: sName=oSet.getString(“sName”);
+ResultSet oRowset=oConnection.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
+if(oRowset.next()){
+sName=oRowset.getString(2);
+//можно и так: sName=oRowset.getString(“sName”);
 }
             }
 		*/
 
 //sRes="{\"sReturn\":\”Ok\",\"sDO\":\""+sDO+"\"}"
-}catch(Exception ex){
-ex.printStackTrace();
+}catch(Exception oException){
+oException.printStackTrace();
 }
 //String sErr=_.getMessage();System.err.println("ERROR: "+sErr+"_"+sRes);//это вывод в лог-файл
 //sRes="{\"sReturn\":\"Error\",\"sDO\":\""+sDO+"\"}" 

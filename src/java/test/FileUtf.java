@@ -34,8 +34,8 @@ public class FileUtf {
         
 	in.close();
 	return buffer.toString();
-    } catch (IOException e) {
-	e.printStackTrace();
+    } catch (IOException oException) {
+	oException.printStackTrace();
 	return null;
     }
     
@@ -58,8 +58,8 @@ public class FileUtf {
         
         in.close();
 	return buffer.toString();
-    } catch (IOException e) {
-	e.printStackTrace();
+    } catch (IOException oException) {
+	oException.printStackTrace();
 	return null;
     }
     

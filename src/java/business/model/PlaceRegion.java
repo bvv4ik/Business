@@ -40,11 +40,11 @@ public class PlaceRegion {
 // public int getID (String sRegion) throws Exception   { 
 //     int i = 0;
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oConnection.prepareStatement("SELECT * FROM PlaceRegion where sRegion = '"+sRegion +"'").executeQuery();
-//     if (oSet.next()){
-//        i = oSet.getInt(1);
-//        _nID(oSet.getInt(1)); // устанавливаем nID по названию региона
-//       // _nID_PlaceCountry(oSet.getInt(2)); //i = oSet.getInt(1);
+//     ResultSet oRowset = oConnection.prepareStatement("SELECT * FROM PlaceRegion where sRegion = '"+sRegion +"'").executeQuery();
+//     if (oRowset.next()){
+//        i = oRowset.getInt(1);
+//        _nID(oRowset.getInt(1)); // устанавливаем nID по названию региона
+//       // _nID_PlaceCountry(oRowset.getInt(2)); //i = oRowset.getInt(1);
 //       // _sRegion(sRegion);
 //        }
 //     AccessDB.closeConnectionStatic("", oConnection); //   
@@ -57,10 +57,10 @@ public class PlaceRegion {
   
      
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID, sRegion FROM PlaceRegion where nID_PlaceCountry = "+nID_Country + "AND nID_PlaceRegionType = "+nID_RegionType).executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID, sRegion FROM PlaceRegion where nID_PlaceCountry = "+nID_Country + "AND nID_PlaceRegionType = "+nID_RegionType).executeQuery();
+     while (oRowset.next()){
      //i++;
-      s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
+      s += (  ",\""+ oRowset.getInt(1) +"\":" + "\"" +oRowset.getString(2) + "\"");
      } 
      AccessDB.closeConnectionStatic("", oConnection);
      return s;    //возвращаем список регионов в виде Json строки

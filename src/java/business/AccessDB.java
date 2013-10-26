@@ -458,4 +458,26 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
             throw new SQLException("SQL-execute fail!");
         }
     }
+    
+    /**
+     * Получить ID последнего созданной с identity строки
+     *
+     * @param oStatement обьект стэйтмэнта
+     * @param sCaseCaller кейс/метод вызывающего
+     * @param oLog обьект логера
+     * @return ИД
+     * @throws SQLException
+     */
+    public static int nRowsetID(Statement oStatement, String sCaseCaller, Logger oLog) throws SQLException {
+        try{
+            ResultSet oRowset = oStatement.executeQuery("SELECT @@identity");
+            int nID = oRowset.next() ? oRowset.getInt(1) : 0;
+            return nID;
+        } catch (SQLException _) {
+            oLog.error("[" + sCaseCaller + "]:", _);
+            throw new SQLException("SQL-query of identity fail!");
+        }
+    }
+    
+    
 }

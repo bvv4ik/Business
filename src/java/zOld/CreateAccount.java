@@ -54,8 +54,8 @@ public class CreateAccount extends HttpServlet {
 
                if ("theCreateAccount".equals(sDO_Account)) {
 
-                    Access A = new Access();
-                    String s = A.userRegistration(sEmail_Account, sPassword_Account);
+                    Access oAccess = new Access();
+                    String s = oAccess.sUserRegistration(sEmail_Account, sPassword_Account);
                     sReturn_Account = "{\"sReturn_Account\":\"" + s + "\"}";
 
                }

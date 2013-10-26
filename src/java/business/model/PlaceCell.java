@@ -44,9 +44,9 @@ private String sCell;
 //     int nPart = Integer.parseInt(sPart);
 //     
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart).executeQuery();
-//     if (oSet.next()){
-//         i = oSet.getInt(1);
+//     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart).executeQuery();
+//     if (oRowset.next()){
+//         i = oRowset.getInt(1);
 //         }
 //     AccessDB.closeConnectionStatic("", oConnection);      
 //     return  i;
@@ -57,10 +57,10 @@ private String sCell;
  int i = 0;
   
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nCell FROM PlaceCell where nID_PlacePart = "+nID_PlacePart).executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nCell FROM PlaceCell where nID_PlacePart = "+nID_PlacePart).executeQuery();
+     while (oRowset.next()){
      i++;
-     s += (  ",\"a"+ i +"\":" + "\"" +oSet.getInt(1) + "\"");
+     s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getInt(1) + "\"");
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка

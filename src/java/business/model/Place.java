@@ -47,8 +47,8 @@ private String sPlace;
 
         // 1.Получаем индекс юзера.
         Connection oConnection = AccessDB.oConnectionStatic("");
-        // ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
-        //int n=oSet.next()?oSet.getInt(1):0; 
+        // ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
+        //int n=oRowset.next()?oRowset.getInt(1):0; 
         int n = 1; //индекс юзера, для тета "1";
         oConnection.prepareStatement("UPDATE Place SET nID_PlaceCell = " + nID_Cell + " where Place.nID = " + n).executeUpdate();
         oConnection.prepareStatement("UPDATE Place SET nID_PlacePart = " + nID_Part + " where Place.nID = " + n).executeUpdate();
@@ -65,8 +65,8 @@ private String sPlace;
  
      Connection oConnection = AccessDB.oConnectionStatic("");    
     
-    // ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
-     //int n=oSet.next()?oSet.getInt(1):0; 
+    // ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
+     //int n=oRowset.next()?oRowset.getInt(1):0; 
  int n = 1;
      //oConnection.prepareStatement("UPDATE Place1 SET nID_TheSubject = "+i+" where PlaceCountry.nID = "+n+" ").executeUpdate();
      
@@ -122,8 +122,8 @@ oConnection.prepareStatement("INSERT INTO Place1 (nID_Contact, sCountry, sRegion
  
      Connection oConnection = AccessDB.oConnectionStatic("");    
     
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
-     int n=oSet.next()?oSet.getInt(1):0; 
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry+"'").executeQuery();
+     int n=oRowset.next()?oRowset.getInt(1):0; 
  
      oConnection.prepareStatement("UPDATE PlaceCountry SET nID_TheSubject = "+i+" where PlaceCountry.nID = "+n+" ").executeUpdate();
      

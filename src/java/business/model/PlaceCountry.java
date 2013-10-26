@@ -44,11 +44,11 @@ public class PlaceCountry {
      //PlaceCountry PC = new PlaceCountry(sCountry); // получаем ID страны
      
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("select nID, sCountry from PlaceCountry").executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("select nID, sCountry from PlaceCountry").executeQuery();
+     while (oRowset.next()){
     //   i++;
-    // s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\""); 
-     s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
+    // s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\""); 
+     s += (  ",\""+ oRowset.getInt(1) +"\":" + "\"" +oRowset.getString(2) + "\"");
      } 
         //   if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
@@ -62,10 +62,10 @@ public class PlaceCountry {
 //     int i = 0;  
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
 //    
-//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry +"'").executeQuery();
-//     if (oSet.next()){
-//         i = oSet.getInt(1);  // Возвращаем nID по названию страны
-//         //_nID(oSet.getInt(1));  // Возвращаем nID по названию страны
+//     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry +"'").executeQuery();
+//     if (oRowset.next()){
+//         i = oRowset.getInt(1);  // Возвращаем nID по названию страны
+//         //_nID(oRowset.getInt(1));  // Возвращаем nID по названию страны
 //         //_sCountry(sCountry);
 //        }
 //     AccessDB.closeConnectionStatic("", oConnection);      //
@@ -84,9 +84,9 @@ public void addCountry (String sCountry) throws Exception {
           
      Connection oConnection = AccessDB.oConnectionStatic("");    
     
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCountry1 where sCountry = '"+sCountry +"'").executeQuery();
-     if (oSet.next()){
-        _nID(oSet.getInt(1)); // Устанавливаем nID по названию страны
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceCountry1 where sCountry = '"+sCountry +"'").executeQuery();
+     if (oRowset.next()){
+        _nID(oRowset.getInt(1)); // Устанавливаем nID по названию страны
         _sCountry(sCountry);
        
       }

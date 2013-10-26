@@ -40,9 +40,9 @@ private String sArea;
   public int getID (String sArea) throws Exception   { 
   int i = 0;
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT * FROM PlaceArea1 where sArea = '"+sArea +"'").executeQuery();
-     if (oSet.next()){
-         i = oSet.getInt(1);
+     ResultSet oRowset = oConnection.prepareStatement("SELECT * FROM PlaceArea1 where sArea = '"+sArea +"'").executeQuery();
+     if (oRowset.next()){
+         i = oRowset.getInt(1);
          }
      AccessDB.closeConnectionStatic("", oConnection);
      return i;
@@ -53,10 +53,10 @@ private String sArea;
  String s = "";//int i = 0;
  
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT sArea FROM PlaceArea where nID_PlacePolis ="+nID_PlacePolis).executeQuery();
-        while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT sArea FROM PlaceArea where nID_PlacePolis ="+nID_PlacePolis).executeQuery();
+        while (oRowset.next()){
         //i++;
-        s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
+        s += (  ",\""+ oRowset.getInt(1) +"\":" + "\"" +oRowset.getString(2) + "\"");
         } 
      AccessDB.closeConnectionStatic("", oConnection);
     return s;

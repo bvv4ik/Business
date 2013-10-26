@@ -39,10 +39,10 @@ private String sBranchType;
 public int getID (String sBranchType) throws Exception { 
      int i = 0;  
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceBranchType1 where sBranchType = '"+sBranchType+"'").executeQuery();
-     if (oSet.next()){
-         i = oSet.getInt(1);
-        // _nID(oSet.getInt(1));  // Возвращаем nID по названию типа Улицы
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceBranchType1 where sBranchType = '"+sBranchType+"'").executeQuery();
+     if (oRowset.next()){
+         i = oRowset.getInt(1);
+        // _nID(oRowset.getInt(1));  // Возвращаем nID по названию типа Улицы
          //_sBranchType(sBranchType);
         }
      AccessDB.closeConnectionStatic("", oConnection);      
@@ -55,10 +55,10 @@ public String getAllBranchType() throws Exception   {
  int i = 0;
   
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT sBranchType FROM PlaceBranchType1").executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT sBranchType FROM PlaceBranchType1").executeQuery();
+     while (oRowset.next()){
      i++;
-     s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
+     s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\"");
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка

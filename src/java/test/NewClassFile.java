@@ -87,16 +87,16 @@ public class NewClassFile {
             }
          
             
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException oException) {
+            oException.printStackTrace();
         } finally {
             try {
                 if (br != null) {
                     br.close();
                 }
                  
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException oException) {
+                oException.printStackTrace();
             }
             
         }
@@ -147,15 +147,15 @@ public class NewClassFile {
 //            //System.out.println(utf);
 //            System.out.println(list.get(5));
 //
-//        } catch (IOException e) {
-//            e.printStackTrace();
+//        } catch (IOException oException) {
+//            oException.printStackTrace();
 //        } finally {
 //            try {
 //                if (br != null) {
 //                    br.close();
 //                }
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
+//            } catch (IOException oException) {
+//                oException.printStackTrace();
 //            }
 //        }
 //

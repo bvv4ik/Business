@@ -55,9 +55,9 @@ private int nCellTo;
 //     int i = 0;  
 //    
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceBuild1 where sBuild = '"+sBuild+"'").executeQuery();
-//     if (oSet.next()){
-//         i = oSet.getInt(1);
+//     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceBuild1 where sBuild = '"+sBuild+"'").executeQuery();
+//     if (oRowset.next()){
+//         i = oRowset.getInt(1);
 //        }
 //     AccessDB.closeConnectionStatic("", oConnection);      
 //     return  i;
@@ -69,10 +69,10 @@ private int nCellTo;
         int i = 0;
 
         Connection oConnection = AccessDB.oConnectionStatic("");
-        ResultSet oSet = oConnection.prepareStatement("SELECT sBuild FROM PlaceBuild where nID_PlaceBranch = " + nID_Branch + " AND nID_PlaceBuildType = " + nID_BuildType + " AND nID_PlaceArea = " + nID_Area).executeQuery();
-        while (oSet.next()) {
+        ResultSet oRowset = oConnection.prepareStatement("SELECT sBuild FROM PlaceBuild where nID_PlaceBranch = " + nID_Branch + " AND nID_PlaceBuildType = " + nID_BuildType + " AND nID_PlaceArea = " + nID_Area).executeQuery();
+        while (oRowset.next()) {
             i++;
-            s += (",\"a" + i + "\":" + "\"" + oSet.getString(1) + "\"");
+            s += (",\"a" + i + "\":" + "\"" + oRowset.getString(1) + "\"");
         }
         AccessDB.closeConnectionStatic("", oConnection);
         return s;
@@ -83,10 +83,10 @@ public String getAllBuild(int nID_PlaceBranch, int nID_PlaceBuildType) throws Ex
  String s = "";  // String utf = ""; 
  int i = 0;
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT sBuild FROM PlaceBuild1 where nID_PlaceBranch = "+nID_PlaceBranch+" where nID_PlaceBuildType ="+nID_PlaceBuildType).executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT sBuild FROM PlaceBuild1 where nID_PlaceBranch = "+nID_PlaceBranch+" where nID_PlaceBuildType ="+nID_PlaceBuildType).executeQuery();
+     while (oRowset.next()){
      i++;
-     s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
+     s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\"");
      } 
      AccessDB.closeConnectionStatic("", oConnection);
      return s; 

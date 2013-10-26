@@ -25,12 +25,12 @@ public class InvokingMethod {
             result = method.invoke(object, new Object[] {10, 10});
             System.out.println("Result = " + result);
  
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException oException) {
+            oException.printStackTrace();
+        } catch (IllegalAccessException oException) {
+            oException.printStackTrace();
+        } catch (InvocationTargetException oException) {
+            oException.printStackTrace();
         }
     }
  

@@ -42,9 +42,9 @@ public class AccessAuth {
           int i = 0;
           Connection oConnection = AccessDB.oConnectionStatic(sCase);
           try {
-               ResultSet oSet = oConnection.prepareStatement("SELECT count(*) FROM AccessAuth where nID_Access = " + nID_Access).executeQuery();
-               if (oSet.next()) {
-                    i = oSet.getInt(1);
+               ResultSet oRowset = oConnection.prepareStatement("SELECT count(*) FROM AccessAuth where nID_Access = " + nID_Access).executeQuery();
+               if (oRowset.next()) {
+                    i = oRowset.getInt(1);
                }
                if (i <= countMax) {  // если меньше 4 записией в базе, то просто добавляем
                     oConnection.prepareStatement("INSERT INTO AccessAuth(nID_Access, sAuth, sDateMake) "
@@ -98,10 +98,10 @@ public class AccessAuth {
                                               // берем код Куки клиента
                                               //  sCookieClient = s.substring(s.lastIndexOf("&")+1); // берем все что после "&" и до конца 
                     // Получаем Емаил и Пароль по ИД
-                    ResultSet oSet = oConnection.prepareStatement("SELECT sLogin, sPassword FROM Access where nID = " + nIdUserFromCookie).executeQuery();
-                    if (oSet.next()) {
-                         sLogin = oSet.getString("sLogin");               // sLogin = oSet.getString(1); // sPassword = oSet.getString(2);
-                         sPassword = oSet.getString("sPassword");
+                    ResultSet oRowset = oConnection.prepareStatement("SELECT sLogin, sPassword FROM Access where nID = " + nIdUserFromCookie).executeQuery();
+                    if (oRowset.next()) {
+                         sLogin = oRowset.getString("sLogin");               // sLogin = oRowset.getString(1); // sPassword = oRowset.getString(2);
+                         sPassword = oRowset.getString("sPassword");
                     }
                     //  возвращаем Емайл и Пароль клиента
                     list1.add(sLogin);

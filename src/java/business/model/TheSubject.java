@@ -33,12 +33,12 @@ public class TheSubject {
     Connection oConnection = AccessDB.oConnectionStatic("");                      
   
     // получаем № записи TheSubject
-    ResultSet oSet = oConnection.prepareStatement("SELECT TS.nID FROM TheSubject TS " + 
+    ResultSet oRowset = oConnection.prepareStatement("SELECT TS.nID FROM TheSubject TS " + 
       "LEFT JOIN TheSubjectHuman TSH ON TS.nID = TSH.nID_TheSubject " +
       "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID " +
       "where  sLogin = '"+sLogin+"'").executeQuery()/*executeUpdate()*/;
     //a@a.aaa 
-    int n=oSet.next()?oSet.getInt(1):0; 
+    int n=oRowset.next()?oRowset.getInt(1):0; 
     
     _nID(n);
     _nID_OfSubject(1); // пока выставляем 2 т.е человек 

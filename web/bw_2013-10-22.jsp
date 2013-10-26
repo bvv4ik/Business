@@ -40,9 +40,9 @@
         
         <input type="button" value="run" onclick="askTest();"/>
                
-    <div class="oDialog_Background" style="display: none"></div>
+    <div hidden class="oDialog_Background"></div>
         
-    <div class="oDialog oAsk" style="display: none">
+    <div hidden class="oDialog oAsk">
         <img class="doHideDialog"/>
         <div class="oHead">Вопрос:</div>
         <div class="oBody">
@@ -63,20 +63,20 @@
         <div class="oBody">
             <p>Произошла ошибка!</p>
         </div>
-        </br>
-        <!-- <a href="#" class="bDebug" onclick="
-            var o=$(this).closest('div').find('.oDebug');
-            $(o).toggle();
-            $(this).text((see($(o))?'Скрыть':'Показать')+' подробности');
-        ">Показать подробности</a>   -->
-        <div hidden class="oDebug" >  <!--  style="display: none" -->
-          <!--  (нет технических подробностей) -->
+        <div class="oBodyFooter">
+            <a href="#" class="bDebug" onclick="
+                var o=$(this).closest('div').find('.oDebug');
+                $(o).toggle();
+                $(this).text((see($(o))?'Скрыть':'Показать')+' подробности');
+            ">Показать подробности</a>
+            <div hidden class="oDebug" >  <!--  style="display: none" -->
+              <!--  (нет технических подробностей) -->
+            </div>
         </div>
         </br>
         <div class="oButton">
               <!--  <a class="oButtonClose" href="#">Скрыть</a> -->
-             <input class="oButton default" type="button" value="Ok" onclick="" style="margin-top: 7px;margin-left: 10px;margin-right: 7px;"/>
-            <button></button>
+             <input class="oButton default" type="button" value="Ok" onclick=""/>
         </div>
     </div>
     

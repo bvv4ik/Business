@@ -251,7 +251,7 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
                     if(sClass==null){
                         sClass="oButtonGreen";
                     }
-                    oNode=oThis.find('.oButton.default');
+                    oNode=oThis.find('.oButton:.default');
                     oNode=oNode.clone().insertAfter(oThis.find('.oButton:last')).removeClass("default").addClass(sClass);
                     oNode.val(sName);
                     oFunctionReturn=oReturn;
@@ -264,11 +264,17 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
             showDialog(oThis);                
         }
     }catch(_){
-        alert(":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"");
-        doDebug(sFunction(arguments)+":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"");
+        doError("Ошибка вывода диалога", ":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"","attention");
     }
 }
 
+function doError(sBody,sDebug,sHead){
+    //alert(":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"");
+    seeError(sBody,sDebug,sHead);
+    if(sHead!="fatal"){
+        doDebug(sFunction(arguments)+":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"");
+    }
+}
 
 function seeError(sBody,sDebug,sHead){
     try{
@@ -340,7 +346,7 @@ function doDebug(sInfo,sFunction,sDebug){
     //logDebug(sInfo,sFunction);//Логирование (в массив)
     //saveDebug(sInfo,sFunction,sDebug,oStack);//Сохранение (на сервер)
     }catch(_){
-        seeError("Сбой обработки ошибки","[sFunction:"+sFunction(arguments)+"]:"+_+"\n<br>"+sInfo+"\n<br>"+sFunction+"\n<br>"+sDebug,"fatal");
+        doError("Сбой обработки ошибки","[sFunction:"+sFunction(arguments)+"]:"+_+"\n<br>"+sInfo+"\n<br>"+sFunction+"\n<br>"+sDebug,"fatal");
     }
 }
 

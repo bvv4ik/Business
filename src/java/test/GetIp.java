@@ -61,7 +61,7 @@ public class GetIp {
 
 //
 //   ActionListener a = new ActionListener() {
-//      public void actionPerformed(ActionEvent e) {
+//      public void actionPerformed(ActionEvent ev) {
 //        System.out.println("Counter = " + counter);
 //        
 //        System.out.println("2");
@@ -96,7 +96,7 @@ public class GetIp {
 
          
 //    Action action = new AbstractAction() {
-//            public void actionPerformed (ActionEvent e){
+//            public void actionPerformed (ActionEvent ev){
 //                System.out.println ("hello");
 //    }
 //};

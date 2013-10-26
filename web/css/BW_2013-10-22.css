@@ -42,7 +42,8 @@ root {
 	box-shadow:0 2px 3px #9dac81;
 	font-size:11px;
 }
-.oDialog .oHead{
+.oDialog .oHead
+{
 	position:relative;
 	padding:2px;
 	text-align:center;
@@ -53,10 +54,13 @@ root {
 	-webkit-box-shadow:0 1px 0 #fec;
 	box-shadow:0 1px 0 #fec;
 }
-.oDialog .oBody{
+.oDialog .oBody
+,.oDialog .oBodyFooter
+{
 	padding:5px;
 }
-.oDialog .aButton{
+.oDialog .aButton
+{
 	height:45px;
 	width:100%;
 	bottom:0;

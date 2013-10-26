@@ -32,10 +32,10 @@ private String sBuildType;
 public int getID (String sBuildType) throws Exception { 
      int i = 0;  
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceBuildType1 where sBuildType = '"+sBuildType+"'").executeQuery();
-     if (oSet.next()){
-         i = oSet.getInt(1);
-        // _nID(oSet.getInt(1));  // Возвращаем nID по названию типа дома
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceBuildType1 where sBuildType = '"+sBuildType+"'").executeQuery();
+     if (oRowset.next()){
+         i = oRowset.getInt(1);
+        // _nID(oRowset.getInt(1));  // Возвращаем nID по названию типа дома
          //_sBranchType(sBranchType);
         }
      AccessDB.closeConnectionStatic("", oConnection);      
@@ -48,10 +48,10 @@ public String getAllBuildType() throws Exception   {
  int i = 0;
   
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT sBuildType FROM PlaceBuildType1").executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT sBuildType FROM PlaceBuildType1").executeQuery();
+     while (oRowset.next()){
      i++;
-     s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
+     s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\"");
      } 
        
      AccessDB.closeConnectionStatic("", oConnection);

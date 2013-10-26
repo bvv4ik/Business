@@ -672,8 +672,8 @@ public class ItemAccessREST extends ItemAccessData {
     private void addRequestHeader(Map<String, String> mHeader, HttpURLConnection oConnectCustom) throws Exception {
         HttpURLConnection oConnect = oConnect(oConnectCustom);
         if (mHeader != null && oConnect != null) {
-            for (Map.Entry<String, String> e : mHeader.entrySet()) {
-                oConnect.setRequestProperty(e.getKey(), e.getValue());
+            for (Map.Entry<String, String> oHeader : mHeader.entrySet()) {
+                oConnect.setRequestProperty(oHeader.getKey(), oHeader.getValue());
             }
         }
     }

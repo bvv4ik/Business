@@ -19,12 +19,12 @@ public class NewClassTest {
 //    int i = 0;
 //     
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oConnection.prepareStatement("select nID, sCountry from PlaceCountry").executeQuery();
-//     while (oSet.next()){
+//     ResultSet oRowset = oConnection.prepareStatement("select nID, sCountry from PlaceCountry").executeQuery();
+//     while (oRowset.next()){
 //     i++;
 // 
 //     
-//     s +=         "<option value= \""+ oSet.getInt(1) + "\"> "+oSet.getString(2)+ "</option>" ;        
+//     s +=         "<option value= \""+ oRowset.getInt(1) + "\"> "+oRowset.getString(2)+ "</option>" ;        
 //                     
 //     } 
 //        //  if((i%2)!=0) если кратно 2
@@ -39,11 +39,11 @@ public class NewClassTest {
      int i = 0;
   
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID, sRegionType FROM PlaceRegionType").executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID, sRegionType FROM PlaceRegionType").executeQuery();
+     while (oRowset.next()){
      i++;
-     //s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
-      s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
+     //s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\"");
+      s += (  ",\""+ oRowset.getInt(1) +"\":" + "\"" +oRowset.getString(2) + "\"");
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка

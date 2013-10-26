@@ -83,10 +83,10 @@ sReturn="{\"sReturn\":\"Ok\",\"sDO\":\""+sDO+"\"}";
 
 if("Author".equals(sDO)){// Авторизация
 Connection oConnection = DBconn.getConnect("dbStudy"); //dbStudy
-ResultSet oSet =oConnection.prepareStatement("SELECT m_Login, m_Pass FROM table_author WHERE m_Login='"+sLoginIn+"'").executeQuery();
-if(oSet.next()){
-sLoginDB= oSet.getString(1);
-sPassDB = oSet.getString(2);
+ResultSet oRowset =oConnection.prepareStatement("SELECT m_Login, m_Pass FROM table_author WHERE m_Login='"+sLoginIn+"'").executeQuery();
+if(oRowset.next()){
+sLoginDB= oRowset.getString(1);
+sPassDB = oRowset.getString(2);
 }
 DBconn.closeConnect("dbStudy",oConnection);
 
@@ -149,10 +149,10 @@ oConnection.prepareStatement("UPDATE MyTable SET sInfo=’sovsem durak’,sName=
             }else if("delete".equals(sDO)){//удалить юзера из базы
                     oConnection.prepareStatement("DELETE FROM MyTable WHERE nID=1").executeUpdate();
             }else if("select".equals(sDO)){//выбрать данные юзера из базы
-ResultSet oSet=oConnection.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
-if(oSet.next()){
-sName=oSet.getString(2);
-//можно и так: sName=oSet.getString("sName");
+ResultSet oRowset=oConnection.prepareStatement("SELECT nID, sName, sInfo FROM MyTable WHERE nID=1").executeQuery();
+if(oRowset.next()){
+sName=oRowset.getString(2);
+//можно и так: sName=oRowset.getString("sName");
 }
             }
                 //*/

@@ -62,8 +62,8 @@ public class SortArr {
 				System.out.println(domain + " has NO address.");
 			}
  
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception oException) {
+			oException.printStackTrace();
 		}
  
 	}

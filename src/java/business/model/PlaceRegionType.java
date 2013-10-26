@@ -39,10 +39,10 @@ private int nRegionTypeOrder;
 //public int getID (String sBranchType) throws Exception { 
 //     int i = 0;  
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceBranchType1 where sBranchType = '"+sBranchType+"'").executeQuery();
-//     if (oSet.next()){
-//         i = oSet.getInt(1);
-//        // _nID(oSet.getInt(1));  // Возвращаем nID по названию типа Улицы
+//     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceBranchType1 where sBranchType = '"+sBranchType+"'").executeQuery();
+//     if (oRowset.next()){
+//         i = oRowset.getInt(1);
+//        // _nID(oRowset.getInt(1));  // Возвращаем nID по названию типа Улицы
 //         //_sBranchType(sBranchType);
 //        }
 //     AccessDB.closeConnectionStatic("", oConnection);      
@@ -54,10 +54,10 @@ public String getAllRegionType() throws Exception   {
  String s = "";  // String utf = "";  //int i = 0;
   
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID, sRegionType FROM PlaceRegionType").executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID, sRegionType FROM PlaceRegionType").executeQuery();
+     while (oRowset.next()){
      //i++;
-      s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
+      s += (  ",\""+ oRowset.getInt(1) +"\":" + "\"" +oRowset.getString(2) + "\"");
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка

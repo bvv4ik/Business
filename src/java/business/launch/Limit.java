@@ -47,8 +47,8 @@ public class Limit {
         try {
             nPool = Integer.parseInt(mLimit.get(sName).toString(), 10) - 1;
             mLimit.put(sName, Integer.toString(nPool));
-        } catch (Exception ex) {
-            oLog.error("[" + sCase + "](sName=" + sName + ",nPool=" + nPool + "):", ex);
+        } catch (Exception oException) {
+            oLog.error("[" + sCase + "](sName=" + sName + ",nPool=" + nPool + "):", oException);
         }
     }
     public static HashMap mPool() {

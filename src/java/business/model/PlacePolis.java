@@ -48,9 +48,9 @@ public class PlacePolis {
 //  public int getID (String sPolis) throws Exception   { 
 //   int i = 0;
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oConnection.prepareStatement("SELECT * FROM PlacePolis1 where sPolis = '"+sPolis +"'").executeQuery();
-//     if (oSet.next()){
-//        i = oSet.getInt(1);
+//     ResultSet oRowset = oConnection.prepareStatement("SELECT * FROM PlacePolis1 where sPolis = '"+sPolis +"'").executeQuery();
+//     if (oRowset.next()){
+//        i = oRowset.getInt(1);
 //        }
 //     AccessDB.closeConnectionStatic("", oConnection);
 //     return i;
@@ -67,7 +67,7 @@ public class PlacePolis {
  aResult.clear();
  
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement( 
+     ResultSet oRowset = oConnection.prepareStatement( 
                  " SELECT sPRT6=PRT6.sRegionType,  sPR6=PR6.sRegion, sPPT66=PPT66.sPolisType, sPPP6=PPP6.sPolis, " 
                + " sPRT5=PRT5.sRegionType,  sPR5=PR5.sRegion, sPPT55=PPT55.sPolisType, sPPP5=PPP5.sPolis, " 
                + " sPRT4=PRT4.sRegionType,  sPR4=PR4.sRegion, sPPT44=PPT44.sPolisType, sPPP4=PPP4.sPolis, " 
@@ -116,9 +116,9 @@ public class PlacePolis {
 + "where PR1.nID_PlaceCountry = "+nID_PlaceCountry +" and  PP.sPolis LIKE \'"+sPolis+"%\' "
              
              ).executeQuery();
-        while (oSet.next() &  i_count<100){ // не загружаем больше 100 записей
+        while (oRowset.next() &  i_count<100){ // не загружаем больше 100 записей
         i_count++;
-                         ////// s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
+                         ////// s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\"");
 //1 2 3 4
 //null null null null 
 //5 6 7 8
@@ -135,13 +135,13 @@ public class PlacePolis {
 //с. ЗАМОСТИЩЕ 26466        
    
         
-  String[] sArr2 = {  oSet.getString(1),   oSet.getString(2),     oSet.getString(3),    oSet.getString(4), 
-                     oSet.getString(5),   oSet.getString(6),     oSet.getString(7),    oSet.getString(8), 
-                     oSet.getString(9),   oSet.getString(10),    oSet.getString(11),   oSet.getString(12), 
-                     oSet.getString(13),  oSet.getString(14),    oSet.getString(15),   oSet.getString(16), 
-                     oSet.getString(17),   oSet.getString(18),    oSet.getString(19),   oSet.getString(20), 
-                     oSet.getString(21),   oSet.getString(22),    oSet.getString(23),   oSet.getString(24), 
-                     oSet.getString(25),   oSet.getString(26),    oSet.getString(27) 
+  String[] sArr2 = {  oRowset.getString(1),   oRowset.getString(2),     oRowset.getString(3),    oRowset.getString(4), 
+                     oRowset.getString(5),   oRowset.getString(6),     oRowset.getString(7),    oRowset.getString(8), 
+                     oRowset.getString(9),   oRowset.getString(10),    oRowset.getString(11),   oRowset.getString(12), 
+                     oRowset.getString(13),  oRowset.getString(14),    oRowset.getString(15),   oRowset.getString(16), 
+                     oRowset.getString(17),   oRowset.getString(18),    oRowset.getString(19),   oRowset.getString(20), 
+                     oRowset.getString(21),   oRowset.getString(22),    oRowset.getString(23),   oRowset.getString(24), 
+                     oRowset.getString(25),   oRowset.getString(26),    oRowset.getString(27) 
             };
         
  aResult.add(sArr2);
@@ -231,9 +231,9 @@ public class PlacePolis {
         aResult2.add(s);
    
         
-//        s =   oSet.getString(1)+" "
-//            + oSet.getString(2)+" "
-//            + oSet.getString(3)+" "
+//        s =   oRowset.getString(1)+" "
+//            + oRowset.getString(2)+" "
+//            + oRowset.getString(3)+" "
       
         
         sObject = sObject +  ("{ \"nID_Polis\": "+sArr[26]+"  ,  \"value\":\" "+aResult2.get(i) + " \"} ,");   
@@ -261,7 +261,7 @@ public class PlacePolis {
         //String ss = Arrays.toString(sArr);       
       System.out.println(sObject);
        
-        //s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
+        //s += (  ",\""+ oRowset.getInt(1) +"\":" + "\"" +oRowset.getString(2) + "\"");
       //  if (i==1000) break; // не загружаем больше 100 записей
 
 
@@ -284,11 +284,11 @@ public class PlacePolis {
  String s = ""; int i = 0;
  
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID, sPolis FROM PlacePolis where nID_PlaceRegion = "+nID_Region + " AND nID_PlacePolisType = " + nID_PolisType).executeQuery();
-        while (oSet.next()& i<100){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID, sPolis FROM PlacePolis where nID_PlaceRegion = "+nID_Region + " AND nID_PlacePolisType = " + nID_PolisType).executeQuery();
+        while (oRowset.next()& i<100){
         i++;
-      // s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
-        s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
+      // s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\"");
+        s += (  ",\""+ oRowset.getInt(1) +"\":" + "\"" +oRowset.getString(2) + "\"");
         if (i<100) break; // не загружаем больше 100 записей
         }
      AccessDB.closeConnectionStatic("", oConnection);

@@ -42,10 +42,10 @@ private String sBranch;
 //     int i = 0;  
 //    
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceBranch1 where sBranch = '"+sBranch+"'").executeQuery();
-//     if (oSet.next()){
-//         i = oSet.getInt(1);
-//       //  _nID(oSet.getInt(1));  // Возвращаем nID по названию Branch
+//     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceBranch1 where sBranch = '"+sBranch+"'").executeQuery();
+//     if (oRowset.next()){
+//         i = oRowset.getInt(1);
+//       //  _nID(oRowset.getInt(1));  // Возвращаем nID по названию Branch
 //      //   _nID_PlacePolis(PP.nID());
 //      //   _nID_PlaceBranchType(PBT.nID());
 //       //  _sBranch(sBranch);
@@ -60,11 +60,11 @@ public String getAllBranch(String nID_Polis, String nID_BranchType) throws Excep
         int i = 0;
 
         Connection oConnection = AccessDB.oConnectionStatic("");
-        ResultSet oSet = oConnection.prepareStatement("SELECT sBranch FROM PlaceBranch  where nID_PlacePolis = " + nID_Polis + " AND nID_PlaceBranchType = " + nID_BranchType).executeQuery();
-        while (oSet.next()) {
+        ResultSet oRowset = oConnection.prepareStatement("SELECT sBranch FROM PlaceBranch  where nID_PlacePolis = " + nID_Polis + " AND nID_PlaceBranchType = " + nID_BranchType).executeQuery();
+        while (oRowset.next()) {
             i++;
-            // s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
-            s += (",\"" + oSet.getInt(1) + "\":" + "\"" + oSet.getString(2) + "\"");
+            // s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\"");
+            s += (",\"" + oRowset.getInt(1) + "\":" + "\"" + oRowset.getString(2) + "\"");
         }
         AccessDB.closeConnectionStatic("", oConnection);
         return s;          //возвращаем список регионов в виде Json строки

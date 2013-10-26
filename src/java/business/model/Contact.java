@@ -42,8 +42,8 @@ public class Contact {
           oConnection.prepareStatement("INSERT INTO LinkType (sLinkType, sLinkTypeInfo) "
                   + "VALUES (" + sLinkType + ",'" + sLinkType + "'").executeUpdate();
 
-          ResultSet oSet = oConnection.prepareStatement("SELECT @@identity").executeQuery();
-          int n = oSet.next() ? oSet.getInt(1) : 0;
+          ResultSet oRowset = oConnection.prepareStatement("SELECT @@identity").executeQuery();
+          int n = oRowset.next() ? oRowset.getInt(1) : 0;
 
           oConnection.prepareStatement("INSERT INTO LinkProvider (nID_LinkType, nID_TheSubject, sLinkProvider) "
                   + "VALUES (" + n + ",'" + i + "','" + sLinkProvider + "')").executeUpdate();

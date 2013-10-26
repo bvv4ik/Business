@@ -47,19 +47,19 @@ private int nSex;
  //String L = ""; 
  Connection oConnection = AccessDB.oConnectionStatic("");
  
- ResultSet oSet =oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
+ ResultSet oRowset =oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
          + "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID where  sLogin = '"+sLogin+"'").executeQuery();
- if(oSet.next()){
+ if(oRowset.next()){
  
- _nID(Integer.parseInt(oSet.getString(1)));
- _nID_TheSubject(Integer.parseInt(oSet.getString(2)));
- _sTheSubjectHuman(oSet.getString(3));
- _sLastName(oSet.getString(4));
- _sFirstName(oSet.getString(5));
- _sSurName(oSet.getString(6));
- _sDTbirth(oSet.getString(7)) ;  
- _sDTdeath(oSet.getString(8));
- _nSex(Integer.parseInt(oSet.getString(9)));
+ _nID(Integer.parseInt(oRowset.getString(1)));
+ _nID_TheSubject(Integer.parseInt(oRowset.getString(2)));
+ _sTheSubjectHuman(oRowset.getString(3));
+ _sLastName(oRowset.getString(4));
+ _sFirstName(oRowset.getString(5));
+ _sSurName(oRowset.getString(6));
+ _sDTbirth(oRowset.getString(7)) ;  
+ _sDTdeath(oRowset.getString(8));
+ _nSex(Integer.parseInt(oRowset.getString(9)));
  
    }
  AccessDB.closeConnectionStatic("", oConnection); 
@@ -73,12 +73,12 @@ public static String getLastName(String sLogin) throws Exception  {
  Connection oConnection = AccessDB.oConnectionStatic("");
  //try{
     
- ResultSet oSet =oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
+ ResultSet oRowset =oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
          + "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID where  sLogin = '"+sLogin+"'").executeQuery();
- if(oSet.next()){
- L = oSet.getString(4);
- //First = oSet.getString(5);
- //Sure = oSet.getString(6);
+ if(oRowset.next()){
+ L = oRowset.getString(4);
+ //First = oRowset.getString(5);
+ //Sure = oRowset.getString(6);
  }
  AccessDB.closeConnectionStatic("", oConnection); 
  return L;

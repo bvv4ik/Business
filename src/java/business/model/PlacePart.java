@@ -47,10 +47,10 @@ private Float dZ;
 //     int nPart = Integer.parseInt(sPart);
 //    
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
-//     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart ).executeQuery();
-//     if (oSet.next()){
-//         i = oSet.getInt(1);
-//       //  _nID(oSet.getInt(1));  // Возвращаем nID по названию Branch
+//     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart ).executeQuery();
+//     if (oRowset.next()){
+//         i = oRowset.getInt(1);
+//       //  _nID(oRowset.getInt(1));  // Возвращаем nID по названию Branch
 //      //   _nID_PlacePolis(PP.nID());
 //      //   _nID_PlaceBranchType(PBT.nID());
 //       //  _sBranch(sBranch);
@@ -65,10 +65,10 @@ public String getAllPart(String   nID_PlaceBuild) throws Exception   {
  int i = 0;
   
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nPart FROM PlacePart where nID_PlaceBuild = "+nID_PlaceBuild).executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nPart FROM PlacePart where nID_PlaceBuild = "+nID_PlaceBuild).executeQuery();
+     while (oRowset.next()){
      i++;
-     s += (  ",\"a"+ i +"\":" + "\"" +oSet.getInt(1) + "\"");
+     s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getInt(1) + "\"");
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка

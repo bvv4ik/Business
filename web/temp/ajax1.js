@@ -333,7 +333,7 @@ alert("najato") ;
         var sParams=$("#sParams").val();
         if(sParams==""){alert("Введите строку обьекта параметров!!!")}
         else{
-                oSet(sParams);
+                oRowset(sParams);
                 alert("Обьект с параметрами проставлен!");
              }
            });
@@ -348,7 +348,7 @@ alert("najato") ;
         function on(s,b,o){var bZ=!off(s);b=b==null?bZ:b;if(bZ!=b){off(s,!b);if(o!=null)o(b);}return b;}
         function oGet(oAt){var s="";oAt.each(function(n,o){if (o.type!="button"&(o.type!="radio"||o.checked)){s=s+(n>0?",":"")+"\""+o.id+"\":\""+(o.type=="checkbox"?o.checked:o.value.replace(/\"/g,"&quot;"))+"\"";}});return "{"+s+"}";}
 
-        function oSet(oTo){$.each(oTo,function(key,val){if(key!=''){var s="#"+key;
+        function oRowset(oTo){$.each(oTo,function(key,val){if(key!=''){var s="#"+key;
         if($(s).attr("type")=="checkbox"){$(s).attr("checked",eval(val));}
         else if($(s).attr("type")=="radio"){$('[id='+key+']:[value='+val+']').attr('checked',true);}
         else {$(s+":[type!=button]").val(val.replace(/<br\/>/g,"<br/>\n").replace(/<br>/g,"<br>\n").replace(/<\/p>/g,"</p>\n").replace(/&quot;/g,"\""));}

@@ -31,11 +31,11 @@ public class Log {
      * @param bTrace true, если нужно выводить StackTrace
      * @param oLog
      */
-    public static void Do(String sMessage, Exception ex, boolean bAlert, boolean bTrace, Logger oLog) {//Class oClass
+    public static void Do(String sMessage, Exception oException, boolean bAlert, boolean bTrace, Logger oLog) {//Class oClass
 
-        boolean bToTrace = bAlert && bTrace && ex != null;
+        boolean bToTrace = bAlert && bTrace && oException != null;
         if (bToTrace) {
-            oLog.error(sMessage, ex);
+            oLog.error(sMessage, oException);
         }
         if (sMessage != null && !bToTrace) {
             if (bAlert) {

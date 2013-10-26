@@ -55,9 +55,9 @@ public class Run {
             } else {
                 return oRun.oReturn();
             }
-        } catch (Exception ex) {
-            oLogStatic.error("[" + sCase + "](sClass=" + sClass + ",sMethod=" + sMethod + "):" + ex);
-            throw ex;
+        } catch (Exception oException) {
+            oLogStatic.error("[" + sCase + "](sClass=" + sClass + ",sMethod=" + sMethod + "):" + oException);
+            throw oException;
         } finally {
             Limit.poolMinus(sName);
         }
@@ -119,8 +119,8 @@ public class Run {
                     sReturnError = oREST().sReturnError();
                 }
             }
-        } catch (Exception ex) {
-            String sError = "[" + sCase + "](sURL=" + sURL + ",mParams=" + mParams + "):" + ex;
+        } catch (Exception oException) {
+            String sError = "[" + sCase + "](sURL=" + sURL + ",mParams=" + mParams + "):" + oException;
             oLogStatic.error(sError);
             sReturnError = sError;
             //throw E;

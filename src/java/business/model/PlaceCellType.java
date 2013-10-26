@@ -30,10 +30,10 @@ private String sCellType;
 public int getID (String sCellType) throws Exception { 
      int i = 0;  
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID FROM PlaceCellType where sCellType = '"+sCellType+"'").executeQuery();
-     if (oSet.next()){
-         i = oSet.getInt(1);
-        // _nID(oSet.getInt(1));  // Возвращаем nID по названию типа дома
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceCellType where sCellType = '"+sCellType+"'").executeQuery();
+     if (oRowset.next()){
+         i = oRowset.getInt(1);
+        // _nID(oRowset.getInt(1));  // Возвращаем nID по названию типа дома
          //_sBranchType(sBranchType);
         }
      AccessDB.closeConnectionStatic("", oConnection);      
@@ -46,10 +46,10 @@ public String getAllCellType() throws Exception   {
  int i = 0;
   
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT sCellType FROM PlaceCellType").executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT sCellType FROM PlaceCellType").executeQuery();
+     while (oRowset.next()){
      i++;
-     s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
+     s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\"");
      } 
        
      AccessDB.closeConnectionStatic("", oConnection);

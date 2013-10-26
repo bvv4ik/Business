@@ -45,15 +45,15 @@ public class InsertFromFile {
                         .append(System.getProperty(
                                 "line.separator"));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException oException) {
+            oException.printStackTrace();
         } finally {
             try {
                 if (reader != null) {
                     reader.close();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException oException) {
+                oException.printStackTrace();
             }
         }
 

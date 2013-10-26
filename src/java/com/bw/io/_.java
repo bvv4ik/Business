@@ -129,7 +129,7 @@ public abstract class _ {
         int n = 0;
         try {
             n = Integer.valueOf(s);
-        } catch (Exception ex) {
+        } catch (Exception oException) {
         }
         return n;
     }
@@ -286,7 +286,7 @@ public abstract class _ {
         try {
             Integer.parseInt(sValue);
             b=true;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException oException) {
         } return b;
     }
 

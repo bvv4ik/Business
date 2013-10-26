@@ -29,11 +29,11 @@ public String getAllPolisType() throws Exception   {
  int i = 0;
   
      Connection oConnection = AccessDB.oConnectionStatic("");    
-     ResultSet oSet = oConnection.prepareStatement("SELECT nID, sPolisType FROM PlacePolisType").executeQuery();
-     while (oSet.next()){
+     ResultSet oRowset = oConnection.prepareStatement("SELECT nID, sPolisType FROM PlacePolisType").executeQuery();
+     while (oRowset.next()){
      i++;
-     //s += (  ",\"a"+ i +"\":" + "\"" +oSet.getString(1) + "\"");
-      s += (  ",\""+ oSet.getInt(1) +"\":" + "\"" +oSet.getString(2) + "\"");
+     //s += (  ",\"a"+ i +"\":" + "\"" +oRowset.getString(1) + "\"");
+      s += (  ",\""+ oRowset.getInt(1) +"\":" + "\"" +oRowset.getString(2) + "\"");
      } 
         //  if((i%2)!=0) если кратно 2
         //   utf = new String( s1.getBytes(), "Cp1251" ); // перекодировка
