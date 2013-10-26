@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-var oFunctionQuestion=null;
+var oFunctionReturn=null;
 
 //================
 // === УТИЛИТЫ ===
@@ -161,11 +161,8 @@ function sDateShort(sDateGot){
 //Открыть диалог
 function showDialog(oThis,nWidth,nHeight,nDelayAutoclose){
     try{
-        $(".oDialog_Background").show(); // Показываем фон
-        
-        
-        var nYClient=document.body.clientHeight;
-        nYDialog=$(oThis).height();
+        $(".oDialog_Background").show();
+        var nYClient=document.body.clientHeight,nYDialog=$(oThis).height();
         var nUpDialog=window.scrollY+(nYDialog<nYClient?(nYClient-nYDialog)/2:23);
         $(oThis).css("left",((document.body.clientWidth-$(oThis).width())/2)+"px");
         $(oThis).css("top",nUpDialog+"px").show();
@@ -196,6 +193,8 @@ function hideDialog(oThis){
 
 //Шаблон диалога-вопроса
 function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
+    //alert(sBody);
+    //alert(sHead);
     try{
         if(bSkip){
             if(oReturn!=null){
@@ -204,7 +203,6 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
             return;
         }else{  
             var oThis=$(".oDialog.oAsk");
-           
            if(aButttons==null){
                 if(sHead=="yes"){
                     sHead="Сделайте выбор";
@@ -247,30 +245,32 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
                 oThis.find('.oButton:not(.default)').remove();
                
                for(var n=0;n<aButttons.length;n++){
-                    var sName=aButttons[n].sName, 
-                    sClass=aButttons[n].sClass,
-                    oNode;
+                    var sName=aButttons[n].sName
+                        ,sClass=aButttons[n].sClass
+                        ,oNode;
                     if(sClass==null){
                         sClass="oButtonGreen";
                     }
                     oNode=oThis.find('.oButton.default');
                     oNode=oNode.clone().insertAfter(oThis.find('.oButton:last')).removeClass("default").addClass(sClass);
                     oNode.val(sName);
-                    oFunctionQuestion=oReturn;
-                    oNode.attr("onclick", "alert(1); hideDialog(this);");
+                    oFunctionReturn=oReturn;
+                    oNode.attr("onclick","oFunctionReturn("+n+");hideDialog(this);")
                 }
                 
                 
             }
+                      
             showDialog(oThis);                
         }
     }catch(_){
+        alert(":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"");
         doDebug(sFunction(arguments)+":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"");
     }
 }
 
 
-function seeError(sHead,sBody,sDebug){
+function seeError(sBody,sDebug,sHead){
     try{
         var oThis=$(".oDialog.oError");
         if(sHead=="attention"){
@@ -316,8 +316,7 @@ function seeError(sHead,sBody,sDebug){
 
 //Тест диалога-вопроса
 function askTest(){
-     //alert(1);
-    ask("В чем вопрос?","accept",[{
+    ask("В чем вопрос?","Вот",[{
         sName:"Не быть",
         sClass:"oButtonRed"
     },{
@@ -354,7 +353,7 @@ $(function(){
     //важные обязательные дефолтные установки
     $('a[href=#]').attr('href',"javascript:void(0)");
     $('.oButtonClose').attr("onclick","hideDialog(this);").attr("alt","Скрыть").attr("title","Скрыть окно");
-    $('img .doHideDialog').attr("onclick","hideDialog(this);").attr("alt","Скрыть").attr("title","Скрыть окно")
+    $('img.doHideDialog').attr("onclick","hideDialog(this);").attr("alt","Скрыть").attr("title","Скрыть окно")
     .attr("src","img/dialogHide.png").attr("width","10").attr("height","10");
     //закрытие верхнего диалога по эскейпу
     $("body").keydown(function(event) {

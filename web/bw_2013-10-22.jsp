@@ -11,15 +11,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" type="text/css" href="css/BW_2013-10-22.css"/> 
-        <script type="text/javascript" src="js/jquery-1.8.3.js"> </script>  
+        <script type="text/javascript" src="js/jquery-1.9.1.js"> </script>  
         
         <script type="text/javascript" src="js/bw_2013-10-22.js"> </script> 
-        
-        
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-        
         
           <script> 
                     //$.cookie("auth", 111, { expires: 2,  path: '/'    });
@@ -29,12 +23,23 @@
                         //showDialog($(".oDialog.oAsk"),"yes","ssss",null);
                         //askTest();
                            // sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight)
-                        ask("привет","yes",null,1);
+                           askTest();
+                        /*ask("привет","yes",null,function(nReturn){
+                            //if(nReturn==1){}}
+                            alert("nReturn="+nReturn);
+                        });*/
                        // askTest();
                         //seeError("Внимание!","ывsDebug","incomplete");
                     });
                </script>
         
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        
+        
+        <input type="button" value="run" onclick="askTest();"/>
+               
     <div class="oDialog_Background" style="display: none"></div>
         
     <div class="oDialog oAsk" style="display: none">
