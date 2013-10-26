@@ -111,10 +111,10 @@ import org.apache.log4j.Logger;
                
 //------------- Отправка на Емаил пользователя ссылки для "входа без пароля" ---------------
              if ("theSendEmail".equals(sDO)) {
-                  Access A = new Access();
-                  if (A.bLoginExists(sEmail) == true) {       // true - Емаил существует в базе
-                       AccessAuth AA = new AccessAuth();
-                       String sCookieDB = AA.findCookie(sEmail);  // берем куку пользователя (самую старую)  // еще нужно будет сделать, генерацию и добавление куки в базу при нажатии на "отправить ссылку на почту"
+                  Access oAccess = new Access();
+                  if (oAccess.bLoginExists(sEmail) == true) {       // true - Емаил существует в базе
+                       AccessAuth oAccessAuth = new AccessAuth();
+                       String sCookieDB = oAccessAuth.findCookie(sEmail);  // берем куку пользователя (самую старую)  // еще нужно будет сделать, генерацию и добавление куки в базу при нажатии на "отправить ссылку на почту"
                        MailText mt = new MailText();   //sEmail   
                        mt.sendMail(sEmail, "Ваша ссылка для входа в PGASA без пароля:  \n\n  " + Config.sValue("sURL") + "/#sAuth=" + sCookieDB + "  \n\n ");
                        //  mt.sendMail(sEmail, "Ваша ссылка для входа в PGASA без пароля:  \n\n  http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin="+sCookieDB +"  \n\n ") ;
@@ -159,9 +159,9 @@ import org.apache.log4j.Logger;
              if ("theUserLogin".equals(sDO)) {
                  String sCase = "theUserLogin";  // Для Лога
                  String sCreateCookie = "";  // поправить, иногда создается пустая Кука?????
-                  Access A = new Access();                  
-                  if (A.bLoginExists(sEmail) == true) {        // true - Емаил существует в базе
-                       String sPasswordDB = A.getPassword(sEmail);    // смотрим  Пароль по Емайлу
+                  Access oAccess = new Access();                  
+                  if (oAccess.bLoginExists(sEmail) == true) {        // true - Емаил существует в базе
+                       String sPasswordDB = oAccess.getPassword(sEmail);    // смотрим  Пароль по Емайлу
                        if (sPassword.equals(sPasswordDB)) {           // если Пароли совпадают
 
                             
@@ -195,7 +195,7 @@ import org.apache.log4j.Logger;
                                         //aAllSession.add(sArrSession); // переносим в Список Массивов для хранения
                             
                             HttpSession session = request.getSession(true);
-                            sCreateCookie = A.afretRegister(sEmail, sPassword, session, request.getLocalAddr());
+                            sCreateCookie = oAccess.afretRegister(sEmail, sPassword, session, request.getLocalAddr());
                             
                             // Запись в базу инфы о пользователе при попытке его Входа
 //                            AccessOf.saveInfoTryLogined(sEmail, request.getLocalAddr(), true); //  true доделать
@@ -207,8 +207,8 @@ import org.apache.log4j.Logger;
                        }
                   } else {   // несуществующий Логин // значит попытка регистрации //Регистрируем  и пускаем на сайт
                        
-                       Access Ac = new Access();   
-                       String s = Ac.sUserRegistration(sEmail, sPassword);
+                       oAccess = new Access();   
+                       String s = oAccess.sUserRegistration(sEmail, sPassword);
                        if (s.equals("Добро пожаловать на сайт!")) {   // если регистрация удалась, то полдолжаем
 
                            
@@ -224,7 +224,7 @@ import org.apache.log4j.Logger;
                             ;*/
                            
                             HttpSession session = request.getSession(true);
-                            sCreateCookie = A.afretRegister(sEmail, sPassword, session, request.getLocalAddr());
+                            sCreateCookie = oAccess.afretRegister(sEmail, sPassword, session, request.getLocalAddr());
 //                            Date d = new Date();          // узнаем текущую дату
 //                            String sTimeLogin = df.format(d);
 //
