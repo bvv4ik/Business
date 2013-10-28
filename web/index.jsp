@@ -1,5 +1,6 @@
 <%@page import="business.auth.AccessAuth"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%               //session.setAttribute("sLogin","Vasiliy");
  //if (!session.equals(null){
@@ -9,7 +10,7 @@
   Object oLastName = session.getAttribute("sLastName");
   Object oSureName = session.getAttribute("sSureName");
   //Object oIP = session.getId();       //request.getRemoteAddr();      //request.getRemoteUser(); 
-  
+  /*
   String sLimitRequest = "---";
   int nLimitRequest = 9;
   if (AccessAuth.map.size() != 0) {
@@ -20,11 +21,14 @@
             };
             
        }
+  */
+  
 %>
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Главная </title>         
+     
+          <title> Главная </title>         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/reset.css"/>     <!--  сброс браузерных стилей -->
         <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css"/>     <!--  подключаем манящий уголок  -->
@@ -39,10 +43,11 @@
         <!--  <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>          <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->    <!--  <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> -->
         <script type="text/javascript" src="js/jquery-1.8.3.js"> </script>  <!--  Библ. jquery должна быть первой   -->
         <script type="text/javascript" src="js/jquery-ui.js"> </script>        
-        <script type="text/javascript" src="js/index.js"> </script>   <!--  мои скрипты  -->
+        <script type="text/javascript" src="js/index.js"> </script>  <!--   мои скрипты  -->
         <script type="text/javascript" src='js/message/codebase/message.js'></script>        
         <script type="text/javascript" src="js/jquery.qtip.js"> </script>
         <script type="text/javascript" src="js/jquery.cookie.js"></script>     
+        
     </head>
     <body>
 
@@ -69,11 +74,11 @@
      
  <!--  Форма ВХОДА   -->
      <div  class="divLogin" > 
-          <form  class="formLogin" >
+          <form>
                <img  hidden id="imgLoading" src="img/loading6.gif" width="105" height="16" style="left:154px; top:-67px; position:absolute" />      
                <br>                                        
                <center> 
-                    <input         class="sAuthField sEmail"  type="text" maxlength="55" autocomplete="on" placeholder="Е-Маил..."  /> 
+                    <input         class="sAuthField sEmail" name="email" type="text" maxlength="55" autocomplete="on" placeholder="Е-Маил..."  /> 
                     <input         class="sAuthField sPassword" type="Password" value="" placeholder="Пароль..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
                     <input  hidden class="sAuthField sName" type="text" value="" placeholder="Имя (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  
                     <input  hidden class="sAuthField sLastName" type="text" value="" placeholder="Фамилия (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  
@@ -84,9 +89,10 @@
                     <input hidden  class="checkAgreement" type="checkbox"   checked> 
                     <a hidden  class="sTextAgreement" href="agreement.html" target="_blank" > &nbsp; Я согласен на хранение своих персональных данных (?). </a>
                     <input  style ="margin-top: 20px;" class="allButt" id="btLogin" type="button" value="Вход" />  
-                    <div  class="countRequest" title="Если с одного IP адреса будет отправлено более 10 запросов в течении 2 минут, то данный IP будет заблокирован на 5 минут." style=" width:40px; height:40px; position:absolute; top: -2px; left:-68px; cursor:pointer; background: url(../img/zamok_green.png);" > <span style="position:relative; top:22px; font-size: 14px;"> <%=nLimitRequest%> </span> </div>
-                    <button hidden id="btSubmit" type="submit">s</button>                 <!--    <a id="linkRegister" href ="#" >Регистрация </a>   <br>   -->
+                    <div  class="countRequest" title="Если с одного IP адреса будет отправлено более 10 запросов в течении 2 минут, то данный IP будет заблокирован на 5 минут." style=" width:40px; height:40px; position:absolute; top: -2px; left:-68px; cursor:pointer; background:url(img/zamok_green.png);" > <span style="position:relative; top:22px; font-size: 14px;"> <!--%=nLimitRequest%--> </span> </div>
+                                    <!--    <a id="linkRegister" href ="#" >Регистрация </a>   <br>   -->
                </center> 
+               <button hidden id="btSubmit" type="submit">submit</button> 
           </form>
      </div>
  

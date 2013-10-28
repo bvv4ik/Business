@@ -4,13 +4,13 @@ body{
 	margin:0px;
 	padding:0px;
         background-image: url(../img/body-bg1.jpg);
-        b ackground:  url(dark_wood_texture.jpg)  #282828;
 	f ont-family:Arial, Helvetica, sans-serif;
 }
-#btLogin 
+#btL ogin 
 {
      width : 100px;
 }
+
 .sTextAgreement
 {
      font-size: 13px; 
