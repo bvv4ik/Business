@@ -251,7 +251,7 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
                     if(sClass==null){
                         sClass="oButtonGreen";
                     }
-                    oNode=oThis.find('.oButton:.default');
+                    oNode=oThis.find('.oButton.default');
                     oNode=oNode.clone().insertAfter(oThis.find('.oButton:last')).removeClass("default").addClass(sClass);
                     oNode.val(sName);
                     oFunctionReturn=oReturn;

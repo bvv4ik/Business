@@ -22,8 +22,13 @@ public class S111 {
      
     public static void main(String[] args) throws SQLException, InterruptedException, IOException {
     
-     String s = String.format("%02d", 1);
-          System.out.println(s);
+     //String s = String.format("%02d", 1);
+         int sCookie = 10;
+        String sReturn = "{'sReturn':'Добро пожаловать на сайт!', "
+                + "'sReturnCookie':"+sCookie+"}";
+         System.out.println(sReturn);
+        sReturn = sReturn.replaceAll("'", "\"");
+        System.out.println(sReturn);
 //    List list1 = new ArrayList(); 
 //    LoadTextFile lf1 = new LoadTextFile();
 //    list1 = lf1.ListFromFile("D:/Java_study/---Projects/KOATUU/1.txt");

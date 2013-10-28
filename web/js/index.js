@@ -24,10 +24,11 @@
 // ------------------------------ Проверка Емайла ------------------------------
 //     Проверяем зарегистрирован ли юзер или только хочет регистироватся
 function  ajax_userExists(){
+     
      $( '#imgLoading' ).fadeIn(1);     // показываем прогресс бар
      var oData= {
           sDO: "theUserExists"
-          ,sEmail: $("#sEmail").val()
+          ,sEmail: $(".sAuthField.sEmail").val()
      };
      $.ajax({
           type:"POST"
@@ -39,19 +40,19 @@ function  ajax_userExists(){
 
                var s = o.sReturn;  
                if (s == "NoEmailExists") {      // Если Емайла нет в базе  // показываем доп. поля для "нового пользователя" 
-                    $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement, #brLogin" ).removeAttr("hidden");    
-                    $( "#divLogin" ).css("height","375");
+                    $( ".sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine" ).removeAttr("hidden");    
+                    $( ".divLogin" ).css("height","375");
                     $( "#btLogin" ).val("Вход (Авторегистрация)").css("width","230px");
 
                } else if  (s == "EmailExists")  {         // иначе прячим доп. поля, т.к такой Емайл зареген
-                    $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement,#brLogin" ).attr("hidden","hidden");    
-                    $( "#divLogin" ).css("height","190");
+                    $( ".sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine" ).attr("hidden","hidden");    
+                    $( ".divLogin" ).css("height","190");
                     $( "#btLogin" ).val("Вход").css("width","100px");
                }   
 
                $( "#imgLoading" ).fadeOut( 500 );  // прячем прогресс бар при любом ответе
                
-               $(".countRecuest").text(o.sReturnLimitRequest);
+               $(".countRequest span").text(o.sReturnLimitRequest);
                /// здесь доделать менять замки
 
           }
@@ -74,8 +75,8 @@ function ajax_doLogin(){
 
      var oData= {
           sDO: "theUserLogin"
-          ,sEmail : $("#divLogin #sEmail").val()
-          ,sPassword: $("#divLogin #sPassword").val()
+          ,sEmail : $(".sAuthField.sEmail").val()
+          ,sPassword: $(".sAuthField.sPassword").val()
      };
 
      $.ajax({
@@ -135,10 +136,10 @@ function ajax_doLogin(){
                
                
               // if (o.sReturnLimitReques == "FailLimitRequest!"){  // сделано более 5 запросов в течении 2 минут, доступ заблокирован.
-                     $(".countRecuest").text(o.sReturnLimitRequest);
+                     $(".countRequest span").text(o.sReturnLimitRequest);
                    //  alert(o.sReturnLimitRequest);     
                        if (parseInt(o.sReturnLimitRequest) < 5) {
-                        $(".countRecuestDiv").css("background","url(../img/zamok_green.png)")
+                        $(".countRequest").css("background","url(../img/zamok_green.png)")
                         .css("display","block");
                         
                         // показываем зеленый замок
@@ -146,7 +147,7 @@ function ajax_doLogin(){
                        }                                        
                        if (parseInt(o.sReturnLimitRequest) <= 0) {
                       //  делаем красный замок
-                      $(".countRecuestDiv").css("background","url(../img/zamok_red.png)");
+                      $(".countRequest").css("background","url(../img/zamok_red.png)");
                           
                        } 
              //  } 
@@ -205,7 +206,7 @@ function ajax_sendEmail(){
      $( "#imgLoading" ).fadeIn( 300 );  // Показываем прогресс бар - процесс отправки
      var oData= {
           sDO: "theSendEmail",
-          sEmail : $("#divLogin #sEmail").val()  // лучше здесь создать глобальную переменную ... потом доделать!!!! 
+          sEmail : $(".sAuthField.sEmail").val()  // лучше здесь создать глобальную переменную ... потом доделать!!!! 
      };
      $.ajax({
           type:"POST"
@@ -265,6 +266,8 @@ function ajax_LoginForCookie(sCookie){
                     window.location.href="/index.jsp" 
 
                } else if (o.sReturn == "Ложная кука!"){
+                    //TODO:-- Доделать, чтобы при ложной куке убрался хеш
+                    //window.location.href="/index.jsp"  // чтобы убрался хеш
                     dhtmlx.message({
                          type:"error", 
                          expire:7000, 
@@ -322,11 +325,11 @@ $(function(){                                                                   
      $("#btLogin").addClass("disabled").attr("disabled", "disabled")           
           
      //-----
-     $("#sEmail").focus();
+     $(".sAuthField.sEmail").focus();
 
      //----- Если отключены Куки закрываем окно Входа - регистрации и закрываем Вкладку страницы
      if (!navigator.cookieEnabled) {    
-          $( "#divLogin").hide();  
+          $( ".divLogin").hide();  
           alert('Внимание, отключены Сookie в вашем баузере, без Сookie работа с этим сайтом невозможна!');
           window.close();
      }  
@@ -348,7 +351,7 @@ $(function(){                                                                   
      //    $.cookie("auth", "ffffgdf", { expires: 2,  path: '/'/*, secure: true */ });
 
      //---- Открываем Табы с эффектом замедления
-     $( "#divLogin" ).tabs({
+     $( ".divLogin" ).tabs({
           hide: {
                effect: "shake", 
                duration: 400
@@ -405,15 +408,15 @@ function goto_event(){};
           $("#left").css("display","block") ;   
      });     
                //var t1 = new Date();     //var res = (t.getMinutes()+" "+t.getSeconds()); 
-               //  & ($("#sPassword").val().length > 2 )      // проверка длинны пароля
+               //  & ($(".sAuthField.sPassword").val().length > 2 )      // проверка длинны пароля
 
 
      // !!надо будет еще сделать, чтобы отлавливались только ограниченные клавиши (без стрелок вверх, вниз)
      //----  Отправляем запрос на проверку существования Емайла когда уже введен синтаксически 
      //      верный адрес и пользователь не нажимает кнопки больше 2 секунд.
      var oTimer = null;   // создаем глобальный таймер
-     $("#sEmail").keyup(function(){    
-          if  (  ( IsValidateEmail( $("#sEmail").val() ))   ){   // если Емайл синтаксически валидный то
+     $(".sAuthField.sEmail").keyup(function(){    
+          if  (  ( IsValidateEmail( $(".sAuthField.Email").val() ))   ){   // если Емайл синтаксически валидный то
                $( '#imgLoading' ).fadeIn( 300 );            // показывем Прогресс бар
           }
           if (oTimer != null) {
@@ -423,11 +426,11 @@ function goto_event(){};
           oTimer =  window.setTimeout(function() {         // в момент выполнения задачи таймера, через N- секунд длаем:
                $( '#imgLoading' ).fadeOut( 1 );                 // прячем прогресс бар
 
-               if  (  ( IsValidateEmail( $("#sEmail").val() ))   ){
+               if  (  ( IsValidateEmail( $(".sAuthField.sEmail").val() ))   ){
                     ajax_userExists();  
                } else {                // Если Емайл не валидный, то показываем только 2 поля
-                    $( "#sName, #sLastName, #sINN, #checkAgreement, #sTextAgreement, #brLogin" ).attr("hidden","hidden");    
-                    $( "#divLogin" ).css("height","190");
+                    $( ".sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine" ).attr("hidden","hidden");    
+                    $( ".divLogin" ).css("height","190");
                     $( "#btLogin" ).val("Вход").css("width","100px"); 
                }
                oTimer = null;  // при выполнении функции в таймере, включаем работу таймеа
@@ -436,16 +439,17 @@ function goto_event(){};
 
 
      // ----- Кликаем на кнопку Входа на сайт
-     $("#divLogin #btLogin").click(function(){  
+     $(".divLogin #btLogin").click(function(){  
+          
           // проверяем чтобы Логин или пароль не пустой были
-          if  ( ($("#divLogin #sEmail").val() == "") | ($("#divLogin #sPassword").val() == "")  )  {        
+          if  ( ($(".sAuthField.sEmail").val() == "") | ($(".sAuthField.sPassword").val() == "")  )  {        
                dhtmlx.message({
                     type:"error",  
                     expire:3000, 
                     text:"Введите Е-Маил и пароль!"
                });    // выводим сообщение             
                return; 
-          } else  if(!IsValidateEmail(  $("#sEmail").val()  )) {
+          } else  if(!IsValidateEmail(  $(".sAuthField.sEmail").val()  )) {
                dhtmlx.message({
                     type:"error", 
                     expire:4000,  
@@ -454,7 +458,7 @@ function goto_event(){};
                return;                    
           }  
           // временно отключить 
-//          else  if( ($("#sPassword").val()).length < 10  ) {
+//          else  if( ($(".sAuthField.sPassword").val()).length < 10  ) {
 //               dhtmlx.message({
 //                    type:"error", 
 //                    expire:4000,  
@@ -470,17 +474,17 @@ function goto_event(){};
 
             
      //---- при откускании кнопок (в том числе интера) на полях формы для Входа     
-     $(".sInput_Login").keyup(function(event) { 
-              
+     $(".sAuthField").keyup(function(event) { 
+             
           // проверяем поля на пустоту и включен ли чекбокс
-          if ( ($("#sEmail").val() == "") | ($("#sPassword").val() == "") | (!$("#checkAgreement").is(":checked" )) ) { 
+          if ( ($(".sAuthField.sEmail").val() == "") | ($(".sAuthField.sPassword").val() == "") | (!$(".checkAgreement").is(":checked" )) ) { 
                // если есть пустые поля или чекбокс не включен, значит отключаем кнопку
                $("#btLogin").addClass("disabled").attr("disabled", "disabled");
           }
           else {  // если поля заполнены и чекбокс включен то - // включаем кнопку
                $("#btLogin").removeClass("disabled").removeAttr("disabled");
                // если это была кнопка "интер" то программно кликаем по кнопке "входа"
-               if ( (event.keyCode==13) /*& ($("#checkAgreement").is(":checked" )) */  ) {
+               if ( (event.keyCode==13) /*& ($(".checkAgreement").is(":checked" )) */  ) {
  
                     $('#btLogin').click();  // кликаем на вход                                          
                }                     
@@ -490,10 +494,10 @@ function goto_event(){};
            
       
      //----- в момент изменения состояния чекбокса "согласия на хранение данных" (включения - выключения)
-     $("#checkAgreement").change(function() {
+     $(".checkAgreement").change(function() {
            
           // проверяем если все поля заполнены и чекбокс включен
-          if ($("#checkAgreement").is(":checked" ) & ($("#sEmail").val() != "") & ($("#sPassword").val() != "")   ) {
+          if ($(".checkAgreement").is(":checked" ) & ($(".sAuthField.sEmail").val() != "") & ($(".sAuthField.sPassword").val() != "")   ) {
                // включаем кнопку Входа
                $("#btLogin").removeClass("disabled").removeAttr("disabled");
   
@@ -537,7 +541,7 @@ function goto_func(){};
 // --------------- Всплывающая подсказка ---------------------
 function showTitleFirstLogin() {
 
-     $("#divLogin").qtip({ 
+     $(".divLogin").qtip({ 
           content: {
                title: {
                     text: 'Информация:'
@@ -655,7 +659,7 @@ function IsValidateEmail(email) {
 
 
 // ------ если кликаем на текст - то программно кликам на сам чекбокс.
-// $("#textCheckAgreement").click(function() {    $("#checkAgreement").click();   });
+// $("#textCheckAgreement").click(function() {    $(".checkAgreement").click();   });
     
 
 
@@ -750,8 +754,8 @@ dhtmlx.modalbox({
 			buttons:["Да"], //, "Нет" 
 			callback:function(index){
 			if (index==0) {  //
-                            //   $("#divLogin #sEmail").val( $("#sEmail_Account").val() );
-                            //   $("#divLogin #sPassword").val($("#sPassword_Account").val()) ;
+                            //   $(".divLogin #sEmail").val( $("#sEmail_Account").val() );
+                            //   $(".divLogin #sPassword").val($("#sPassword_Account").val()) ;
                                alert("DA!");
                         }
                         if (index==1) { 
@@ -819,7 +823,7 @@ dhtmlx.modalbox({
 
 
  //---- подсказки qtip
-//     $('.sInput_Login').qtip({ 
+//     $('.sAuthField').qtip({ 
 //         content: {
 //                     title: {
 //                     text: 'Информация:'
@@ -850,15 +854,15 @@ dhtmlx.modalbox({
 
 
 //----- Кликаем на ссылку создания Аккаунта 
-//        $("#divLogin #linkRegister").click(function(){     
-//            $("#divLogin").hide("slow");       // прячем окно ВХОДА
+//        $(".divLogin #linkRegister").click(function(){     
+//            $(".divLogin").hide("slow");       // прячем окно ВХОДА
 //            $("#divAccount").show("slow");     // показываем окно РЕГИСТРАЦИИ 
 //        });
         
  //---- Кликаем на крестик зарытия Окна Регистрации           
 //        $("#btClose_Account").click(function(){     
 //            $("#divAccount").hide("slow");                // прячем окно РЕГИСТРАЦИИ
-//            $("#divLogin").show("slow");                  // показываем окно ВХОДА
+//            $(".divLogin").show("slow");                  // показываем окно ВХОДА
 //        });
 
 
@@ -899,7 +903,7 @@ dhtmlx.modalbox({
 //               
 //            if (o.sReturn_Account == "Добро пожаловать на сайт!") { // "Учетная запись создана !"
 //                       $("#divAccount").hide();                // прячем окно РЕГИСТРАЦИИ
-//                       $("#divLogin").show();                  // показываем окно ВХОДА
+//                       $(".divLogin").show();                  // показываем окно ВХОДА
 //                      
 //                     dhtmlx.modalbox({ 
 //                             title: "Вход на сайт:" ,
@@ -909,8 +913,8 @@ dhtmlx.modalbox({
 //                             buttons:["Да", "Нет"],
 //                             callback:function(index){
 //                                  if (index==0) {  // если нажата кнопка с индексом 0 (ДА)
-//                                         $("#divLogin #sEmail").val( $("#sEmail_Account").val() );
-//                                         $("#divLogin #sPassword").val($("#sPassword_Account").val()) ;
+//                                         $(".divLogin #sEmail").val( $("#sEmail_Account").val() );
+//                                         $(".divLogin #sPassword").val($("#sPassword_Account").val()) ;
 //                                                                   //  http://localhost:8080/CreateAccount?sDO=theCreateAccount&sEmail=ser412@d3f.dd&sPassword=12&sPassword2=12&sLastName=ser1&sFirstName=bel1
 //                                         ajax_doLogin();
 //                                         }

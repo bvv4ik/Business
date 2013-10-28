@@ -5,6 +5,29 @@
     import java.sql.ResultSet;
 
 
+    
+    /*
+     
+     
+CREATE table TheSubjectHuman (
+     nID INT identity,
+     nID_TheSubject INT,
+     sTheSubjectHuman VARCHAR(100) null,
+     sLastName VARCHAR(100) null,
+     sFirstName VARCHAR(100) null,
+     sSurName VARCHAR(100) null,
+     sDTbirth DATETIME null,
+     sDTdeath DATETIME null,
+     nSex TINYINT null,
+     PRIMARY KEY(nID)
+)
+drop table TheSubjectHuman
+--alter table TheSubjectHuman modify sLastName VARCHAR(100)
+     
+     */
+
+    
+    
 public class TheSubjectHuman {
 
 

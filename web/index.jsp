@@ -1,24 +1,14 @@
 <%@page import="business.auth.AccessAuth"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%               //session.setAttribute("sLogin","Vasiliy");
-                 //session.setAttribute("sLogin","text1");
-                 // session.removeAttribute("sLogin");
-                 //session.invalidate();
- // if ((session.getAttribute("sLogin")) != ""){
- // String value = session.getAttribute("sLogin").toString(); }
- //String sLogin = session.getAttribute("sLogin1").toString();
  //if (!session.equals(null){
 // При загрузке страницы на сервере проверяем есть ли в сессии запись "sEmail"
   Object oEmail= session.getAttribute("sEmail");  
   Object oFirstName = session.getAttribute("sFirstName");
   Object oLastName = session.getAttribute("sLastName");
   Object oSureName = session.getAttribute("sSureName");
-  Object oIP = request.getServerName(); //getRemoteUser();//
   //Object oIP = session.getId();       //request.getRemoteAddr();      //request.getRemoteUser(); 
-  //String sLogin = session.getAttribute("sLogin");  
-  //String sLogin = AccessAuth.aUserCountTry; 
   
   String sLimitRequest = "---";
   int nLimitRequest = 9;
@@ -34,101 +24,80 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <title> Главная </title>         
-         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         
-         <link rel="stylesheet" type="text/css" href="css/reset.css"/> <!--  сброс браузерных стилей -->
-                                                                                            <!--  <script type="text/javascript" src="---js/jquery-1.7.2.js"></script>       <script type="text/javascript" src="---js/ajax1.js"> </script>          <!--  < link rel="stylesheet" type="text/css" href="css/my_style_1.css"/>  -->
+        <title> Главная </title>         
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/reset.css"/>     <!--  сброс браузерных стилей -->
+        <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css"/>     <!--  подключаем манящий уголок  -->
+        <link rel="stylesheet" href="css/jquery-ui-tabs.css" />    
+        <link rel="stylesheet" type="text/css" href="css/index.css"/>   <!--  Мои стили  -->
+        <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_default.css" title="Default"/>
+                    <!--<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_dark.css" title="Growl - dark"/>
+                    <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_shiny.css" title="Growl - shiny"/>
+                    <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
+                    <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
+                    -->
+        <!--  <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>          <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->    <!--  <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> -->
         <script type="text/javascript" src="js/jquery-1.8.3.js"> </script>  <!--  Библ. jquery должна быть первой   -->
         <script type="text/javascript" src="js/jquery-ui.js"> </script>        
         <script type="text/javascript" src="js/index.js"> </script>   <!--  мои скрипты  -->
-
-        <!--  <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>          <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->    <!--  <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> -->
-        
-        <link rel="stylesheet" href="css/jquery-ui-tabs.css" />
-        <link rel="stylesheet" type="text/css" href="css/index.css"/>   <!--  мои стили  -->
-        
         <script type="text/javascript" src='js/message/codebase/message.js'></script>        
-        <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_default.css" title="Default"/>
-                                             <!--<link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_dark.css" title="Growl - dark"/>
-                                             <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_growl_shiny.css" title="Growl - shiny"/>
-                                             <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_solid.css" title="Solid"/>
-                                             <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
-                                             -->
-     	<script type="text/javascript" src="js/jquery.qtip.js"> </script>
-	<link rel="stylesheet" type="text/css" href="css/jquery.qtip.css"/> <!-- манящий уголок  -->
-        
+        <script type="text/javascript" src="js/jquery.qtip.js"> </script>
         <script type="text/javascript" src="js/jquery.cookie.js"></script>     
-        
     </head>
     <body>
 
-       <%    //oEmail = 1 ; 
-            if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
-                 //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty()) < %=sLimitRequest% >
-       { %>  
+<%    //oEmail = 1 ; 
+  if (oEmail == null) // если в сессии отсутствует запись "sEmail" рисуем только формы создания аккаунта и входа
+       //  <h1> < %=oLogin% > </h1>    //  <h1> < %=value1% > </h1>    // if(value.toString().isEmpty()) < %=sLimitRequest% >
+{ %>  
 
-               <!-- Эта проверка обязательно должна быть здесь, когда главная страница еще не загружена! нельзя перемещать в общий JS файл! -->
-               <script> 
-                    //$.cookie("auth", 111, { expires: 2,  path: '/'    });
-                    $(document).ready(function(){
-                         var sAuth = $.cookie("auth");     // Ищем куку auth, если есть то:
-                         if (sAuth != null){     
-                              ajax_LoginForCookie(sAuth); // пробуем войти через КУку - отправляем куку на сервер ...
-                              //alert(sAuth);
-                         }
-                    });
-               </script>
+     <!-- Эта проверка обязательно должна быть здесь, когда главная страница еще не загружена! нельзя перемещать в общий JS файл! -->
+<script> 
+     $(document).ready(function(){              //$.cookie("auth", 111, { expires: 2,  path: '/'    });
+          var sAuth = $.cookie("auth");     // Ищем куку auth при старте, если она есть то:
+          if (sAuth != null){     
+               ajax_LoginForCookie(sAuth);  // пробуем войти через эту Куку - отправляем Куку на сервер ...     //alert(sAuth);
+          }
+     });
+</script>
  
        
        
-<!-- ------------- ФОН ----------------- -->
-<div id="divFon" >     
-      <!--<div id="divError" onClick="ajax_sendEmail(); "  >    </div> <br>       alert(1);   <!--  может быть кода понадобится  для отладки -->
-         
-                      	
- <!-- ----------- ВХОД форма ----------------- -->
-           <div  id="divLogin" > 
-                <img  hidden id="imgLoading" src="img/loading6.gif" width="105" height="16" style=" left: 154px; top: -67px; position: absolute" />      
+<!--   Общий ФОН  -->
+<div id="divFon" >                <!--<div id="divError" onClick="ajax_sendEmail(); "  >    </div>   alert(1);   <!--  может быть кода понадобится  для отладки -->         
 
-                <form  class="formLogin" >
-                                        <!-- <img hidden id="imgFirstLoginHelp" src="img/help1.png" alt="help"  width="32" height="32" style=" position: absolute; top: -30px;left: 420px;" /> -->
-                     <br>               <!-- value="ser111@ss.ss"    value="111"   autocomplete="on" -->
-                     <center> 
-                     <input  class="sInput_Login" id="sEmail"   type="text" maxlength="55" autocomplete="on" placeholder="Е-Маил..."  /> 
-                     <input  class="sInput_Login" id="sPassword" type="Password" value="" placeholder="Пароль..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
-
-                     <input  hidden class="sInput_Login" id="sName" type="text" value="" placeholder="Имя (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  
-                     <input  hidden class="sInput_Login" id="sLastName" type="text" value="" placeholder="Фамилия (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  
-                     <input  hidden class="sInput_Login" id="sINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  </center>   
-                      <br hidden id="brLogin">  
-                     <center> <input hidden  type="checkbox" id="checkAgreement"  checked> 
-                     <a hidden  id="sTextAgreement" href="agreement.html" target="_blank"  style="font-size: 13px; cursor: help; text-decoration: none; color: rgb(180, 180, 180);">
-                          &nbsp; Я согласен на хранение своих персональных данных (?). </a>
-                     </center> 
-
-                          <!--    <a id="linkRegister" href ="#" >Регистрация </a>   <br>   -->
-                     <center> 
-                          <div  class="countRecuestDiv" title="С вашего IP (192.144.22.34) возможно отправить не более 5 запросов в течении 2 минут." style=" width:40px; height:40px; position:absolute; top: -2px; left:-68px; cursor:pointer; background: url(../img/zamok_green.png);" > <span class="countRecuest" style="position:relative; top:22px; font-size: 14px;"> <%=nLimitRequest%> </span> </div>
-                     <input  style ="margin-top: 20px;" class="allButt" id="btLogin" type="button" value="&nbsp;&nbsp;&nbsp;  Вход  &nbsp;&nbsp;&nbsp;" /> </center> 
-                         <button hidden id="btSubmit" type="submit"> Submit </button>
-                </form>
-
-           </div>
- 
+     
+ <!--  Форма ВХОДА   -->
+     <div  class="divLogin" > 
+          <form  class="formLogin" >
+               <img  hidden id="imgLoading" src="img/loading6.gif" width="105" height="16" style="left:154px; top:-67px; position:absolute" />      
+               <br>                                        
+               <center> 
+                    <input         class="sAuthField sEmail"  type="text" maxlength="55" autocomplete="on" placeholder="Е-Маил..."  /> 
+                    <input         class="sAuthField sPassword" type="Password" value="" placeholder="Пароль..."  maxlength="25" title="" />  <!-- onClick='javascript: delTitle1();'   без "border: 1px solid inherit" не работает ... <input type='checkbox'  id='111' value='sdfsdf' checked='checked' /> -->
+                    <input  hidden class="sAuthField sName" type="text" value="" placeholder="Имя (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  
+                    <input  hidden class="sAuthField sLastName" type="text" value="" placeholder="Фамилия (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />  
+                    <input  hidden class="sAuthField nINN" type="text" value="" placeholder="ИНН (не обязательно)"  maxlength="25" style="background: rgb(178, 202, 174);" />
+               </center> 
+               <br hidden class="brLine">  
+               <center> 
+                    <input hidden  class="checkAgreement" type="checkbox"   checked> 
+                    <a hidden  class="sTextAgreement" href="agreement.html" target="_blank" > &nbsp; Я согласен на хранение своих персональных данных (?). </a>
+                    <input  style ="margin-top: 20px;" class="allButt" id="btLogin" type="button" value="Вход" />  
+                    <div  class="countRequest" title="Если с одного IP адреса будет отправлено более 10 запросов в течении 2 минут, то данный IP будет заблокирован на 5 минут." style=" width:40px; height:40px; position:absolute; top: -2px; left:-68px; cursor:pointer; background: url(../img/zamok_green.png);" > <span style="position:relative; top:22px; font-size: 14px;"> <%=nLimitRequest%> </span> </div>
+                    <button hidden id="btSubmit" type="submit">s</button>                 <!--    <a id="linkRegister" href ="#" >Регистрация </a>   <br>   -->
+               </center> 
+          </form>
+     </div>
  
 <!-- <h1>    Добро пожаловать <    %=oLogin%>  <    %=oLastName%> <    %=oFirstName%> <   %=oSureName%>    </h1> !-->
 
-<!--  Подпись внизу   -->  <!--  <div style="font-size: 12px; position:absolute; float:right; color:white; left: 30px; height:30px; top:91%; padding-top:7px; border-top:1px solid white ">Created by: Belyavtsev Sergey Vladimirovitch <br>All rights reserved. 2013</div>  -->
-
-  
         <% } else  // иначе если есть сессия рисуем ГЛАВНУЮ страницу     
         { %>    
 
        
 <!--     Добро пожаловать на главную страницу! -->
-     <script src="js/peel.js" type="text/javascript"></script>  <!--  подключаем манящий уголок только здесь --> 
-
+    <!--  <script src="js/peel.js" type="text/javascript"></script>  <!--  подключаем манящий уголок только здесь --> 
 
 <!-- ----------  СПИСОК СЕССИЙ (окно) ---------- -->  
      <div id="divAllSessinList" >   
@@ -160,12 +129,12 @@
 
 
      
-<!-- ---------- ГЛАВНАЯ страница  ------------ -->                    
+<!-- ---------- Главная страница Сайта  ------------ -->                    
      <div  id="divMainPage">
      <img id="exitSite" src="img/exit1.png" style="position:absolute;  top:8px; right:8px; cursor:pointer;" title="Один клик - обычный выход, зажатая левая кнопка мыши более 2 секунд - закрытие вкладки">
-     <!--  ДЛЯ ТЕСТОВ  
-     <img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии "> 
-     -->                    
+               <!--  ДЛЯ ТЕСТОВ  
+               <img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии "> 
+               -->                    
 
      <div  id="img_logo"> </div>                                    <!--     <a id="linkAbout" style=" position:absolute; left:800px; top:40px; text-decoration: none; color:white;" target="_blank" href="space_galery.html" title="">Инструменты создания<br> данного сайта...</a>             --> 
      <div style=" position : relative; top: -50px; left: 260px; color:white; font-size: 26px; font-family: verdana; ">Знание - сила!</div>
@@ -488,6 +457,13 @@ $("#men").effect("fade", { mode: "show", direction: "horizontal" }, 400);
      });    */
  
 </script>
+
+
+
+
+
+
+
 
 
 
@@ -1013,6 +989,7 @@ function shuffle(arr) {
 
 
 
+<!--  Подпись внизу   -->  <!--  <div style="font-size: 12px; position:absolute; float:right; color:white; left: 30px; height:30px; top:91%; padding-top:7px; border-top:1px solid white ">Created by: Belyavtsev Sergey Vladimirovitch <br>All rights reserved. 2013</div>  -->
      
         <% }
      %>
