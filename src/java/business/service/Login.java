@@ -1,10 +1,8 @@
 package business.service;
 
-import business.AccessREST;
 import business.Config;
 import business.auth.AccessAuth;
 import business.auth.Access;
-import business.auth.AccessOf;
 import business.send.MailText;
 import com.bw.io._;
 import java.io.IOException;
@@ -35,7 +33,7 @@ public class Login extends HttpServlet {
           response.setContentType("text/html;charset=utf-8");
           request.setCharacterEncoding("utf-8");
 
-          int sLimitRequest = 9;
+          int sLimitRequest = 10;
 
           String sReturn = "{\"sReturn\":\"" + "-none-" + "\"}", // чтобы не возвращался NULL и небыло ошибки                  
                   sDO = "",
@@ -50,8 +48,9 @@ public class Login extends HttpServlet {
                sPassword = request.getParameter("sPassword");
                sCookie = request.getParameter("sCookieLogin");
 
-               oLog.info("sDO=" + sDO + ", sEmail=" + sEmail);
-               //oLog.info("sDO= " + sDO + ", sEmail= " + sEmail+ ", sPassword= " + sPassword.substring(0, 3)+"..." + ", sCookie= " + sCookie); 
+             // oLog.info(" sDO= " + sDO + ", sEmail= " + sEmail);
+    
+              oLog.info(" sDO=" + sDO + ", sEmail=" + sEmail+ ", sPassword=" + sPassword+ ", sCookie=" + sCookie);   // .substring(0, 3)+"..." 
 
 
 //---------- Ограничение попыток неавторизированного пользователя делать запросы.
@@ -61,7 +60,18 @@ public class Login extends HttpServlet {
  *    если в течении 2 минут пользователь привысит число запросов (5 шт), то остальные запросы будут игнорироватся
  *    в течении 2 минут. 
  */
-               if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
+
+//               if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
+//                    Access oAccess = new Access();
+//                    int nLimitRequest = oAccess.nLimitRequest(sEmail, request.getLocalAddr());
+//                    if (nLimitRequest <= 0) {       //  проверяем сколько запросов сделано пользователем: мах 99.
+//                         sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}"; // сделано более позволенного запросов в течении 2 минут...
+//                         return;
+//                    }
+//               }
+               
+               
+                             if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
                     DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
                     String sUserIP = request.getLocalAddr();        // узнаем IP входящего пользователя
                     String sIP = AccessAuth.map.get(sUserIP);       // ищем его IP в массиве
@@ -74,20 +84,23 @@ public class Login extends HttpServlet {
                          Date oTimeCurrent = df.parse(sCurrentTime);
                          if (oTimeExpiredOld.getTime() > oTimeCurrent.getTime()) {   // если время окончания больше текущего, то 
                               if (nCount <= 0) {                                       //  проверяем сколько запросов сделано пользователем: мах 99.
-                                   sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}"; // сделано более позволенного запросов в течении 2 минут...
                                    sLimitRequest = 0;
+                                 //  sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}"; // сделано более позволенного запросов в течении 2 минут...
+                                  // sReturn = "{ \"sReturn\"  :  \"FailLimitRequest!\",  \"sLimitRequest\" : \"" + sLimitRequest + "\" }";
                                    return;        // вываливаемся из сервлета и ничего больше не обрабатываем
-                              }                   // обновляем счетчик, а время истечения срока оставляем старое
-
-                              AccessAuth.map.put(sUserIP, String.format("%02d", (nCount - 1)) + " " + sTimeExpiredOld);
-                              sLimitRequest = nCount - 1;
+                              } // обновляем счетчик, а время истечения срока оставляем старое
+                              AccessAuth.map.put(sUserIP, String.format("%02d", (nCount-1)) + " " + sTimeExpiredOld);
+                              sLimitRequest = nCount-1;
                          } else {                  // удаляем устаревшую запись // обновляем
-                              AccessAuth.map.remove(sUserIP);
-                              // Обновляем запись до 1
-                              //AccessAuth.map.put(sUserIP, "10" + " " + sTimeExpired);
+                                                   // AccessAuth.map.remove(sUserIP);
+                                // дата истекла, добавляем 1-ю запись о пользователе 
+                               Calendar cal = Calendar.getInstance();
+                               cal.add(Calendar.MINUTE, +2);         // добавляем к текущему времени 2 минуты - это время "окончания" записи.
+                               String sTimeExpired = df.format(cal.getTime());
+                               AccessAuth.map.put(sUserIP, "10" + " " + sTimeExpired);
                          }
 
-                    } else {     //  добавляем 1-ю запись о пользователе если его IP нет в списке
+                    } else {     //  если IP нет в списке, добавляем 1-ю запись о пользователе 
                          Calendar cal = Calendar.getInstance();
                          cal.add(Calendar.MINUTE, +2);         // добавляем к текущему времени 2 минуты - это время "окончания" записи.
                          String sTimeExpired = df.format(cal.getTime());
@@ -237,12 +250,12 @@ public class Login extends HttpServlet {
           } catch (Exception _) {
                String sErr = _.getMessage();
                // System.err.println("--ERROR_CreateAccount:  " + sErr + " _ " + sReturn);  //это вывод в лог-файл
-               sReturn = "{\"sReturn\":\"Error, ошибка в сервлете \"}" + sErr;
+               sReturn = "{\"sReturn\":\"Error, ошибка в сервлете '/Login' \"}" + sErr;
                 //oLog.info("sDO= " + sDO + ", sEmail= " + sEmail+ ", sPassword= " + sPassword.substring(0, 3)+"..." + ", sCookie= " + sCookie); 
                 oLog.info("sDO= " + sDO + ", sEmail= " + sEmail+ ", sCookie= " + sCookie); 
           } //throw new RuntimeException(_); раскомментировав эту строку можно прерывать выполнение класса при этой ошибке
           finally {                       //этот код выполнится даже если произойдет ошибка (иногда это очень важно, чтоб, например - закрыть соединение
-               sReturn = _.ConcatJson(sReturn, "{\"sReturnLimitRequest\":\"" + sLimitRequest + "\"}");
+               sReturn = _.ConcatJson(sReturn, "{\"sLimitRequest\":\"" + sLimitRequest + "\"}");
                response.getWriter().write(sReturn);     // возвращаемые данные
 
           }

@@ -37,24 +37,34 @@ function  ajax_userExists(){
           ,data:oData
           ,async:true
           ,success:function(o) {
-
-               var s = o.sReturn;  
-               if (s == "NoEmailExists") {      // Если Емайла нет в базе  // показываем доп. поля для "нового пользователя" 
+//alert(o.sLimitRequest);
+               if (o.sReturn == "NoEmailExists") {      // Если Емайла нет в базе  // показываем доп. поля для "нового пользователя" 
                     $( ".sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine" ).removeAttr("hidden");    
                     $( ".divLogin" ).css("height","375");
                     $( "#btLogin" ).val("Вход (Авторегистрация)").css("width","230px");
+                  //  $('#btLogin').removeClass('disabled').removeAttr('disabled');
 
-               } else if  (s == "EmailExists")  {         // иначе прячим доп. поля, т.к такой Емайл зареген
-                    $( ".sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine" ).attr("hidden","hidden");    
-                    $( ".divLogin" ).css("height","190");
-                    $( "#btLogin" ).val("Вход").css("width","100px");
+               }  // else нельзя ставить
+               if  ( (o.sReturn == "EmailExists") | (parseInt(o.sLimitRequest) <= 0) )  {         // иначе прячим доп. поля, т.к такой Емайл зареген
+                    $( '.sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine' ).attr("hidden","hidden");    
+                    $( '.divLogin' ).css('height','190');
+                    $( '#btLogin' ).val('Вход').css('width','100px');
+                   // $('#btLogin').addClass('disabled').attr('disabled', 'disabled');
                }   
 
-               $( "#imgLoading" ).fadeOut( 500 );  // прячем прогресс бар при любом ответе
-               
-               $(".countRequest span").text(o.sReturnLimitRequest);
-               /// здесь доделать менять замки
+               $('#imgLoading').fadeOut( 500 );  // прячем прогресс бар при любом ответе
 
+               $(".countRequest span").text(o.sLimitRequest);    // показываем оставш. кол-во позволенных запросов
+                    
+               if (parseInt(o.sLimitRequest) <= 5) {  
+                    $(".countRequest").css("background","url(../img/zamok_green.png)").css("display","block"); // показываем зеленый замок
+               }                                        
+               if (parseInt(o.sLimitRequest) <= 0) {   
+                    $(".countRequest").css("background","url(../img/zamok_red.png)");  //  делаем красный замок
+                    $(".countRequest span").text("");     // убираем число
+                    $(".countRequest").attr("title","Вы превысили лимит запросов. Ваш IP заблокирован на несколько минут!"); // меняем Титл
+               } 
+               
           }
           ,error:function(o,s) {
                alert("Произошла ошибка-- ajax_userExists()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
@@ -87,10 +97,7 @@ function ajax_doLogin(){
           ,async:true
           ,success:function(o) {                                                                                 //    эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
 
- //alert(o.sReturn);
-
-               if (o.sReturn == "Добро пожаловать на сайт!"){  
-                    // это сообщение на случай долгого открытия страницы из-за загруженности сервера
+               if (o.sReturn == "Добро пожаловать на сайт!"){ // это сообщение на случай долгого открытия страницы из-за загруженности сервера
                     dhtmlx.message({
                          type:"default", 
                          expire:9000, 
@@ -136,21 +143,16 @@ function ajax_doLogin(){
                
                
               // if (o.sReturnLimitReques == "FailLimitRequest!"){  // сделано более 5 запросов в течении 2 минут, доступ заблокирован.
-                     $(".countRequest span").text(o.sReturnLimitRequest);
-                   //  alert(o.sReturnLimitRequest);     
-                       if (parseInt(o.sReturnLimitRequest) < 5) {
-                        $(".countRequest").css("background","url(../img/zamok_green.png)")
-                        .css("display","block");
-                        
-                        // показываем зеленый замок
-                        //  background: url(../img/zamok_green.png);
-                       }                                        
-                       if (parseInt(o.sReturnLimitRequest) <= 0) {
-                      //  делаем красный замок
-                      $(".countRequest").css("background","url(../img/zamok_red.png)");
-                          
-                       } 
-             //  } 
+              //  alert(o.sReturnLimitRequest);     
+                    $(".countRequest span").text(o.sLimitRequest);
+               if (parseInt(o.sLimitRequest) >= 5) {  // показываем зеленый замок
+                    $(".countRequest").css("background","url(../img/zamok_green.png)").css("display","block");
+               }                                        
+               if (parseInt(o.sLimitRequest) <= 0) {   //  делаем красный замок
+                    $(".countRequest").css("background","url(../img/zamok_red.png)");
+               } 
+
+
 //                    dhtmlx.message({
 //                         type:"info", 
 //                         expire:5000, 
@@ -273,6 +275,7 @@ function ajax_LoginForCookie(sCookie){
                          expire:7000, 
                          text:"Ай-ай-ай! <br>Не хорошо пытатся войти по ложным данным !"
                     });
+                    $.cookie('auth', null); // удаляем если ложная Кука
                }
           }, error:function(o,s) {
                alert("Произошла ошибка--!!--theLoginForCookie "+o.status+":"+o.statusText+" ("+o.responseText+")");
@@ -282,35 +285,6 @@ function ajax_LoginForCookie(sCookie){
           }
      });
 }
-
-
-// ---------------------  Получаем список всех сессий   --------------------------
-
-//function ajax_getAllSession(){
-//     var oData= {
-//          sDO: "theGetAllSessionList"
-//     };
-//     $.ajax({
-//          type:"POST"
-//          ,dataType:"json"
-//          ,url:"/Login"
-//          ,data:oData
-//          ,async:true
-//          ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-//               if (o.sReturn != "-none-")    { 
-//                    $("#divAllSessinList table").html(o.sReturn);
-//                    $("#divAllSessinList").css("display","block");
-//                    $("#FON_contact").css("display","block");
-//               }
-//          }
-//          ,error:function(o,s) {
-//               alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
-//          }
-//          ,dataFilter:function(data, type) {
-//               return data;
-//          }
-//     });
-//}
 
 
 
@@ -656,6 +630,37 @@ function IsValidateEmail(email) {
 
 //                              СВАЛКА СТАРОГО КОДА
 //  ----------------------------------------------------------------------------
+
+
+
+// ---------------------  Получаем список всех сессий   --------------------------
+
+//function ajax_getAllSession(){
+//     var oData= {
+//          sDO: "theGetAllSessionList"
+//     };
+//     $.ajax({
+//          type:"POST"
+//          ,dataType:"json"
+//          ,url:"/Login"
+//          ,data:oData
+//          ,async:true
+//          ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+//               if (o.sReturn != "-none-")    { 
+//                    $("#divAllSessinList table").html(o.sReturn);
+//                    $("#divAllSessinList").css("display","block");
+//                    $("#FON_contact").css("display","block");
+//               }
+//          }
+//          ,error:function(o,s) {
+//               alert("Произошла ошибка--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
+//          }
+//          ,dataFilter:function(data, type) {
+//               return data;
+//          }
+//     });
+//}
+
 
 
 // ------ если кликаем на текст - то программно кликам на сам чекбокс.

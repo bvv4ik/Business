@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -191,6 +192,49 @@ public class Access {
 
     
    
+    //---------- Ограничение попыток неавторизированного пользователя делать запросы.
+ /*       Должно находится в самом начале сервлета!
+ *    Создается статический HashMap на сервере и при каждом запросе неавторизированного пользователя
+ *    в эту таблицу записываются: "IP пользователя"     и     "число попыток" + "Дата и время"
+ *    если в течении 2 минут пользователь привысит число запросов (5 шт), то остальные запросы будут игнорироватся
+ *    в течении 2 минут. 
+ */
+    
+//      public int nLimitRequest(String sEmail, String sUserIP) throws Exception {
+//          int nCount;
+//          //  if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
+//          DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+//          String sIP = AccessAuth.map.get(sUserIP);            // ищем IP пользователя в массиве
+//          if (sIP != null) {       // если IP пользователя (делающего запрос) есть в списке, то:
+//               nCount = Integer.parseInt(sIP.substring(0, 2));        // берем число его уже сделанных запросов
+//               String sTimeExpiredOld = sIP.substring(3, 22);         // берем (строку) дату окончания срока действия записи
+//               Date oTimeExpiredOld = df.parse(sTimeExpiredOld);      // (строку)дату окончания срока действия записи превращаем в обьект
+//               Date d = new Date();                                   // узнаем текущее время
+//               String sCurrentTime = df.format(d);
+//               Date oTimeCurrent = df.parse(sCurrentTime);
+//               if (oTimeExpiredOld.getTime() > oTimeCurrent.getTime()) {   // если время окончания больше текущего, то 
+//                    // обновляем счетчик, а время истечения срока оставляем старое
+//                    AccessAuth.map.put(sUserIP, String.format("%02d", (nCount-1)) + " " + sTimeExpiredOld);
+//                    return nCount-1;
+//               } else {           // удаляем устаревшую запись // обновляем
+//                    AccessAuth.map.remove(sUserIP);
+//                    return 10;
+//               }
+//
+//          } else {     //  если IP пользователя нет в списке, просто добавляем 1-ю запись
+//               Calendar cal = Calendar.getInstance();
+//               cal.add(Calendar.MINUTE, +2);         // добавляем к текущему времени 2 минуты - это время "окончания" записи.
+//               String sTimeExpired = df.format(cal.getTime());
+//               AccessAuth.map.put(sUserIP, "10" + " " + sTimeExpired);
+//               return 10;
+//          }
+//         // return nCount; // возваращаем в любом случае или Число или Нулл
+//     }
+//     // } 
+               
+               
+    
+    
     /**
      * Возвращает Пароль по Логину. Возвращает null если такого Пароля у Логина нету
      *
@@ -237,7 +281,7 @@ public class Access {
         try {
             oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
             oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ
-            ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 sLogin FROM Access WHERE sLogin='" + sLogin + "'", oLog); //ОБРАЗЕЦ            
+            ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 sLogin FROM Access WHERE sLogin=lower('" +sLogin+ "')", oLog); //ОБРАЗЕЦ            
             if (oRowset.next()) {
                 sResult = oRowset.getString(1);
             }
@@ -249,7 +293,7 @@ public class Access {
             AccessDB.closeConnectionStatic(sCase, oConnection);     //AccessDB.closeConnectionStatic("", oConnection);
         }
 
-        if ((sResult != "") && (sResult != null) && (sLogin.equals(sResult))) {    // Если Логин есть в базе
+        if ((sResult != "") && (sResult != null) && (sLogin.equalsIgnoreCase(sResult))) {    // Если Логин есть в базе
             return true;    // true - такой Логин уже занят       
         } else {
             return false;   // false - Логин свободен

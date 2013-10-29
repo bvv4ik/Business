@@ -70,8 +70,7 @@
        
 <!--   Общий ФОН  -->
 <div id="divFon" >                <!--<div id="divError" onClick="ajax_sendEmail(); "  >    </div>   alert(1);   <!--  может быть кода понадобится  для отладки -->         
-
-     
+      
  <!--  Форма ВХОДА   -->
      <div  class="divLogin" > 
           <form>
@@ -89,10 +88,11 @@
                     <input hidden  class="checkAgreement" type="checkbox"   checked> 
                     <a hidden  class="sTextAgreement" href="agreement.html" target="_blank" > &nbsp; Я согласен на хранение своих персональных данных (?). </a>
                     <input  style ="margin-top: 20px;" class="allButt" id="btLogin" type="button" value="Вход" />  
-                    <div  class="countRequest" title="Если с одного IP адреса будет отправлено более 10 запросов в течении 2 минут, то данный IP будет заблокирован на 5 минут." style=" width:40px; height:40px; position:absolute; top: -2px; left:-68px; cursor:pointer; background:url(img/zamok_green.png);" > <span style="position:relative; top:22px; font-size: 14px;"> <!--%=nLimitRequest%--> </span> </div>
+                    <div hidden  class="countRequest" title="Если с одного IP адреса будет отправлено более 10 запросов в течении 2 минут, то данный IP будет заблокирован на несколько минут." style=" width:40px; height:40px; position:absolute; top: -2px; left:-68px; cursor:pointer; background:url(img/zamok_green.png);" > <span style="position:relative; top:22px; font-size: 14px;"> <!--%=nLimitRequest%--> </span> </div>
                                     <!--    <a id="linkRegister" href ="#" >Регистрация </a>   <br>   -->
                </center> 
-               <button hidden id="btSubmit" type="submit">submit</button> 
+               <button hidden id="btSubmit" type="submit">submit</button>
+               
           </form>
      </div>
  
