@@ -70,7 +70,7 @@
        
 <!--   Общий ФОН  -->
 <div id="divFon" >                <!--<div id="divError" onClick="ajax_sendEmail(); "  >    </div>   alert(1);   <!--  может быть кода понадобится  для отладки -->         
-      
+      <div id="divError"   >    </div>   
  <!--  Форма ВХОДА   -->
      <div  class="divLogin" > 
           <form>

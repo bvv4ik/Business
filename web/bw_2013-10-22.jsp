@@ -23,7 +23,12 @@
                         //showDialog($(".oDialog.oAsk"),"yes","ssss",null);
                         //askTest();
                            // sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight)
-                           askTest();
+                          // askTest();
+                           //askTest1();
+                           ask("Неверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный пароль!","Внимание!", null
+                                                        ,function (nReturn){ alert("nReturn="+nReturn); }, null,300,300, 20, $(".butTest"));
+                          
+                          // showDialog(".oDialog.oAsk",300,200);
                         /*ask("привет","yes",null,function(nReturn){
                             //if(nReturn==1){}}
                             alert("nReturn="+nReturn);
@@ -38,13 +43,16 @@
         <h1>Hello World!</h1>
         
         
-        <input type="button" value="run" onclick="askTest();"/>
+        <input class="butTest" type="button" value="run" onclick="askTest();"/>
                
+        
     <div hidden class="oDialog_Background"></div>
         
+ 
+    
     <div hidden class="oDialog oAsk">
         <img class="doHideDialog"/>
-        <div class="oHead">Вопрос:</div>
+        <div class="oHead">Вопрос:</div> <div class="oTimerClose"></div>
         <div class="oBody">
             <p>Какой ответ на вопрос?</p>
         </div>

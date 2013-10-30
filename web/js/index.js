@@ -10,13 +10,6 @@
 
 
 
-
-
-
-
-
-
-
 //                                  AJAX
 // -----------------------------------------------------------------------------
 
@@ -37,32 +30,31 @@ function  ajax_userExists(){
           ,data:oData
           ,async:true
           ,success:function(o) {
-//alert(o.sLimitRequest);
+
                if (o.sReturn == "NoEmailExists") {      // Если Емайла нет в базе  // показываем доп. поля для "нового пользователя" 
                     $( ".sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine" ).removeAttr("hidden");    
                     $( ".divLogin" ).css("height","375");
                     $( "#btLogin" ).val("Вход (Авторегистрация)").css("width","230px");
                   //  $('#btLogin').removeClass('disabled').removeAttr('disabled');
-
                }  // else нельзя ставить
                if  ( (o.sReturn == "EmailExists") | (parseInt(o.sLimitRequest) <= 0) )  {         // иначе прячим доп. поля, т.к такой Емайл зареген
                     $( '.sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine' ).attr("hidden","hidden");    
                     $( '.divLogin' ).css('height','190');
                     $( '#btLogin' ).val('Вход').css('width','100px');
-                   // $('#btLogin').addClass('disabled').attr('disabled', 'disabled');
                }   
 
                $('#imgLoading').fadeOut( 500 );  // прячем прогресс бар при любом ответе
 
                $(".countRequest span").text(o.sLimitRequest);    // показываем оставш. кол-во позволенных запросов
-                    
-               if (parseInt(o.sLimitRequest) <= 5) {  
+               
+               if (parseInt(o.sLimitRequest) > 5) {  
+                    $(".countRequest").css("display","none");    
+               } else if (parseInt(o.sLimitRequest) <= 5) {  
                     $(".countRequest").css("background","url(../img/zamok_green.png)").css("display","block"); // показываем зеленый замок
-               }                                        
-               if (parseInt(o.sLimitRequest) <= 0) {   
+               } else if (parseInt(o.sLimitRequest) <= 0) {   
                     $(".countRequest").css("background","url(../img/zamok_red.png)");  //  делаем красный замок
                     $(".countRequest span").text("");     // убираем число
-                    $(".countRequest").attr("title","Вы превысили лимит запросов. Ваш IP заблокирован на несколько минут!"); // меняем Титл
+                    $(".countRequest").attr("title","~Вы превысили лимит запросов. Ваш IP заблокирован на несколько минут!"); // меняем Титл
                } 
                
           }
@@ -80,15 +72,12 @@ function  ajax_userExists(){
 // --------------------- ВХОД на сайт  ----------------------
 
 function ajax_doLogin(){  
-                  
      $("#btLogin").addClass("disabled").attr("disabled", "disabled");  // блокируем кнопку входа
-
      var oData= {
           sDO: "theUserLogin"
           ,sEmail : $(".sAuthField.sEmail").val()
           ,sPassword: $(".sAuthField.sPassword").val()
      };
-
      $.ajax({
           type:"POST"
           ,dataType:"json"
@@ -103,20 +92,20 @@ function ajax_doLogin(){
                          expire:9000, 
                          text:"<br> <img src='img/wait.gif'/> &nbsp; Ожидайте... <br><br>"
                     });
-                    // сохраняем "временную" Куку при успешном Входе
-                    $.cookie("auth", o.sReturnCookie, {
+                    
+                    $.cookie("auth", o.sReturnCookie, {   // сохраняем "временную" Куку при успешном Входе
                          expires: 2,  
                          path: '/'/*, secure: true */
                     });
-                    // сохраняем/обновляем постоянную Куку при успешном входе, чтобы больше не высвечивалась подсказка     //date = date.toString().replace(/\ /g,"_");    // замена всех пробелов на подчеркивание
+                    
                     var date = new Date();                           
-                    $.cookie("last", date, {
+                    $.cookie("last", date, {  // сохраняем/обновляем постоянную Куку при успешном входе, чтобы больше не высвечивалась подсказка     //date = date.toString().replace(/\ /g,"_");    // замена всех пробелов на подчеркивание
                          expires: 7777,  
                          path: '/'         //, secure: true   Работает только с HTTPs
                     });
                     // так нужно обновлять страницу, чтобы произошла запись в Автокомплит и обновление страницы
                     $("#btSubmit").click();  
-               // window.location.href="/index.jsp";  //dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });
+               // а чтобы убрать значек #  Хеша:  // window.location.href="/index.jsp";  //dhtmlx.message({ type:"default", expire:1000, text:"<br>  &nbsp; Добро пожаловать на сайт! <br><br>" });
 
                } else if (o.sReturn == "FailPassword!"){              
                     dhtmlx.message({
@@ -128,7 +117,7 @@ function ajax_doLogin(){
                     "<br><br> • <a href='#' onClick='javascript: alert('потом');' > Сменить пароль (отправить СМС на номер 1234567890) </a> " +
                     "<br><br> "
                     }) 
-               } else { // Это выводится в любом случае (ошибка, не верные данные и т.д)
+               } else {  // Это выводится в любом случае (ошибка, не верные данные и т.д)
                     dhtmlx.message({
                          type:"info", 
                          expire:5000, 
@@ -136,69 +125,33 @@ function ajax_doLogin(){
                     }) 
                }
                
+               //  if (o.sReturnCount == "FailLimitRequest!"){ //  }
                
-            //   alert((o.sReturnLimitRequest).length);
-             //  if (o.sReturnCount == "FailLimitRequest!"){ 
-             //  }
-               
-               
-              // if (o.sReturnLimitReques == "FailLimitRequest!"){  // сделано более 5 запросов в течении 2 минут, доступ заблокирован.
-              //  alert(o.sReturnLimitRequest);     
-                    $(".countRequest span").text(o.sLimitRequest);
-               if (parseInt(o.sLimitRequest) >= 5) {  // показываем зеленый замок
-                    $(".countRequest").css("background","url(../img/zamok_green.png)").css("display","block");
+               $(".countRequest span").text(o.sLimitRequest);
+
+               if (parseInt(o.sLimitRequest) > 5) {  
+                    $(".countRequest").css("display","none");    
+               }
+               if (parseInt(o.sLimitRequest) <= 5) {  
+                    $(".countRequest").css("background","url(../img/zamok_green.png)").css("display","block"); // показываем зеленый замок
                }                                        
-               if (parseInt(o.sLimitRequest) <= 0) {   //  делаем красный замок
-                    $(".countRequest").css("background","url(../img/zamok_red.png)");
+               if (parseInt(o.sLimitRequest) <= 0) {   
+                    $(".countRequest").css("background","url(../img/zamok_red.png)");  //  делаем красный замок
+                    $(".countRequest span").text("");     // убираем число
+                    $(".countRequest").attr("title","Вы превысили лимит запросов. Ваш IP заблокирован на несколько минут!"); // меняем Титл
                } 
-
-
-//                    dhtmlx.message({
-//                         type:"info", 
-//                         expire:5000, 
-//                         text: " Вы исчерпали число допустимых запросов! Ваш IP Заблокирован на 2 минуты! " 
-//                    })                
-               
                
           }, 
           error:function(o,s) {
                alert("Произошла ошибка ajax_doLogin() --  "+o.status+":"+o.statusText+" ("+o.responseText+")");
           }
-          , dataFilter:function(data, type) {   // выполняется в любом случае
+          , dataFilter:function(data, type) {    // выполняется в любом случае
                setTimeout(function() {   $("#btLogin").removeClass("disabled").removeAttr("disabled");    }, 1000);  // РАЗблокируем кнопку входа через 1000 мс
                return data;
           }    
      });
 }
 
-
-
-
-// -------------------  Удаляем сессию пользователя  -----------------------
-
-function  ajax_doDestroySession(){         
-     var oData= {
-          sDO: "theDestroySession"
-     };
-     $.ajax({
-          type:"POST"
-          ,dataType:"json"
-          ,url:"/Login"
-          ,data:oData
-          ,async:true
-          ,success:function(o) {                                                              //эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
-               if (o.sReturn == "Destroyed!"){   
-                    window.location.href="/index.jsp"  ; // обновляем главную стр.
-               }
-          }
-          ,error:function(o,s) {
-               alert("Произошла ошибка-- ajax_doDestroySession()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
-          }
-          ,dataFilter:function(data, type) {  
-               return data;
-          }
-     });
-}
 
 
 
@@ -219,7 +172,6 @@ function ajax_sendEmail(){
           ,success:function(o) {                                                                       // эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
 
                if (o.sReturn == "MailSendOk!") {
-                    //alert("Письмо со ссылкой Вам было отправлено!"); 
                     dhtmlx.message({
                          type:"info", 
                          expire:3000, 
@@ -281,6 +233,33 @@ function ajax_LoginForCookie(sCookie){
                alert("Произошла ошибка--!!--theLoginForCookie "+o.status+":"+o.statusText+" ("+o.responseText+")");
           }
           , dataFilter:function(data, type) {
+               return data;
+          }
+     });
+}
+
+
+// -------------------  Удаляем сессию пользователя  -----------------------
+
+function  ajax_doDestroySession(){         
+     var oData= {
+          sDO: "theDestroySession"
+     };
+     $.ajax({
+          type:"POST"
+          ,dataType:"json"
+          ,url:"/Login"
+          ,data:oData
+          ,async:true
+          ,success:function(o) {                                                              //эта функция сработает гораздо позже, чем завершится выполнение всей функции doSend, т.к. это асинхронный режим работы.... потому безсмысленно обращаться за данными в конце ее(после: "dataFilter.... });") 
+               if (o.sReturn == "Destroyed!"){   
+                    window.location.href="/index.jsp"  ; // обновляем главную стр.
+               }
+          }
+          ,error:function(o,s) {
+               alert("Произошла ошибка-- ajax_doDestroySession()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
+          }
+          ,dataFilter:function(data, type) {  
                return data;
           }
      });
@@ -493,6 +472,23 @@ function goto_event(){};
      // анимация при открытии - скрытии таба                
   $( "#panelTabs" ).tabs({ show: { effect: "blind", duration: 200 } });
 
+
+
+$("#divError").click(function(){  
+  dhtmlx.modalbox({  title:"Сообщение:" ,
+			text:" <br>Вы действительно хотите выйти?<br><br>",
+			width:"350px", height:"165px", position:"center",
+			buttons:["Выйти!", "&nbsp;&nbsp;Остаться...&nbsp;&nbsp;"],
+			callback:function(index){
+			if (index==0) {  
+                              // ajax_doDestroySession();   // Удаляем сессию 
+                              // $.cookie('auth', null);   // Удаляем куку  
+                             }
+			}
+		});  
+});
+
+
 // ---------------------------- КОНЕЦ СОБЫТИЙ ----------------------------------
 });  
 // -------------------------- конец Document Ready -----------------------------      
@@ -606,10 +602,6 @@ function IsValidateEmail(email) {
         else if($(s).attr("type")=="radio"){$('[id='+key+']:[value='+val+']').attr('checked',true);}
         else {$(s+":[type!=button]").val(val.replace(/<br\/>/g,"<br/>\n").replace(/<br>/g,"<br>\n").replace(/<\/p>/g,"</p>\n").replace(/&quot;/g,"\""));}
         }});  }
-
-
-
-
 
 
 

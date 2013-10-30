@@ -158,21 +158,54 @@ function sDateShort(sDateGot){
 // === ДИАЛОГИ ===
 //================
 
+var nCountAutoclose = 0;
+function timerAutoclose(oThis) {
+     
+     // alert($(oThis).css("display"));
+     if ( (nCountAutoclose > 0) & ($(oThis).is(":visible")) ) {
+    
+          setTimeout(function() {  
+               nCountAutoclose-- ; 
+               var sTextHead = oThis.find(".oHead").text();
+               sTextHead = sTextHead.substring(0,(sTextHead.length)-1);
+               //oThis.find(".oHead").text(sTextHead+" "+nCountAutoclose);
+               oThis.find(".oButton").attr("value","Ok ("+nCountAutoclose+")")
+               //alert(1);
+               timerAutoclose(oThis);
+          }, 1000);                            
+     }
+     else{
+          $(oThis).hide();   
+     }
+      
+}
+
+
 //Открыть диалог
-function showDialog(oThis,nWidth,nHeight,nDelayAutoclose){
+function showDialog(oThis,nWidth,nHeight,nDelayAutoclose, oThey){
     try{
-        $(".oDialog_Background").show();
+       // $(".oDialog_Background").show();
         var nYClient=document.body.clientHeight,nYDialog=$(oThis).height();
         var nUpDialog=window.scrollY+(nYDialog<nYClient?(nYClient-nYDialog)/2:23);
-        $(oThis).css("left",((document.body.clientWidth-$(oThis).width())/2)+"px");
-        $(oThis).css("top",nUpDialog+"px").show();
-        $(oThis).css("width", "300px"/*nWidth*/);
-        $(oThis).css("Height", "200px"/*nHeight*/);
-          
+       //$(oThis).css("left",((document.body.clientWidth-$(oThis).width())/2)+"px");
+       // $(oThis).css("top",nUpDialog+"px").show();
+        $(oThis).css("left", $(oThey).css("left") );
+        $(oThis).css("top", $(oThey).attr("height")+$(oThis).attr("top")).show();
+       
+        $(oThis).css("width", nWidth);
+        $(oThis).css("Height", nHeight);
+        //$(oThis).css("background-color", "lightgrey");
+        
+        if (nDelayAutoclose != null) {
+        nCountAutoclose = nDelayAutoclose;
+        timerAutoclose($(oThis));
+        }
         //alert(1);
        // hideDialog(oThis);
         //doRepaint(oThis);//авто-перерисовка в некоторых случаях
         //nDelayAutoclose//функция-таймер для автозакрытия поЖ hideDialog(oThis)
+        
+        
     }catch(_){
         doDebug(sFunction(arguments)+":"+_);
     }
@@ -192,9 +225,8 @@ function hideDialog(oThis){
 }
 
 //Шаблон диалога-вопроса
-function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
-    //alert(sBody);
-    //alert(sHead);
+function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight, nAutoHide, oThey){
+    //alert(sBody);    //alert(sHead);
     try{
         if(bSkip){
             if(oReturn!=null){
@@ -223,11 +255,15 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
                         sClass:null
                     }];
                 }else{
+//                    aButttons=[{
+//                        sName:"Отменить",
+//                        sClass:"oButtonRed"
+//                    },{
+//                        sName:"Принять",
+//                        sClass:null
+//                    }];
                     aButttons=[{
-                        sName:"Отменить",
-                        sClass:"oButtonRed"
-                    },{
-                        sName:"Принять",
+                        sName:"Ok ("+nAutoHide+")",
                         sClass:null
                     }];
                 }
@@ -256,12 +292,13 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight){
                     oNode.val(sName);
                     oFunctionReturn=oReturn;
                     oNode.attr("onclick","oFunctionReturn("+n+");hideDialog(this);")
+                    oThis.find('.oButton.default').remove();
                 }
                 
                 
             }
                       
-            showDialog(oThis);                
+            showDialog(oThis,nWidth,nHeight,nAutoHide, oThey);                
         }
     }catch(_){
         doError("Ошибка вывода диалога", ":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"","attention");
@@ -335,7 +372,11 @@ function askTest(){
         alert("nReturn="+nReturn);
     })
 }
-
+//Тест диалога-вопроса
+function askTest1(){
+    ask(null,null,null, null, null,200,200)
+   
+}
 
 //==============
 // === ДЕБАГ ===

@@ -44,11 +44,17 @@ root {
 }
 .oDialog .oHead
 {
+background-color: lightgrey;
+}
+
+
+.oDialog .oHead
+{
 	position:relative;
 	padding:2px;
 	text-align:center;
 	font-size:15px;
-	color:#444444;
+	color: red; /*#444444;*/
 	border-bottom:1px solid #dbdbdb;
 	-moz-box-shadow:0 1px 0 #fec;
 	-webkit-box-shadow:0 1px 0 #fec;
