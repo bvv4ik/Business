@@ -4,10 +4,7 @@
  */
 package business.auth;
 
-/**
- *
- * @author Ser
- */
+
 public class AccessMethod {
 
      private int nID;

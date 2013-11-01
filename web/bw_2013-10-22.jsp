@@ -25,8 +25,9 @@
                            // sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight)
                           // askTest();
                            //askTest1();
-                           ask("Неверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный парольНеверный пароль!","Внимание!", null
+                           ask("Неверный парольНеверный парольНеверный парол парольНеверный пароль!","Внимание!", null
                                                         ,function (nReturn){ alert("nReturn="+nReturn); }, null,300,300, 20, $(".butTest"));
+                       
                           
                           // showDialog(".oDialog.oAsk",300,200);
                         /*ask("привет","yes",null,function(nReturn){

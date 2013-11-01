@@ -3,6 +3,7 @@ package business.service;
 import business.Config;
 import business.auth.AccessAuth;
 import business.auth.Access;
+import business.auth.AccessOf;
 import business.send.MailText;
 import com.bw.io._;
 import java.io.IOException;
@@ -49,29 +50,17 @@ public class Login extends HttpServlet {
                sCookie = request.getParameter("sCookieLogin");
 
              // oLog.info(" sDO= " + sDO + ", sEmail= " + sEmail);
-    
               oLog.info(" sDO=" + sDO + ", sEmail=" + sEmail+ ", sPassword=" + sPassword+ ", sCookie=" + sCookie);   // .substring(0, 3)+"..." 
 
 
 //---------- Ограничение попыток неавторизированного пользователя делать запросы.
- /*       Должно находится в самом начале сервлета!
+ /*   Должно находится в самом начале сервлета!
  *    Создается статический HashMap на сервере и при каждом запросе неавторизированного пользователя
  *    в эту таблицу записываются: "IP пользователя"     и     "число попыток" + "Дата и время"
- *    если в течении 2 минут пользователь привысит число запросов (5 шт), то остальные запросы будут игнорироватся
- *    в течении 2 минут. 
+ *    если в течении 2 минут пользователь привысит число запросов (5 шт), то остальные запросы будут игнорироватся  в течении 2 минут. 
  */
-
-//               if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
-//                    Access oAccess = new Access();
-//                    int nLimitRequest = oAccess.nLimitRequest(sEmail, request.getLocalAddr());
-//                    if (nLimitRequest <= 0) {       //  проверяем сколько запросов сделано пользователем: мах 99.
-//                         sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}"; // сделано более позволенного запросов в течении 2 минут...
-//                         return;
-//                    }
-//               }
-               
-               
-                             if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
+             
+                    if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии
                     DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
                     String sUserIP = request.getLocalAddr();        // узнаем IP входящего пользователя
                     String sIP = AccessAuth.map.get(sUserIP);       // ищем его IP в массиве
@@ -85,10 +74,9 @@ public class Login extends HttpServlet {
                          if (oTimeExpiredOld.getTime() > oTimeCurrent.getTime()) {   // если время окончания больше текущего, то 
                               if (nCount <= 0) {                                       //  проверяем сколько запросов сделано пользователем: мах 99.
                                    sLimitRequest = 0;
-                                 //  sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}"; // сделано более позволенного запросов в течении 2 минут...
-                                  // sReturn = "{ \"sReturn\"  :  \"FailLimitRequest!\",  \"sLimitRequest\" : \"" + sLimitRequest + "\" }";
+                                   sReturn = "{\"sReturn\":\"" + "FailLimitRequest!" + "\"}";   // сделано более позволенного запросов в течении 2 минут...
                                    return;        // вываливаемся из сервлета и ничего больше не обрабатываем
-                              } // обновляем счетчик, а время истечения срока оставляем старое
+                              }   // обновляем счетчик, а время истечения срока оставляем старое
                               AccessAuth.map.put(sUserIP, String.format("%02d", (nCount-1)) + " " + sTimeExpiredOld);
                               sLimitRequest = nCount-1;
                          } else {                  // удаляем устаревшую запись // обновляем
@@ -116,10 +104,9 @@ public class Login extends HttpServlet {
                     Access oAccess = new Access();
                     if (oAccess.bLoginExists(sEmail) == true) {       // true - Емаил существует в базе
                          AccessAuth oAccessAuth = new AccessAuth();
-                         String sCookieDB = oAccessAuth.findCookie(sEmail);  // берем куку пользователя (самую старую)  // еще нужно будет сделать, генерацию и добавление куки в базу при нажатии на "отправить ссылку на почту"
-                         MailText mt = new MailText();   //sEmail   
+                         String sCookieDB = oAccessAuth.sFindCookie(sEmail);  // берем куку пользователя (самую старую)  // еще нужно будет сделать, генерацию и добавление куки в базу при нажатии на "отправить ссылку на почту"
+                         MailText mt = new MailText();   // http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu
                          mt.sendMail(sEmail, "Ваша ссылка для входа в PGASA без пароля:  \n\n  " + Config.sValue("sURL") + "/#sAuth=" + sCookieDB + "  \n\n ");
-                                                                        // http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu
                          sReturn = "{\"sReturn\":\"" + "MailSendOk!" + "\"}";
                     } else {
                          sReturn = "{\"sReturn\":\"" + "MailSendFail!" + "\"}";
@@ -134,16 +121,15 @@ public class Login extends HttpServlet {
                          sReturn = "{\"sReturn\":\"" + "EmailExists" + "\"}";
                     } else {
                          sReturn = "{\"sReturn\":\"" + "NoEmailExists" + "\"}";
-                    }
-               }                      //Thread.sleep(2000); // задержка отправки ответа на 2 сек.
+                    }    //Thread.sleep(2000); // задержка отправки ответа на 2 сек.
+               }                      
 
 
 //------------- ВХОД пользователя через куку ---------------
                if ("theLoginForCookie".equals(sDO)) {
                     AccessAuth oAccessAuth = new AccessAuth();
                     ArrayList<String> list = new ArrayList<String>();
-                    list = oAccessAuth.findUserFromCookie(sCookie, request.getLocalAddr());
-
+                    list = oAccessAuth.aFindUserFromCookie(sCookie, request.getLocalAddr());
                     if ((list.get(0) != "0") & (list.get(1) != "0")) {
                          HttpSession session = request.getSession(true);    //создаем сессию для пользователя с его данными!
                          session.setAttribute("sEmail", list.get(0));       //sEmail
@@ -154,22 +140,30 @@ public class Login extends HttpServlet {
                          sReturn = "{\"sReturn\":\"" + "Ложная кука!" + "\"}";   //не менять
                     }
                }
-               //sReturn = "{'sReturn':'Добро пожаловать на сайт!', 'sReturnCookie':'"+sCookie+"'}";
 
+
+               
 //------------- ВХОД пользователя через ввод Емайла и пароля ---------------
                if ("theUserLogin".equals(sDO)) {
-                    String sCase = "theUserLogin";  // Для Лога
+                    String sCase = "AJAX  (theUserLogin)";  // Для Лога
                     String sCreateCookie = "";  // поправить, иногда создается пустая Кука?????
-                    Access oAccess = new Access();
+ 
+                    Access oAccess = new Access(sEmail);
+                    if (oAccess.bDisabled() == 0) {  // проверяем если пользователь заблокирован
+                         // Запись в базу инфы о пользователе при попытке его Входа
+                         AccessOf oAccessOf = new AccessOf();
+                         oAccessOf.saveInfo(sEmail, request.getLocalAddr(), 0); 
+                         sReturn = "{\"sReturn\":\"" + "Доступ заблокирован Администрацией!" + "\"}";   //не менять
+                         return;
+                    }
+                    
                     if (oAccess.bLoginExists(sEmail) == true) {        // true - Емаил существует в базе
-                         String sPasswordDB = oAccess.getPassword(sEmail);    // смотрим  Пароль по Емайлу
+                         String sPasswordDB = oAccess.sGetPassword(sEmail);    // смотрим  Пароль по Емайлу
                          if (sPassword.equals(sPasswordDB)) {           // если Пароли совпадают
 
-
                               HttpSession session = request.getSession(true);
-                              sCreateCookie = oAccess.afretRegister(sEmail, sPassword, session, request.getLocalAddr()); // пускаем на сайт
+                              sCreateCookie = oAccess.sAfretRegister(sEmail, sPassword, session, request.getLocalAddr()); // пускаем на сайт
 
-                              
                               sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCreateCookie + "\" }"; //не менять  // нельзя чтобы в json было пустое значение
                          } else {     // неверный пароль
                               sReturn = "{\"sReturn\":\"" + "FailPassword!" + "\"}";
@@ -193,12 +187,10 @@ public class Login extends HttpServlet {
                                ;*/
 
                               HttpSession session = request.getSession(true);
-                              sCreateCookie = oAccess.afretRegister(sEmail, sPassword, session, request.getLocalAddr()); // пускаем на сайт
-
+                              sCreateCookie = oAccess.sAfretRegister(sEmail, sPassword, session, request.getLocalAddr()); // пускаем на сайт
 
                               sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCreateCookie + "\" }"; //не менять
                          }
-                         //sReturn = "{  \"sReturn\"  :  \"Добро пожаловать на сайт!\", \"sReturnCookie\"  : \"" + sCreateCookie + "\" }"; //не менять
                          sReturn = "{   \"sReturn\"  :  \"" + s + "\"    }";     // ответ в любом случае
                     }
                }
@@ -211,36 +203,6 @@ public class Login extends HttpServlet {
                     session.invalidate();
                     sReturn = "{\"sReturn\":\"" + "Destroyed!" + "\"}";
                }
-
-
-
-
-               // String[] sArrSession = {  // создаем строковый  массив с инф. о пользователе
-               //   sEmail,
-               //   session.getId(),
-               //   sTimeLogin,
-               //   "Подключен",
-               //   request.getRemoteAddr(),
-               //   request.getServerName()
-               //   };
-               // aAllSession.add(sArrSession); // переносим в Список Массивов для хранения
-
-//------------- Получение списка сессий (старое)             
-//            if ("theGetAllSessionList".equals(sDO)) {
-//                String s = "";
-//                for (String[] temp: aAllSession){     // //for (int i = 0; i < aAllSession.size(); i++) { }
-//                  s = s+"<tr>"+  
-//                          "<td>"+temp[0]+"</td>"+ 
-//                          "<td>"+temp[1]+"</td>"+ 
-//                          "<td>"+temp[2]+"</td>"+ 
-//                          "<td>"+temp[3]+"</td>"+ 
-//                          "<td>"+temp[4]+"</td>"+ 
-//                          "<td>"+temp[5]+"</td>"+ 
-//                          "</tr>";  // делаем табличные строки
-//                }  // Добавляем шапку к таблице
-//                    s = "<tr>  <td>E-Mail</td> <td>ID Session</td><td>Время входа</td><td>Статус</td><td>IP адрес</td><td>ServerName</td>  </tr>"+s;
-//                    sReturn = "{\"sReturn\":\"" + s + "\"}";
-//            } 
 
 
 
@@ -284,6 +246,46 @@ public class Login extends HttpServlet {
 
 
 //================== Свалка старого кода
+
+
+
+
+               // String[] sArrSession = {  // создаем строковый  массив с инф. о пользователе
+               //   sEmail,
+               //   session.getId(),
+               //   sTimeLogin,
+               //   "Подключен",
+               //   request.getRemoteAddr(),
+               //   request.getServerName()
+               //   };
+               // aAllSession.add(sArrSession); // переносим в Список Массивов для хранения
+
+//------------- Получение списка сессий (старое)             
+//            if ("theGetAllSessionList".equals(sDO)) {
+//                String s = "";
+//                for (String[] temp: aAllSession){     // //for (int i = 0; i < aAllSession.size(); i++) { }
+//                  s = s+"<tr>"+  
+//                          "<td>"+temp[0]+"</td>"+ 
+//                          "<td>"+temp[1]+"</td>"+ 
+//                          "<td>"+temp[2]+"</td>"+ 
+//                          "<td>"+temp[3]+"</td>"+ 
+//                          "<td>"+temp[4]+"</td>"+ 
+//                          "<td>"+temp[5]+"</td>"+ 
+//                          "</tr>";  // делаем табличные строки
+//                }  // Добавляем шапку к таблице
+//                    s = "<tr>  <td>E-Mail</td> <td>ID Session</td><td>Время входа</td><td>Статус</td><td>IP адрес</td><td>ServerName</td>  </tr>"+s;
+//                    sReturn = "{\"sReturn\":\"" + s + "\"}";
+//            } 
+
+
+
+
+
+
+
+
+
+
 
 //---------------------------------------------               
    /*          if (request.getAttribute("sEmail") == null) {    // если у пользователя нет сессии

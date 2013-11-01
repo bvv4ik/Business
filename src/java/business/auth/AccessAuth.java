@@ -25,16 +25,32 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Работа с Cookie пользователя
- *
+ * Работа с Cookie
  * @author Sergey
  */
 public class AccessAuth {
 
      private Logger oLog = Logger.getLogger(getClass());
      // Список в котором храним данные о попытках входа пользователей
-     public static HashMap<String, String> map = new HashMap<String, String>();
-                      //public static ArrayList<String[]> aUserCountTry = new ArrayList<String[]>();   //public static ArrayList<String> aUserCountTry = new ArrayList<String>();
+     public static HashMap<String, String> map = new HashMap<String, String>();   //public static ArrayList<String[]> aUserCountTry = new ArrayList<String[]>();   //public static ArrayList<String> aUserCountTry = new ArrayList<String>();
+     
+    private int nID;
+    private int nID_Access;
+    private String sAuth;  // Строка с Кукой
+    private String sDateMake;  // Дата создания
+
+// Setters
+    public AccessAuth _nID(int i) { nID = i; return this;    }
+    public AccessAuth _nID_Access(int i) { nID_Access = i;  return this;   }
+    public AccessAuth _sAuth(String s) { sAuth = s;   return this;   }
+    public AccessAuth _sDateMake(String s) {   sDateMake = s;     return this;    }
+
+// Getters
+    public int nID() {      return nID;    }
+    public int nID_Access() {    return nID_Access;    }
+    public String sAuth() {    return sAuth;   }
+    public String sDateMake() {      return sDateMake;    }
+    //================================================
      
 
      /**
@@ -43,9 +59,8 @@ public class AccessAuth {
       * @param nID_Access - nID пользователя
       * @param sAuth - сама Кука
       * @param sDateMake - дата создания
-      * @param countMax - Регулятор коол-ва Кук в Базе на 1 пользователя. Если в
-      * БД Куков этого юзера больше этого числа, то 1 запись удаляется и 1
-      * добавляется, если меньше этого числа, то просто добавляется 1 запись.
+      * @param countMax - Регулятор коол-ва Кук в Базе на 1 пользователя. Если в БД Куков этого юзера больше этого числа, 
+      * то 1 запись удаляется и 1 добавляется, если меньше этого числа, то просто добавляется 1 запись.
       * @throws Exception
       */
      public void saveCookieToDB(int nID_Access, String sAuth, String sDateMake, int countMax) throws Exception {
@@ -72,7 +87,8 @@ public class AccessAuth {
                                                   + "VALUES (" + nID_Access + ", '" + sAuth + "', '" + sDateMake + "')", oLog); //ОБРАЗЕЦ            
                }
           } catch (Exception oException) {
-               oLog.error("[" + sCase + "]: Ошибка записи Куки в базу! Класс AccessAuth", oException);
+               //oLog.error("[" + sCase + "]: Ошибка записи Куки в базу! Класс AccessAuth", oException);
+               oLog.error("[" +sCase+ "](nID_Access= " +nID_Access+ " sAuth= " +sAuth+ " sDateMake= " +sDateMake+ " countMax= " +countMax+"  :  Ошибка! nID из Access пустой!", oException);
           } finally {
             AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ
             AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ
@@ -88,61 +104,49 @@ public class AccessAuth {
       * строка - Логин, 1 строка Пароль
       * @throws Exception
       */
-     public ArrayList<String> findUserFromCookie(String sCookie, String sUserIP) throws Exception {
-          String sCase = "findUserFromCookie";
-          String sLogin = "";
-          String sPassword = "";
+     public ArrayList<String> aFindUserFromCookie(String sCookie, String sUserIP) throws Exception {
+          String sCase = "aFindUserFromCookie";
           String nIdUserFromCookie = "";
           String sCookieDB = "";
-
-          ArrayList<String> list1 = new ArrayList<String>();
-          //Connection oConnection = AccessDB.oConnectionStatic(sCase);
-           Statement oStatement = null;
-          Connection oConnection = null;     
-        try {
-            oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
-            oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ
-          
-          //try {
+          ArrayList<String> list = new ArrayList<String>();
+          Statement oStatement = null;
+          Connection oConnection = null;
+          try {
+               oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
+               oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ         
                //   31&cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr //  31%26cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr  
                // Получаем всю Куку из базы
                ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT top 1 sAuth FROM AccessAuth where sAuth = '" + sCookie + "'", oLog);//ОБРАЗЕЦ  
-              // ResultSet oSet1 = oConnection.prepareStatement("SELECT top 1 sAuth FROM AccessAuth where sAuth = '" + sCookie + "'").executeQuery();
                if (oRowset.next()) {
                     sCookieDB = oRowset.getString(1);
                }
-               if ((sCookie != "") & (sCookie.equals(sCookieDB))) {  // если две куки совпадают
+               if ((sCookie != "") & (sCookie.equals(sCookieDB))) {// если две куки совпадают
                     //вырезаем ИД юзера из куки
-                    if (sCookie.indexOf("&") != -1) {          // если есть знак "&"
-                         nIdUserFromCookie = sCookie.substring(0, sCookie.indexOf("&")); // Берем все что сначала строки и до знака "&" 
+                    if (sCookie.indexOf("&") != -1) { // если есть знак "&"
+                         nIdUserFromCookie = sCookie.substring(0, sCookie.indexOf("&")); // Берем все что сначала строки и до знака "&"   //  sCookieClient = s.substring(s.lastIndexOf("&")+1); // берем все что после "&" и до конца 
                     }
-                    // берем код Куки клиента
-                    //  sCookieClient = s.substring(s.lastIndexOf("&")+1); // берем все что после "&" и до конца 
                     // Получаем Емаил и Пароль по ИД
                     oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT sLogin, sPassword FROM Access where nID = " + nIdUserFromCookie, oLog);//ОБРАЗЕЦ  
-                    //ResultSet oRowset = oConnection.prepareStatement("SELECT sLogin, sPassword FROM Access where nID = " + nIdUserFromCookie).executeQuery();
                     if (oRowset.next()) {
-                         sLogin = oRowset.getString("sLogin");    
-                         sPassword = oRowset.getString("sPassword");
+                         list.add(oRowset.getString("sLogin"));
+                         list.add(oRowset.getString("sPassword"));
                     }
                     //  возвращаем Емайл и Пароль клиента
-                    list1.add(sLogin);
-                    list1.add(sPassword);
                } else {     // Если Куки не совпадают! ТРЕВОГА !!! возвращаем нули вместо логина и пароля, и с ними юзер не войдет.
-                    list1.add("0");
-                    list1.add("0");
-                    oLog.info(" ALERT! ПОПЫТКА ВЗЛОМА! Ложная КУКА! Код куки не совпадает ни с одним из находящихся в Базе! IP злоумышленника : " + sUserIP);
+                    list.add("0");
+                    list.add("0");
+                    oLog.info(" ПОПЫТКА ВЗЛОМА! Ложная КУКА!  IP злоумышленника : " + sUserIP);
                }
           } catch (Exception oException) {
-               // return "Ошибка создания записи БД: Класс AccessAuth";
-               oLog.error("[" + sCase + "]: Ошибка записи Куки в базу! Класс AccessAuth", oException);
+               oLog.error("[" + sCase + "] sCookie= " + sCookie + " sUserIP= " + sUserIP + ": Ошибка записи Куки в базу!", oException);
           } finally {
-            AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ
-            AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ
-               return list1;     // возвращаем в любом случае
+               AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ
+               AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ
+               return list;     // возвращаем в любом случае
           }
      }
 
+     
      /**
       * Возвращаем самую старую по дате Куку юзера из базы по Емайлу Юзера
       *
@@ -150,17 +154,14 @@ public class AccessAuth {
       * @return - строку с Кукой
       * @throws Exception
       */
-     public String findCookie(String sEmail) throws Exception {
-          String sCase = "findUserFromCookie";
+     public String sFindCookie(String sEmail) throws Exception {
+          String sCase = "sFindCookie";
           String sCookieDB = null;
-          //Connection oConnection = AccessDB.oConnectionStatic(sCase);
-           Statement oStatement = null;
-          Connection oConnection = null;     
-        try {
-            oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
-            oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ
-          //try {
-              // ResultSet oRowset = oConnection.prepareStatement("SELECT top 1 sAuth FROM AccessAuth AA LEFT JOIN Access Ac ON Ac.nID = AA.nID_Access where Ac.sLogin = '" + sEmail + "'").executeQuery();
+          Statement oStatement = null;
+          Connection oConnection = null;
+          try {
+               oConnection = AccessDB.oConnectionStatic(sCase); 
+               oStatement = AccessDB.oStatementStatic(oConnection, sCase); 
                ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 sAuth FROM AccessAuth AA LEFT JOIN Access Ac ON Ac.nID = AA.nID_Access where Ac.sLogin = '" + sEmail + "'", oLog);//ОБРАЗЕЦ  
                if (oRowset.next()) {
                     sCookieDB = oRowset.getString(1);
@@ -169,8 +170,8 @@ public class AccessAuth {
           } catch (Exception oException) {
                oLog.error("[" + sCase + "]: Ошибка получения Куки из базы! Класс AccessAuth", oException);
           } finally {
-               AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ
-               AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ
+               AccessDB.close(sCase, oStatement);   
+               AccessDB.closeConnectionStatic(sCase, oConnection);    
                return sCookieDB;         // возвращаем в любом случае
           }
      }
