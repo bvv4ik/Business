@@ -53,6 +53,22 @@ public class Login extends HttpServlet {
               oLog.info(" sDO=" + sDO + ", sEmail=" + sEmail+ ", sPassword=" + sPassword+ ", sCookie=" + sCookie);   // .substring(0, 3)+"..." 
 
 
+           //   Access oAccess1 = new Access();
+              //String sReturn1 =
+                                new Access()
+                               ._sPassword("123123")
+                               ._sLogin("sss@dddd.ddd")
+                               ._bDisabled(5)
+                               .save("sdddd@dfdd.gg");
+                               
+              
+              //AccessREST oAccessREST = new AccessREST();
+                           //String sReturn1 = new Access()
+                              
+              
+              // oAccess1.save("sdddd@dfdd.gg");
+              
+              
 //---------- Ограничение попыток неавторизированного пользователя делать запросы.
  /*   Должно находится в самом начале сервлета!
  *    Создается статический HashMap на сервере и при каждом запросе неавторизированного пользователя
@@ -149,10 +165,10 @@ public class Login extends HttpServlet {
                     String sCreateCookie = "";  // поправить, иногда создается пустая Кука?????
  
                     Access oAccess = new Access(sEmail);
-                    if (oAccess.bDisabled() == 0) {  // проверяем если пользователь заблокирован
+                    if (oAccess.bDisabled() == 2) {  // проверяем если пользователь заблокирован
                          // Запись в базу инфы о пользователе при попытке его Входа
                          AccessOf oAccessOf = new AccessOf();
-                         oAccessOf.saveInfo(sEmail, request.getLocalAddr(), 0); 
+                         oAccessOf.saveInfo(sEmail, request.getLocalAddr(), 2); 
                          sReturn = "{\"sReturn\":\"" + "Доступ заблокирован Администрацией!" + "\"}";   //не менять
                          return;
                     }

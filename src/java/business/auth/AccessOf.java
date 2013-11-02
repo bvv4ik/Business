@@ -84,8 +84,8 @@ public class AccessOf {
                        + "VALUES (" +nID+ ",'" +sIP+ "','" +sTime+ "','ссылка откуда...'," +bAgree+ ",'доп. инф')", oLog);
 
           } catch (Exception oException) {
-               oLog.error("[" + sCase + "](sEmail= " +sEmail+ " sIP= " +sIP+ " bAgree= " +bAgree+ ") : Ошибка записи данных в базу!", oException);     //ОБРАЗЕЦ
-               throw oException; // выбрасываем ошибку наверх
+               oLog.error("[" + sCase + "](sEmail= " +sEmail+ " sIP= " +sIP+ " bAgree= " +bAgree+ ") : Ошибка записи данных в базу!", oException);
+               throw oException;  // выбрасываем ошибку наверх
           } finally {
                AccessDB.close(sCase, oStatement);
                AccessDB.closeConnectionStatic(sCase, oConnection);

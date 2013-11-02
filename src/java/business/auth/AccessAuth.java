@@ -69,29 +69,28 @@ public class AccessAuth {
           Statement oStatement = null;
           Connection oConnection = null;     
         try {
-            oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
-            oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ
+            oConnection = AccessDB.oConnectionStatic(sCase); 
+            oStatement = AccessDB.oStatementStatic(oConnection, sCase); 
             ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT count(*) FROM AccessAuth where nID_Access = " + nID_Access, oLog); //ОБРАЗЕЦ            
                if (oRowset.next()) {
                     nCountRows = oRowset.getInt(1);
                }
                if (nCountRows <= countMax) {  // если меньше 4 записией в базе, то просто добавляем 1 запись
                     AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO AccessAuth(nID_Access, sAuth, sDateMake) "
-                                                   + "VALUES (" + nID_Access + ", '" + sAuth + "', '" + sDateMake + "')", oLog);//ОБРАЗЕЦ            
+                                                   + "VALUES (" + nID_Access + ", '" + sAuth + "', '" + sDateMake + "')", oLog);       
                }
                if (nCountRows > countMax) {      // если больше допустимого кол-ва записей (4-х например)
                     // удяляем 1 самую верхнюю(старую)  запись       
-                    AccessDB.nRowsetUpdate(oStatement, sCase, "DELETE top 1 FROM AccessAuth WHERE nID_Access = " + nID_Access, oLog);//ОБРАЗЕЦ            
+                    AccessDB.nRowsetUpdate(oStatement, sCase, "DELETE top 1 FROM AccessAuth WHERE nID_Access = " + nID_Access, oLog);           
                     // добавляем новую запись
                     AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO AccessAuth(nID_Access, sAuth, sDateMake) "
-                                                  + "VALUES (" + nID_Access + ", '" + sAuth + "', '" + sDateMake + "')", oLog); //ОБРАЗЕЦ            
+                                                  + "VALUES (" + nID_Access + ", '" + sAuth + "', '" + sDateMake + "')", oLog);           
                }
           } catch (Exception oException) {
-               //oLog.error("[" + sCase + "]: Ошибка записи Куки в базу! Класс AccessAuth", oException);
                oLog.error("[" +sCase+ "](nID_Access= " +nID_Access+ " sAuth= " +sAuth+ " sDateMake= " +sDateMake+ " countMax= " +countMax+"  :  Ошибка! nID из Access пустой!", oException);
           } finally {
-            AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ
-            AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ
+            AccessDB.close(sCase, oStatement); 
+            AccessDB.closeConnectionStatic(sCase, oConnection);
           }
      }
 
@@ -101,7 +100,7 @@ public class AccessAuth {
       * @param sCookie - Кука Пользователя
       * @param sUserIP - Пишем в Лог IP нарушителя, если Кука Ложная
       * @return - Возаращаем Логин и Пароль пользователя в виде массива строк: 0
-      * строка - Логин, 1 строка Пароль
+      *           строка - Логин, 1 строка Пароль
       * @throws Exception
       */
      public ArrayList<String> aFindUserFromCookie(String sCookie, String sUserIP) throws Exception {
@@ -112,11 +111,11 @@ public class AccessAuth {
           Statement oStatement = null;
           Connection oConnection = null;
           try {
-               oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
-               oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ         
+               oConnection = AccessDB.oConnectionStatic(sCase);
+               oStatement = AccessDB.oStatementStatic(oConnection, sCase);       
                //   31&cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr //  31%26cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr  
                // Получаем всю Куку из базы
-               ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT top 1 sAuth FROM AccessAuth where sAuth = '" + sCookie + "'", oLog);//ОБРАЗЕЦ  
+               ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT top 1 sAuth FROM AccessAuth where sAuth = '" + sCookie + "'", oLog);
                if (oRowset.next()) {
                     sCookieDB = oRowset.getString(1);
                }
@@ -126,7 +125,7 @@ public class AccessAuth {
                          nIdUserFromCookie = sCookie.substring(0, sCookie.indexOf("&")); // Берем все что сначала строки и до знака "&"   //  sCookieClient = s.substring(s.lastIndexOf("&")+1); // берем все что после "&" и до конца 
                     }
                     // Получаем Емаил и Пароль по ИД
-                    oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT sLogin, sPassword FROM Access where nID = " + nIdUserFromCookie, oLog);//ОБРАЗЕЦ  
+                    oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT sLogin, sPassword FROM Access where nID = " + nIdUserFromCookie, oLog);
                     if (oRowset.next()) {
                          list.add(oRowset.getString("sLogin"));
                          list.add(oRowset.getString("sPassword"));
@@ -140,8 +139,8 @@ public class AccessAuth {
           } catch (Exception oException) {
                oLog.error("[" + sCase + "] sCookie= " + sCookie + " sUserIP= " + sUserIP + ": Ошибка записи Куки в базу!", oException);
           } finally {
-               AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ
-               AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ
+               AccessDB.close(sCase, oStatement); 
+               AccessDB.closeConnectionStatic(sCase, oConnection);
                return list;     // возвращаем в любом случае
           }
      }
