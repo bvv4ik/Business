@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Логирование
+ *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
 public class Log {

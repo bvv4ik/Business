@@ -9,5 +9,4 @@ package test;
  * @author Sergey
  */
 class BufferedReader {
-    
 }

@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Кэширование таблиц
- * 
+ *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
 public class Table extends Object implements Serializable {
@@ -30,8 +30,8 @@ public class Table extends Object implements Serializable {
             BufferedReader oReader = new BufferedReader(new FileReader(Config.sPathConfig() + sFileName));
             for (String sRow; null != (sRow = oReader.readLine());) {
                 Map mTableThis = new LinkedHashMap();
-                String[] asRow=sRow.split(";");
-                String sTable=asRow[0];
+                String[] asRow = sRow.split(";");
+                String sTable = asRow[0];
                 String sConnectionName = asRow[1];
                 String sSQL = asRow[2];
                 //for(String s:asRow){
@@ -45,10 +45,12 @@ public class Table extends Object implements Serializable {
                     ResultSetMetaData oRowsetMD = oRowset.getMetaData();
                     while (oRowset.next()) {
                         Map mValue = new HashMap();
-                        for (int i = 1; i <= oRowsetMD.getColumnCount(); i++) { 
+                        for (int i = 1; i <= oRowsetMD.getColumnCount(); i++) {
                             mValue.put(oRowsetMD.getColumnLabel(i), oRowset.getObject(i));
-                        }mTableThis.put(Integer.toString(oRowset.getRow()), mValue);
-                    }mTable.put(sTable, mTableThis);
+                        }
+                        mTableThis.put(Integer.toString(oRowset.getRow()), mValue);
+                    }
+                    mTable.put(sTable, mTableThis);
                 } catch (Throwable oException) {
                     oLog.error("[" + sCase + "](sTable=" + sTable + ",sFileName=" + sFileName + "):", oException);
                 } finally {
@@ -80,7 +82,7 @@ public class Table extends Object implements Serializable {
     }
 
     public static synchronized HashMap mRow(String sTableName, String sFieldName, String sFieldValue) throws Exception {
-        String sCase="mRow";
+        String sCase = "mRow";
         //oLog.debug("[" + sCase + "](sTableName=" + sTableName + ",sFieldName=" + sFieldName + ",sFieldValue=" + sFieldValue + "): Loading...");
         HashMap mTableThis = new HashMap((Map) mRow(sTableName));
         //oLog.debug("[" + sCase + "](mTable=" + mTable + "): Loading(2)...");
@@ -96,9 +98,12 @@ public class Table extends Object implements Serializable {
         }
         return mTableNew;
     }
+
     /**
-     * Получить карту со свойствами(значениями полей строки таблицы) - по названию и значению поля из таблицы.<br>
-     * Если не будет найдено в кэше, то будет перечитано из базы.
+     * Получить карту со свойствами(значениями полей строки таблицы) - по
+     * названию и значению поля из таблицы.<br> Если не будет найдено в кэше, то
+     * будет перечитано из базы.
+     *
      * @param sTableName - название таблицы
      * @param sFieldName - название поля
      * @param sFieldValue - значение поля
@@ -108,24 +113,23 @@ public class Table extends Object implements Serializable {
      * @throws Exception
      */
     public static synchronized HashMap mRowValue(String sTableName, String sFieldName, String sFieldValue, Statement oStatement, Logger oLog) throws Exception {
-        String sCase="mRowValue";
+        String sCase = "mRowValue";
         HashMap mValue = (HashMap) mRow(sTableName, sFieldName, sFieldValue).get("1");
         if (mValue != null) {
             return mValue;
         } else {
-            ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT * FROM "+sTableName
-                    + " WHERE "+sFieldName+" = " + (_.bNumber(sFieldValue)?sFieldValue:"'"+sFieldValue+"'"), oLog, false);
+            ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT * FROM " + sTableName
+                    + " WHERE " + sFieldName + " = " + (_.bNumber(sFieldValue) ? sFieldValue : "'" + sFieldValue + "'"), oLog, false);
             if (oRowset.next()) {
                 ResultSetMetaData oRowsetMD = oRowset.getMetaData();
-                 mValue = new HashMap();
+                mValue = new HashMap();
                 for (int i = 1; i <= oRowsetMD.getColumnCount(); i++) {
                     mValue.put(oRowsetMD.getColumnName(i), oRowset.getObject(i));
                 }
                 return mValue;
             } else {
-                throw new Exception("["+sCase+"](sTableName="+sTableName+",sFieldName="+sFieldName+",sFieldValue="+sFieldValue+"):Element not found!");
+                throw new Exception("[" + sCase + "](sTableName=" + sTableName + ",sFieldName=" + sFieldName + ",sFieldValue=" + sFieldValue + "):Element not found!");
             }
         }
-    }    
-    
+    }
 }

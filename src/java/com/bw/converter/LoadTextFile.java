@@ -16,27 +16,27 @@ import java.util.List;
  * @author Sergey
  */
 public class LoadTextFile {
-    
-    public List ListFromFile (String path ) throws SQLException{
-      //int iDatch = 0;
-      //String s = "";  
-      List list = new ArrayList(); 
-      BufferedReader br = null;
+
+    public List ListFromFile(String path) throws SQLException {
+        //int iDatch = 0;
+        //String s = "";  
+        List list = new ArrayList();
+        BufferedReader br = null;
 
         try {
             String sCurrentLine;
             br = new BufferedReader(new FileReader(path));
             while ((sCurrentLine = br.readLine()) != null) {
-                list.add(sCurrentLine);       
+                list.add(sCurrentLine);
             }
-                
-            System.out.println("Всего элементов в массиве 11111111222444455555 "+list.size());
-           // System.out.println(list.get(5));
-          //      System.out.println(s);
-        
-    
-         
-            
+
+            System.out.println("Всего элементов в массиве 11111111222444455555 " + list.size());
+            // System.out.println(list.get(5));
+            //      System.out.println(s);
+
+
+
+
         } catch (IOException oException) {
             oException.printStackTrace();
         } finally {
@@ -44,18 +44,15 @@ public class LoadTextFile {
                 if (br != null) {
                     br.close();
                 }
-                
-                
-                 
+
+
+
             } catch (IOException oException) {
                 oException.printStackTrace();
             }
-            
+
             return list;
         }
-  
-  }  
-    
-}
-    
 
+    }
+}

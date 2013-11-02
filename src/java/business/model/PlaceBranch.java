@@ -8,36 +8,58 @@ import business.AccessDB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
-
 public class PlaceBranch {
-    
-      
-private int nID;
-private int nID_PlacePolis;
-private int nID_PlaceBranchType;
-private String sBranch; 
+
+    private int nID;
+    private int nID_PlacePolis;
+    private int nID_PlaceBranchType;
+    private String sBranch;
 
 // Setters
- public PlaceBranch _nID(int i) { nID = i; return this; }
- public PlaceBranch _nID_PlacePolis(int i) { nID_PlacePolis = i; return this; }
- public PlaceBranch _nID_PlaceBranchType(int i) { nID_PlaceBranchType = i; return this; }
- public PlaceBranch _sBranch(String s) { sBranch=s; return this;  }
-  
- // Getters
- public int nID() { return nID; }
- public int nID_PlacePolis() { return nID_PlacePolis; }
- public int nID_PlaceBranchType() { return nID_PlaceBranchType; }
- public String sBranch() { return sBranch; }
- 
-  //Конструкторы
- //public PlaceBranch(String sBranch) throws Exception {
- //   setBranch(sBranch);
- //};
- //public PlaceBranch(){
- //};
- 
- 
- // Определяем nID улицы по выбранному названию     
+    public PlaceBranch _nID(int i) {
+        nID = i;
+        return this;
+    }
+
+    public PlaceBranch _nID_PlacePolis(int i) {
+        nID_PlacePolis = i;
+        return this;
+    }
+
+    public PlaceBranch _nID_PlaceBranchType(int i) {
+        nID_PlaceBranchType = i;
+        return this;
+    }
+
+    public PlaceBranch _sBranch(String s) {
+        sBranch = s;
+        return this;
+    }
+
+    // Getters
+    public int nID() {
+        return nID;
+    }
+
+    public int nID_PlacePolis() {
+        return nID_PlacePolis;
+    }
+
+    public int nID_PlaceBranchType() {
+        return nID_PlaceBranchType;
+    }
+
+    public String sBranch() {
+        return sBranch;
+    }
+
+    //Конструкторы
+    //public PlaceBranch(String sBranch) throws Exception {
+    //   setBranch(sBranch);
+    //};
+    //public PlaceBranch(){
+    //};
+    // Определяем nID улицы по выбранному названию     
 // public int getID (String sBranch) throws Exception { 
 //     int i = 0;  
 //    
@@ -53,9 +75,8 @@ private String sBranch;
 //     AccessDB.closeConnectionStatic("", oConnection);      
 //     return  i;
 // }
- 
- // Получаем список всех улиц по выбранным городу и типу
-public String getAllBranch(String nID_Polis, String nID_BranchType) throws Exception {
+    // Получаем список всех улиц по выбранным городу и типу
+    public String getAllBranch(String nID_Polis, String nID_BranchType) throws Exception {
         String s = "";  // String utf = ""; 
         int i = 0;
 
@@ -69,7 +90,4 @@ public String getAllBranch(String nID_Polis, String nID_BranchType) throws Excep
         AccessDB.closeConnectionStatic("", oConnection);
         return s;          //возвращаем список регионов в виде Json строки
     }
- 
-
- 
 }

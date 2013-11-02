@@ -11,7 +11,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" type="text/css" href="css/BW_2013-10-22.css"/> 
+        
         <script type="text/javascript" src="js/jquery-1.9.1.js"> </script>  
+        <script type="text/javascript" src="js/jquery.json-2.2.min.js"></script>
         
         <script type="text/javascript" src="js/bw_2013-10-22.js"> </script> 
         
@@ -25,10 +27,12 @@
                            // sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight)
                           // askTest();
                            //askTest1();
-                           ask("Неверный парольНеверный парольНеверный парол парольНеверный пароль!","Внимание!", null
-                                                        ,function (nReturn){ alert("nReturn="+nReturn); }, null,300,300, 20, $(".butTest"));
-                       
-                          
+        ask("Неверный парольНеверный парольНеверный парол парольНеверный пароль!","Внимание!", null
+            ,function (nReturn){
+                alert("nReturn="+nReturn); 
+            }, null,300,300, 10, $(".butTest"), false);
+        
+        
                           // showDialog(".oDialog.oAsk",300,200);
                         /*ask("привет","yes",null,function(nReturn){
                             //if(nReturn==1){}}
@@ -52,8 +56,9 @@
  
     
     <div hidden class="oDialog oAsk">
+        <div class="oHead">Вопрос:</div>
         <img class="doHideDialog"/>
-        <div class="oHead">Вопрос:</div> <div class="oTimerClose"></div>
+        <!--div class="oTimerClose"></div-->
         <div class="oBody">
             <p>Какой ответ на вопрос?</p>
         </div>
@@ -66,9 +71,9 @@
     </div>
         
     
-    <div hidden class="oDialog oError" >    
-        <img class="doHideDialog"/>
+    <div hidden class="oDialog oError">
         <div class="oHead">Ошибка:</div>
+        <img class="doHideDialog"/>
         <div class="oBody">
             <p>Произошла ошибка!</p>
         </div>

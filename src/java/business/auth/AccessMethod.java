@@ -4,29 +4,28 @@
  */
 package business.auth;
 
-
 public class AccessMethod {
 
-     private int nID;
-     private String sAccessMethod;
+    private int nID;
+    private String sAccessMethod;
 
 // Setters
-     public AccessMethod _nID(int i) {
-          nID = i;
-          return this;
-     }
+    public AccessMethod _nID(int i) {
+        nID = i;
+        return this;
+    }
 
-     public AccessMethod _sAccessMethod(String s) {
-          sAccessMethod = s;
-          return this;
-     }
+    public AccessMethod _sAccessMethod(String s) {
+        sAccessMethod = s;
+        return this;
+    }
 
-     // Getters
-     public int nID() {
-          return nID;
-     }
+    // Getters
+    public int nID() {
+        return nID;
+    }
 
-     public String sAccessMethod() {
-          return sAccessMethod;
-     }
+    public String sAccessMethod() {
+        return sAccessMethod;
+    }
 }

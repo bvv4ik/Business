@@ -3,19 +3,21 @@
  * and open the template in the editor.
  */
 package business.model;
+
 /**
  *
  * @author Sergey
  */
 public class Test {
-  
-        
+
     public static void main(String[] args) throws Exception {
- PlacePolis pp = new PlacePolis();
- pp.getStringAddressPolis("ДНІПР", 1);
- //for (String temp: pp.aResult2){ System.out.println(temp); }
- for (String temp: pp.aResult3){ System.out.println(temp); }
- 
+        PlacePolis pp = new PlacePolis();
+        pp.getStringAddressPolis("ДНІПР", 1);
+        //for (String temp: pp.aResult2){ System.out.println(temp); }
+        for (String temp : pp.aResult3) {
+            System.out.println(temp);
+        }
+
 //////     String s = "";
 //////     String s1 = "";
 //////  
@@ -91,20 +93,14 @@ public class Test {
 //////       s = s+"  "+ sArr[24] +" "+ sArr[25]+" "+ sArr[26]; // если есть замена
 //////     
 ////// 
-     
-   //if (s != ""){
+
+        //if (s != ""){
 //////     System.out.println(s); 
-    // s = "";
-    // s1 = "";
-     // }
-   
-   
-   
-   }
-   
-   
-   
-   }
-    
-  
-   
+        // s = "";
+        // s1 = "";
+        // }
+
+
+
+    }
+}

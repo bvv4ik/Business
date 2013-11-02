@@ -858,12 +858,13 @@ public class ItemAccessData extends ItemDataHold {
             try {
                 _Auth(s(sNameAuth(), sAuth()));
                 bLogout = b("bLogout");
-                _RiseCase("sNameLogin=" + sNameLogin() + ",sNameAuth=" + sNameAuth() + ",sAuth=" + sAuth()+",bLogout="+bLogout);
-                if(bLogout){
+                _RiseCase("sNameLogin=" + sNameLogin() + ",sNameAuth=" + sNameAuth() + ",sAuth=" + sAuth() + ",bLogout=" + bLogout);
+                if (bLogout) {
                     String sAuth = sAuth();
                     resetSession();
                     _Auth(s(sNameAuth(), sAuth));
-                }bLogout |= "-1".equals(sAuth());
+                }
+                bLogout |= "-1".equals(sAuth());
                 String sSessionValue = sSessionValue(sNameLogin());
                 boolean bSessionValid = bIs(sSessionValue);
                 _RiseCase("bSessionValid=" + bSessionValid + ",sSessionValue=" + sSessionValue + ",sNameRole=" + sNameRole() + ",sRole=" + sRole() + ",sNameLogin=" + sNameLogin() + ",sLogin=" + sLogin() + ",sNameAuth=" + sNameAuth() + ",sAuth=" + sAuth());
@@ -876,7 +877,7 @@ public class ItemAccessData extends ItemDataHold {
                         if (!bIs(sRedirectURL()) && bRequest()) {
                             _RiseCase("_RedirectURL is empty, setup default!");
                             _RedirectURL(oRequest().getScheme() + "://" + oRequest().getServerName() + ":" + oRequest().getServerPort()
-                                    + "/" + (oRequest().getRequestURI().toString().replaceAll("\\Q"+sNameAuth()+"=-1\\E", "").replaceAll("\\Q&&\\E", "&")));
+                                    + "/" + (oRequest().getRequestURI().toString().replaceAll("\\Q" + sNameAuth() + "=-1\\E", "").replaceAll("\\Q&&\\E", "&")));
                         }
                     } else {
                         _AccessBy("Session");
@@ -900,9 +901,9 @@ public class ItemAccessData extends ItemDataHold {
                     }//--- ТОЛЬКО ДЛЯ РЕЖИМА ОТЛАДКИ !!! (КОНЕЦ)
                 } else if (bIs(sRedirectURL()) && bResponse()) {
                     _RiseCase("sRedirectURL()=" + sRedirectURL(), "sendRedirect");
-                    if(sRedirectURL().indexOf("index_test.jsp")>=0){
+                    if (sRedirectURL().indexOf("index_test.jsp") >= 0) {
                         _Rise("sRedirectURL()=" + sRedirectURL(), "sendRedirect(YES_index_test.jsp)");
-                    }else{
+                    } else {
                         _Rise("sRedirectURL()=" + sRedirectURL(), "sendRedirect(NO_index_test.jsp)");
                         oResponse().sendRedirect(sRedirectURL());
                     }
@@ -910,10 +911,10 @@ public class ItemAccessData extends ItemDataHold {
                 _Granted(bGranted() || (bGrantHold() && bGranted()) || bGrant());
                 _GrantHold();
             } catch (Exception _) {
-                _RiseError(_, "sLogin=" + sLogin() + ",sRole=" + sRole() + ",bAdmin=" + bAdmin() + ",bGranted=" + bGranted() + ",sAuth=" + sAuth() + ",bLogout="+bLogout + ",sAccessBy=" + sAccessBy() + ",IP=" + (bRequest() ? oRequest().getRemoteAddr() : "null") + ",Referer=" + (bRequest() ? oRequest().getHeader("Referer") : "null") + ",bAgreed=" + bAgreed());
+                _RiseError(_, "sLogin=" + sLogin() + ",sRole=" + sRole() + ",bAdmin=" + bAdmin() + ",bGranted=" + bGranted() + ",sAuth=" + sAuth() + ",bLogout=" + bLogout + ",sAccessBy=" + sAccessBy() + ",IP=" + (bRequest() ? oRequest().getRemoteAddr() : "null") + ",Referer=" + (bRequest() ? oRequest().getHeader("Referer") : "null") + ",bAgreed=" + bAgreed());
             } finally {
                 _Agreed(bIs(sLogin()) && bGranted());
-                _Rise("sLogin=" + sLogin() + ",sRole=" + sRole() + (bAgreed() ? "" : ",bGranted=" + bGranted()) + ",sAuth=" + sAuth() + ",bLogout="+bLogout + ",sAccessBy=" + sAccessBy() + ",IP=" + (bRequest() ? oRequest().getRemoteAddr() : "null") + ",Referer=" + (bRequest() ? oRequest().getHeader("Referer") : "null"), bAgreed() ? "Accepted" : "Rejected");
+                _Rise("sLogin=" + sLogin() + ",sRole=" + sRole() + (bAgreed() ? "" : ",bGranted=" + bGranted()) + ",sAuth=" + sAuth() + ",bLogout=" + bLogout + ",sAccessBy=" + sAccessBy() + ",IP=" + (bRequest() ? oRequest().getRemoteAddr() : "null") + ",Referer=" + (bRequest() ? oRequest().getHeader("Referer") : "null"), bAgreed() ? "Accepted" : "Rejected");
             }
         }
         return bAgreed();

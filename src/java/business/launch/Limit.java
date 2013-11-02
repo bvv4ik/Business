@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Контоль числа запущенных потоков и времени ожидания
- * 
+ *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
 public class Limit {
@@ -15,6 +15,7 @@ public class Limit {
 
     /**
      * Увеличивает значение счётчика запущенных потоков
+     *
      * @param sName имя
      */
     public static void poolPlus(String sName) {
@@ -39,6 +40,7 @@ public class Limit {
 
     /**
      * Уменьшает значение счётчика запущенных потоков
+     *
      * @param sName имя
      */
     public static void poolMinus(String sName) {
@@ -51,40 +53,46 @@ public class Limit {
             oLog.error("[" + sCase + "](sName=" + sName + ",nPool=" + nPool + "):", oException);
         }
     }
+
     public static HashMap mPool() {
         return mLimit;
     }
-    
-    
+
     /**
      * Лимит ожидания (милисекунд)
+     *
      * @param sName имя
      * @return
      */
     static public int nLimitMS(String sName) {
         return nLimitMS(sName, 4000);
     }
+
     /**
      * Лимит ожидания (милисекунд)
+     *
      * @param sName имя
      * @param nDefaultLimitMS дефолтный лимит
      * @return
-     */    
+     */
     static public int nLimitMS(String sName, int nDefaultLimitMS) {
         String sCase = "nLimitMS";
         return nLimitValue(sName, sCase, nDefaultLimitMS == 0 ? 15000 : nDefaultLimitMS);
     }
-    
+
     /**
      * Лимит пула
+     *
      * @param sName имя
      * @return
      */
     static public int nLimitPool(String sName) {
         return nLimitPool(sName, 3);
     }
+
     /**
      * Лимит пула
+     *
      * @param sName имя
      * @param nDefaultLimitPool дефолтный лимит
      * @return
@@ -93,9 +101,10 @@ public class Limit {
         String sCase = "nLimitPool";
         return nLimitValue(sName, sCase, nDefaultLimitPool);
     }
-    
+
     /**
      * Значение лимита, определяется в таблице "LaunchLimit"
+     *
      * @param sName имя
      * @param sParamName имя параметра
      * @param nValueDefault значение по умолчанию
@@ -103,7 +112,7 @@ public class Limit {
      */
     static public int nLimitValue(String sName, String sParamName, int nValueDefault) {
         String sCase = "nLimitValue";
-        int nLimitValue=nValueDefault;
+        int nLimitValue = nValueDefault;
         try {
             HashMap mRow = business.cache.Table.mRow("LaunchLimit", "sName", sName);
             if (mRow.size() > 0) {
@@ -117,6 +126,4 @@ public class Limit {
         }
         return nLimitValue;
     }
-    
-    
 }

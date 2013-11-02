@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Кэширование пулла коннекшинов к базе
- * 
+ *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
 public class Pool {
@@ -45,14 +45,14 @@ public class Pool {
     public Connection getConnection(String sName) throws Exception {//Exception
         String sCase = "getConnection";
         //oLog.debug("[" + sCase + "]:sName=" + sName + ",mDataSource.size()=" + mDataSource.size() + ",AccessDB.nConnections="+AccessDB.nConnections);
-        oLogStatic.debug("[" + sCase + "]:sName=" + sName + ",mDataSource.size()=" + mDataSource.size() + ",nConnections="+AccessDB.nConnections);
+        oLogStatic.debug("[" + sCase + "]:sName=" + sName + ",mDataSource.size()=" + mDataSource.size() + ",nConnections=" + AccessDB.nConnections);
         oLogStatic.debug("[" + sCase + "]:mConnection=" + AccessDB.mConnectionOpened);
         try {
-            Connection oConnection=((org.apache.commons.dbcp.BasicDataSource) mDataSource.get(sName)).getConnection();
+            Connection oConnection = ((org.apache.commons.dbcp.BasicDataSource) mDataSource.get(sName)).getConnection();
             return oConnection;
         } catch (Exception oException) {
             oLogStatic.error("[" + sCase + "](sName=" + sName + ",mDataSource.size()=" + mDataSource.size()
-                    + ",mConnection.size()=" + AccessDB.mConnectionOpened.size() + ",nConnections="+AccessDB.nConnections+"):", oException);
+                    + ",mConnection.size()=" + AccessDB.mConnectionOpened.size() + ",nConnections=" + AccessDB.nConnections + "):", oException);
             oLogStatic.info("[" + sCase + "](mDataSource=" + mDataSource + "):");
             oLogStatic.info("[" + sCase + "](AccessDB.mConnection=" + AccessDB.mConnectionOpened + "):");
             throw oException;

@@ -1,4 +1,3 @@
-
 package com.bw.converter.city;
 
 import com.bw.converter.OtherMethods;
@@ -8,40 +7,32 @@ import java.util.List;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
-
 ////  3 ступени адреса:   Область(или АР) --- Міськрада(Город) --- СМТ
-
-
-
 public class Obl_city_smt {
-           
-    public static boolean bShowList ;
-    
-        /*Входные Рабочие данные*/
+
+    public static boolean bShowList;
+    /*Входные Рабочие данные*/
     public ArrayList<String> list1 = new ArrayList<String>();
-    public ArrayList<String> list2 = new ArrayList<String>();   
-    public ArrayList<String> list3 = new ArrayList<String>();   
-   
-        /*Массивы готовых Выходных дынных, с дубликатами*/
+    public ArrayList<String> list2 = new ArrayList<String>();
+    public ArrayList<String> list3 = new ArrayList<String>();
+    /*Массивы готовых Выходных дынных, с дубликатами*/
     public ArrayList<String> aPlacePolisTree = new ArrayList<String>();
     public ArrayList<String> aPlaceRegion = new ArrayList<String>();
     public ArrayList<String> aPlacePolis = new ArrayList<String>();
-    
-   
-   public static void main(String args[]) throws SQLException {
+
+    public static void main(String args[]) throws SQLException {
         Obl_city_smt o1 = new Obl_city_smt();
         bShowList = true;
         o1.getData();
     }
 
-     
-        public void getData() throws SQLException {
-            
-            //Загружаем КОАТУ в 3 столбца  
- 
-           list1 = OtherMethods.ListFromFile("D:/Java_study/---Projects/KOATUU/1.txt");
-           list2 = OtherMethods.ListFromFile("D:/Java_study/---Projects/KOATUU/2.txt");
-           list3 = OtherMethods.ListFromFile("D:/Java_study/---Projects/KOATUU/3.txt");
+    public void getData() throws SQLException {
+
+        //Загружаем КОАТУ в 3 столбца  
+
+        list1 = OtherMethods.ListFromFile("D:/Java_study/---Projects/KOATUU/1.txt");
+        list2 = OtherMethods.ListFromFile("D:/Java_study/---Projects/KOATUU/2.txt");
+        list3 = OtherMethods.ListFromFile("D:/Java_study/---Projects/KOATUU/3.txt");
 
         String sResultRow = "";
 
@@ -66,79 +57,79 @@ public class Obl_city_smt {
         String IdCoatuu7 = "";
         String NamePolis7 = "";
 
-       list3 = OtherMethods.ClearGarbage(list3);  // Удаляем мусор из строк с названиями и делаем строку с большой буквы
-    
-    
-    for (int i = 0; i <= list1.size()-1; i++) { /*проходимся по списку КОАТУ*/
- 
-        NamePolis7 = list3.get(i);     // запоминаем текущее название полиса
-        IdCoatuu7 = list1.get(i);     // запоминаем 10-и значный текущий номер Коату
-       
-    
-       //========================================================
+        list3 = OtherMethods.ClearGarbage(list3);  // Удаляем мусор из строк с названиями и делаем строку с большой буквы
 
-        if (list1.get(i).endsWith("00000000")) { // если это ПЕРВАЯ ступень - Область, АР
-               if (list3.get(i).startsWith("Крим")) {
+
+        for (int i = 0; i <= list1.size() - 1; i++) { /*проходимся по списку КОАТУ*/
+
+            NamePolis7 = list3.get(i);     // запоминаем текущее название полиса
+            IdCoatuu7 = list1.get(i);     // запоминаем 10-и значный текущий номер Коату
+
+
+            //========================================================
+
+            if (list1.get(i).endsWith("00000000")) { // если это ПЕРВАЯ ступень - Область, АР
+                if (list3.get(i).startsWith("Крим")) {
                     TypeRegion1 = "1";                // выставляем тип АР в PlaceRegionType
                 } else {
                     TypeRegion1 = "2";              // выставляем тип Область в PlaceRegionType
                 }
-                         
-            NameRegion1 = OtherMethods.FirstCharUpper(list3.get(i));        // запоминаем название Области и делаем Заглавной 1 букву, остальное строчные
-            IdRegion1 = Integer.toString(i+1);               // назначаем ИД для Области
-            IdCoatuu1 = list1.get(i);                          // запоминаем номер КОАТУ ОБласти
 
-        }
-       
-        //========================================================
-          if (list1.get(i).substring(5, 10).equals("00000")        // если это ВТОРАЯ ступень - Город
-           & list1.get(i).substring(2, 3).equals("1")        // !!! ищем только в Городах Области
-         //  & !list3.get(i).startsWith("Селища міського типу")   // убираем мусор
-            & !"00".equals(list1.get(i).substring(3, 5) )    )  {     //Убираем мусор типа "Міста автономної республіки крим"  
-                                                
-        
-            TypeRegion2 = "4";     // 4 значит Миськрада (Города) в PlaceRegionType
- 
-            NameRegion2 = OtherMethods.FirstCharUpper(list3.get(i));     // запоминаем название Района
-            IdRegion2 = Integer.toString(i + 1);           // назначаем ИД для Региона
-            IdCoatuu2 = list1.get(i);                      // запоминаем номер КОАТУ
-            
-             IdPolis7 = Integer.toString(i+1);       // связка с полисами в PlaceRegionType
-        }
-    
-    
-          if ("4".equals(list1.get(i).substring(5, 6))       // если это ТРЕТЬЯ ступень - СМТ
-                  & list1.get(i).substring(2, 3).equals("1")    // !!! ищем только в Городах Области
-                &  "00".equals(list1.get(i).substring(8, 10)) // берем только само СМТ, но не подчиненных ему
-                 // сюда входят и // СМТ КАЦІВЕЛІ [0111947000] 
-                & !list1.get(i).substring(6, 9).equals("000")          // убираем 1410640001 Пятихатки и Федорівку
-               & !list3.get(i).startsWith("Селища міського типу")  ) {         // убираем мусор
-        
-            
-            TypePolis7 = "2";      // 2 значит ПГТ
-            
-            if (bShowList) {
-             sResultRow = "\n"+IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1+
-                       "\t\t"+IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2+ 
-                     //  "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"-"+"\t"+TypeRegion3+"\t"+IdCoatuu3+
-                       "\t\t"+(i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7 ;  
-           System.out.print(sResultRow);
+                NameRegion1 = OtherMethods.FirstCharUpper(list3.get(i));        // запоминаем название Области и делаем Заглавной 1 букву, остальное строчные
+                IdRegion1 = Integer.toString(i + 1);               // назначаем ИД для Области
+                IdCoatuu1 = list1.get(i);                          // запоминаем номер КОАТУ ОБласти
+
             }
 
-             //    формирование списка PlaceRegion
-            aPlaceRegion.add(IdRegion1+"\t"+1+"\t"+NameRegion1+"\t"+TypeRegion1+"\t"+IdCoatuu1); 
-            aPlaceRegion.add(IdRegion2+"\t"+1+"\t"+NameRegion2+"\t"+TypeRegion2+"\t"+IdCoatuu2);
-           //   aPlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
+            //========================================================
+            if (list1.get(i).substring(5, 10).equals("00000") // если это ВТОРАЯ ступень - Город
+                    & list1.get(i).substring(2, 3).equals("1") // !!! ищем только в Городах Области
+                    //  & !list3.get(i).startsWith("Селища міського типу")   // убираем мусор
+                    & !"00".equals(list1.get(i).substring(3, 5))) {     //Убираем мусор типа "Міста автономної республіки крим"  
+
+
+                TypeRegion2 = "4";     // 4 значит Миськрада (Города) в PlaceRegionType
+
+                NameRegion2 = OtherMethods.FirstCharUpper(list3.get(i));     // запоминаем название Района
+                IdRegion2 = Integer.toString(i + 1);           // назначаем ИД для Региона
+                IdCoatuu2 = list1.get(i);                      // запоминаем номер КОАТУ
+
+                IdPolis7 = Integer.toString(i + 1);       // связка с полисами в PlaceRegionType
+            }
+
+
+            if ("4".equals(list1.get(i).substring(5, 6)) // если это ТРЕТЬЯ ступень - СМТ
+                    & list1.get(i).substring(2, 3).equals("1") // !!! ищем только в Городах Области
+                    & "00".equals(list1.get(i).substring(8, 10)) // берем только само СМТ, но не подчиненных ему
+                    // сюда входят и // СМТ КАЦІВЕЛІ [0111947000] 
+                    & !list1.get(i).substring(6, 9).equals("000") // убираем 1410640001 Пятихатки и Федорівку
+                    & !list3.get(i).startsWith("Селища міського типу")) {         // убираем мусор
+
+
+                TypePolis7 = "2";      // 2 значит ПГТ
+
+                if (bShowList) {
+                    sResultRow = "\n" + IdRegion1 + "\t" + 1 + "\t" + NameRegion1 + "\t" + TypeRegion1 + "\t" + IdCoatuu1
+                            + "\t\t" + IdRegion2 + "\t" + 1 + "\t" + NameRegion2 + "\t" + TypeRegion2 + "\t" + IdCoatuu2
+                            + //  "\t\t"+IdRegion3+"\t"+1+"\t"+NameRegion3+"-"+"\t"+TypeRegion3+"\t"+IdCoatuu3+
+                            "\t\t" + (i + 1) + "\t" + IdPolis7 + "\t" + TypePolis7 + "\t" + NamePolis7 + "\t" + IdCoatuu7;
+                    System.out.print(sResultRow);
+                }
+
+                //    формирование списка PlaceRegion
+                aPlaceRegion.add(IdRegion1 + "\t" + 1 + "\t" + NameRegion1 + "\t" + TypeRegion1 + "\t" + IdCoatuu1);
+                aPlaceRegion.add(IdRegion2 + "\t" + 1 + "\t" + NameRegion2 + "\t" + TypeRegion2 + "\t" + IdCoatuu2);
+                //   aPlaceRegion.add(IdRegion3+"\t"+1+"\t"+NameRegion3+"\t"+TypeRegion3+"\t"+IdCoatuu3);
                 // формирование списка PlaceRegionTree
-           //   aPlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
-            aPlacePolisTree.add(IdRegion2+"\t"+IdRegion1+"\t"+(IdRegion1));
+                //   aPlacePolisTree.add(IdRegion3+"\t"+IdRegion2+"\t"+(IdRegion1)); 
+                aPlacePolisTree.add(IdRegion2 + "\t" + IdRegion1 + "\t" + (IdRegion1));
                 // формирование списка PlacePolis
-            aPlacePolis.add((i+1)+"\t"+IdPolis7+"\t"+TypePolis7+"\t"+NamePolis7+"\t"+IdCoatuu7); 
-            
-         }
-   
-      //-----------------------------------------------------
-        
+                aPlacePolis.add((i + 1) + "\t" + IdPolis7 + "\t" + TypePolis7 + "\t" + NamePolis7 + "\t" + IdCoatuu7);
+
+            }
+
+            //-----------------------------------------------------
+
 //                if ("4".equals(list1.get(i).substring(5, 6)) // если это 4 ступень - село, селище (подчиненное  СМТ)
 //                & !"00".equals(list1.get(i).substring(8, 10))   // берем только подчиненных СМТ
 //                & !list1.get(i).substring(6, 9).equals("000")  // убираем 1410640001 Пятихатки и Федорівку
@@ -148,13 +139,12 @@ public class Obl_city_smt {
 //                    if ("С".equals(list2.get(i)) ) {  TypePolis7 = "3";  }  // Тип Село в PlacePolisType
 //                    if ("Щ".equals(list2.get(i)) ) {  TypePolis7 = "4";  }  // Тип Селение   в PlacePolisType
 // 
-          
-         //  }
 
-        
-        
+            //  }
+
+
+
+        }
+
     }
-        
- }
-        
 }

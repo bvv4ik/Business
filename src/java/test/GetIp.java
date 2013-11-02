@@ -17,15 +17,13 @@ import java.util.*;
 
 //import java.util.TimerTask;
 
-import java.net.*; 
+import java.net.*;
 import java.util.TimerTask;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+public class GetIp {
 
-public class GetIp { 
- 
-     
 //public static Timer timer;
 //public static int counter;     
 //     
@@ -33,9 +31,7 @@ public class GetIp {
 //       
 //       return "";
 //  }
-     
-    public static void main( String args[]) throws Exception { 
- 
+    public static void main(String args[]) throws Exception {
 //InetAddress host = null; 
 //host = InetAddress.getLocalHost(); 
 //byte ip[] = host.getAddress(); 
@@ -50,15 +46,7 @@ public class GetIp {
 //} 
 // 
 //System.out.println(); 
-
-
-
-
-    
-     
-         
-         //-------------------------------
-
+        //-------------------------------
 //
 //   ActionListener a = new ActionListener() {
 //      public void actionPerformed(ActionEvent ev) {
@@ -77,9 +65,7 @@ public class GetIp {
 //    timer.start();
 //    
 //   
-    //===============================
-         
-         
+        //===============================
 //   Timer timer;
 //		timer.scheduleAtFixedRate(new TimerTask()
 //		{
@@ -90,11 +76,6 @@ public class GetIp {
 //				//put code here
 //			}
 //		}, longDelay, longPeriodBeforeRepeat);      
-         
-         
-    
-
-         
 //    Action action = new AbstractAction() {
 //            public void actionPerformed (ActionEvent ev){
 //                System.out.println ("hello");
@@ -106,9 +87,6 @@ public class GetIp {
 ////System.out.println ("The timer has started");
 //timer.start();
 ////timer.stop();
-    
-
-
 //   int delay = 1000; //milliseconds
 //  ActionListener taskPerformer = new ActionListener() {
 //      public void actionPerformed(ActionEvent evt) {
@@ -117,17 +95,6 @@ public class GetIp {
 //         //  act();
 //      }
 //  };
-  
 //  new Timer(delay, taskPerformer).start();
-  
-
-    }  
-
-    
-    
-    
-    
-    
-    
-    
-} 
+    }
+}

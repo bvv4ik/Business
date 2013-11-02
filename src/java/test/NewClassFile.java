@@ -4,8 +4,6 @@
  */
 package test;
 
-
-
 import business.AccessDB;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,57 +14,59 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
- 
+
 public class NewClassFile {
- 
+
 // List list = new ArrayList(); 
 // String s = "";  
-  
- static void insertFromFileIntoDB (String path ) throws SQLException{
-      int iDatch = 0;
-      String s = "";  
-      List list = new ArrayList(); 
-      BufferedReader br = null;
+    static void insertFromFileIntoDB(String path) throws SQLException {
+        int iDatch = 0;
+        String s = "";
+        List list = new ArrayList();
+        BufferedReader br = null;
 
         try {
             String sCurrentLine;
             br = new BufferedReader(new FileReader(path));
             while ((sCurrentLine = br.readLine()) != null) {
-                list.add(sCurrentLine);       
+                list.add(sCurrentLine);
             }
-                
-            System.out.println("Всего элементов в массиве  "+list.size());
-           // System.out.println(list.get(5));
- 
-          
-                    
-            
-                    
-            for (int i = 26762; i <= list.size()-1; i++) {
-                s = list.get(i)+"";
-             
-              // System.out.println(s.substring(12, 22)); 
-               // iDatch++;
-                if (s.substring(12, 22).equals("PlacePolis") )
-                s = "SET IDENTITY_INSERT PlacePolis  ON \n"+ s;
-                
-                if (s.substring(12, 23).equals("PlaceRegion") )
-                s = "SET IDENTITY_INSERT PlaceRegion  ON \n"+ s;
-                
-                if (s.substring(12, 27).equals("PlaceRegionTree") )
-              s=s;
-                    //  s = "SET IDENTITY_INSERT PlaceRegionTree ON \n"+ s;
-                
-               
+
+            System.out.println("Всего элементов в массиве  " + list.size());
+            // System.out.println(list.get(5));
+
+
+
+
+
+            for (int i = 26762; i <= list.size() - 1; i++) {
+                s = list.get(i) + "";
+
+                // System.out.println(s.substring(12, 22)); 
+                // iDatch++;
+                if (s.substring(12, 22).equals("PlacePolis")) {
+                    s = "SET IDENTITY_INSERT PlacePolis  ON \n" + s;
+                }
+
+                if (s.substring(12, 23).equals("PlaceRegion")) {
+                    s = "SET IDENTITY_INSERT PlaceRegion  ON \n" + s;
+                }
+
+                if (s.substring(12, 27).equals("PlaceRegionTree")) {
+                    s = s;
+                }
+                //  s = "SET IDENTITY_INSERT PlaceRegionTree ON \n"+ s;
+
+
                 System.out.println(s);
-              //  insertSrting(s);
-                    insertSrting(s);
+                //  insertSrting(s);
+                insertSrting(s);
                 s = "";
-                
-                  
+
+
                 //if s.substring(1, 15) 
                 //System.out.println(s.substring(12, 22));
-                
+
                 //s = s+ list.get(i)+"\n";
                 //list.remove(i);
 
@@ -83,10 +83,10 @@ public class NewClassFile {
 //                    
 //                    //break;
 //                }
-                
+
             }
-         
-            
+
+
         } catch (IOException oException) {
             oException.printStackTrace();
         } finally {
@@ -94,34 +94,29 @@ public class NewClassFile {
                 if (br != null) {
                     br.close();
                 }
-                 
+
             } catch (IOException oException) {
                 oException.printStackTrace();
             }
-            
+
         }
-  
-  }  
-  
-  
-   static void insertSrting (String s) throws SQLException   { 
-    Connection oConnection = AccessDB.oConnectionStatic("insertSrting");
-      
-    oConnection.prepareStatement(s).executeUpdate();
-    AccessDB.closeConnectionStatic("insertSrting", oConnection);
-    
-     }
+
+    }
+
+    static void insertSrting(String s) throws SQLException {
+        Connection oConnection = AccessDB.oConnectionStatic("insertSrting");
+
+        oConnection.prepareStatement(s).executeUpdate();
+        AccessDB.closeConnectionStatic("insertSrting", oConnection);
+
+    }
+
+    public static void main(String[] args) throws SQLException {
+        //insertFromFileIntoDB("C:\\3.txt");
+        insertFromFileIntoDB("C://9.txt");
 
 
-
- public static void main(String[] args) throws SQLException {
-  //insertFromFileIntoDB("C:\\3.txt");
-  insertFromFileIntoDB("C://9.txt");
-
-  
- }
- 
-  
+    }
 //public static void main(String[] args) {
 //
 //       // String[] strings;
@@ -160,6 +155,4 @@ public class NewClassFile {
 //        }
 //
 //    }
-   
-    
 }

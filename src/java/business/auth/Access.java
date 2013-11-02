@@ -1,15 +1,12 @@
-
 package business.auth;
 
-
 import business.AccessDB;
+import business.ManagerSQL;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,122 +16,166 @@ import org.apache.log4j.Logger;
 /*
  
  
-  
+ go
+ drop table Access
+ 
+ go
  CREATE table Access (        
-     nID INT identity,
-     nID_TheSubjectHuman INT not null,
-     sLogin VARCHAR(25) not null,            --  СДЕЛАТЬ уникально UNIQUE!
-     sPassword VARCHAR(25) not null,         -- 
-     bDisabled TINYINT not null,             -- вырубить доступ: 5 - доступ открыт, 1 - закрыт
-     PRIMARY KEY(nID),
+ nID INT identity,
+ nID_TheSubjectHuman INT not null,
+ sLogin VARCHAR(25) not null,            --  СДЕЛАТЬ уникально UNIQUE!
+ sPassword VARCHAR(25) not null,         -- 
+ bDisabled TINYINT default -1,             -- вырубить доступ: 5 - доступ открыт, 1 - закрыт
+ sDateMake DATETIME default getDate(),
+ sDateEdit DATETIME default getDate(),
+ PRIMARY KEY(nID),
  )
-
-drop table Access
---alter table Access  modify nID_TheSubjectHuman INT null
-
-alter table Access  modify sLogin INT UNIQUE (sLogin)
-* 
+ --alter table Access  modify nID_TheSubjectHuman INT null
+ alter table Access  modify sLogin INT UNIQUE (sLogin)
+ * 
  */
 public class Access {
 
     private Logger oLog = Logger.getLogger(getClass());
-
     private int nID;
     private int nID_TheSubjectHuman;
     private String sLogin;   //( сделать уникально)
-    private String sPassword; 
-    private int bDisabled; //(вырубить доступ)
+    private String sPassword;
+    private int nDisabled = -1; //(вырубить доступ)
 
-// Setters
-    public Access _nID(int i) { nID = i; return this;    }
-    public Access _nID_TheSubjectHuman(int i) { nID_TheSubjectHuman = i;  return this;   }
-    public Access _sLogin(String s) { sLogin = s;   return this;   }
-    public Access _sPassword(String s) {   sPassword = s;     return this;    }
-    public Access _bDisabled(int b) {   bDisabled = b;   return this;  }
+    public int nID() {
+        return nID;
+    }
 
-// Getters
-    public int nID() {      return nID;    }
-    public int nID_TheSubjectHuman() {    return nID_TheSubjectHuman;    }
-    public String sLogin() {    return sLogin;   }
-    public String sPassword() {      return sPassword;    }
-    public int bDisabled() {      return bDisabled;    }
+    public Access _ID(int i) {
+        nID = i;
+        return this;
+    }
+
+    public Access _ID_TheSubjectHuman(int i) {
+        nID_TheSubjectHuman = i;
+        return this;
+    }
+
+    public String sLogin() {
+        return sLogin;
+    }
+
+    public Access _Login(String s) {
+        sLogin = s;
+        return this;
+    }
+
+    public String sPassword() {
+        return sPassword;
+    }
+
+    public Access _Password(String s) {
+        sPassword = s;
+        return this;
+    }
+
+    public int nDisabled() {
+        return nDisabled;
+    }
+
+    /**
+     * Выключить/заблокировать юзера (если >=0)
+     *
+     * @param n
+     * @return
+     */
+    public Access _Disabled(int n) {
+        nDisabled = n;
+        return this;
+    }
+
     //================================================
+    public Access() {
+    }
 
-     public Access() {  // пустой конструктор
-     }
+    public Access(String sLogin) throws Exception {
+        load(sLogin);
+    }
 
-     /**
-      * // Инициализируем класс данными прользователя по Логину
-      *
-      * @param sLoginUser - Емаил пользователя
-      * @throws Exception
-      */
-     public  Access(String sLoginUser) throws Exception {
-          String sCase = "Access(sLogin)";
-          Connection oConnection = null;
-          Statement oStatement = null;
-          try {
-               oConnection = AccessDB.oConnectionStatic(sCase);
-               oStatement = AccessDB.oStatementStatic(oConnection, sCase);
-               ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 *  FROM Access where sLogin = '" + sLoginUser + "'", oLog);
-               if (oRowset.next()) {
-                    nID = oRowset.getInt("nID");
-                    nID_TheSubjectHuman = oRowset.getInt("nID_TheSubjectHuman");
-                    sLogin = oRowset.getString("sLogin");
-                    sPassword = oRowset.getString("sPassword");
-                    bDisabled = oRowset.getInt("bDisabled");
-               }
-          } catch (Exception oException) {
-               oLog.error("[" + sCase + "] (sLoginUser= " + sLoginUser + "): Ошибка Конструктора ", oException);           
-          } finally {
-               AccessDB.close(sCase, oStatement);
-               AccessDB.closeConnectionStatic(sCase, oConnection);
-          }
-     }
+    /**
+     * Инициализируем класс данными прользователя по Логину
+     *
+     * @param sLogin - Емаил пользователя
+     * @throws Exception
+     */
+    public void load(String sLogin) throws Exception {
+        String sCase = "load(sLogin)";
+        Connection oConnection = null;
+        Statement oStatement = null;
+        try {
+            oConnection = AccessDB.oConnectionStatic(sCase);
+            oStatement = AccessDB.oStatementStatic(oConnection, sCase);
+            ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 *  FROM Access where sLogin = '" + sLogin + "'", oLog);
+            if (oRowset.next()) {
+                nID = oRowset.getInt("nID");
+                nID_TheSubjectHuman = oRowset.getInt("nID_TheSubjectHuman");
+                sLogin = oRowset.getString("sLogin");
+                sPassword = oRowset.getString("sPassword");
+                nDisabled = oRowset.getInt("nDisabled");
+            }
+        } catch (Exception oException) {
+            oLog.error("[" + sCase + "] (sLogin= " + sLogin + "): Ошибка Конструктора ", oException);
+        } finally {
+            AccessDB.close(sCase, oStatement);
+            AccessDB.closeConnectionStatic(sCase, oConnection);
+        }
+    }
 
-     
-     /**
-      *  По Емайлу пользователя меняем его данные в базе
-      * @param sLogin
-      * @throws Exception
-      */
-     public void save(String sLoginUp) throws Exception {
-          String sCase = "save";
-          Connection oConnection = null;
-          Statement oStatement = null;
-          //int nID = nID();
-          //int nID_TheSubjectHuman = nID_TheSubjectHuman();
-          String sLoginNew = sLogin();   //( сделать уникально)
-          String sPassword = sPassword();
-          int bDisabled = bDisabled();
-          try {
-               oConnection = AccessDB.oConnectionStatic(sCase);
-               oStatement = AccessDB.oStatementStatic(oConnection, sCase); 
-               bDisabled = bDisabled();
+    /**
+     * По Емэйлу пользователя сохраняем его данные в базе
+     *
+     * @param sLogin
+     * @throws Exception
+     */
+    public void save(String sLoginOld) throws Exception {
+        String sCase = "save";
+        Connection oConnection = null;
+        Statement oStatement = null;
+        //int nID = nID();
+        //int nID_TheSubjectHuman = nID_TheSubjectHuman();
+        String sLoginNew = sLogin();   //( сделать уникально)
+        //String sPassword = sPassword();
+        //boolean bDisabled = bDisabled();
+        try {
+            oConnection = AccessDB.oConnectionStatic(sCase);
+            oStatement = AccessDB.oStatementStatic(oConnection, sCase);
 
-               if (sLogin() != null) {
-                    AccessDB.nRowsetUpdate(oStatement, sCase, "UPDATE Access SET sLogin = '" + sLoginNew + "' WHERE sLogin='" + sLoginUp + "'", oLog);
-               }
-               if (sPassword() != null) {
-                    AccessDB.nRowsetUpdate(oStatement, sCase, "UPDATE Access SET sPassword = '" + sPassword + "' WHERE sLogin='" + sLoginUp + "'", oLog);
-               }
-               if (bDisabled != 0) {
-                    AccessDB.nRowsetUpdate(oStatement, sCase, "UPDATE Access SET bDisabled = '" + bDisabled + "' WHERE sLogin=" + sLoginUp + "'", oLog);
-               }
+            String sSQL = new ManagerSQL()
+                    ._Pair("sDateEdit = getDate()")
+                    ._Pair("sLogin = '" + sLoginNew + "'", sLogin() != null)
+                    ._Pair("sPassword = '" + sPassword() + "'", sPassword() != null)
+                    ._Pair("nDisabled = " + nDisabled(), nDisabled() != -1)
+                    .sSQL("UPDATE Access SET ", " WHERE sLogin='" + sLoginOld + "'");
+            AccessDB.nRowsetUpdate(oStatement, sCase, sSQL, oLog);
+
+            /*if (sLogin() != null) {
+             AccessDB.nRowsetUpdate(oStatement, sCase, "UPDATE Access SET sLogin = '" + sLoginNew + "' WHERE sLogin='" + sLoginOld + "'", oLog);
+             }
+             if (sPassword() != null) {
+             AccessDB.nRowsetUpdate(oStatement, sCase, "UPDATE Access SET sPassword = '" + sPassword() + "' WHERE sLogin='" + sLoginOld + "'", oLog);
+             }
+             if (nDisabled != -1) {
+             AccessDB.nRowsetUpdate(oStatement, sCase, "UPDATE Access SET bDisabled = '" + bDisabled() + "' WHERE sLogin=" + sLoginOld + "'", oLog);
+             }*/
 
 
-          } catch (Exception oException) {
-               oLog.error("[" +sCase+ "](sLoginUp= " +sLoginUp+" sLoginNew= " + sLoginNew +" sPassword= " + sPassword + " bDisabled= " + bDisabled + "): Ошибка записи!", oException);
-               
-               // Нужно ли Логировать пароли?
-          } finally {
-               AccessDB.close(sCase, oStatement); 
-               AccessDB.closeConnectionStatic(sCase, oConnection); 
-          }
-     }
-     
-     
-    
+        } catch (Exception oException) {
+            oLog.error("[" + sCase + "](sLoginOld= " + sLoginOld + " sLoginNew= " + sLoginNew + " sPassword= " + sPassword
+                    + " nDisabled= " + nDisabled() + "): Ошибка записи!", oException);
+
+            // Нужно ли Логировать пароли?
+        } finally {
+            AccessDB.close(sCase, oStatement);
+            AccessDB.closeConnectionStatic(sCase, oConnection);
+        }
+    }
+
     /**
      * Возвращает nID из таблицы Access по Емайлу из этой же таблицы
      *
@@ -142,86 +183,88 @@ public class Access {
      * @return
      * @throws Exception
      */
-     public int nGetIdAccess(String sLogin) throws Exception {
-          String sCase = "nGetIdAccess";  
-          int nID = 0;
-          Connection oConnection = null;
-          Statement oStatement = null;
-          try {
-               oConnection = AccessDB.oConnectionStatic(sCase); 
-               oStatement = AccessDB.oStatementStatic(oConnection, sCase);  
-               ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 nID FROM Access where sLogin = '" + sLogin + "'", oLog);
-               if (oRowset.next()) {
-                    nID = oRowset.getInt(1);
-               }
-          } catch (Exception oException) {
-               oLog.error("[" + sCase + "](nID= " + nID + " sLogin= " + sLogin + "): Ошибка получения записи! Класс Access", oException); 
-          } finally {
-               AccessDB.close(sCase, oStatement);
-               AccessDB.closeConnectionStatic(sCase, oConnection);
-               return nID;     // Вернет число или 0 если пусто 
-          }
-     }
+    public int nGetIdAccess(String sLogin) throws Exception {
+        String sCase = "nGetIdAccess";
+        int nID = 0;
+        Connection oConnection = null;
+        Statement oStatement = null;
+        try {
+            oConnection = AccessDB.oConnectionStatic(sCase);
+            oStatement = AccessDB.oStatementStatic(oConnection, sCase);
+            ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 nID FROM Access where sLogin = '" + sLogin + "'", oLog);
+            if (oRowset.next()) {
+                nID = oRowset.getInt(1);
+            }
+        } catch (Exception oException) {
+            oLog.error("[" + sCase + "](nID= " + nID + " sLogin= " + sLogin + "): Ошибка получения записи! Класс Access", oException);
+        } finally {
+            AccessDB.close(sCase, oStatement);
+            AccessDB.closeConnectionStatic(sCase, oConnection);
+            return nID;     // Вернет число или 0 если пусто 
+        }
+    }
 
     /**
-     * Регистрирует Юзера по введенным Логину и Паролю 1.
-     * 1.Проверяет  Логин и Пароль на валидность - Основная проверка осуществляется на клиенте 
-     *     а, эта проверка на всякий случай на сервере, чтобы отключив JS, нельзя было отправить
-     *      прямой запрос и зарегистрироватся с неверными данными иди создать ошибку.
-     * 2. Прописывает (целую цепочку) в Базу данные о регистрации
+     * Регистрирует Юзера по введенным Логину и Паролю 1. 1.Проверяет Логин и
+     * Пароль на валидность - Основная проверка осуществляется на клиенте а, эта
+     * проверка на всякий случай на сервере, чтобы отключив JS, нельзя было
+     * отправить прямой запрос и зарегистрироватся с неверными данными иди
+     * создать ошибку. 2. Прописывает (целую цепочку) в Базу данные о
+     * регистрации
      *
      * @param sEmail - Емайл пользователя
      * @param sPassword - Пароль пользователя
-     * @return - Возвращает Строку либо с описанием ошибки или с подтверждением регистрации.
+     * @return - Возвращает Строку либо с описанием ошибки или с подтверждением
+     * регистрации.
      * @throws Exception
      */
-     public String sUserRegistration(String sEmail, String sPassword) throws Exception {
-          String sCase = "sUserRegistration";  
+    public String sUserRegistration(String sEmail, String sPassword) throws Exception {
+        String sCase = "sUserRegistration";
 
-          if ((sEmail == null) | (sPassword == null)) {  
-               return "Одна или несколько строк Null";
-          } else if ((sEmail.equals("")) | (sPassword.equals(""))) {//проверка на пустые строки
-               return "Внимание, заполните поля!";
-          } else if ((!bValidString(sEmail)) | (!bValidString(sPassword))) {//Если true то прис. недопустимые символы 
-               return "Логин или Пароль содержат недопустимые символы!";
-          } else if (sPassword.length() < 10) {//проверка длинны пароля
-               return "Длинна пароля должна быть больше 10 символов!";
-          } else if (bLoginExists(sEmail)) {//если true то логин уже существует в Базе
-               return "Этот Логин уже занят!";
-          }
+        if ((sEmail == null) | (sPassword == null)) {
+            return "Одна или несколько строк Null";
+        } else if ((sEmail.equals("")) | (sPassword.equals(""))) {//проверка на пустые строки
+            return "Внимание, заполните поля!";
+        } else if ((!bValidString(sEmail)) | (!bValidString(sPassword))) {//Если true то прис. недопустимые символы 
+            return "Логин или Пароль содержат недопустимые символы!";
+        } else if (sPassword.length() < 10) {//проверка длинны пароля
+            return "Длинна пароля должна быть больше 10 символов!";
+        } else if (bLoginExists(sEmail)) {//если true то логин уже существует в Базе
+            return "Этот Логин уже занят!";
+        }
 
-          Statement oStatement = null;
-          Connection oConnection = null;
-          try {
-               oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
-               oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ
-               AccessDB.transactBegin(oStatement, sCase, oLog);    //Начинаем транзакцию  ОБРАЗЕЦ//  
+        Statement oStatement = null;
+        Connection oConnection = null;
+        try {
+            oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
+            oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ
+            AccessDB.transactBegin(oStatement, sCase, oLog);    //Начинаем транзакцию  ОБРАЗЕЦ//  
 
-               // вставляем по умолчанию запись "1" т.е "человек"
-               AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO TheSubject (nID_OfSubject) VALUES (1)", oLog);
-               int nLastIdentityTheSubject = AccessDB.nRowsetID(oStatement, sCase, oLog);//ОБРАЗЕЦ!!!
+            // вставляем по умолчанию запись "1" т.е "человек"
+            AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO TheSubject (nID_OfSubject) VALUES (1)", oLog);
+            int nLastIdentityTheSubject = AccessDB.nRowsetID(oStatement, sCase, oLog);//ОБРАЗЕЦ!!!
 
-               //TODO: -- Поправить поля таблицы черег AlterTable, сделав допустимость null-значений в полях, и соотв. раскомментировать строку
-               AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO TheSubjectHuman(nID_TheSubject, nSex) "
-                       + "VALUES (" + nLastIdentityTheSubject + ",1)", oLog);
-               //AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO TheSubjectHuman(nID_TheSubject, sTheSubjectHuman, sLastName, sFirstName, sSurName, sDTbirth, sDTdeath, nSex ) "
-               //           + "VALUES (" + nLastIdentityTheSubject + ",'Человек','Фамилия','Имя','Отчество','1900-11-11 11:11:11','1900-11-11 11:11:11',1)", oLog);
-               int nLastIdentityTheSubjectHuman = AccessDB.nRowsetID(oStatement, sCase, oLog);//ОБРАЗЕЦ!!!
+            //TODO: -- Поправить поля таблицы черег AlterTable, сделав допустимость null-значений в полях, и соотв. раскомментировать строку
+            AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO TheSubjectHuman(nID_TheSubject, nSex) "
+                    + "VALUES (" + nLastIdentityTheSubject + ",1)", oLog);
+            //AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO TheSubjectHuman(nID_TheSubject, sTheSubjectHuman, sLastName, sFirstName, sSurName, sDTbirth, sDTdeath, nSex ) "
+            //           + "VALUES (" + nLastIdentityTheSubject + ",'Человек','Фамилия','Имя','Отчество','1900-11-11 11:11:11','1900-11-11 11:11:11',1)", oLog);
+            int nLastIdentityTheSubjectHuman = AccessDB.nRowsetID(oStatement, sCase, oLog);//ОБРАЗЕЦ!!!
 
-               AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO Access (nID_TheSubjectHuman, sLogin, sPassword, bDisabled )"
-                       + " VALUES (" + nLastIdentityTheSubjectHuman + ",'" + sEmail + "','" + sPassword + "',5)", oLog);
+            AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO Access (nID_TheSubjectHuman, sLogin, sPassword, bDisabled )"
+                    + " VALUES (" + nLastIdentityTheSubjectHuman + ",'" + sEmail + "','" + sPassword + "',5)", oLog);
 
-               AccessDB.transactCommit(oStatement, sCase, oLog);    //Подтверждаем транзакцию   ОБРАЗЕЦ//
-               return "Добро пожаловать на сайт!";     // нельзя менять т.к работает как Колбэк "Учетная запись создана !"
-          } catch (Exception oException) {
-               oLog.error("[" + sCase + "](sEmail= " + sEmail + "  : Ошибка Регистрации пользователя! Класс Access", oException);     //ОБРАЗЕЦ   //так делать всегда!
-               AccessDB.transactRollback(oStatement, sCase, oLog);    //ОБРАЗЕЦ//
-               return "Ошибка Регистрации пользователя!: Класс Access";
-          } finally {
-               AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ
-               AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ
-          }
-     }
+            AccessDB.transactCommit(oStatement, sCase, oLog);    //Подтверждаем транзакцию   ОБРАЗЕЦ//
+            return "Добро пожаловать на сайт!";     // нельзя менять т.к работает как Колбэк "Учетная запись создана !"
+        } catch (Exception oException) {
+            oLog.error("[" + sCase + "](sEmail= " + sEmail + "  : Ошибка Регистрации пользователя! Класс Access", oException);     //ОБРАЗЕЦ   //так делать всегда!
+            AccessDB.transactRollback(oStatement, sCase, oLog);    //ОБРАЗЕЦ//
+            return "Ошибка Регистрации пользователя!: Класс Access";
+        } finally {
+            AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ
+            AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ
+        }
+    }
 
     /**
      * Заключительный этап после регистрации Юзера - Внести его данные в Сессию,
@@ -229,9 +272,9 @@ public class Access {
      *
      * @param sEmail
      * @param sPassword
-     * @param oSession 
-     * @param sIP -  IP данного пользователя
-     * @return  - Возвращает сгенерированную Куку пользователя
+     * @param oSession
+     * @param sIP - IP данного пользователя
+     * @return - Возвращает сгенерированную Куку пользователя
      * @throws Exception
      */
     public String sAfretRegister(String sEmail, String sPassword, HttpSession oSession, String sIP) throws Exception {
@@ -243,7 +286,7 @@ public class Access {
 
         int nID = A.nGetIdAccess(sEmail);      // Получаем NID пользователя (из Access) по его Емайлу
         if (nID == 0) {
-            oLog.error("[" +sCase+ "](sEmail= " +sEmail+" sIP= " +sIP+"  :  Ошибка! nID из Access вернулся пустой! Класс Access");
+            oLog.error("[" + sCase + "](sEmail= " + sEmail + " sIP= " + sIP + "  :  Ошибка! nID из Access вернулся пустой! Класс Access");
             return "Ошибка sUserRegistration, nID == 0";       // прерываем дальнейший вход на сайт
         }
         oSession.setAttribute("sEmail", sEmail);
@@ -256,15 +299,14 @@ public class Access {
 
         // Запись в базу инфы о пользователе при попытке его Входа
         AccessOf oAccessOf = new AccessOf();
-        oAccessOf.saveInfo(sEmail, sIP, 5); 
+        oAccessOf.saveInfo(sEmail, sIP, 5);
 
         return sCreateCookie;
     }
 
-    
-    
     /**
-     * Возвращает Пароль по Логину. Возвращает null если такого Пароля у Логина нету
+     * Возвращает Пароль по Логину. Возвращает null если такого Пароля у Логина
+     * нету
      *
      * @param sLogin
      * @return
@@ -273,17 +315,17 @@ public class Access {
         String sCase = "sGetPassword";
         String sPassword = null;
         Statement oStatement = null;
-        Connection oConnection = null;     
+        Connection oConnection = null;
         try {
-            oConnection = AccessDB.oConnectionStatic(sCase); 
-            oStatement = AccessDB.oStatementStatic(oConnection, sCase); 
+            oConnection = AccessDB.oConnectionStatic(sCase);
+            oStatement = AccessDB.oStatementStatic(oConnection, sCase);
             ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 sPassword FROM Access WHERE sLogin='" + sLogin + "'", oLog); //ОБРАЗЕЦ
             if (oRowset.next()) {
                 sPassword = oRowset.getString(1);
             }
 
         } catch (Exception oException) {
-            oLog.error("[" + sCase + "](sLogin= " +sLogin+" :Ошибка получения Пароля!", oException); 
+            oLog.error("[" + sCase + "](sLogin= " + sLogin + " :Ошибка получения Пароля!", oException);
             throw oException;
         } finally {
             AccessDB.close(sCase, oStatement);
@@ -294,7 +336,8 @@ public class Access {
     }
 
     /**
-     * Возвращает true если такой Емайл в Базе присутствует, false - если отсутствует
+     * Возвращает true если такой Емайл в Базе присутствует, false - если
+     * отсутствует
      *
      * @param sLogin - Емаил Поьзователя
      * @return
@@ -303,20 +346,20 @@ public class Access {
         String sCase = "bLoginExists";
         String sResult = null;
         Statement oStatement = null;
-        Connection oConnection = null;     
+        Connection oConnection = null;
         try {
             oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
             oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ
-            ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 sLogin FROM Access WHERE sLogin=lower('" +sLogin+ "')", oLog); //ОБРАЗЕЦ            
+            ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 sLogin FROM Access WHERE sLogin=lower('" + sLogin + "')", oLog); //ОБРАЗЕЦ            
             if (oRowset.next()) {
                 sResult = oRowset.getString(1);
             }
 
         } catch (Exception oException) {
-            oLog.error("[" + sCase + "](sLogin= " +sLogin+" : Ошибка проверки Логина!", oException);     //ОБРАЗЕЦ//так делать всегда!                 // String sErr = _.getMessage();  System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
+            oLog.error("[" + sCase + "](sLogin= " + sLogin + " : Ошибка проверки Логина!", oException);     //ОБРАЗЕЦ//так делать всегда!                 // String sErr = _.getMessage();  System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
         } finally {
             AccessDB.close(sCase, oStatement);
-            AccessDB.closeConnectionStatic(sCase, oConnection); 
+            AccessDB.closeConnectionStatic(sCase, oConnection);
         }
 
         if ((!sResult.equals("")) && (sResult != null) && (sLogin.equalsIgnoreCase(sResult))) {    // Если Логин есть в базе
@@ -328,23 +371,24 @@ public class Access {
 
     /**
      * Проверка строки на наличие в ней только символов:
-     *  ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_-@.
+     * ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_-
+     *
+     * @.
      * @param sVerify
      * @return True - значит строка содержит только перечисленные символы
      */
     public boolean bValidString(String sVerify) {
         String s = sVerify; //"ascDFMSes"; // проверяемая строка
         String check = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_-@."; // допустимые символы
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (check.indexOf(String.valueOf(c)) == -1) { //в строке есть неразрешенный символ
+        for (int n = 0; n < s.length(); n++) {
+            char sChar = s.charAt(n);
+            if (check.indexOf(String.valueOf(sChar)) == -1) { //в строке есть неразрешенный символ
                 return false;//"В строке содержатся недопустимые символы!";
             }
         }
         return true; // строка валидная
     }
 
-    
     /**
      * Проверка Емайла на синтаксическую валидность
      *
@@ -361,11 +405,6 @@ public class Access {
             return false;    //""; //Ошибочный!
         }
     }
-    
-    
-    
-    
-    
 //     /**
 //      *  Возвращает nID из таблицы Access по Емайлу в этой же таблице
 //      * @param sLogin

@@ -36,9 +36,8 @@ public class RunClass extends Thread {
             oLog.error("[" + sCase + "](sClass=" + sClass + ",sMethod=" + sMethod + "):", oException);
         }
     }
-    
+
     public Object oReturn() {
         return oReturn;
     }
-    
 }

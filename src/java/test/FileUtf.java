@@ -15,62 +15,56 @@ import java.io.Reader;
  * @author Sergey
  */
 public class FileUtf {
-    
-    
-    static String readInput1(String path ) {
 
-    StringBuffer buffer = new StringBuffer();
-    try {
-	FileInputStream fis = new FileInputStream("c:/3.txt");
-	InputStreamReader isr = new InputStreamReader(fis,
-						      "UTF-8");
-	Reader in = new BufferedReader(isr);
-	int ch;
-	while ((ch = in.read()) > -1) {
-		buffer.append((char)ch);
-	}
-        
-             System.out.println(in.read());
-        
-	in.close();
-	return buffer.toString();
-    } catch (IOException oException) {
-	oException.printStackTrace();
-	return null;
+    static String readInput1(String path) {
+
+        StringBuffer buffer = new StringBuffer();
+        try {
+            FileInputStream fis = new FileInputStream("c:/3.txt");
+            InputStreamReader isr = new InputStreamReader(fis,
+                    "UTF-8");
+            Reader in = new BufferedReader(isr);
+            int ch;
+            while ((ch = in.read()) > -1) {
+                buffer.append((char) ch);
+            }
+
+            System.out.println(in.read());
+
+            in.close();
+            return buffer.toString();
+        } catch (IOException oException) {
+            oException.printStackTrace();
+            return null;
+        }
+
     }
-    
-    }
-    
-    
-    
+
     static String readInput() {
 
-    StringBuffer buffer = new StringBuffer();
-    try {
-	FileInputStream fis = new FileInputStream("c:/3.txt");
-	InputStreamReader isr = new InputStreamReader(fis,
-						      "UTF-8");
-	Reader in = new BufferedReader(isr);
-	int ch;
-	while ((ch = in.read()) > -1) {
-		buffer.append((char)ch);
-	}
-        
-        in.close();
-	return buffer.toString();
-    } catch (IOException oException) {
-	oException.printStackTrace();
-	return null;
-    }
-    
+        StringBuffer buffer = new StringBuffer();
+        try {
+            FileInputStream fis = new FileInputStream("c:/3.txt");
+            InputStreamReader isr = new InputStreamReader(fis,
+                    "UTF-8");
+            Reader in = new BufferedReader(isr);
+            int ch;
+            while ((ch = in.read()) > -1) {
+                buffer.append((char) ch);
+            }
+
+            in.close();
+            return buffer.toString();
+        } catch (IOException oException) {
+            oException.printStackTrace();
+            return null;
+        }
+
     }
 
-    
-    
-     public static void main(String[] args) {
-         
-         System.out.println(readInput1("ва"));
-         
-}
-    
+    public static void main(String[] args) {
+
+        System.out.println(readInput1("ва"));
+
+    }
 }

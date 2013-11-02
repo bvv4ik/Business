@@ -1,17 +1,65 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 var oFunctionReturn=null;
+
+var bDebug=true;
+var oaParamOur={
+    sOurTelephones:"1243343,23432424"
+    ,sOurOrganization:"ПГАСА"
+
+};
+var oaParamWho={
+    sFIO:"Вася Пупкин"
+    ,sRole:"Вассал"
+};
+
+var oaText={
+    sChangePassword:"Изменить пароль"
+    ,sChangeLogin:"Изменить пароль"
+    ,sDearVisitor:sParsed("Добро пожаловать (sFIO) в (sOurOrganization), Ваша роль (sRole)!")
+}
 
 //================
 // === УТИЛИТЫ ===
 //================
+function sParsed(sText){//,oaParam
+    var oaParam=$.extend({},oaParamOur,oaParamWho);
+    $.each(oaParam, function(sName,sValue){
+        sText=sText.replace("("+sName+")", sValue);//, flags
+    });return sText;
+}
+//$.extend(oData,{filterState:"withReport"});//notClosed
+
+function sTest(){
+    //var oData={};
+    //$.extend({},oaParamOur,oaParamWho);
+    //alert(sParsed(oaText.sDearVisitor,$.extend({},oaParamOur,oaParamWho)));
+    alert(oaText.sDearVisitor);//sParsed(
+}
+
 
 //Получение название функции
 function sFunction(p){
+    if(p==null){return null;}
     return (p==null?this.arguments:p).callee.toString().match(/function ([^(]*)\(/)[1];
 }
+
+function sObject(o){
+    try{
+        return o==null?"null":typeof o=="string"?o:$.toJSON(o);//o.toSource()//$.toJSON//JSON.parse
+    }catch(_){
+        doDebug(arguments,_);
+    }
+}
+function sParam(o){
+    try{
+        return o==null?"null":typeof o=="string"?o:$.param(o);
+    }catch(_){
+        doDebug(arguments,_);
+    }
+    /*if(see("#dialog",aaa==2)){
+        $("#dialog").find("").text("ss")
+    }*/
+}
+
 //Узнать видимость элемента или отобразить/скрыть его (с защитой)
 function see(s,b){
     if(b==null){
@@ -175,43 +223,50 @@ function timerAutoclose(oThis) {
           }, 1000);                            
      }
      else{
-          $(oThis).hide();   
+          //$(oThis).hide();   
+          hideDialog(oThis);
      }
       
 }
 
 
 //Открыть диалог
-function showDialog(oThis,nWidth,nHeight,nDelayAutoclose, oThey){
+function showDialog(oThis,nWidth,nHeight,nDelayAutoclose, oThey, bBlockBackground){
+    doDebug(arguments,":nWidth="+nWidth+","+$(oThis).html());
     try{
-       // $(".oDialog_Background").show();
+        if(bBlockBackground){
+            $(".oDialog_Background").show();
+        }
         var nYClient=document.body.clientHeight,nYDialog=$(oThis).height();
         var nUpDialog=window.scrollY+(nYDialog<nYClient?(nYClient-nYDialog)/2:23);
-       //$(oThis).css("left",((document.body.clientWidth-$(oThis).width())/2)+"px");
-       // $(oThis).css("top",nUpDialog+"px").show();
+        //$(oThis).css("left",((document.body.clientWidth-$(oThis).width())/2)+"px");
+        // $(oThis).css("top",nUpDialog+"px").show();
         $(oThis).css("left", $(oThey).css("left") );
         $(oThis).css("top", $(oThey).attr("height")+$(oThis).attr("top")).show();
-       
+
         $(oThis).css("width", nWidth);
         $(oThis).css("Height", nHeight);
+        $(oThis).show();
+        
         //$(oThis).css("background-color", "lightgrey");
         
         if (nDelayAutoclose != null) {
-        nCountAutoclose = nDelayAutoclose;
-        timerAutoclose($(oThis));
+            nCountAutoclose = nDelayAutoclose;
+            timerAutoclose($(oThis));
         }
-        //alert(1);
-       // hideDialog(oThis);
-        //doRepaint(oThis);//авто-перерисовка в некоторых случаях
-        //nDelayAutoclose//функция-таймер для автозакрытия поЖ hideDialog(oThis)
+    //alert(1);
+    // hideDialog(oThis);
+    //doRepaint(oThis);//авто-перерисовка в некоторых случаях
+    //nDelayAutoclose//функция-таймер для автозакрытия поЖ hideDialog(oThis)
         
         
     }catch(_){
-        doDebug(sFunction(arguments)+":"+_);
+        doDebug(arguments,_);
     }
 }
 //Закрыть диалог
 function hideDialog(oThis){
+    doDebug(arguments, ""+$(oThis).html());
     try{
         oThis=$(oThis).closest('.oDialog');
         $(oThis).hide();
@@ -220,12 +275,12 @@ function hideDialog(oThis){
             //window.close();//В каких-то случаях можно и закрыть все окно
         }
     }catch(_){
-        doDebug(sFunction(arguments)+":"+_);
+        doDebug(arguments, _);
     }
 }
 
 //Шаблон диалога-вопроса
-function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight, nAutoHide, oThey){
+function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight, nAutoHide, oThey, bBlockBackground){
     //alert(sBody);    //alert(sHead);
     try{
         if(bSkip){
@@ -298,7 +353,7 @@ function ask(sBody,sHead,aButttons,oReturn,bSkip,nWidth,nHeight, nAutoHide, oThe
                 
             }
                       
-            showDialog(oThis,nWidth,nHeight,nAutoHide, oThey);                
+            showDialog(oThis,nWidth,nHeight,nAutoHide, oThey, bBlockBackground);                
         }
     }catch(_){
         doError("Ошибка вывода диалога", ":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"","attention");
@@ -309,7 +364,7 @@ function doError(sBody,sDebug,sHead){
     //alert(":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"");
     seeError(sBody,sDebug,sHead);
     if(sHead!="fatal"){
-        doDebug(sFunction(arguments)+":"+_+"\nsHead:"+sHead+",\nsBody:"+sBody+"");
+        doDebug(arguments, _+"\nsHead:"+sHead+",\nsBody:"+sBody+"");
     }
 }
 
@@ -329,7 +384,7 @@ function seeError(sBody,sDebug,sHead){
             sHead="Пропущена ошибка";
         }else if(sHead=="wonder"){
             sHead="Необычная ошибка";
-            doDebug(sBody,"seeError",sDebug);
+            doDebug(arguments,sBody+":\n"+sDebug);
         }else if(sHead=="fatal"){
             sHead="Фатальная ошибка";
         }
@@ -382,12 +437,40 @@ function askTest1(){
 // === ДЕБАГ ===
 //==============
 
-function doDebug(sInfo,sFunction,sDebug){
+//function doDebug(sInfo,sFunction,sDebug){
+function doDebug(oArguments,sInfo,oData,bConsoleOnly){
+//function doDebug(oArguments,oData,bOnlyConsole,bLogAlways,bBreakGroup){try{
+            //var s=$.param(oData),n=s.indexOf("&");
+            //addLog(sFunc(oArguments)+(n<0?s:s.substr(0,n)));
+            //if(bDebug){console.log(sFunc(arguments));}
+
     try{
+        
+        var sFuncName="";
+        if(bDebug){
+            try{
+                if(oArguments==null){
+                    oArguments=arguments;
+                }else{
+                    sFuncName="["+sFunction(oArguments)+"]";
+                }console.log(sDateMax(new Date())+sFuncName+sInfo+(oData!=null?sObject(oData):""));
+            }catch(_){
+                
+            }
+        }
+        if(bDebug&&bConsoleOnly!=true){
+            if(oArguments==null){
+                oArguments=arguments;
+            }else{
+                sFuncName="["+sFunction(oArguments)+"]";
+            }//addLog(sFuncName+(oData!=null?sObject(oData):""),bBreakGroup);
+        }
+    
     //logDebug(sInfo,sFunction);//Логирование (в массив)
     //saveDebug(sInfo,sFunction,sDebug,oStack);//Сохранение (на сервер)
     }catch(_){
-        doError("Сбой обработки ошибки","[sFunction:"+sFunction(arguments)+"]:"+_+"\n<br>"+sInfo+"\n<br>"+sFunction+"\n<br>"+sDebug,"fatal");
+        //doError("Сбой обработки ошибки","[sFunction:"+sFunction(arguments)+"]:"+_+"\n<br>"+sInfo+"\n<br>"+sFuncName+"\n<br>"+sObject(oData),"fatal");
+        alert("Сбой обработки ошибки"+"[sFunction:"+sFunction(arguments)+"]:"+_+"\n<br>"+sInfo+"\n<br>"+sFuncName+"\n<br>"+sObject(oData));
     }
 }
 

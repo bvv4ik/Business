@@ -11,23 +11,21 @@ import java.util.ArrayList;
  * @author Sergey
  */
 public class Test {
-    
+
     public static ArrayList AddLinkRay(ArrayList<String> arrID, ArrayList<String> arrType, ArrayList<String> arrName) {
-         String sNamePolis = "";
-       
-         
+        String sNamePolis = "";
+
+
         for (int i = 0; i <= arrName.size() - 1; i++) {
 
-            
-           if (arrName.get(i).contains("-----"))
-           System.out.println(arrID.get(i) +"  "+ arrName.get(i)); 
+
+            if (arrName.get(i).contains("-----")) {
+                System.out.println(arrID.get(i) + "  " + arrName.get(i));
+            }
         }
-           
+
         return arrName;
     }
-    
-    
-    
     // Вывод всего мусора типа Миста пидпорядковани...
 //      int in = 0;
 //        for (int i = 0; i <= list3.size() - 1; i++) {
@@ -45,8 +43,4 @@ public class Test {
 //               }
 //                   }
 //         System.out.println(in); 
-         
-         
-    
-    
 }

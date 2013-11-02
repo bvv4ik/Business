@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Запуск с контролем числа потоков и времени выполнения
- * 
+ *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
 public class Run {
@@ -16,9 +16,9 @@ public class Run {
     String sReturnAny = "";
     int nReturnStatus = 0;
 
-    
     /**
      * Запуск метода класса
+     *
      * @param sClass название класса
      * @param sMethod название метода
      * @param aParamClass масиив классов параметров
@@ -28,8 +28,10 @@ public class Run {
     public Object runClass(String sClass, String sMethod, Class[] aParamClass, Object[] aParamObject) throws Exception {
         return runClass(sClass + "." + sMethod, sClass, sMethod, aParamClass, aParamObject);
     }
+
     /**
      * Запуск метода класса
+     *
      * @param sName имя
      * @param sClass название класса
      * @param sMethod название метода
@@ -63,13 +65,14 @@ public class Run {
         }
     }
 
-    
     public String sReturnAny() {
         return sReturnAny;
     }
+
     public String sReturnError() {
         return sReturnError;
     }
+
     public int nReturnStatus() {
         return nReturnStatus;
     }

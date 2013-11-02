@@ -8,30 +8,30 @@ package test;
  *
  * @author Sergey
  */
-
-    
 import javax.xml.bind.DatatypeConverter;
 //import org.apache.commons.codec.binary.Base64;
 import java.io.IOException;
 
 public class AeSha1_2 {
+
     private static volatile String save = null;
+
     public static void main(String argv[]) throws InterruptedException {
         String teststr = "john:password1";
         String b64 = DatatypeConverter.printBase64Binary(teststr.getBytes());
-         
+
         long start;
         long stop;
-        
+
         start = System.currentTimeMillis();
         System.out.println(start);
-        
-       // Thread.sleep(1000);
+
+        // Thread.sleep(1000);
         System.out.println(teststr + " = " + b64);
-        
+
         stop = System.currentTimeMillis();
         System.out.println(stop);
-        
+
 //        try {
 //            final int COUNT = 1000000;
 //            long start;
@@ -60,5 +60,3 @@ public class AeSha1_2 {
 //        }
     }
 }
-    
-

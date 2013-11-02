@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package test;
-  //import com.hexiong.jdbf.DBFReader;
+//import com.hexiong.jdbf.DBFReader;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -22,12 +22,12 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+
 /**
  *
  * @author Sergey
  */
 public class LoadDB {
-    
 //
 //                InputStream oInputStream;
 //                String sPathFile = "    ";
@@ -241,5 +241,4 @@ public class LoadDB {
 ////    
 //    
 //    
-    
 }

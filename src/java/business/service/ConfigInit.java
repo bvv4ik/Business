@@ -5,13 +5,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import org.apache.log4j.Logger;
 
-
 @WebServlet(name = "ConfigInit", urlPatterns = {"/ConfigInit"})
-
 public class ConfigInit extends HttpServlet {
 
     @Override
-    public void init() {   
+    public void init() {
         final String sCase = "init";
         //final Logger oLogSafe = Logger.getLogger(ConfigInit.class);
         //oLogSafe.info("[" + sCase + "]Initialization...");
@@ -24,8 +22,8 @@ public class ConfigInit extends HttpServlet {
         oLog.info("[" + sCase + "](sPath()=" + Config.sPath() + "):Initialization finished!");
     }
 
-     @Override
-     public String getServletInfo() {
-          return "Ininialization";
-     }// </editor-fold>
+    @Override
+    public String getServletInfo() {
+        return "Ininialization";
+    }// </editor-fold>
 }

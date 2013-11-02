@@ -25,25 +25,24 @@ public class InsertFromFile {
 //    oConnection.prepareStatement("INSERT INTO PlaceRegion1 (nID_PlaceCountry, sRegion) VALUES (1, '"+sRegion +"')").executeUpdate();
 //    AccessDB.closeConnectionStatic("", oConnection);    
 //     }
-    
-   
-       public static void main(String[] args) {
+
+    public static void main(String[] args) {
         File file = new File("C:/111.txt");
         StringBuilder contents = new StringBuilder();
         BufferedReader reader = null;
 
         try {
             reader = new BufferedReader(new FileReader(file));
-           // reader = new InputStreamReader(new FileInputStream(f), "UTF-8");
-            
-            
+            // reader = new InputStreamReader(new FileInputStream(f), "UTF-8");
+
+
             String text = null;
 
             // repeat until all lines is read
             while ((text = reader.readLine()) != null) {
                 contents.append(text)
                         .append(System.getProperty(
-                                "line.separator"));
+                        "line.separator"));
             }
         } catch (IOException oException) {
             oException.printStackTrace();
@@ -60,10 +59,4 @@ public class InsertFromFile {
         // show file contents here
         System.out.println(contents.toString());
     }
-    
-
-
-    
 }
- 
-

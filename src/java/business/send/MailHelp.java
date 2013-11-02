@@ -1,5 +1,7 @@
 package business.send;
-public class MailHelp {     }
+
+public class MailHelp {
+}
 
 /*
   

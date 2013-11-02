@@ -7,39 +7,38 @@ import org.apache.log4j.Logger;
 
 /**
  * Доступ к БД
- * 
+ *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
 public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBase
 
-    public static int nConnections=0;
+    public static int nConnections = 0;
     public static HashMap mConnectionOpened = new HashMap();
     static String sConnectionNameDefault = "UA_DP_PGASA";
     static String sDriverJDBC = Config.sValue("sDriverJDBC");
     private static Logger oLog = Logger.getLogger(AccessDB.class);
 
-    
     /**
-     * считает не закрытые соединения, в т.ч. по методам, в которых они используются
+     * считает не закрытые соединения, в т.ч. по методам, в которых они
+     * используются
      */
     public static void nConnections(boolean bAdd, String sCaseCaller, String sConnectionNameDefault) {
         String sConnection = sConnectionNameDefault + "|" + sCaseCaller;
-        int nConnectionsThis=0;
-        if(mConnectionOpened.containsKey(sConnection)){
+        int nConnectionsThis = 0;
+        if (mConnectionOpened.containsKey(sConnection)) {
             //mConnection.put(sConnection,nConnectionsThis);
-        //}else{
-            nConnectionsThis=(Integer) mConnectionOpened.get(sConnection);
+            //}else{
+            nConnectionsThis = (Integer) mConnectionOpened.get(sConnection);
         }
-        nConnections+=(bAdd?1:-1);
-        nConnectionsThis+=(bAdd?1:-1);
-        mConnectionOpened.put(sConnection,nConnectionsThis);
+        nConnections += (bAdd ? 1 : -1);
+        nConnectionsThis += (bAdd ? 1 : -1);
+        mConnectionOpened.put(sConnection, nConnectionsThis);
     }
-    
-    /*@Override
-    public void logging(String sMessage, Exception _, boolean bAlert, boolean bTrace) {
-        Log.Do(sMessage, _, bAlert, bTrace, oLog);
-    }*/
 
+    /*@Override
+     public void logging(String sMessage, Exception _, boolean bAlert, boolean bTrace) {
+     Log.Do(sMessage, _, bAlert, bTrace, oLog);
+     }*/
     @Override
     public Connection oConnection(String sCaseCaller, String sBaseName) {
         return oConnectionStatic(sCaseCaller, sBaseName);
@@ -68,8 +67,6 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
         closeConnection(sCaseCaller, sConnectionNameDefault, oConnection);
     }
 
-    
-
     /**
      * Возвращает соединение из пула с дефолтным именем
      *
@@ -77,12 +74,13 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
      */
     public static Connection oConnectionStatic(String sCaseCaller) {
         return oConnectionStatic(sCaseCaller, sConnectionNameDefault);
-    }    
+    }
 
     /**
      * Возвращает соединение из пула с соответствующим именем
      *
-     * @param sConnectionNameDefault имя пула из которого будет полученно соединение
+     * @param sConnectionNameDefault имя пула из которого будет полученно
+     * соединение
      *
      * @return Connection
      */
@@ -126,22 +124,23 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
         }
     }
 
-    
     /**
      * Закрывает соединение с БД с дефолтным именем
      *
-     * @param sConnectionNameDefault имя пула из которого было полученно соединение
+     * @param sConnectionNameDefault имя пула из которого было полученно
+     * соединение
      * @param oConnection соединение которое должно быть закрыто
      *
      */
     public static void closeConnectionStatic(String sCaseCaller, Connection oConnection) {
         closeConnectionStatic(sCaseCaller, sConnectionNameDefault, oConnection);
     }
-    
+
     /**
      * Закрывает соединение с БД с соответствующим именем
      *
-     * @param sConnectionNameDefault имя пула из которого было полученно соединение
+     * @param sConnectionNameDefault имя пула из которого было полученно
+     * соединение
      * @param oConnection соединение которое должно быть закрыто
      *
      */
@@ -154,8 +153,6 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
             oLog.warn("[" + sCase + "](sConnectionName=" + sConnectionName + "):" + _.getMessage());
         }
     }
-
-
 
     /**
      * Закрывает ровсет БД
@@ -195,8 +192,8 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
      */
     public static Statement oStatementDefaultStatic(Connection oConnection, String sCaseCaller) throws SQLException {
         return oConnection.createStatement();
-    }    
-    
+    }
+
     /**
      * Закрывает стэйтмэнт БД
      *
@@ -340,6 +337,9 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
      */
     public static ResultSet oRowsetQuery(Statement oStatement, String sCaseCaller, String sSQL, Logger oLog, boolean bNoLog) throws SQLException {
         String sCase = "oRowsetQuery";
+        if (sSQL == null) {
+            return null;
+        }
         try {
             if (null != oStatement) {
                 ResultSet oRowsetQuery;
@@ -389,6 +389,9 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
      */
     public static int nRowsetUpdate(Statement oStatement, String sCaseCaller, String sSQL, Logger oLog, boolean bNoLog) throws SQLException {
         String sCase = "nRowsetUpdate";
+        if (sSQL == null) {
+            return 0;
+        }
         try {
             if (null != oStatement) {
                 int nRowsetUpdate;
@@ -438,6 +441,9 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
      */
     public static boolean bRowsetExecute(Statement oStatement, String sCaseCaller, String sSQL, Logger oLog, boolean bNoLog) throws SQLException {
         String sCase = "bRowsetExecute";
+        if (sSQL == null) {
+            return false;
+        }
         try {
             if (null != oStatement) {
                 boolean bRowsetExecute;
@@ -458,7 +464,7 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
             throw new SQLException("SQL-execute fail!");
         }
     }
-    
+
     /**
      * Получить ID последнего созданной с identity строки
      *
@@ -469,7 +475,7 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
      * @throws SQLException
      */
     public static int nRowsetID(Statement oStatement, String sCaseCaller, Logger oLog) throws SQLException {
-        try{
+        try {
             ResultSet oRowset = oStatement.executeQuery("SELECT @@identity");
             int nID = oRowset.next() ? oRowset.getInt(1) : 0;
             return nID;
@@ -478,6 +484,4 @@ public class AccessDB implements IConnectionBaseByName {// extends ItemAccessBas
             throw new SQLException("SQL-query of identity fail!");
         }
     }
-    
-    
 }

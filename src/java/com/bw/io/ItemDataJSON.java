@@ -38,7 +38,6 @@ public class ItemDataJSON {
         return sJSON;
     }
 
-    
     public String getsJSON() {
         return sJSON;
     }
