@@ -35,15 +35,15 @@ public class InsertFromFile {
             reader = new BufferedReader(new FileReader(file));
             // reader = new InputStreamReader(new FileInputStream(f), "UTF-8");
 
-
             String text = null;
 
-            // repeat until all lines is read
+                        // repeat until all lines is read
             while ((text = reader.readLine()) != null) {
                 contents.append(text)
                         .append(System.getProperty(
                         "line.separator"));
             }
+            
         } catch (IOException oException) {
             oException.printStackTrace();
         } finally {
@@ -59,4 +59,10 @@ public class InsertFromFile {
         // show file contents here
         System.out.println(contents.toString());
     }
+    
+    
+    
+    
+    
+    
 }

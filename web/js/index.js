@@ -1,5 +1,5 @@
 
-//    Схема размещения JS кода по типу, быстрый переход:  CTRL + Клик мышью
+//    Схема "•размещения•" JS кода по " •типу• ", быстрый переход:  CTRL + "•Клик мышью•"
   
 /*       • ФУНКЦИИ AJAX     */      
 /*       • Документ Ready   */      goto_ready();
@@ -54,7 +54,7 @@ function  ajax_userExists(){
                } else if (parseInt(o.sLimitRequest) <= 0) {   
                     $(".countRequest").css("background","url(../img/zamok_red.png)");  //  делаем красный замок
                     $(".countRequest span").text("");     // убираем число
-                    $(".countRequest").attr("title","~Вы превысили лимит запросов. Ваш IP заблокирован на несколько минут!"); // меняем Титл
+                    $(".countRequest").attr("title","•Вы превысили лимит запросов. Ваш IP заблокирован на несколько минут!•"); // меняем Титл
                } 
                
           }
@@ -90,7 +90,7 @@ function ajax_doLogin(){
                     dhtmlx.message({
                          type:"default", 
                          expire:9000, 
-                         text:"<br> <img src='img/wait.gif'/> &nbsp; Ожидайте... <br><br>"
+                         text:"•<br> <img src='img/wait.gif'/> &nbsp; Ожидайте... <br><br>•"
                     });
                     
                     $.cookie("auth", o.sReturnCookie, {   // сохраняем "временную" Куку при успешном Входе
@@ -138,7 +138,7 @@ function ajax_doLogin(){
                if (parseInt(o.sLimitRequest) <= 0) {   
                     $(".countRequest").css("background","url(../img/zamok_red.png)");  //  делаем красный замок
                     $(".countRequest span").text("");     // убираем число
-                    $(".countRequest").attr("title","Вы превысили лимит запросов. Ваш IP заблокирован на несколько минут!"); // меняем Титл
+                    $(".countRequest").attr("title","•Вы превысили лимит запросов. Ваш IP заблокирован на несколько минут!•"); // меняем Титл
                } 
                
           }, 
@@ -175,7 +175,7 @@ function ajax_sendEmail(){
                     dhtmlx.message({
                          type:"info", 
                          expire:3000, 
-                         text: "<br> Письмо со ссылкой успешно отправлено на Ваш Емаил!<br><br>"
+                         text: "•<br> Письмо со ссылкой успешно отправлено на Ваш Емаил!<br><br>•"
                     })
                     $( "#imgLoading" ).fadeOut( 300 );  // прячем прогресс бар
                }
@@ -225,7 +225,7 @@ function ajax_LoginForCookie(sCookie){
                     dhtmlx.message({
                          type:"error", 
                          expire:7000, 
-                         text:"Ай-ай-ай! <br>Не хорошо пытатся войти по ложным данным !"
+                         text:"•Ай-ай-ай! <br>Не хорошо пытатся войти по ложным данным !•"
                     });
                     $.cookie('auth', null); // удаляем если ложная Кука
                }
@@ -273,7 +273,7 @@ function goto_ready(){};
 
 $(function(){                                                                     //$(document).ready(function() {    //window.onload=function() { 
 //--------------------------  АВТОЗАГРУЗКА -------------------------------------
-
+alert("•dfssdf•");
      //----- по умолчанию кнопка Входа затемнена и отключена 
      $("#btLogin").addClass("disabled").attr("disabled", "disabled")           
           
@@ -283,7 +283,7 @@ $(function(){                                                                   
      //----- Если отключены Куки закрываем окно Входа - регистрации и закрываем Вкладку страницы
      if (!navigator.cookieEnabled) {    
           $( ".divLogin").hide();  
-          alert('Внимание, отключены Сookie в вашем баузере, без Сookie работа с этим сайтом невозможна!');
+          alert('•Внимание, отключены Сookie в вашем баузере, без Сookie работа с этим сайтом невозможна!•');
           window.close();
      }  
 
@@ -324,7 +324,7 @@ function goto_event(){};
      //----- Форма Контактов... ограничение набора до 1000 символов 
      $("#textarea_contact").keyup(function () {
           var s = $("#textarea_contact").val().length;  
-          $("#blockMessageLength").html("(Осталось символов: " + "<b>"+ -(s-1000)+ "</b> )" );
+          $("#blockMessageLength").html("•(Осталось символов:•" + "<b>"+ -(s-1000)+ "</b> )" );
      });
      //---- Скрываем форму контактов
      $("#btClose_contact").click( function (){  
@@ -399,14 +399,14 @@ function goto_event(){};
                dhtmlx.message({
                     type:"error",  
                     expire:3000, 
-                    text:"Введите Е-Маил и пароль!"
+                    text:"•Введите Е-Маил и пароль!•"
                });    // выводим сообщение             
                return; 
           } else  if(!IsValidateEmail(  $(".sAuthField.sEmail").val()  )) {
                dhtmlx.message({
                     type:"error", 
                     expire:4000,  
-                    text:" Введите корректный E-Mail! <br>"
+                    text:"•Введите корректный E-Mail! <br>•"
                }) 
                return;                    
           }  
@@ -476,7 +476,7 @@ function goto_event(){};
 
 $("#divError").click(function(){  
   dhtmlx.modalbox({  title:"Сообщение:" ,
-			text:" <br>Вы действительно хотите выйти?<br><br>",
+			text:"•<br>Вы действительно хотите выйти?<br><br>•",
 			width:"350px", height:"165px", position:"center",
 			buttons:["Выйти!", "&nbsp;&nbsp;Остаться...&nbsp;&nbsp;"],
 			callback:function(index){

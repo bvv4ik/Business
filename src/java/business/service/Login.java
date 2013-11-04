@@ -56,7 +56,7 @@ public class Login extends HttpServlet {
             new Access()
                     ._Password("123123")
                     ._Login("sss@dddd.ddd")
-                    //._bDisabled(5)
+                    //._nDisabled(1)
                     .save("sdddd@dfdd.gg");
 
 
@@ -166,7 +166,7 @@ public class Login extends HttpServlet {
                 if (oAccess.nDisabled() == 1) {  // проверяем если пользователь заблокирован
                     // Запись в базу инфы о пользователе при попытке его Входа
                     AccessOf oAccessOf = new AccessOf();
-                    oAccessOf.saveInfo(sEmail, request.getLocalAddr(), 2);
+                    oAccessOf.saveInfo(sEmail, request.getLocalAddr(), 0);
                     sReturn = "{\"sReturn\":\"" + "Доступ заблокирован Администрацией!" + "\"}";   //не менять
                     return;
                 }

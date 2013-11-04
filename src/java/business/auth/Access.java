@@ -13,27 +13,33 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
-/*
- 
- 
+/******
  go
  drop table Access
  
  go
  CREATE table Access (        
- nID INT identity,
- nID_TheSubjectHuman INT not null,
- sLogin VARCHAR(25) not null,            --  СДЕЛАТЬ уникально UNIQUE!
- sPassword VARCHAR(25) not null,         -- 
- bDisabled TINYINT default -1,             -- вырубить доступ: 5 - доступ открыт, 1 - закрыт
- sDateMake DATETIME default getDate(),
- sDateEdit DATETIME default getDate(),
- PRIMARY KEY(nID),
+     nID INT identity,
+     nID_TheSubjectHuman INT not null,
+     sLogin VARCHAR(25) not null,            --  СДЕЛАТЬ уникально UNIQUE!
+     sPassword VARCHAR(25) not null,         -- 
+     nDisabled INT default -1,               -- вырубить доступ: 0 - доступ открыт, 1 - закрыт, -1 - неопределено
+     sDateMake DATETIME default getDate() null,
+     sDateEdit DATETIME default getDate() null,
+     PRIMARY KEY(nID),
  )
- --alter table Access  modify nID_TheSubjectHuman INT null
- alter table Access  modify sLogin INT UNIQUE (sLogin)
- * 
- */
+ 
+ALTER TABLE Access ADD sDateMake DATETIME default getDate() null 
+ALTER TABLE Access ADD sDateEdit DATETIME default getDate() null
+alter table Access drop bDisabled
+alter table Access add nDisabled INT default -1
+select * from Access
+-- alter table Access  modify nID_TheSubjectHuman INT null
+-- alter table Access  modify sLogin INT UNIQUE (sLogin)
+    
+**/
+
+
 public class Access {
 
     private Logger oLog = Logger.getLogger(getClass());
@@ -90,6 +96,8 @@ public class Access {
         return this;
     }
 
+    
+    
     //================================================
     public Access() {
     }
@@ -140,8 +148,6 @@ public class Access {
         //int nID = nID();
         //int nID_TheSubjectHuman = nID_TheSubjectHuman();
         String sLoginNew = sLogin();   //( сделать уникально)
-        //String sPassword = sPassword();
-        //boolean bDisabled = bDisabled();
         try {
             oConnection = AccessDB.oConnectionStatic(sCase);
             oStatement = AccessDB.oStatementStatic(oConnection, sCase);
@@ -251,8 +257,8 @@ public class Access {
             //           + "VALUES (" + nLastIdentityTheSubject + ",'Человек','Фамилия','Имя','Отчество','1900-11-11 11:11:11','1900-11-11 11:11:11',1)", oLog);
             int nLastIdentityTheSubjectHuman = AccessDB.nRowsetID(oStatement, sCase, oLog);//ОБРАЗЕЦ!!!
 
-            AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO Access (nID_TheSubjectHuman, sLogin, sPassword, bDisabled )"
-                    + " VALUES (" + nLastIdentityTheSubjectHuman + ",'" + sEmail + "','" + sPassword + "',5)", oLog);
+            AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO Access (nID_TheSubjectHuman, sLogin, sPassword, nDisabled )"
+                    + " VALUES (" + nLastIdentityTheSubjectHuman + ",'" + sEmail + "','" + sPassword + "',0)", oLog);
 
             AccessDB.transactCommit(oStatement, sCase, oLog);    //Подтверждаем транзакцию   ОБРАЗЕЦ//
             return "Добро пожаловать на сайт!";     // нельзя менять т.к работает как Колбэк "Учетная запись создана !"
@@ -297,9 +303,9 @@ public class Access {
         String sCreateCookie = nID + "&" + sGenerate;    // соединяем в одну куку
         oAccessAuth.saveCookieToDB(nID, sCreateCookie, sTimeLogin, 3);
 
-        // Запись в базу инфы о пользователе при попытке его Входа
+        // Запись в базу инфы о пользователе при попытке его Входа (при первой регистрации)
         AccessOf oAccessOf = new AccessOf();
-        oAccessOf.saveInfo(sEmail, sIP, 5);
+        oAccessOf.saveInfo(sEmail, sIP, 1); // 1 - доступ был открыт т.к первый раз входит
 
         return sCreateCookie;
     }

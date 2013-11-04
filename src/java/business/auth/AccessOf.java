@@ -13,16 +13,18 @@ import org.apache.log4j.Logger;
 /*
  
  CREATE table AccessOf (   -- Учет в момент входа
- nID INT identity,
- nID_Access INT,
- sAddress VARCHAR(100),   -- IP
- sDT DATETIME,            -- Дата попытки
- sRefer VARCHAR(200),     -- Ссылатель
- bAgree TINYINT,          -- был ли допуск
- sData VARCHAR(1024),     -- Доп Данные
+     nID INT identity,
+     nID_Access INT,
+     sAddress VARCHAR(100),   -- IP пользователя
+     sDT DATETIME,            -- Дата попытки     // !!!сделать: default getDate() null,
+     sRefer VARCHAR(200),     -- Ссылатель?
+     sData VARCHAR(1024),     -- Доп Данные
+     nAgree INT null,         -- был ли допуск  1 - был допуск, 0 небыло допуска.
  PRIMARY KEY(nID)
  )
 
+alter table AccessOf drop bAgree
+alter table AccessOf add nAgree INT null
  alter table AccessOf  modify nID_TheSubjectHuman INT null
 
  */
@@ -34,7 +36,7 @@ public class AccessOf {
     private String sAddress;
     private String sDT;
     private String sRefer;
-    private int bAgree;
+    private int nAgree;
     private String sData;
 
     // Setters
@@ -63,8 +65,8 @@ public class AccessOf {
         return this;
     }
 
-    public AccessOf _bAgree(int i) {
-        bAgree = i;
+    public AccessOf _nAgree(int i) {
+        nAgree = i;
         return this;
     }
 
@@ -94,8 +96,8 @@ public class AccessOf {
         return sRefer;
     }
 
-    public int bAgree() {
-        return bAgree;
+    public int nAgree() {
+        return nAgree;
     }
 
     public String sData() {
@@ -109,7 +111,7 @@ public class AccessOf {
      * @param sIP
      * @throws Exception
      */
-    public void saveInfo(String sEmail, String sIP, int bAgree) throws Exception {
+    public void saveInfo(String sEmail, String sIP, int nAgree) throws Exception {
         String sCase = "saveInfo";
         Access oAccess = new Access(sEmail);
         int nID = oAccess.nID();   //= oAccess.nGetIdAccess(sEmail); // узнаем ИД предыдущей таблицы по Логину
@@ -123,11 +125,11 @@ public class AccessOf {
         try {
             oConnection = AccessDB.oConnectionStatic(sCase);
             oStatement = AccessDB.oStatementStatic(oConnection, sCase);
-            AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, bAgree, sData) "
-                    + "VALUES (" + nID + ",'" + sIP + "','" + sTime + "','ссылка откуда...'," + bAgree + ",'доп. инф')", oLog);
+            AccessDB.nRowsetUpdate(oStatement, sCase, "INSERT INTO AccessOf (nID_Access, sAddress, sDT, sRefer, nAgree, sData) "
+                    + "VALUES (" + nID + ",'" + sIP + "','" + sTime + "','ссылка откуда...'," + nAgree + ",'доп. инф')", oLog);
 
         } catch (Exception oException) {
-            oLog.error("[" + sCase + "](sEmail= " + sEmail + " sIP= " + sIP + " bAgree= " + bAgree + ") : Ошибка записи данных в базу!", oException);
+            oLog.error("[" + sCase + "](sEmail= " + sEmail + " sIP= " + sIP + " nAgree= " + nAgree + ") : Ошибка записи данных в базу!", oException);
             throw oException;  // выбрасываем ошибку наверх
         } finally {
             AccessDB.close(sCase, oStatement);
