@@ -4,20 +4,27 @@
  */
 package business.model;
 
+import java.util.ArrayList;
+import org.apache.log4j.Logger;
+
 /**
  *
  * @author Sergey
  */
 public class Test {
+private Logger oLog = Logger.getLogger(getClass());
 
     public static void main(String[] args) throws Exception {
+       // ArrayList<String> oAlist = new ArrayList<String>();
+         
         PlacePolis pp = new PlacePolis();
-        pp.getStringAddressPolis("ДНІПР", 1);
+        String s = pp.getStringAddressPolis("ДН", 1);
         //for (String temp: pp.aResult2){ System.out.println(temp); }
-        for (String temp : pp.aResult3) {
-            System.out.println(temp);
-        }
-
+//        for (String temp : oAlist) {
+//            System.out.println(temp);
+//        }
+        System.out.println(s);
+        
 //////     String s = "";
 //////     String s1 = "";
 //////  

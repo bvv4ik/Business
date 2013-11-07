@@ -1,11 +1,12 @@
 
-//    Схема "•размещения•" JS кода по " •типу• ", быстрый переход:  CTRL + "•Клик мышью•"
+//   "•Проверка•" работы метода - "•сколько•" цитат будет "•вырезано•"  "•и•" помещено в "•объект ...•"
+//    Схема "•размещения•" JS кода по "•типу•", быстрый переход:  CTRL + "•Клик мышью•"
   
-/*       • ФУНКЦИИ AJAX     */      
-/*       • Документ Ready   */      goto_ready();
+/*        ФУНКЦИИ AJAX     */      
+/*        Документ Ready   */      goto_ready();
 /*          - АВТОЗАГРУЗКА  */    
 /*          - СОБЫТИЯ       */     
-/*       • ОБщие ФУНКЦИИ    */      goto_func();
+/*        ОБщие ФУНКЦИИ    */      goto_func();
 
 
 
@@ -34,13 +35,13 @@ function  ajax_userExists(){
                if (o.sReturn == "NoEmailExists") {      // Если Емайла нет в базе  // показываем доп. поля для "нового пользователя" 
                     $( ".sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine" ).removeAttr("hidden");    
                     $( ".divLogin" ).css("height","375");
-                    $( "#btLogin" ).val("Вход (Авторегистрация)").css("width","230px");
+                    $( "#btLogin" ).val("•Вход (Авторегистрация)•").css("width","230px");
                   //  $('#btLogin').removeClass('disabled').removeAttr('disabled');
                }  // else нельзя ставить
                if  ( (o.sReturn == "EmailExists") | (parseInt(o.sLimitRequest) <= 0) )  {         // иначе прячим доп. поля, т.к такой Емайл зареген
                     $( '.sAuthField.sName, .sAuthField.sLastName, .sAuthField.nINN, .checkAgreement, .sTextAgreement, .brLine' ).attr("hidden","hidden");    
                     $( '.divLogin' ).css('height','190');
-                    $( '#btLogin' ).val('Вход').css('width','100px');
+                    $( '#btLogin' ).val('•Вход•').css('width','100px');
                }   
 
                $('#imgLoading').fadeOut( 500 );  // прячем прогресс бар при любом ответе
@@ -112,12 +113,19 @@ function ajax_doLogin(){
                          type:"info", 
                          expire:7000, 
                          text: " <span style='color:red; font-weight:bold;'>Неверный пароль!</span> "+
-                    "<br><br> • <a href='#' onClick='javascript: ajax_sendEmail();' > Зайти без пароля (Отправить мне ссылку на Емайл) </a> " +
-                    "<br><br> • <a href='#' onClick='javascript: alert('потом');' > Зайти без пароля с подтверждением кода (Отправить мне SMS) </a> " +
-                    "<br><br> • <a href='#' onClick='javascript: alert('потом');' > Сменить пароль (отправить СМС на номер 1234567890) </a> " +
+                    "<br><br>  <a href='#' onClick='javascript: ajax_sendEmail();' > Зайти без пароля (Отправить мне ссылку на Емайл) </a> " +
+                    "<br><br>  <a href='#' onClick='javascript: alert('потом');' > Зайти без пароля с подтверждением кода (Отправить мне SMS) </a> " +
+                    "<br><br>  <a href='#' onClick='javascript: alert('потом');' > Сменить пароль (отправить СМС на номер 1234567890) </a> " +
                     "<br><br> "
                     }) 
-               } else {  // Это выводится в любом случае (ошибка, не верные данные и т.д)
+               } else if (o.sReturn == "FailLimitRequest!"){              
+                    dhtmlx.message({
+                         type:"info", 
+                         expire:7000, 
+                         text: "•Превышено допустимое число запросов, вы заблокированы на 2 минуты.•"
+                    }) 
+               } 
+               else {  // Это выводится в любом случае (ошибка, не верные данные и т.д)
                     dhtmlx.message({
                          type:"info", 
                          expire:5000, 
@@ -143,7 +151,7 @@ function ajax_doLogin(){
                
           }, 
           error:function(o,s) {
-               alert("Произошла ошибка ajax_doLogin() --  "+o.status+":"+o.statusText+" ("+o.responseText+")");
+               alert("•Произошла ошибка ajax_doLogin() --  •"+o.status+":"+o.statusText+" ("+o.responseText+")");
           }
           , dataFilter:function(data, type) {    // выполняется в любом случае
                setTimeout(function() {   $("#btLogin").removeClass("disabled").removeAttr("disabled");    }, 1000);  // РАЗблокируем кнопку входа через 1000 мс
@@ -181,7 +189,7 @@ function ajax_sendEmail(){
                }
 
           }, error:function(o,s) {
-               alert("Произошла ошибка-- theSendEmail !!"+o.status+":"+o.statusText+" ("+o.responseText+")");
+               alert("•Произошла ошибка-- theSendEmail !!•"+o.status+":"+o.statusText+" ("+o.responseText+")");
           }
           , dataFilter:function(data, type) {
                return data;
@@ -230,7 +238,7 @@ function ajax_LoginForCookie(sCookie){
                     $.cookie('auth', null); // удаляем если ложная Кука
                }
           }, error:function(o,s) {
-               alert("Произошла ошибка--!!--theLoginForCookie "+o.status+":"+o.statusText+" ("+o.responseText+")");
+               alert("•Произошла ошибка--!!--theLoginForCookie •"+o.status+":"+o.statusText+" ("+o.responseText+")");
           }
           , dataFilter:function(data, type) {
                return data;
@@ -257,7 +265,7 @@ function  ajax_doDestroySession(){
                }
           }
           ,error:function(o,s) {
-               alert("Произошла ошибка-- ajax_doDestroySession()--!!"+o.status+":"+o.statusText+" ("+o.responseText+")");
+               alert("•Произошла ошибка-- ajax_doDestroySession()--!!•"+o.status+":"+o.statusText+" ("+o.responseText+")");
           }
           ,dataFilter:function(data, type) {  
                return data;
@@ -273,7 +281,7 @@ function goto_ready(){};
 
 $(function(){                                                                     //$(document).ready(function() {    //window.onload=function() { 
 //--------------------------  АВТОЗАГРУЗКА -------------------------------------
-alert("•dfssdf•");
+//alert("•dfssdf•"); // тест
      //----- по умолчанию кнопка Входа затемнена и отключена 
      $("#btLogin").addClass("disabled").attr("disabled", "disabled")           
           
@@ -415,7 +423,7 @@ function goto_event(){};
 //               dhtmlx.message({
 //                    type:"error", 
 //                    expire:4000,  
-//                    text:" Длинна пароля должна быть больше 10 символов! <br>"
+//                    text:"•Длинна пароля должна быть больше 10 символов! <br>•"
 //               }) 
 //               return;                    
 //          }                
@@ -478,7 +486,7 @@ $("#divError").click(function(){
   dhtmlx.modalbox({  title:"Сообщение:" ,
 			text:"•<br>Вы действительно хотите выйти?<br><br>•",
 			width:"350px", height:"165px", position:"center",
-			buttons:["Выйти!", "&nbsp;&nbsp;Остаться...&nbsp;&nbsp;"],
+			buttons:["•Выйти!•", "•Остаться...•"],
 			callback:function(index){
 			if (index==0) {  
                               // ajax_doDestroySession();   // Удаляем сессию 
@@ -514,10 +522,10 @@ function showTitleFirstLogin() {
      $(".divLogin").qtip({ 
           content: {
                title: {
-                    text: 'Информация:'
+                    text: '•Информация:•'
                }  // , button: 'Close'
                ,
-               text: "• Если Вы уже <span style='color: green;'>зарегистрированны</span> - просто введите свой Емаил, пароль и входите. <br><br> • Если Вы <span style='color: rgb(245, 114, 11);'>новый</span>  пользователь - в тех же полях введите Емаил, придумайте пароль и входите, <span style='color: rgb(245, 114, 11);'><b>система зарегистрирует вас автоматически!</b></span> <br><br> <div id='Title111' style=' display:block; color:grey;' > • Данное уведомление исчезнет после Вашего первого успешного Входа на сайт с данного компьютера/браузера. </div> <br> "
+               text: "• Если Вы уже <span style='color: green;'>зарегистрированны</span> - просто введите свой Емаил, пароль и входите. <br><br> - Если Вы <span style='color: rgb(245, 114, 11);'>новый</span>  пользователь - в тех же полях введите Емаил, придумайте пароль и входите, <span style='color: rgb(245, 114, 11);'><b>система зарегистрирует вас автоматически!</b></span> <br><br> <div id='Title111' style=' display:block; color:grey;' > - Данное уведомление исчезнет после Вашего первого успешного Входа на сайт с данного компьютера/браузера. </div> <br> •"
           },      //content: 'Stems are great for indicating' , // принудительно
           //show: 'focus',
           show: {

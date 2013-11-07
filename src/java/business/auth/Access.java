@@ -23,17 +23,16 @@ import org.apache.log4j.Logger;
      nID_TheSubjectHuman INT not null,
      sLogin VARCHAR(25) not null,            --  СДЕЛАТЬ уникально UNIQUE!
      sPassword VARCHAR(25) not null,         -- 
-     nDisabled INT default -1,               -- вырубить доступ: 0 - доступ открыт, 1 - закрыт, -1 - неопределено
+     nDisabled INT default -1,               -- (вырубить доступ)  0 - доступ открыт, 1 - закрыт, -1 - неопределено
      sDateMake DATETIME default getDate() null,
      sDateEdit DATETIME default getDate() null,
      PRIMARY KEY(nID),
  )
  
-ALTER TABLE Access ADD sDateMake DATETIME default getDate() null 
-ALTER TABLE Access ADD sDateEdit DATETIME default getDate() null
-alter table Access drop bDisabled
-alter table Access add nDisabled INT default -1
-select * from Access
+--ALTER TABLE Access ADD sDateMake DATETIME default getDate() null 
+--ALTER TABLE Access ADD sDateEdit DATETIME default getDate() null
+--alter table Access drop bDisabled
+--alter table Access add nDisabled INT default -1
 -- alter table Access  modify nID_TheSubjectHuman INT null
 -- alter table Access  modify sLogin INT UNIQUE (sLogin)
     
@@ -45,57 +44,84 @@ public class Access {
     private Logger oLog = Logger.getLogger(getClass());
     private int nID;
     private int nID_TheSubjectHuman;
-    private String sLogin;   //( сделать уникально)
+    private String sLogin;   // ( сделать уникальным)
     private String sPassword;
-    private int nDisabled = -1; //(вырубить доступ)
+    private int nDisabled = -1; // (вырубить доступ. 0 доступ открыт, 1 доступ закрыт, -1 неопределно)
+    private String sDateMake;   // дата создания записи
+    private String sDateEdit;   // дата редактирпования записи
+    
+     public int nID() {
+          return nID;
+     }
 
-    public int nID() {
-        return nID;
-    }
+     public Access _ID(int i) {
+          nID = i;
+          return this;
+     }
 
-    public Access _ID(int i) {
-        nID = i;
-        return this;
-    }
+     public int nID_TheSubjectHuman() {
+          return nID_TheSubjectHuman;
+     }
 
-    public Access _ID_TheSubjectHuman(int i) {
-        nID_TheSubjectHuman = i;
-        return this;
-    }
+     public Access _ID_TheSubjectHuman(int i) {
+          nID_TheSubjectHuman = i;
+          return this;
+     }
 
-    public String sLogin() {
-        return sLogin;
-    }
+     public String sLogin() {
+          return sLogin;
+     }
 
-    public Access _Login(String s) {
-        sLogin = s;
-        return this;
-    }
+     public Access _Login(String s) {
+          sLogin = s;
+          return this;
+     }
 
-    public String sPassword() {
-        return sPassword;
-    }
+     public String sPassword() {
+          return sPassword;
+     }
 
-    public Access _Password(String s) {
-        sPassword = s;
-        return this;
-    }
+     public Access _Password(String s) {
+          sPassword = s;
+          return this;
+     }
 
-    public int nDisabled() {
-        return nDisabled;
-    }
+     public int nDisabled() {
+          return nDisabled;
+     }
 
-    /**
-     * Выключить/заблокировать юзера (если >=0)
-     *
-     * @param n
-     * @return
-     */
-    public Access _Disabled(int n) {
-        nDisabled = n;
-        return this;
-    }
+     /**
+      * Выключить/заблокировать юзера (0 доступ открыт, 1 закрыт, -1 неопределено)
+      *
+      * @param n
+      * @return
+      */
+     public Access _Disabled(int n) {
+          nDisabled = n;
+          return this;
+     }
 
+     public String sDateMake() {
+          return sDateMake;
+     }
+
+     public Access _sDateMake(String s) {
+          sDateMake = s;
+          return this;
+     }
+
+     public String sDateEdit() {
+          return sDateEdit;
+     }
+
+     public Access _sDateEdit(String s) {
+          sDateEdit = s;
+          return this;
+     }
+
+
+    
+    
     
     
     //================================================
@@ -136,49 +162,42 @@ public class Access {
     }
 
     /**
-     * По Емэйлу пользователя сохраняем его данные в базе
+     * По Емэйлу пользователя меняем его данные в базе
      *
      * @param sLogin
      * @throws Exception
      */
     public void save(String sLoginOld) throws Exception {
+        long start = System.currentTimeMillis(); // Вычисляем время выполнения метода
         String sCase = "save";
         Connection oConnection = null;
         Statement oStatement = null;
-        //int nID = nID();
-        //int nID_TheSubjectHuman = nID_TheSubjectHuman();
-        String sLoginNew = sLogin();   //( сделать уникально)
+        //String sLoginOld = sLogin(); 
         try {
             oConnection = AccessDB.oConnectionStatic(sCase);
             oStatement = AccessDB.oStatementStatic(oConnection, sCase);
-
             String sSQL = new ManagerSQL()
                     ._Pair("sDateEdit = getDate()")
-                    ._Pair("sLogin = '" + sLoginNew + "'", sLogin() != null)
+                    ._Pair("sLogin = '" + sLogin() + "'", sLogin() != null)
                     ._Pair("sPassword = '" + sPassword() + "'", sPassword() != null)
                     ._Pair("nDisabled = " + nDisabled(), nDisabled() != -1)
-                    .sSQL("UPDATE Access SET ", " WHERE sLogin='" + sLoginOld + "'");
+                    .sSQL("UPDATE Access SET ", " WHERE sLogin='" + sLoginOld + "'"); //sLoginOld
             AccessDB.nRowsetUpdate(oStatement, sCase, sSQL, oLog);
 
+                    
             /*if (sLogin() != null) {
              AccessDB.nRowsetUpdate(oStatement, sCase, "UPDATE Access SET sLogin = '" + sLoginNew + "' WHERE sLogin='" + sLoginOld + "'", oLog);
-             }
-             if (sPassword() != null) {
-             AccessDB.nRowsetUpdate(oStatement, sCase, "UPDATE Access SET sPassword = '" + sPassword() + "' WHERE sLogin='" + sLoginOld + "'", oLog);
-             }
-             if (nDisabled != -1) {
-             AccessDB.nRowsetUpdate(oStatement, sCase, "UPDATE Access SET bDisabled = '" + bDisabled() + "' WHERE sLogin=" + sLoginOld + "'", oLog);
-             }*/
-
+             } */
 
         } catch (Exception oException) {
-            oLog.error("[" + sCase + "](sLoginOld= " + sLoginOld + " sLoginNew= " + sLoginNew + " sPassword= " + sPassword
-                    + " nDisabled= " + nDisabled() + "): Ошибка записи!", oException);
-
-            // Нужно ли Логировать пароли?
+            oLog.error("[" + sCase + "]( sLogin()= " + sLogin() + " sLogin()= " + sLogin() 
+                    + " nDisabled()= " + nDisabled() + " ): Ошибка записи!", oException);
         } finally {
             AccessDB.close(sCase, oStatement);
             AccessDB.closeConnectionStatic(sCase, oConnection);
+            long stop = System.currentTimeMillis();  // Вычисляем время выполнения метода
+            String sTime = ((double)(stop-start)/1000 + " seconds");
+            oLog.info("[" +sCase+ "](Время выполнения: " +sTime);
         }
     }
 
@@ -206,7 +225,7 @@ public class Access {
         } finally {
             AccessDB.close(sCase, oStatement);
             AccessDB.closeConnectionStatic(sCase, oConnection);
-            return nID;     // Вернет число или 0 если пусто 
+            return nID;     // Вернет ID, а если Емайла нету то вернет 0 
         }
     }
 
@@ -225,6 +244,7 @@ public class Access {
      * @throws Exception
      */
     public String sUserRegistration(String sEmail, String sPassword) throws Exception {
+        long start = System.currentTimeMillis();  // Вычисляем время выполнения метода
         String sCase = "sUserRegistration";
 
         if ((sEmail == null) | (sPassword == null)) {
@@ -235,7 +255,7 @@ public class Access {
             return "Логин или Пароль содержат недопустимые символы!";
         } else if (sPassword.length() < 10) {//проверка длинны пароля
             return "Длинна пароля должна быть больше 10 символов!";
-        } else if (bLoginExists(sEmail)) {//если true то логин уже существует в Базе
+        } else if (sLoginExists(sEmail)!=null) {//если != null то логин уже существует в Базе
             return "Этот Логин уже занят!";
         }
 
@@ -269,6 +289,10 @@ public class Access {
         } finally {
             AccessDB.close(sCase, oStatement);    //ОБРАЗЕЦ
             AccessDB.closeConnectionStatic(sCase, oConnection);    //ОБРАЗЕЦ
+            
+            long stop = System.currentTimeMillis();  // Вычисляем время выполнения метода
+            String sTime = ((double)(stop-start)/1000 + " seconds");
+            oLog.info("[" +sCase+ "](Время выполнения: " +sTime);
         }
     }
 
@@ -342,13 +366,13 @@ public class Access {
     }
 
     /**
-     * Возвращает true если такой Емайл в Базе присутствует, false - если
-     * отсутствует
+     * Возвращает Емайл есои он в Базе присутствует, null - если отсутствует
      *
-     * @param sLogin - Емаил Поьзователя
-     * @return
+     * @param sLogin - Емаил Пользователя
+     * @return -  Емайл пользователя или null
      */
-    public boolean bLoginExists(String sLogin) {
+    public String sLoginExists(String sLogin) {
+        long start = System.currentTimeMillis(); // Вычисляем время выполнения метода
         String sCase = "bLoginExists";
         String sResult = null;
         Statement oStatement = null;
@@ -360,20 +384,25 @@ public class Access {
             if (oRowset.next()) {
                 sResult = oRowset.getString(1);
             }
-
+               //Thread.sleep(2000);
         } catch (Exception oException) {
             oLog.error("[" + sCase + "](sLogin= " + sLogin + " : Ошибка проверки Логина!", oException);     //ОБРАЗЕЦ//так делать всегда!                 // String sErr = _.getMessage();  System.err.println("ERROR: " + sErr + "_" + " ---- bLoginExists");   //это вывод в лог-файл
         } finally {
             AccessDB.close(sCase, oStatement);
             AccessDB.closeConnectionStatic(sCase, oConnection);
+            long stop = System.currentTimeMillis();  // Вычисляем время выполнения метода
+            String sTime = ((double)(stop-start)/1000 + " seconds");
+            oLog.info("[" +sCase+ "](Время выполнения: " +sTime);
+            return sResult;    // возвращаем Логин
         }
 
-        if ((!sResult.equals("")) && (sResult != null) && (sLogin.equalsIgnoreCase(sResult))) {    // Если Логин есть в базе
-            return true;    // true - такой Логин уже существует       
-        } else {
-            return false;   // false - Логин свободен
-        }
+//        if ( (sResult != null) && (!sResult.equals("")) && (sLogin.equalsIgnoreCase(sResult))) {    // Если Логин есть в базе
+//            return true;    // true - такой Логин уже существует       
+//        } else {
+//            return false;   // false - Логин свободен
+//        }
     }
+
 
     /**
      * Проверка строки на наличие в ней только символов:

@@ -8,15 +8,17 @@ import business.send.MailText;
 import com.bw.io._;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import javax.servlet.http.*;
+import java.util.*;
+//import java.util.ArrayList;
+//import java.util.Calendar;
+//import java.util.Date;
+
 //import javax.servlet.http.HttpServlet;
 import javax.servlet.annotation.WebServlet;
 import org.apache.log4j.Logger;
@@ -48,23 +50,17 @@ public class Login extends HttpServlet {
             sCookie = request.getParameter("sCookieLogin");
 
             // oLog.info(" sDO= " + sDO + ", sEmail= " + sEmail);
-            oLog.info(" sDO=" + sDO + ", sEmail=" + sEmail + ", sPassword=" + sPassword + ", sCookie=" + sCookie);   // .substring(0, 3)+"..." 
+            oLog.info(" sDO=" + sDO + ", sEmail=" + sEmail + ", sCookie=" + sCookie);   // .substring(0, 3)+"..." 
 
 
             //   Access oAccess1 = new Access();
-            //String sReturn1 =
-            new Access()
-                    ._Password("123123")
-                    ._Login("sss@dddd.ddd")
-                    //._nDisabled(1)
-                    .save("sdddd@dfdd.gg");
 
+//            new Access()
+//                    ._Login("sss@dddd.ddsd")
+//                    ._Password("12312322000")
+//                    //._Disabled(1)
+//                    .save("sss@dddd.ddd");
 
-            //AccessREST oAccessREST = new AccessREST();
-            //String sReturn1 = new Access()
-
-
-            // oAccess1.save("sdddd@dfdd.gg");
 
 
 //---------- Ограничение попыток неавторизированного пользователя делать запросы.
@@ -116,7 +112,7 @@ public class Login extends HttpServlet {
 //------------- Отправка на Емаил пользователя ссылки для "входа без пароля" ---------------
             if ("theSendEmail".equals(sDO)) {
                 Access oAccess = new Access();
-                if (oAccess.bLoginExists(sEmail) == true) {       // true - Емаил существует в базе
+                if (oAccess.sLoginExists(sEmail) != null) {       // != null - Емаил существует в базе
                     AccessAuth oAccessAuth = new AccessAuth();
                     String sCookieDB = oAccessAuth.sFindCookie(sEmail);  // берем куку пользователя (самую старую)  // еще нужно будет сделать, генерацию и добавление куки в базу при нажатии на "отправить ссылку на почту"
                     MailText mt = new MailText();   // http://localhost:8080/#sDO=theLoginForCookie&sCookieLogin=31%26eofrrqpcrgkshspqxmkserqihewgaxqeazdrfjmgfuqunpkanu
@@ -131,7 +127,7 @@ public class Login extends HttpServlet {
 //------------- проверка существования Емайла---------------
             if ("theUserExists".equals(sDO)) {
                 Access oAccess = new Access();
-                if (oAccess.bLoginExists(sEmail) == true) {    // true - Емаил существует в базе
+                if (oAccess.sLoginExists(sEmail) != null) {    // != null - Емаил существует в базе
                     sReturn = "{\"sReturn\":\"" + "EmailExists" + "\"}";
                 } else {
                     sReturn = "{\"sReturn\":\"" + "NoEmailExists" + "\"}";
@@ -171,7 +167,7 @@ public class Login extends HttpServlet {
                     return;
                 }
 
-                if (oAccess.bLoginExists(sEmail) == true) {        // true - Емаил существует в базе
+                if (oAccess.sLoginExists(sEmail) != null) {        // true - Емаил существует в базе
                     String sPasswordDB = oAccess.sGetPassword(sEmail);    // смотрим  Пароль по Емайлу
                     if (sPassword.equals(sPasswordDB)) {           // если Пароли совпадают
 
@@ -259,6 +255,8 @@ public class Login extends HttpServlet {
 //   request.getServerName()
 //   };
 // aAllSession.add(sArrSession); // переносим в Список Массивов для хранения
+
+
 //------------- Получение списка сессий (старое)             
 //            if ("theGetAllSessionList".equals(sDO)) {
 //                String s = "";

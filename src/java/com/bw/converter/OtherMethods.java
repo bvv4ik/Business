@@ -390,28 +390,25 @@ public class OtherMethods {
 
     public static ArrayList ListFromFile(String path) throws SQLException {
         ArrayList<String> list = new ArrayList<String>();
-        BufferedReader br = null;
+        BufferedReader oBR = null;
         try {
             String sCurrentLine;
-            br = new BufferedReader(new FileReader(path));
-            while ((sCurrentLine = br.readLine()) != null) {
+            oBR = new BufferedReader(new FileReader(path));
+            while ((sCurrentLine = oBR.readLine()) != null) {
                 list.add(sCurrentLine);
             }
             // System.out.println("Всего элементов в массиве  "+list.size());
             //      System.out.println(s);
-
         } catch (IOException oException) {
             oException.printStackTrace();
         } finally {
             try {
-                if (br != null) {
-                    br.close();
+                if (oBR != null) {
+                    oBR.close();
                 }
-
             } catch (IOException oException) {
                 oException.printStackTrace();
             }
-
             return list;
         }
 
