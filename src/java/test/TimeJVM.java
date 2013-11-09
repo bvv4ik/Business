@@ -34,12 +34,12 @@ public class TimeJVM {
      StringBuilder sBuild = new StringBuilder();
      StringBuffer sBuffer = new StringBuffer("");
      StringBuffer sBuffer1 = new StringBuffer("");
-        for (int a = 1; a <= 1000; a++) {
+        for (int a = 1; a <= 10000; a++) {
 
-           //s += a+"\n"; // 18 300 ms - 100 000
+           s += a+"\n"; // 18 300 ms - 100 000
            //s += "453fgdgd ghgh dfgh dfgвапвыапвыпвыпвыавпh  df"+"\n"; // 18 300 ms - 100 000
            //s.concat(Integer.toString(a)).concat("\n"); // 1113 ms - 10 000 000   --- 38693 Mbytes
-           s.concat("453fgdgd ghgh dfgh dfgh  df").concat("\n"); // 1113 ms - 10 000 000   --- 38693 Mbytes
+           //s.concat("453fgdgd ghgh dfgh dfgh  df").concat("\n"); // 1113 ms - 10 000 000   --- 38693 Mbytes
            // String c = s.concat(Integer.toString(a)).concat("\n"); // 994 ms - 10 000 000
            //sBuild.append(a).append("\n"); // 655 ms - 10 000 000      ---- 594172 Mbytes
           // sBuffer.append(a).append("\n");  // 940 ms - 10 000 000    ---  594172 Mbytes

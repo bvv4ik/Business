@@ -197,27 +197,27 @@ public class PlacePolis {
                     if ((sArr[0] != null)
                             & (!"г.п".equals(sArr[0]))) {
                          if (sArr[2] != null) { // если есть замена
-                              s = s + "  " + sArr[2] + " " + sArr[3]; // если есть замена
+                              s.concat( s + "  " + sArr[2] + " " + sArr[3]); // если есть замена
                          } else {
-                              s = s + "  " + sArr[0] + " " + sArr[1]; // если нет замены
+                              s.concat( s + "  " + sArr[0] + " " + sArr[1]); // если нет замены
                          }
                     }
 
                     if ((sArr[4] != null)
                             & (!"г.п".equals(sArr[4]))) {
                          if (sArr[6] != null) { // если есть замена
-                              s = s + "  " + sArr[6] + " " + sArr[7]; // если есть замена
+                              s.concat( s + "  " + sArr[6] + " " + sArr[7]); // если есть замена
                          } else {
-                              s = s + "  " + sArr[4] + " " + sArr[5]; // если нет замены
+                              s.concat( s + "  " + sArr[4] + " " + sArr[5]); // если нет замены
                          }
                     }
 
                     if ((sArr[8] != null)
                             & (!"г.п".equals(sArr[8]))) {
                          if (sArr[10] != null) { // если есть замена
-                              s = s + "  " + sArr[10] + " " + sArr[11]; // если есть замена
+                              s.concat( s + "  " + sArr[10] + " " + sArr[11]); // если есть замена
                          } else {
-                              s = s + "  " + sArr[8] + " " + sArr[9]; // если нет замены
+                              s.concat( s + "  " + sArr[8] + " " + sArr[9]); // если нет замены
                          }
                     }
 
@@ -225,27 +225,27 @@ public class PlacePolis {
                     if ((sArr[12] != null)
                             & (!"г.п".equals(sArr[12]))) {
                          if (sArr[14] != null) { // если есть замена
-                              s = s + "  " + sArr[14] + " " + sArr[15]; // если есть замена
+                              s.concat( s + "  " + sArr[14] + " " + sArr[15]); // если есть замена
                          } else {
-                              s = s + "  " + sArr[12] + " " + sArr[13]; // если нет замены
+                              s.concat( s + "  " + sArr[12] + " " + sArr[13]); // если нет замены
                          }
                     }
 
                     if ((sArr[16] != null)
                             & (!"г.п".equals(sArr[16]))) {
                          if (sArr[18] != null) { // если есть замена
-                              s = s + "  " + sArr[18] + " " + sArr[19]; // если есть замена
+                              s.concat( s + "  " + sArr[18] + " " + sArr[19]); // если есть замена
                          } else {
-                              s = s + "  " + sArr[16] + " " + sArr[17]; // если нет замены
+                              s.concat( s + "  " + sArr[16] + " " + sArr[17]); // если нет замены
                          }
                     }
 
                     if ((sArr[20] != null)
                             & (!"г.п".equals(sArr[20]))) {
                          if (sArr[22] != null) { // если есть замена
-                              s = s + "  " + sArr[22] + " " + sArr[23]; // если есть замена
+                              s.concat( s + "  " + sArr[22] + " " + sArr[23]); // если есть замена
                          } else {
-                              s = s + "  " + sArr[20] + " " + sArr[21]; // если нет замены
+                              s.concat( s + "  " + sArr[20] + " " + sArr[21]); // если нет замены
                          }
                     }
 
@@ -297,10 +297,11 @@ public class PlacePolis {
 
 
           } catch (Exception oException) {
-                 oLog.error("[" + sCase + "] (sLogin= " + "): Ошибка Конструктора ", oException);
+                 oLog.info("[" + sCase + "] (sLogin= " + "): Ошибка Конструктора ", oException);
+                 System.out.println(oException);
           } finally {
-               AccessDB.close(sCase, oStatement);
-               AccessDB.closeConnectionStatic(sCase, oConnection);
+               AccessDB.close(sCase, oStatement); 
+               AccessDB.closeConnectionStatic(sCase, oConnection);  
                return sObject;
           }
      }
