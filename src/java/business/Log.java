@@ -13,7 +13,7 @@ public class Log {
      * Инициализация своего обьекта-логера
      */
     public static Logger oLog = Logger.getLogger(Log.class);
-    public static Logger oLogAccess = Logger.getLogger(business.auth.Access.class);
+    public static Logger oLogAccess = Logger.getLogger(business.model.Access.class);
     public static Logger oLogAccessREST = Logger.getLogger(AccessREST.class);
     public static Logger oLogAccessDB = Logger.getLogger(AccessDB.class);
     public static Logger oLogAuthLDAP = Logger.getLogger(business.auth.AccessLDAP.class);

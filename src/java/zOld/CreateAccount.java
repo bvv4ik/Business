@@ -1,7 +1,7 @@
   //Старая версия, не задействуется.
 package zOld;
 
-import business.auth.Access;
+import business.model.Access;
 import java.io.IOException;
 import javax.servlet.ServletException;
 //import javax.servlet.http.HttpServlet;

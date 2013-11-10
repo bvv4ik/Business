@@ -1,7 +1,7 @@
 
 package test;
 
-import business.auth.Access;
+import business.model.Access;
 import java.util.ArrayList;
 import business.model.*;
 import org.apache.log4j.Logger;
@@ -13,7 +13,7 @@ private Logger oLog = Logger.getLogger(getClass());
          
          
     public static void main(String[] args) throws Exception {
-       DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
+       //DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
        //PropertyConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml"); 
          long start = System.currentTimeMillis();
 

@@ -1,4 +1,4 @@
-package business.auth;
+package business.model;
 
 import business.AccessDB;
 import java.sql.Connection;

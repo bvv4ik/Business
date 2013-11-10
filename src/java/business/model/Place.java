@@ -4,7 +4,6 @@
  */
 package business.model;
 
-import business.auth.Access;
 import business.AccessDB;
 import java.sql.Connection;
 import java.sql.ResultSet;

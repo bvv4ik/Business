@@ -1,10 +1,14 @@
 package business.model;
 
 import business.AccessDB;
+import business.Parser;
+import business.model.Localize.Text;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
@@ -80,7 +84,7 @@ public class PlacePolis {
      
 // Получаем список всех городов по одному выбранному региону 
      public String getStringAddressPolis(String sPolis, int nID_PlaceCountry)  {
-           DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
+           //DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
           String sCase = "getStringAddressPolis";
           String s = "";
           String s2 = "";
@@ -93,6 +97,23 @@ public class PlacePolis {
           //Connection oConnection = AccessDB.oConnectionStatic("");
           //ResultSet oRowset = oConnection.prepareStatement(
           try {
+              
+              
+              //ОБРАЗЕЦ!!!
+                HashMap m  = new HashMap();
+                m.put("param1", "value1");
+                m.put("param2", "value2");
+                m.put("param3", "value3");
+                String sReturn = Parser.oParser.toXML(m);
+              //ОБРАЗЕЦ!!!
+              //ОБРАЗЕЦ!!!
+                HashMap m2  = new HashMap((HashMap) Parser.oParser.fromXML(sReturn));
+              //ОБРАЗЕЦ!!!
+                
+                
+                String s1=Text.My+"";
+                
+                
                oConnection = AccessDB.oConnectionStatic(sCase);
                oStatement = AccessDB.oStatementStatic(oConnection, sCase);
                ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase,

@@ -1,9 +1,9 @@
 package business.service;
 
 import business.Config;
-import business.auth.AccessAuth;
-import business.auth.Access;
-import business.auth.AccessOf;
+import business.model.AccessAuth;
+import business.model.Access;
+import business.model.AccessOf;
 import business.send.MailText;
 import com.bw.io._;
 import java.io.IOException;
