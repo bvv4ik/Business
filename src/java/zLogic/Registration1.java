@@ -5,7 +5,7 @@
 package zLogic;
 
 import business.AccessDB;
-import business.auth.AccessLDAP;
+import business.AccessLDAP;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.regex.Matcher;

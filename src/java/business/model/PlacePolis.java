@@ -99,19 +99,19 @@ public class PlacePolis {
           try {
               
               
-              //ОБРАЗЕЦ!!!
-                HashMap m  = new HashMap();
-                m.put("param1", "value1");
-                m.put("param2", "value2");
-                m.put("param3", "value3");
-                String sReturn = Parser.oParser.toXML(m);
-              //ОБРАЗЕЦ!!!
-              //ОБРАЗЕЦ!!!
-                HashMap m2  = new HashMap((HashMap) Parser.oParser.fromXML(sReturn));
-              //ОБРАЗЕЦ!!!
-                
-                
-                String s1=Text.My+"";
+//              //ОБРАЗЕЦ!!!
+//                HashMap m  = new HashMap();
+//                m.put("param1", "value1");
+//                m.put("param2", "value2");
+//                m.put("param3", "value3");
+//                String sReturn = Parser.oParser.toXML(m);
+//              //ОБРАЗЕЦ!!!
+//              //ОБРАЗЕЦ!!!
+//                HashMap m2  = new HashMap((HashMap) Parser.oParser.fromXML(sReturn));
+//              //ОБРАЗЕЦ!!!
+//                
+//                
+//                String s1=Text.My+"";
                 
                 
                oConnection = AccessDB.oConnectionStatic(sCase);

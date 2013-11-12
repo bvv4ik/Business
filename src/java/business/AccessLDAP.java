@@ -1,4 +1,4 @@
-package business.auth;
+package business;
 
 //import com.sun.org.apache.xpath.internal.operations.Equals;
 import javax.naming.*;

@@ -43,15 +43,6 @@
         </layout>
     </appender> 
                     
-    <appender name="Auth" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="/Log/Business/Service.log"/>  
-        <param name="MaxFileSize" value="10MB"/>
-        <param name="MaxBackupIndex" value="5"/>
-        <param name="Encoding" value="UTF-8"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
-        </layout>
-    </appender> 
         
     <appender name="Cache" class="org.apache.log4j.RollingFileAppender">
          <param name="File" value="/Log/Business/Cache.log"/>  
@@ -139,10 +130,6 @@
     <category name="business.Log" additivity="false">
         <priority value   ="INFO"/>
         <appender-ref ref ="Log"/>
-    </category>
-    <category name="business.auth" additivity="false">
-        <priority value   ="INFO"/>
-        <appender-ref ref ="Auth"/>
     </category>
     <category name="business.cache" additivity="false">
         <priority value   ="INFO"/>

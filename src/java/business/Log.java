@@ -14,9 +14,9 @@ public class Log {
      */
     public static Logger oLog = Logger.getLogger(Log.class);
     public static Logger oLogAccess = Logger.getLogger(business.model.Access.class);
-    public static Logger oLogAccessREST = Logger.getLogger(AccessREST.class);
-    public static Logger oLogAccessDB = Logger.getLogger(AccessDB.class);
-    public static Logger oLogAuthLDAP = Logger.getLogger(business.auth.AccessLDAP.class);
+    public static Logger oLogAccessREST = Logger.getLogger(business.AccessREST.class);
+    public static Logger oLogAccessDB = Logger.getLogger(business.AccessDB.class);
+    public static Logger oLogAuthLDAP = Logger.getLogger(business.AccessLDAP.class);
     public static Logger oLogConfig = Logger.getLogger(business.Config.class);
     public static Logger oLogCache = Logger.getLogger(business.cache.Table.class);
     public static Logger oLogLaunch = Logger.getLogger(business.launch.Run.class);
