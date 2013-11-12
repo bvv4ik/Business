@@ -94,8 +94,8 @@
         </layout>
     </appender> 
     
-    <appender name="_Misc" class="org.apache.log4j.RollingFileAppender">
-         <param name="File" value="/Log/Business/_Misc.log"/>  
+    <appender name="_io" class="org.apache.log4j.RollingFileAppender">
+         <param name="File" value="/Log/Business/_io.log"/>  
         <param name="MaxFileSize" value="10MB"/>
         <param name="MaxBackupIndex" value="5"/>
         <param name="Encoding" value="UTF-8"/>
@@ -113,6 +113,10 @@
             <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{2}%m%n"/>
         </layout>
     </appender>
+    
+    
+    
+    
     
 
     <category name="business.AccessDB" additivity="false">
@@ -154,7 +158,7 @@
     
     <category name="com.bw.io" additivity="false">
         <priority value ="DEBUG"/>
-        <appender-ref ref ="_Misc"/>
+        <appender-ref ref ="_io"/>
     </category>
     <category name="test" additivity="false">
         <priority value   ="DEBUG"/>

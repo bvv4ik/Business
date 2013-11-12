@@ -60,7 +60,7 @@ public class PlaceRegionType {
 //     int i = 0;  
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
 //     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceBranchType1 where sBranchType = '"+sBranchType+"'").executeQuery();
-//     if (oRowset.next()){
+//     while (oRowset.next()){
 //         i = oRowset.getInt(1);
 //        // _nID(oRowset.getInt(1));  // Возвращаем nID по названию типа Улицы
 //         //_sBranchType(sBranchType);

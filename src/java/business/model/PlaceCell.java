@@ -85,7 +85,7 @@ public class PlaceCell {
 //     
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
 //     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart).executeQuery();
-//     if (oRowset.next()){
+//     while (oRowset.next()){
 //         i = oRowset.getInt(1);
 //         }
 //     AccessDB.closeConnectionStatic("", oConnection);      

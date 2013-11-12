@@ -17,9 +17,7 @@ private Logger oLog = Logger.getLogger(getClass());
        //PropertyConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml"); 
          long start = System.currentTimeMillis();
 
-        Access A = new Access();
-        String s = A.getStringAddressPolis("ДОН", 1);
-        System.out.println(s);
+      
         
        //Test1 t1 = new Test1();
        // String ss = t1.ser("ssdadasd");

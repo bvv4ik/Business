@@ -57,7 +57,7 @@ public class PlaceRegion {
 //     int i = 0;
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
 //     ResultSet oRowset = oConnection.prepareStatement("SELECT * FROM PlaceRegion where sRegion = '"+sRegion +"'").executeQuery();
-//     if (oRowset.next()){
+//     while (oRowset.next()){
 //        i = oRowset.getInt(1);
 //        _nID(oRowset.getInt(1)); // устанавливаем nID по названию региона
 //       // _nID_PlaceCountry(oRowset.getInt(2)); //i = oRowset.getInt(1);

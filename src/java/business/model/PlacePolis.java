@@ -63,7 +63,7 @@ public class PlacePolis {
 //   int i = 0;
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
 //     ResultSet oRowset = oConnection.prepareStatement("SELECT * FROM PlacePolis1 where sPolis = '"+sPolis +"'").executeQuery();
-//     if (oRowset.next()){
+//     while (oRowset.next()){
 //        i = oRowset.getInt(1);
 //        }
 //     AccessDB.closeConnectionStatic("", oConnection);
@@ -84,7 +84,7 @@ public class PlacePolis {
      
 // Получаем список всех городов по одному выбранному региону 
      public String getStringAddressPolis(String sPolis, int nID_PlaceCountry)  {
-           //DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
+           DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
           String sCase = "getStringAddressPolis";
           String s = "";
           String s2 = "";

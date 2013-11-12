@@ -125,7 +125,7 @@ public class TheSubjectHuman {
 
         ResultSet oRowset = oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
                 + "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID where  sLogin = '" + sLogin + "'").executeQuery();
-        if (oRowset.next()) {
+        while (oRowset.next()) {
 
             _nID(Integer.parseInt(oRowset.getString(1)));
             _nID_TheSubject(Integer.parseInt(oRowset.getString(2)));
@@ -149,7 +149,7 @@ public class TheSubjectHuman {
 
         ResultSet oRowset = oConnection.prepareStatement("SELECT * FROM TheSubjectHuman TSH "
                 + "LEFT JOIN Access AC ON AC.nID_TheSubjectHuman = TSH.nID where  sLogin = '" + sLogin + "'").executeQuery();
-        if (oRowset.next()) {
+        while (oRowset.next()) {
             L = oRowset.getString(4);
             //First = oRowset.getString(5);
             //Sure = oRowset.getString(6);

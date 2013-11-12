@@ -43,7 +43,7 @@ public class Table extends Object implements Serializable {
                     oStatement = AccessDB.oStatementDefaultStatic(oConnection, sCase);
                     ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, sSQL, oLog, true);
                     ResultSetMetaData oRowsetMD = oRowset.getMetaData();
-                    while (oRowset.next()) {
+                    if (oRowset.next()) {
                         Map mValue = new HashMap();
                         for (int i = 1; i <= oRowsetMD.getColumnCount(); i++) {
                             mValue.put(oRowsetMD.getColumnLabel(i), oRowset.getObject(i));

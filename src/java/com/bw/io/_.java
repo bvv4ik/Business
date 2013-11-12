@@ -1,7 +1,14 @@
 package com.bw.io;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
 
@@ -39,6 +46,54 @@ public abstract class _ {
         return s;
     }
 
+    public static String sGetDate() {
+        Date d = new Date();  // определяем текущую дату.
+        DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        String sTime = df.format(d);
+        return sTime;
+    }
+    
+    
+    public static void saveTextFile(String sText, String sFilePath) throws IOException {
+          FileWriter writer = new FileWriter(sFilePath); //("c:/output.txt");
+          try {
+                         //     FileWriter writer = new FileWriter("c:/output.txt");
+               writer.write(sText);   
+               writer.close();
+          } catch (IOException ioE) {
+               ioE.printStackTrace();
+          } finally {
+               writer.close();
+          }
+     }
+
+     public static ArrayList LoadFromFile(String path) {
+          ArrayList<String> list = new ArrayList<String>();
+          BufferedReader oBR = null;
+          try {
+               String sCurrentLine;
+               oBR = new BufferedReader(new FileReader(path));
+               while ((sCurrentLine = oBR.readLine()) != null) {
+                    list.add(sCurrentLine);
+               }
+               // System.out.println("Всего элементов в массиве  "+list.size());
+          } catch (IOException oException) {
+               oException.printStackTrace();
+          } finally {
+               try {
+                    if (oBR != null) {
+                         oBR.close();
+                    }
+               } catch (IOException oException) {
+                    oException.printStackTrace();
+               }
+               return list;
+          }
+
+     }
+    
+    
+    
     /**
      * @param sFormat формат даты
      * @return строка форматированной текущей даты

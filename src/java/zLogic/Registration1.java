@@ -24,7 +24,7 @@ public class Registration1 {
         try {
 
             ResultSet oRowset = oConnection.prepareStatement("SELECT * FROM Access WHERE sLogin='" + sLogin + "'").executeQuery();
-            if (oRowset.next()) {
+            while (oRowset.next()) {
                 s = oRowset.getString(3);   // System.out.println(s);
             }
             if (sLogin.equals(s)) // Если Логин есть в базе

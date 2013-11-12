@@ -5,6 +5,7 @@ import business.model.AccessAuth;
 import business.model.Access;
 import business.model.AccessOf;
 import business.send.MailText;
+import com.bw.io.DatabaseLoadBCP;
 import com.bw.io._;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -62,7 +63,11 @@ public class Login extends HttpServlet {
 //                    .save("sss@dddd.ddd");
 
 
-
+//DatabaseLoadBCP oDatabaseLoadBCP = new DatabaseLoadBCP();
+ //        String sss =  oDatabaseLoadBCP.loadTableName("UA_DP_PGASA");
+  //      System.out.println(sss);
+            
+            
 //---------- Ограничение попыток неавторизированного пользователя делать запросы.
  /*   Должно находится в самом начале сервлета!
              *    Создается статический HashMap на сервере и при каждом запросе неавторизированного пользователя

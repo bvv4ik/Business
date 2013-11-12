@@ -96,7 +96,7 @@ public class AccessAuth {
             oConnection = AccessDB.oConnectionStatic(sCase);
             oStatement = AccessDB.oStatementStatic(oConnection, sCase);
             ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT count(*) FROM AccessAuth where nID_Access = " + nID_Access, oLog); //ОБРАЗЕЦ            
-            if (oRowset.next()) {
+            while (oRowset.next()) {
                 nCountRows = oRowset.getInt(1);
             }
             if (nCountRows <= countMax) {  // если меньше 4 записией в базе, то просто добавляем 1 запись
@@ -140,7 +140,7 @@ public class AccessAuth {
             //   31&cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr //  31%26cfiopfokjcotrmhhkhenhgfxpkhvhphvlfaijtkxylcvywhjhr  
             // Получаем всю Куку из базы
             ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT top 1 sAuth FROM AccessAuth where sAuth = '" + sCookie + "'", oLog);
-            if (oRowset.next()) {
+            while (oRowset.next()) {
                 sCookieDB = oRowset.getString(1);
             }
             if ((sCookie != "") & (sCookie.equals(sCookieDB))) {// если две куки совпадают
@@ -150,7 +150,7 @@ public class AccessAuth {
                 }
                 // Получаем Емаил и Пароль по ИД
                 oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT sLogin, sPassword FROM Access where nID = " + nIdUserFromCookie, oLog);
-                if (oRowset.next()) {
+                while (oRowset.next()) {
                     list.add(oRowset.getString("sLogin"));
                     list.add(oRowset.getString("sPassword"));
                 }
@@ -185,7 +185,7 @@ public class AccessAuth {
             oConnection = AccessDB.oConnectionStatic(sCase);
             oStatement = AccessDB.oStatementStatic(oConnection, sCase);
             ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "SELECT TOP 1 sAuth FROM AccessAuth AA LEFT JOIN Access Ac ON Ac.nID = AA.nID_Access where Ac.sLogin = '" + sEmail + "'", oLog);//ОБРАЗЕЦ  
-            if (oRowset.next()) {
+            while (oRowset.next()) {
                 sCookieDB = oRowset.getString(1);
             }
             sCookieDB = sCookieDB.replace("&", "%26");  // меняем для корректного отображения в Хеше

@@ -123,7 +123,7 @@ public class PlaceBuild {
 //    
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
 //     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceBuild1 where sBuild = '"+sBuild+"'").executeQuery();
-//     if (oRowset.next()){
+//     while (oRowset.next()){
 //         i = oRowset.getInt(1);
 //        }
 //     AccessDB.closeConnectionStatic("", oConnection);      

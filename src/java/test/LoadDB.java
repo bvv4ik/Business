@@ -45,7 +45,7 @@ public class LoadDB {
 //                    oConnection = oConnection(sSourceBase);
 //                    try {
 //                        oRowset = oConnection.prepareStatement("SELECT TOP 1 o,s FROM " + sSourceTable + " WHERE s='" + sSourceName + "'").executeQuery();
-//                        if (oRowset.next()) {
+//                        while (oRowset.next()) {
 //                            sO = oRowset.getString(1);
 //                            sPathFile = oRowset.getString(2).replaceAll("\\_", "");
 //                        }//System.out.println("sO.length()="+sO.length()+",s="+s+",sO="+sO);

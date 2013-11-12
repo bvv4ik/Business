@@ -94,7 +94,7 @@ public class PlacePart {
 //    
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
 //     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlacePart where nPart = "+nPart ).executeQuery();
-//     if (oRowset.next()){
+//     while (oRowset.next()){
 //         i = oRowset.getInt(1);
 //       //  _nID(oRowset.getInt(1));  // Возвращаем nID по названию Branch
 //      //   _nID_PlacePolis(PP.nID());

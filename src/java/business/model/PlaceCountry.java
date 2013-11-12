@@ -76,7 +76,7 @@ public class PlaceCountry {
 //     Connection oConnection = AccessDB.oConnectionStatic("");    
 //    
 //     ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceCountry where sCountry = '"+sCountry +"'").executeQuery();
-//     if (oRowset.next()){
+//     while (oRowset.next()){
 //         i = oRowset.getInt(1);  // Возвращаем nID по названию страны
 //         //_nID(oRowset.getInt(1));  // Возвращаем nID по названию страны
 //         //_sCountry(sCountry);
@@ -98,7 +98,7 @@ public class PlaceCountry {
  Connection oConnection = AccessDB.oConnectionStatic("");    
     
  ResultSet oRowset = oConnection.prepareStatement("SELECT nID FROM PlaceCountry1 where sCountry = '"+sCountry +"'").executeQuery();
- if (oRowset.next()){
+ while (oRowset.next()){
  _nID(oRowset.getInt(1)); // Устанавливаем nID по названию страны
  _sCountry(sCountry);
        

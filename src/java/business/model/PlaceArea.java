@@ -57,7 +57,7 @@ public class PlaceArea {
         int i = 0;
         Connection oConnection = AccessDB.oConnectionStatic("");
         ResultSet oRowset = oConnection.prepareStatement("SELECT * FROM PlaceArea1 where sArea = '" + sArea + "'").executeQuery();
-        if (oRowset.next()) {
+        while (oRowset.next()) {
             i = oRowset.getInt(1);
         }
         AccessDB.closeConnectionStatic("", oConnection);
