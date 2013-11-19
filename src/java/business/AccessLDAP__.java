@@ -25,7 +25,7 @@ import javax.naming.directory.SearchResult;
  *
  * @author Sergey
  */
-public class AccessLDAP {
+public class AccessLDAP__ {
 
     public String sReturnPasswordUser = "";
     //public Boolean bFindLogin = false;

@@ -1,4 +1,4 @@
-package com.bw.io;
+package business;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
  *
  * @author Sergey
  */
-public class __ConnectSybase {
+public class ConnectSybaseOld__ {
 
     // Connection con = null;
     // PreparedStatement stmt = null;

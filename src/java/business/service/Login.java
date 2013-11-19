@@ -5,7 +5,7 @@ import business.model.AccessAuth;
 import business.model.Access;
 import business.model.AccessOf;
 import business.send.MailText;
-import com.bw.io.DatabaseLoadBCP;
+import com.bw.io.BackupDB;
 import com.bw.io._;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -232,7 +232,7 @@ public class Login extends HttpServlet {
             oLog.info("sDO= " + sDO + ", sEmail= " + sEmail + ", sCookie= " + sCookie);
         } //throw new RuntimeException(_); раскомментировав эту строку можно прерывать выполнение класса при этой ошибке
         finally {                       //этот код выполнится даже если произойдет ошибка (иногда это очень важно, чтоб, например - закрыть соединение
-            sReturn = _.ConcatJson(sReturn, "{\"sLimitRequest\":\"" + sLimitRequest + "\"}");
+            sReturn = _.sConcatJson(sReturn, "{\"sLimitRequest\":\"" + sLimitRequest + "\"}");
             response.getWriter().write(sReturn);     // возвращаемые данные
 
         }

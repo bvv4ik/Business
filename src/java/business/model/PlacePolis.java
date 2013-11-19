@@ -3,6 +3,7 @@ package business.model;
 import business.AccessDB;
 import business.Parser;
 import business.model.Localize.Text;
+import com.bw.io._;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -84,20 +85,18 @@ public class PlacePolis {
      
 // Получаем список всех городов по одному выбранному региону 
      public String getStringAddressPolis(String sPolis, int nID_PlaceCountry)  {
-           DOMConfigurator.configure("D:/My Documents/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml");
+          DOMConfigurator.configure(_.PATH_LOG4J_XML); // ручная инициализация, если запускать через метод МАИН.
+          long start = System.currentTimeMillis();
+
           String sCase = "getStringAddressPolis";
           String s = "";
-          String s2 = "";
           int i_count = 1;
 
           aResult.clear();
 
           Connection oConnection = null;
           Statement oStatement = null;
-          //Connection oConnection = AccessDB.oConnectionStatic("");
-          //ResultSet oRowset = oConnection.prepareStatement(
           try {
-              
               
 //              //ОБРАЗЕЦ!!!
 //                HashMap m  = new HashMap();
@@ -314,7 +313,9 @@ public class PlacePolis {
                //sReturnLogin = " [{ \"nID_Region\":\"34\"  ,  \"value\":\"Днепропетровская обл.\" }, { \"nID_Region\":38  ,  \"value\":\"Киевская обл. Район Мироновский\"} ] ";
                //sReturnLogin =  " [{ \"nID_Region\":\"34\"  ,  \"value\":\"Днепропетровская обл.\" }, { \"nID_Region\":38  ,  \"value\":\"Киевская обл. Район Мироновский\"} ] ";
 
-
+                 long stop = System.currentTimeMillis();
+                 //System.out.println((double)(stop-start)/1000 + " seconds");
+                 oLog.info("[" + sCase + "] :Время выполнения "+ (double)(stop-start)/1000 + " seconds");
 
 
           } catch (Exception oException) {

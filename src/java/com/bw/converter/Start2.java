@@ -2,19 +2,9 @@ package com.bw.converter;
 
 //import javax.swing.*;
 //import java.awt.event.*;
-import com.bw.converter.city.Obl_city;
 import java.sql.SQLException;
-
 import com.bw.converter.ray2.*;
 import com.bw.converter.city2.*;
-//import com.bw.converter.ray.Obl_ray_silr_sel;
-//import com.bw.converter.city.Obl_city_area;
-//import com.bw.converter.city.Obl_city_silr_sel;
-//import com.bw.converter.city.Obl_city_smt;
-//import com.bw.converter.city.Obl_city_smt_sel;
-//import com.bw.converter.ray.Obl_ray_city;
-//import com.bw.converter.ray.Obl_ray_city_sel;
-//import com.bw.converter.ray.Obl_ray_city_smt;
 import java.util.ArrayList;
 
 /**

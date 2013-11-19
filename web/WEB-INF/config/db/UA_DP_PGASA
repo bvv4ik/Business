@@ -1,7 +1,7 @@
 driverClassName               = com.sybase.jdbc3.jdbc.SybDataSource
-url                           = jdbc:sybase:Tds:pgasa-edu-ua.org:5000/UA_DP_PGASA
+url                           = jdbc:sybase:Tds:SERG-PC:2048/UA_DP_PGASA
 username                      = sa
-password                      = 123321123a
+password                      = 1234567
 defaultAutoCommit             = true
 defaultReadOnly               = true
 maxActive                     = 2

@@ -9,7 +9,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import org.json.simple.parser.*;
-import zLogic.Authorization;
+import zOld.Authorization;
 //import org.groupby.parser.JSON.*;
 //import org.groupby.parser.JSON.*;
 //import com.google.gson.Gson;

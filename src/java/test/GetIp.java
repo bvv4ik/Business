@@ -8,6 +8,7 @@ package test;
  *
  * @author Sergey
  */
+import com.bw.io._;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -32,6 +33,7 @@ public class GetIp {
 //       return "";
 //  }
     public static void main(String args[]) throws Exception {
+      
 //InetAddress host = null; 
 //host = InetAddress.getLocalHost(); 
 //byte ip[] = host.getAddress(); 

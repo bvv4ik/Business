@@ -14,9 +14,11 @@ public class Log {
      */
     public static Logger oLog = Logger.getLogger(Log.class);
     public static Logger oLogAccess = Logger.getLogger(business.model.Access.class);
+    public static Logger oLogPlacePolis = Logger.getLogger(business.model.PlacePolis.class);
+   // public static Logger oLogTest1 = Logger.getLogger(test.Test1.class);
+    
     public static Logger oLogAccessREST = Logger.getLogger(business.AccessREST.class);
     public static Logger oLogAccessDB = Logger.getLogger(business.AccessDB.class);
-    public static Logger oLogAuthLDAP = Logger.getLogger(business.AccessLDAP.class);
     public static Logger oLogConfig = Logger.getLogger(business.Config.class);
     public static Logger oLogCache = Logger.getLogger(business.cache.Table.class);
     public static Logger oLogLaunch = Logger.getLogger(business.launch.Run.class);

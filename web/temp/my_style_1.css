@@ -22,22 +22,22 @@ body {background-color: white}
 }
 
 
-. AllForms {
-    dis play: none ; /* прячем формы при загрузке страницы*/
+/*.AllForms {
+    dis play: none ; / * прячем формы при загрузке страницы* /
     fo nt-weight: bold ;
         position: fixed;       
         border : 1px solid blue ;
         z-in dex: 100;
         cursor: move; 
         -moz-border-radius: 10px; 
-        -webkit-border-radius: 10px; /*Chrome и Safari*/ 
+        -webkit-border-radius: 10px; / *Chrome и Safari* / 
         
-    box-shadow: 15px 15px 22px -7px #000; /* задаем сдвиг вправо и вниз по 5 пикселей, размер размытия 7 и цвет */   
+    box-shadow: 15px 15px 22px -7px #000; /* задаем сдвиг вправо и вниз по 5 пикселей, размер размытия 7 и цвет * /   
     border-radius: 7px 7px 7px 7px; 
 }
 
 # FormTest {
-    display: none ; /* прячем формы при загрузке страницы*/
+    display: none ; / * прячем формы при загрузке страницы* /
     fo nt-weight: bold ;
         top : 320px;
         left : 100px;
@@ -52,3 +52,4 @@ body {background-color: white}
     background-color:  yellowgreen; 
         
 }
+*/

@@ -6,7 +6,6 @@ package com.bw.converter.city2;
 
 import com.bw.converter.OtherMethods;
 import com.bw.converter.OtherMethods;
-import com.bw.converter.ray.Obl_ray_silr_sel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

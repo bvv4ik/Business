@@ -2,6 +2,7 @@ package business.model;
 
 import business.AccessDB;
 import business.ManagerSQL;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -13,7 +14,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 
 /******
  go
@@ -386,12 +386,13 @@ public class Access {
      * @param sLogin - Емаил Пользователя
      * @return -  Емайл пользователя или null
      */
-    public String sLoginExists(String sLogin) {
+    public String sLoginExists(String sLogin) throws IOException {
         long start = System.currentTimeMillis(); // Вычисляем время выполнения метода
         String sCase = "bLoginExists";
         String sResult = null;
         Statement oStatement = null;
         Connection oConnection = null;
+        
         try {
             oConnection = AccessDB.oConnectionStatic(sCase); //ОБРАЗЕЦ
             oStatement = AccessDB.oStatementStatic(oConnection, sCase); //ОБРАЗЕЦ

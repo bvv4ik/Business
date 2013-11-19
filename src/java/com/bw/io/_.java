@@ -1,6 +1,7 @@
 package com.bw.io;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,6 +22,33 @@ public abstract class _ {
 
     abstract public String sName();
 
+    public static final String PATH_LOG4J_XML = "C:/NetBeansProjects/Business/web/WEB-INF/config/log4j.xml";
+   
+    
+    
+    
+    public static void deleteDir(String sDir) {
+        File delFolder = new File(sDir);
+        if (!delFolder.exists()) {
+            return;
+        }
+        if (delFolder.isDirectory()) {
+            for (File f : delFolder.listFiles()) {
+                f.delete(); //delete(f)
+                delFolder.delete();
+            }
+        } else {
+            delFolder.delete();
+        }
+    }
+    
+    
+      public static void createDir(String path) {
+        File f = new File(path);
+        f.mkdirs();
+    }
+    
+    
     /**
      * @param sFormat формат даты
      * @return строка форматированной текущей даты
@@ -31,14 +59,14 @@ public abstract class _ {
     }
 
     /**
-     * Объединяет два объекта Json (содержащих экранирование)
+     * Объединяет два объекта Json (содержащие экранирование)
      *
      * @param sInput 1-я строка, например: String s = "{\"sReturn\":\"Error,
      * ошибка в сервлете \"}";
      * @param sAdd - 2-я строка
      * @return
      */
-    public static String ConcatJson(String sInput, String sAdd) {
+    public static String sConcatJson(String sInput, String sAdd) {
         String s = "";
         s = sInput.substring(0, sInput.length() - 1) + ", " + sAdd.substring(1, sAdd.length());
         //   String s = "{\"sReturn\":\"Error, ошибка в сервлете \"}";
@@ -46,7 +74,11 @@ public abstract class _ {
         return s;
     }
 
-    public static String sGetDate() {
+     /**
+      * Возвращает текущую дату (как строку) сервера в формате ("yyyy.MM.dd HH:mm:ss")
+      * @return - строку! 
+      */
+     public static String sGetDate() {
         Date d = new Date();  // определяем текущую дату.
         DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         String sTime = df.format(d);
@@ -67,29 +99,33 @@ public abstract class _ {
           }
      }
 
-     public static ArrayList LoadFromFile(String path) {
-          ArrayList<String> list = new ArrayList<String>();
-          BufferedReader oBR = null;
+     /** Загружает файл в строковый массив  ArrayList<String>
+      *
+      * @param path
+      * @return - строковый массив
+      */
+     public static ArrayList sLoadFromFile(String path) {
+          ArrayList<String> aList = new ArrayList<String>();
+          BufferedReader oBufferedReader = null;
           try {
                String sCurrentLine;
-               oBR = new BufferedReader(new FileReader(path));
-               while ((sCurrentLine = oBR.readLine()) != null) {
-                    list.add(sCurrentLine);
+               oBufferedReader = new BufferedReader(new FileReader(path));
+               while ((sCurrentLine = oBufferedReader.readLine()) != null) {
+                    aList.add(sCurrentLine);
                }
                // System.out.println("Всего элементов в массиве  "+list.size());
           } catch (IOException oException) {
                oException.printStackTrace();
           } finally {
                try {
-                    if (oBR != null) {
-                         oBR.close();
+                    if (oBufferedReader != null) {
+                         oBufferedReader.close();
                     }
                } catch (IOException oException) {
                     oException.printStackTrace();
                }
-               return list;
+               return aList;
           }
-
      }
     
     

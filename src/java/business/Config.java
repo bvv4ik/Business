@@ -14,7 +14,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 public class Config {
 
     private static volatile Config oConfig;
-    private static String sPath =   /*sValue("sPathWebInf_Custom");*/  "D:/My Documents/NetBeansProjects/Business/web/";    // Было "" и не работало
+    private static String sPath =  "C:/NetBeansProjects/Business/web/"; // Это на случай если из обычного метода МАИН запускаем класс // /*sValue("sPathWebInf_Custom");  С этим не звпускается приложение  */  "D:/My Documents/NetBeansProjects/Business/web/";    // Было "" и не работало
     private static Logger oLogStatic = Logger.getLogger(Config.class);
     private final static Map mVariable = java.util.Collections.synchronizedMap(new java.util.HashMap());
 

@@ -4,7 +4,7 @@ body{
 	margin:0px;
 	padding:0px;
         background-image: url(../img/body-bg1.jpg);
-	f ont-family:Arial, Helvetica, sans-serif;
+	//f ont-family:Arial, Helvetica, sans-serif;
 }
 #btLogin 
 {
@@ -47,30 +47,30 @@ body{
  }
   
 #men {
-     ou tline : 1px solid black;
+    // ou tline : 1px solid black;
      top : 250px;
      left: 15px;
      position : absolute;
      color: white; 
      width:250px; 
      height:280px; 
-     dis play:none;
+     //dis play:none;
 }
 
 #men ul {
      font-size:16px; 
-     bac kground-size: 100% 100% contain; 
+    // bac kground-size: 100% 100% contain; 
      background: url(../img/body-bg1.jpg);
      border : 1px solid lightblue;
 }
 
 #men ul li a {
      color: black;
-     fo nt-weight : bold;
+   //  fo nt-weight : bold;
      padding-top : 7px;
      padding-bottom : 7px;
      font-family: arial;
-     fo nt-size: 17px;
+    // fo nt-size: 17px;
      color: rgb(99, 145, 156); /*white;*/
 }
 
@@ -212,16 +212,16 @@ width :260px !important;
          
      overflow:auto; /* прокрутка появляется по необходимости */
     padding:10px 10px;
-    b order:#999 1px solid;
+   // b order:#999 1px solid;
 
      
 }
 
 #divAllSessinList table{  /* вся таблица*/
 	width:100%;
-	he ight:100%;
-	ma rgin:0px;
-	pa dding:0px;
+	//he ight:100%;
+	//ma rgin:0px;
+	//pa dding:0px;
 	border-right:1px solid #3f7f00;
 	border-top:1px solid #3f7f00;
         
@@ -236,7 +236,7 @@ width :260px !important;
 #divAllSessinList tr:nth-child(even)    {    background-color:#eeffc9; }  /* четные строки */
 
 #divAllSessinList td{  /*одна  (каждая) ячейка*/
-	ve rtical-align:middle;
+	//ve rtical-align:middle;
 	border-bottom: 1px solid #3f7f00;
 	border-left: 1px solid #3f7f00;
 	text-align:left;
@@ -281,12 +281,12 @@ width :260px !important;
 /* -------------------------/ ВСЕ Кнопки /------------------------------------ */
 
 .allButt {
-  w idth: 95px;
+ // w idth: 95px;
 height: 30px;
 font-weight: bold;
 font-size: 16px;
-   co lor: rgb(88, 112, 175);
-   f ont-family: verdana;
+ //  co lor: rgb(88, 112, 175);
+  // f ont-family: verdana;
 
 font-family: Arial; 
 border-radius: 6px; 
@@ -337,9 +337,9 @@ outline: none;   /*отключаем желтую рамку */
       padding: 8px;
       margin-bottom : 13px;
       -webkit-border-radius : 5px; /*Chrome  Safari*/ 
-	     b order		      : solid 3px transparent;
-	    -m oz-box-shadow		  : 0 0 20px 3px #1E90FF;
-	     -w ebkit-box-shadow	  : 0px 0px 7px 3px #1E90FF;
+	//     b order		      : solid 3px transparent;
+	 //   -m oz-box-shadow		  : 0 0 20px 3px #1E90FF;
+	  //   -w ebkit-box-shadow	  : 0px 0px 7px 3px #1E90FF;
 	width : 350px;
 
        background: rgb(231, 231, 231);
@@ -404,12 +404,12 @@ outline: none;   /*отключаем желтую рамку */
 } 
 #divNavigation ul li a:hover {
     color: #FFF;
-    ba ckground: url(../img/menu/navigation-hover.png) repeat-x left top;
+  //  ba ckground: url(../img/menu/navigation-hover.png) repeat-x left top;
    /* b order-radius: 7px 7px 7px 7px;*/
 }
 #divNavigation ul li #active a {
     color: orange;/*#FFF;*/
-    bac kground: url(../img/menu/navigation-hover.png) repeat-x left top;
+   // bac kground: url(../img/menu/navigation-hover.png) repeat-x left top;
 }
 /* ----------------------------------------------------------------------------- */
 
@@ -417,17 +417,17 @@ outline: none;   /*отключаем желтую рамку */
 
 #divMainPage{
      background-image: url(../img/body-bg1.jpg);
-     ba ckground: rgb(43, 43, 43);
+   //  ba ckground: rgb(43, 43, 43);
     border-radius: 10px 10px 10px 10px;
      top : 35px;
     position: relative ;
     margin:0 auto;
     width : 1000px;
     height : 1200px;
-    bo rder: 1px solid black; /* Параметры рамки */ 
+  //  bo rder: 1px solid black; /* Параметры рамки */ 
    /* p adding :20px;**/
-              b ox-shadow: 0 0 120px rgba(255, 255, 255, 0.7);
-    bo x-shadow: 0 0 120px rgba(255, 255, 253, 0.27);
+    //          b ox-shadow: 0 0 120px rgba(255, 255, 255, 0.7);
+   // bo x-shadow: 0 0 120px rgba(255, 255, 253, 0.27);
     border: 5px solid rgb(119, 155, 250);
     box-shadow: 0 0 50px rgba(255, 255, 253, 0.55);
    
@@ -466,7 +466,7 @@ A----5:visited {    color: blue; / * Цвет  ссылки * /  	}
 */
 
 #img_logo {
-    b order: 1px solid orange; /* Параметры рамки */    
+  //  b order: 1px solid orange; /* Параметры рамки */    
     position: relative ;
     left : 15px;
     top : 15px;
@@ -588,12 +588,12 @@ border:solid 3px transparent;
 
 .sInput_Account
 {
-    b order:solid 1px grey;
+   // b order:solid 1px grey;
     border: solid 1px rgb(75, 75, 75);
     padding : 4px;
-         b order:solid 3px transparent;     
-        -mo z-box-shadow:0 0 20px 3px #1E90FF;          /*тень*/
-        -we bkit-box-shadow:0px 0px 7px 3px #1E90FF;
+   //      b order:solid 3px transparent;     
+   //     -mo z-box-shadow:0 0 20px 3px #1E90FF;          /*тень*/
+   //     -we bkit-box-shadow:0px 0px 7px 3px #1E90FF;
     -webkit-border-radius: 3px; /*Chrome  Safari*/       /*закругление*/
     width : 250px;
     font-size: 16px;
