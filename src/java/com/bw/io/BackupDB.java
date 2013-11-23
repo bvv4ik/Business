@@ -23,15 +23,48 @@ public class BackupDB {
     private Logger oLog = Logger.getLogger(getClass());
 
     public static final String PATH_ROOT_BACKUP_DB = "D:\\BackupSybase\\";
-    public static final int MAX_DB_FOLDERS = 20;
+    public static final int MAX_DB_FOLDERS = 30;
     
     
     
+   public long getDirSize(String sDirPath) {
+    File oDir = new File(sDirPath);
+    long size = 0;
+    if (oDir.isFile()) {
+        size = oDir.length();
+    } else {
+        File[] subFiles = oDir.listFiles();
+        for (File file : subFiles) {
+            if (file.isFile()) {
+                size += file.length();
+            } else {
+                size += getDirSize(sDirPath);
+            }
+        }
+    }
+   
+    return size;
+}
+    
+   
+   
+   
     public static void main(String[] args) throws Exception {
 
-        BackupDB oBackupDB = new BackupDB();
-        String s = oBackupDB.loadTableName("UA_DP_PGASA");
-      //  System.out.println(s);
+        
+       BackupDB oBackupDB = new BackupDB();
+        
+        System.out.println(oBackupDB.getDirSize("D:\\BackupSybase\\2013-11-20_19-31-18"));
+         File file = new File("D:\\BackupSybase\\2013-11-20_19-31-18");
+   
+   // File (or directory) with new name
+   File file2 = new File("D:\\BackupSybase\\2013-11-20_19-31-18---");
+   
+   // Rename file (or directory)
+   boolean success = file.renameTo(file2);
+        
+        //BackupDB oBackupDB = new BackupDB();
+        //String s = oBackupDB.loadTableName("UA_DP_PGASA");
     }
 
     
@@ -41,8 +74,8 @@ public class BackupDB {
     public String loadTableName(String sNameDB) throws Exception {
         DOMConfigurator.configure(_.PATH_LOG4J_XML);
         String sFullPath = "";
-        String sLoadData = "";
-        String sCreateData = "";
+        String sBatFileLoadData = "";
+        String sBatFileCreateData = "";
         int  nCountFiles = 0;
         String sCase = "loadTableName";
         Connection oConnection = null;
@@ -50,53 +83,62 @@ public class BackupDB {
 
         try {
             oConnection = AccessDB.oConnectionStatic(sCase);
-            oStatement = AccessDB.oStatementStatic(oConnection, sCase);
+            oStatement = AccessDB.oStatementStatic(oConnection, sCase); // как сделать несколько апросов в одном запросе
             //ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "USE UA_DP_PGASA", oLog); // берем список всех таблиц Юзера из системной тиблицы
             ResultSet oRowset = AccessDB.oRowsetQuery(oStatement, sCase, "select name from sysobjects where type like 'U'", oLog);
-            String sCurrentDate = _.sGetDate().replace(" ", "_").replace(":", "-").replace(".", "-"); // делаем кооректное название для создания папки с этим названием
-            sFullPath = PATH_ROOT_BACKUP_DB + sCurrentDate+ "\\";
-            _.createDir(sFullPath);   // создаем эту папку если ее нет
+            
+            
             while (oRowset.next()) {  // создаем список BCP запросов
-                sLoadData += "bcp UA_DP_PGASA.dbo." + oRowset.getString(1) + " out "+ sFullPath + oRowset.getString(1) + ".tbl -Usa -P123321123a -S pgasa-edu-ua.org:5000 -c -E -Jutf8 \n";
-                sCreateData += "bcp UA_DP_PGASA.dbo." + oRowset.getString(1) + " in "+ sFullPath + oRowset.getString(1) + ".tbl -Usa -P1234567 -S SERG-PC:2048 -c -E -Jutf8 \n";
+                sBatFileLoadData += "bcp UA_DP_PGASA.dbo." + oRowset.getString(1) + " out "+ sFullPath + oRowset.getString(1) + ".tbl -Usa -P123321123a -S pgasa-edu-ua.org:5000 -c -E -Jutf8 \n";
+                sBatFileCreateData += "rem; bcp UA_DP_PGASA.dbo." + oRowset.getString(1) + " in "+ sFullPath + oRowset.getString(1) + ".tbl -Usa -P1234567 -S SERGPC -c -E -Jutf8 \n";
                 nCountFiles++;
             }
+           
+            Runtime oRuntime = Runtime.getRuntime();
+
             
-            nCountFiles += 7; // Всего файлов должно быть в папке
-            _.saveTextFile(sLoadData, sFullPath + "LoadTables.bat"); // сохраняем список в БАТ файл
+                                    //Process oRuntime = Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd c:/ && " + sCommand_DATA_DB + " && exit \" "); 
+            oRuntime.exec("cmd /c start cmd.exe /K \"cd c:/ && " + sFullPath + "LoadTables.bat" + " && exit \" "); // Быполнить Батник через CMD
 
              
-            Runtime oRuntime = Runtime.getRuntime();
-            String sCommand_DATA_DB = sFullPath + "LoadTables.bat" ; // Путь к Батнику 
-            //Process oRuntime = Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd c:/ && " + sCommand_DATA_DB + " && exit \" ");
-             
-             
-            oRuntime.exec("cmd /c start cmd.exe /K \"cd c:/ && " + sCommand_DATA_DB + " && exit \" "); // Быполнить Батник через CMD
-             
-//             BufferedReader reader =
-//            new BufferedReader(new InputStreamReader(oRuntime.getInputStream()));
-//            while ((reader.readLine()) != null) {}
-//            oRuntime.waitFor();
-             
-             
-             // Создаем БАТ файл для генерации скрипта DDL 
              String sCommand_STRUCTURE_DB = "ddlgen.bat -U sa -S pgasa-edu-ua.org:5000 -P 123321123a -TDB -D UA_DP_PGASA -XOU -O "+ sFullPath + "-db_ddl.sql";
              // запускаем БАТник- т.е генерируем скрипт DDL для восстановления структуры базы
              oRuntime.exec("cmd /c start cmd.exe /K \"cd c:/ && " + sCommand_STRUCTURE_DB + " && exit \" "); 
             
              
-             String sCommand_DDL_DEVICE = "ddlgen.bat -U sa -S pgasa-edu-ua.org:5000 -P 123321123a -TDBD -N bw_disk -O "+ sFullPath + "-device_ddl.sql" + " -E "+ sFullPath + "\\-device_ddl.err";
-             oRuntime.exec("cmd /c start cmd.exe /K \"cd c:/ && " + sCommand_DDL_DEVICE + " && exit \" "); 
+            // String sCommand_DDL_DEVICE = "ddlgen.bat -U sa -S pgasa-edu-ua.org:5000 -P 123321123a -TDBD -N bw_disk -O "+ sFullPath + "-device_ddl.sql" + " -E "+ sFullPath + "\\-device_ddl.err";
+            // oRuntime.exec("cmd /c start cmd.exe /K \"cd c:/ && " + sCommand_DDL_DEVICE + " && exit \" "); 
             
             
-             String sCommand_CREATE_DEVICE = "isql -S SERGPC:2048 -U sa -P 1234567 -i " + sFullPath + "-device_ddl.sql" + " -o "+ sFullPath + "-log.txt";
-             _.saveTextFile(sCommand_CREATE_DEVICE, sFullPath + "1_CreateDevice.bat"); 
+            // String sCommand_CREATE_DEVICE = "isql -S SERG-PC:2048 -U sa -P 1234567 -i " + sFullPath + "-device_ddl.sql" + " -o "+ sFullPath + "-log.txt";
+            String sCommand_CREATE_DEVICE = "disk init\n" +
+                "name=serg_disc,\n" +
+                "physname =\"/Sybase/data/serg_disc.dat\",\n" +
+                "size = \"300M\"\n" +
+                "go\n" +
+                
+                "-----\n" +
+                "CREATE DATABASE UA_DP_PGASA\n" +
+                "ON serg_disc=\"300M\"disk init\n" +
+                "------LOG ON serg_log=\"200M\"\n"+
+                "------------------- \n + Убрать шапку (заголовок) в файле создания структуры БД" ;
             
-             String sCommand_CREATE_STRUCTURE_DB = "isql -S SERGPC:2048 -U sa -P 1234567 -i " + sFullPath + "-db_ddl.sql" + " -o "+ sFullPath + "-log.txt";
-             _.saveTextFile(sCommand_CREATE_STRUCTURE_DB, sFullPath + "2_CreateStructureDB.bat"); 
+             String sCommand_CREATE_STRUCTURE_DB = "isql -S SERG-PC:2048 -U sa -P 1234567 -i " + sFullPath + "-db_ddl.sql" + " -o "+ sFullPath + "-log.txt";
+   
+             
+            nCountFiles += 7; // Всего файлов должно быть в папке 
+            // делаем кооректное название для папки
+            String sCurrentDate = _.sGetDate().replace(" ", "_").replace(":", "-").replace(".", "-");
+            sFullPath = PATH_ROOT_BACKUP_DB + sCurrentDate+ "\\";
+            _.createDir(sFullPath);   // создаем эту папку если ее нет
 
-             _.saveTextFile(sCreateData, sFullPath + "3_SaveDataDB.bat");
-
+           
+            _.saveTextFile(sBatFileLoadData, sFullPath + "LoadTables.bat"); // сохраняем список в БАТ файл
+            _.saveTextFile(sCommand_CREATE_DEVICE, sFullPath + "1_CreateDevice.txt"); 
+            _.saveTextFile(sCommand_CREATE_STRUCTURE_DB, sFullPath + "2_CreateStructureDB.bat"); 
+            _.saveTextFile(sBatFileCreateData, sFullPath + "3_SaveDataDB.bat"); // Батник загрузки Таблиц из текстовых файлов в Базу
+         
+             
              
              Thread.sleep(2000);
              File oFolder = new File(sFullPath);
@@ -106,7 +148,7 @@ public class BackupDB {
              }
         
              
-             delFoldersDB();
+             delFoldersDB(); // удаляем старые папки с Бекапом если превышен их лимит
              //System.out.println(sLoadData);
              
             
@@ -115,7 +157,7 @@ public class BackupDB {
         } finally {
             AccessDB.close(sCase, oStatement);
             AccessDB.closeConnectionStatic(sCase, oConnection);
-            return sLoadData;
+            return sBatFileLoadData;
         }
         
         
