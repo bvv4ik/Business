@@ -3,6 +3,7 @@ package test;
 
 import business.Parser;
 import com.bw.io._;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,17 +11,16 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.json.JSONObject;
-import org.codehaus.jackson.map.ObjectMapper;
 import java.util.Map;
-import java.util.logging.Level;
-import javax.json.stream.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 
-public class Test1 {
+@XStreamAlias("message")
 
-         
- private String name;
+class Test1 {
+
+private Logger oLog = Logger.getLogger(getClass());
+
+
+        private String name;
 
         public String getName() {
                 return name;
@@ -30,7 +30,7 @@ public class Test1 {
                 this.name = name;
         }
 
-private Logger oLog = Logger.getLogger(getClass());
+
 
     public static void main(String[] args) throws Exception, IOException {
     
@@ -38,7 +38,9 @@ private Logger oLog = Logger.getLogger(getClass());
          long start = System.currentTimeMillis();
         
          
-         //Test1 t1 = new Test1();
+         Test1 t1 = new Test1();
+         t1.setName("Sergey");
+         
          
          ArrayList<String[]> aL = new ArrayList<String[]>();
          String[] sArr2 = {"1","2","3","4"};
@@ -62,14 +64,15 @@ private Logger oLog = Logger.getLogger(getClass());
          
          //   } catch (IOException e) {
          //}
-         // XStream oJson = Parser.oToJSON(true);
-         //String sss= oJson.toXML(aL);
+        //  XStream oJson = Parser.oToJSON(true);
+        // String sss= oJson.toXML(aL);
+      
          
-         // String sJson = Parser.objectToJSON(t1, false);
-         //System.out.println(sJson);
+        String sJson = Parser.objectToJSON(t1, false);
+         System.out.println(sJson);
          
-         JSONObject jsonObj = new JSONObject(); //("{\"phonetype\":\"N95\",\"cat\":\"WP\"}");
-         jsonObj.put("sJson", m);
+         //JSONObject jsonObj = new JSONObject(); //("{\"phonetype\":\"N95\",\"cat\":\"WP\"}");
+         //jsonObj.put("sJson", m);
          
          
          //System.out.println(jsonObj.toString());
@@ -103,9 +106,9 @@ private Logger oLog = Logger.getLogger(getClass());
 
 
     
-    public String ser(String s) {
+    private String ser(String s) {
         //System.out.println(" run Test1 11111111111   "+s);
-         oLog.debug("](Время выполнения: "+s);
+       //  oLog.debug("](Время выполнения: "+s);
        
          
                //ОБРАЗЕЦ!!!
@@ -113,6 +116,10 @@ private Logger oLog = Logger.getLogger(getClass());
                 m.put("param1", "value1");
                 m.put("param2", "value2");
                 m.put("param3", "value3");
+                
+                
+                
+                
                //String sReturn = m.toString();                       
                // String sReturn = Parser.oParser.toXML(m);
                // String sReturn = Parser.oParser.toXML(m);

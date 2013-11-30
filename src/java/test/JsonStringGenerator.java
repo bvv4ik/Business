@@ -41,11 +41,14 @@ public class JsonStringGenerator {
  }
  
  public static void main(String[] args)  throws IOException {
-  HashMap<String, String> map = new HashMap<String, String>();
-  map.put("1", "Jason Stathom");
-  map.put("2", "Brad Pitt");
-  map.put("3", "Angelina");
-  createJsonString(map);
+  HashMap<String, String> m = new HashMap<String, String>();
+        m.put("param1", "value1");
+         m.put("param2", "value2");
+         m.put("param3", "value3");
+  //map.put("1", "Jason Stathom");  
+  //map.put("2", "Brad Pitt");
+  //map.put("3", "Angelina");
+  createJsonString(m);
  }
  
 }
