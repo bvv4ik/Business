@@ -1,0 +1,15 @@
+#btLogin 
+.sTextAgreement 
+.disabled 
+#space_galery 
+.ui-menu #men 
+#men ul 
+#men ul li a 
+#img_menu 
+#btClose_contact:hover 
+#divAllSessinList table tr:hover 
+#divAllSessinList 
+tr:nth-child(odd) 
+#divAllSessinList tr:nth-child(even) #divAllSessinList td #divAllSessinList tr:first-child td #divError .allButt #divFon .divLogin .sAuthField #separatop #divNavigation #divNavigation ul li a:hover #divNavigation ul li #active a #divLeftNavigator span hr #divLeftNavigator #divNavigation ul li a:hover #main_pict #main_text .qtip-content .qtip-title #divAccount #divHeader_Account .sInput_Account #btClose_Account #btClose_Account:hover
+
+#btLogin .sTextAgreement .disabled #space_galery .ui-menu #men #men ul #men ul li a #img_menu #btClose_contact:hover #divAllSessinList table tr:hover #divAllSessinList tr:nth-child(odd) #divAllSessinList tr:nth-child(even) #divAllSessinList td #divAllSessinList tr:first-child td #divError .allButt #divFon .divLogin .sAuthField #separatop #divNavigation #divNavigation ul li a:hover #divNavigation ul li #active a #divLeftNavigator span hr #divLeftNavigator #divNavigation ul li a:hover #main_pict #main_text .qtip-content .qtip-title #divAccount #divHeader_Account .sInput_Account #btClose_Account #btClose_Account:hover

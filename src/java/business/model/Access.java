@@ -268,8 +268,8 @@ public class Access {
             return "Внимание, заполните поля!";
         } else if ((!bValidString(sEmail)) | (!bValidString(sPassword))) {//Если true то прис. недопустимые символы 
             return "Логин или Пароль содержат недопустимые символы!";
-        } else if (sPassword.length() < 10) {//проверка длинны пароля
-            return "Длинна пароля должна быть больше 10 символов!";
+        //} else if (sPassword.length() < 10) {//проверка длинны пароля
+        //    return "Длинна пароля должна быть больше 10 символов!";
         } else if (sLoginExists(sEmail)!=null) {//если != null то логин уже существует в Базе
             return "Этот Логин уже занят!";
         }

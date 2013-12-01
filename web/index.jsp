@@ -85,6 +85,7 @@
                </center> 
                <br hidden class="brLine">  
                <center> 
+                   
                     <input hidden  class="checkAgreement" type="checkbox"   checked> 
                     <a hidden  class="sTextAgreement" href="agreement.html" target="_blank" > &nbsp; Я согласен на хранение своих персональных данных (?). </a>
                     <input  style ="margin-top: 20px;" class="allButt" id="btLogin" type="button" value="Вход" />  
