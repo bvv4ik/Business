@@ -47,9 +47,9 @@
         <script type="text/javascript" src="js/jquery.qtip.js"> </script>
         <script type="text/javascript" src="js/jquery.cookie.js"></script>   
         
-        <script type="text/javascript" src="js/jszip.js"></script>
-<script type="text/javascript" src="js/jszip-load.js"></script>
-<script type="text/javascript" src="js/jszip-inflate.js"></script>
+    <script type="text/javascript" src="js/jszip.js"></script> 
+     <script type="text/javascript" src="js/jszip-load.js"></script>
+<!--<script type="text/javascript" src="js/jszip-inflate.js"></script> -->
         
     </head>
     <body>
@@ -74,32 +74,98 @@
 <!--   Общий ФОН  -->
 <div id="divFon" >                <!--<div id="divError" onClick="ajax_sendEmail(); "  >    </div>   alert(1);   <!--  может быть кода понадобится  для отладки -->         
       <div id="divError"   >  
-        <div id="xhr1_way"></div>
-        <button hidden id="btZip" type="button" onclick="openZip();">zip</button>
+        <div id="xhr1_way">324234234234234</div>
+        <button  id="btZip" type="button" onclick="openZip();">zip</button>
+        <button  id="btZip1" type="button" onclick="openZip1();">zip</button>
+        <button  id="btZip2" type="button" onclick="save();">zip</button>
+        
+        <input type="file" id="file" name="file[]" multiple />
+        <button onclick="ReadFiles();">Read Files</button>
         <script>
             //=========================
   // XHR1
   //=========================
   function openZip() {
-      alert("ren");
+      alert("run");
   var xhr1 = new XMLHttpRequest();
-  xhr1.open('GET', 'http://stuk.github.io/jszip/test/ref/text.zip', true);
+  //http://stuk.github.io/jszip/test/ref/text.zip
+  xhr1.open('GET', 'js/text.zip', true);
   if (xhr1.overrideMimeType) {
     xhr1.overrideMimeType('text/plain; charset=x-user-defined');
   }
 
   xhr1.onreadystatechange = function(e) {
-    if (this.readyState == 4 && this.status == 200) {
+    //if (this.readyState == 4 && this.status == 200) {
+    if (this.readyState == 4 && this.status == 304) {
       var zip = new JSZip(this.responseText);
       var elt = document.getElementById('xhr1_way');
-      elt.innerHTML = "<p>loaded ! (as a " + (typeof this.responseText) + ")</p>";
-      elt.innerHTML += "<p>Content = " + zip.file("Hello.txt").asText();
+     // elt.innerHTML = "<p>loaded ! (as a " + (typeof this.responseText) + ")</p>";
+      elt.innerHTML += "Content = " + zip.file("Hello.txt").asText();
     }
   };
 
   xhr1.send();
   
     }
+    
+    function openZip1() {
+        alert("run1");
+  $.ajax({
+  url: "js/text2.zip",
+  //url: "http://fiddle.jshell.net/favicon.png",  img/ar.png
+  beforeSend: function ( xhr ) {
+    xhr.overrideMimeType("text/plain; charset=x-user-defined");
+  }
+}).done(function ( data ) {
+    
+    
+  //if( console && console.log ) {
+  //  console.log("Sample of data:", data.slice(0, 100));
+  //}
+  var zip = new JSZip(data);
+   //zip.utf8decode();
+   //var zip = new JSZip(data);
+      var elt = document.getElementById('xhr1_way');
+     // elt.innerHTML = "<p>loaded ! (as a " + (typeof this.responseText) + ")</p>";
+      elt.innerHTML += "Content = " + zip.file("hello.txt").asText();
+  
+  
+});
+    }
+    
+    
+  /*
+     var data = new Object;
+     function ReadFiles()
+     {
+         var files = document.getElementById('file').files;
+         for (var i = 0; i < files.length; i++) {
+             var reader = new FileReader();
+             reader.onloadend = function (evt) {
+                 if (evt.target.readyState == FileReader.DONE) {
+                     data["File_Content" + i] = btoa(evt.target.result);
+                 }
+             };
+             reader.readAsBinaryString(files[i]);
+         }
+     }
+  */
+    
+    function save(){
+        var str = "этот текст будет сохранен в файл";
+      var ua = navigator.userAgent.toLowerCase();
+      if(ua.indexOf("msie") != -1 && ua.indexOf("opera") == -1 && ua.indexOf("webtv") == -1) { //IE
+         var mydoc = window.open();
+         mydoc.document.write(str);
+         mydoc.document.execCommand("saveAs",true,".xml");
+      }
+      else { //другие браузеры
+         var mydoc = window.open("data:application/download;charset=utf-8;base64," + btoa(str));
+      }
+        
+    }
+    
+    
         </script>
         
         

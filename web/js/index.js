@@ -482,19 +482,19 @@ function goto_event(){};
 
 
 
-$("#divError").click(function(){  
-  dhtmlx.modalbox({  title:"Сообщение:" ,
-			text:"•<br>Вы действительно хотите выйти?<br><br>•",
-			width:"350px", height:"165px", position:"center",
-			buttons:["•Выйти!•", "•Остаться...•"],
-			callback:function(index){
-			if (index==0) {  
-                              // ajax_doDestroySession();   // Удаляем сессию 
-                              // $.cookie('auth', null);   // Удаляем куку  
-                             }
-			}
-		});  
-});
+//$("#divError").click(function(){  
+//  dhtmlx.modalbox({  title:"Сообщение:" ,
+//			text:"•<br>Вы действительно хотите выйти?<br><br>•",
+//			width:"350px", height:"165px", position:"center",
+//			buttons:["•Выйти!•", "•Остаться...•"],
+//			callback:function(index){
+//			if (index==0) {  
+//                              // ajax_doDestroySession();   // Удаляем сессию 
+//                              // $.cookie('auth', null);   // Удаляем куку  
+//                             }
+//			}
+//		});  
+//});
 
 
 // ---------------------------- КОНЕЦ СОБЫТИЙ ----------------------------------
