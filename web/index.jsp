@@ -18,17 +18,16 @@
             nLimitRequest = Integer.parseInt(sLimitRequest);
             if (sLimitRequest == null) {
                  sLimitRequest = "--";
-            };
-            
+            };  
        }
   */
-  
-%>
+ %>
+
 <!DOCTYPE html>
 <html>
     <head>
      
-          <title> Главная </title>         
+        <title> Главная </title>         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/reset.css"/>     <!--  сброс браузерных стилей -->
         <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css"/>     <!--  подключаем манящий уголок  -->
@@ -46,7 +45,11 @@
         <script type="text/javascript" src="js/index.js"> </script>  <!--   мои скрипты  -->
         <script type="text/javascript" src='js/message/codebase/message.js'></script>        
         <script type="text/javascript" src="js/jquery.qtip.js"> </script>
-        <script type="text/javascript" src="js/jquery.cookie.js"></script>     
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>   
+        
+        <script type="text/javascript" src="js/jszip.js"></script>
+<script type="text/javascript" src="js/jszip-load.js"></script>
+<script type="text/javascript" src="js/jszip-inflate.js"></script>
         
     </head>
     <body>
@@ -70,7 +73,37 @@
        
 <!--   Общий ФОН  -->
 <div id="divFon" >                <!--<div id="divError" onClick="ajax_sendEmail(); "  >    </div>   alert(1);   <!--  может быть кода понадобится  для отладки -->         
-      <div id="divError"   >    </div>   
+      <div id="divError"   >  
+        <div id="xhr1_way"></div>
+        <button hidden id="btZip" type="button" onclick="openZip();">zip</button>
+        <script>
+            //=========================
+  // XHR1
+  //=========================
+  function openZip() {
+      alert("ren");
+  var xhr1 = new XMLHttpRequest();
+  xhr1.open('GET', 'http://stuk.github.io/jszip/test/ref/text.zip', true);
+  if (xhr1.overrideMimeType) {
+    xhr1.overrideMimeType('text/plain; charset=x-user-defined');
+  }
+
+  xhr1.onreadystatechange = function(e) {
+    if (this.readyState == 4 && this.status == 200) {
+      var zip = new JSZip(this.responseText);
+      var elt = document.getElementById('xhr1_way');
+      elt.innerHTML = "<p>loaded ! (as a " + (typeof this.responseText) + ")</p>";
+      elt.innerHTML += "<p>Content = " + zip.file("Hello.txt").asText();
+    }
+  };
+
+  xhr1.send();
+  
+    }
+        </script>
+        
+        
+      </div>   
  <!--  Форма ВХОДА   -->
      <div  class="divLogin" > 
           <form>
@@ -101,17 +134,13 @@
 
         <% } else  // иначе если есть сессия рисуем ГЛАВНУЮ страницу     
         { %>    
-
-       
-<!--     Добро пожаловать на главную страницу! -->
-    <!--  <script src="js/peel.js" type="text/javascript"></script>  <!--  подключаем манящий уголок только здесь --> 
+         <!--  <script src="js/peel.js" type="text/javascript"></script>  <!--  подключаем манящий уголок только здесь --> 
 
 <!-- ----------  СПИСОК СЕССИЙ (окно) ---------- -->  
      <div id="divAllSessinList" >   
              <input type="button" value="Закрыть" style="position:relative; left:700px;" onClick="$('#divAllSessinList').css('display','none'); $('#FON_contact').css('display','none');" >
              <table id="table1" cellspacing="0"> </table>
      </div>
-
 
 <!-- --------- КОНТАКТ (окно) ----------------- -->          
      <div id="form_contact">
@@ -127,17 +156,16 @@
                          <div>  <input class="theInput"  style="left : 320px; width:110px"  type="button"  value="Отправить" onClick="alert('Ваше сообщение типа отправлено!'); $('#textarea_contact').val(''); " > </div>
      </div>
 
-<!-- ------- темный фон за всеми окнами  --------  -->
-     <div id="FON_contact">  </div> 
+
+     <div id="FON_contact">  </div>  <!--  темный фон за всеми окнами   -->
 
 
- <!-- ---------- ПОМОЩЬ слева (окно) ------------ -->               
+            <!-- ---------- ПОМОЩЬ слева (окно) ------------ -->               
      <div id="divHelpLeft"> <img src="img/help1.png" style="position:relative; top:-5px; left:8px;" align="left"/><center> Задать вопрос </center></div>
 
 
-     
-<!-- ---------- Главная страница Сайта  ------------ -->                    
-     <div  id="divMainPage">
+ <!-- ---------- Главная страница Сайта  ------------ -->                    
+     <div id="divMainPage">
      <img id="exitSite" src="img/exit1.png" style="position:absolute;  top:8px; right:8px; cursor:pointer;" title="Один клик - обычный выход, зажатая левая кнопка мыши более 2 секунд - закрытие вкладки">
                <!--  ДЛЯ ТЕСТОВ  
                <img id="exitSite2" src="img/krest.jpg" style="position:absolute;  top:8px; right:-48px; cursor:pointer;" title="Выход - удаление сессии "> 
@@ -466,120 +494,7 @@ $("#men").effect("fade", { mode: "show", direction: "horizontal" }, 400);
 </script>
 
 
-
-
-
-
-
-
-
-
-
-<!-- --------- МЕНЮ (окно)--------- -->
-
-<!--
-<div id="men" >
-<ul id="menu" >  
- 
-     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> О ВУЗе </a>
-          <ul>
-               <li><a href="#"> Структура </a></li> <!-- target="_blank" -- >  
-               <li><a href="#">Новости </a></li>  
-               <li><a href="#">Структура </a></li> 
-               <li><a href="#">Факультеты</a></li>
-               <li><a href="#">Ученый совет</a></li> 
-               <li><a href="#">Руководство</a></li> 
-               <li><a href="#">Преподаватели и сотрудники</a></li> 
-               <li><a href="#">Телефонный справочник</a></li> 
-               <li><a href="#">История</a>	</li> 
-               <li><a href="#">Устав</a></li> 
-               <li><a href="#">Библиотека</a></li> 
-               <li><a href="#">Контакты</a></li> 
-               <li><a href="#">Полезные ссылки</a></li> 
-          </ul> 
-     </li>
-          
-     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Абитуриентам </a>
-          <ul>
-               <li> <a href="#">Почему выбирают именно нас?</a> </li>
-               <li> <a href="#">Приемная комиссия</a>	</li>
-               <li> <a href="#">Направления, специальности, экзамены</a>	</li>
-               <li> <a href="#">Стоимость обучения</a> 		</li>
-               <li> <a href="#">Бланки и образцы документов</a>	</li>
-               <li> <a href="#">Правила приема</a>	</li>
-               <li> <a href="#">Где работают выпускники</a> 	</li>
-               <li> <a href="#">Отзывы выпускников</a>			</li>
-               <li> <a href="#">Фото-экскурсия</a>			</li>
-          </ul> 
-     </li>
-          
-     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Студентам </a>
-          <ul>
-               <li><a href="#">Расписание занятий</a>		</li>
-               <li><a href="#">Учебные дисциплины</a>		</li>
-               <li><a href="#">Учебные планы</a>		</li>
-               <li><a href="#">Спортивная жизнь</a>	</li>
-               <li><a href="#">Правила перевода</a>	</li>
-               <li><a href="#">Трудоустройство</a>		</li>
-               <li><a href="#">Учебные материалы</a>	</li>
-               <li><a href="#">Студенческие новости</a>	</li>
-          </ul> 
-     </li>
-             
-     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Научная деятельность </a>
-          <ul>
-               <li><a href="#">Список конференций</a>		</li>
-               <li><a href="#">Публикации</a>	</li>
-          </ul> 
-     </li>
-             
-     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Выпускникам </a>
-          <ul>
-               <li><a href="#">Ассоциация выпускников</a>		</li>
-               <li><a href="#">Форумы</a>			</li>
-               <li><a href="#">Выпускники в соцсетях</a>		</li>
-               <li><a href="#">Отзывы выпускников</a>		</li>
-               <li><a href="#">Семинары и тренинги</a>		</li>
-          </ul> 
-     </li>
-             
-     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Дополнительное образование </a>
-          <ul>
-               <li>	<a href="#">Бланки и образцы документов</a>	</li>
-               <li>	<a href="#">Карьерный рост</a>			</li>
-               <li>	<a href="#">Направления, специальности, экзамены</a>	</li>
-               <li>	<a href="#">Информация о дополнительном образовании, цены</a>	</li>
-               <li>	<a href="#">Правила приема</a>		</li>
-               <li>     <a href="#">Где работают выпускники</a>	</li>
-          </ul> 
                   
-     </li>	
-             
-     <li> <img id="img_menu" src="img/ar2.png" align="left" /><a href="#">  Документы </a>
-          <ul>
-               <li><a href="#">Шаблоны документов</a>	</li>
-               <li><a href="#">Нормативно-правовые акты</a>	</li>
-          </ul> 
-     </li>	
-             
-     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Общение </a>
-          <ul>
-               <li>  <a href="#">Блоги</a>		</li>
-               <li>  <a href="#">Форумы</a>		</li>
-               <li>  <a href="#">Анкетирование</a>		</li>
-          </ul> 
-     </li>
-	
-</ul>
-</div>
-                     
-   -->
-
-
-
-
-
-                     
  <!--  конец листа ГЛАВНОЙ страницы  -->                     
 </div> 
 
@@ -762,6 +677,9 @@ $(function(){
 
 
 <script>
+
+    
+    
 $(document).ready(function(){
     // меняем фон наведенной кнопки
 $(".tarea").mouseover(function() {  $(this).css('background','rgb(149, 190, 253)');  })
@@ -1069,3 +987,106 @@ function shuffle(arr) {
                          <tr>
                  </div>
            </div>  -->
+  
+  
+  
+  
+<!-- --------- МЕНЮ (окно)--------- -->
+
+<!--
+<div id="men" >
+<ul id="menu" >  
+ 
+     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> О ВУЗе </a>
+          <ul>
+               <li><a href="#"> Структура </a></li> <!-- target="_blank" -- >  
+               <li><a href="#">Новости </a></li>  
+               <li><a href="#">Структура </a></li> 
+               <li><a href="#">Факультеты</a></li>
+               <li><a href="#">Ученый совет</a></li> 
+               <li><a href="#">Руководство</a></li> 
+               <li><a href="#">Преподаватели и сотрудники</a></li> 
+               <li><a href="#">Телефонный справочник</a></li> 
+               <li><a href="#">История</a>	</li> 
+               <li><a href="#">Устав</a></li> 
+               <li><a href="#">Библиотека</a></li> 
+               <li><a href="#">Контакты</a></li> 
+               <li><a href="#">Полезные ссылки</a></li> 
+          </ul> 
+     </li>
+          
+     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Абитуриентам </a>
+          <ul>
+               <li> <a href="#">Почему выбирают именно нас?</a> </li>
+               <li> <a href="#">Приемная комиссия</a>	</li>
+               <li> <a href="#">Направления, специальности, экзамены</a>	</li>
+               <li> <a href="#">Стоимость обучения</a> 		</li>
+               <li> <a href="#">Бланки и образцы документов</a>	</li>
+               <li> <a href="#">Правила приема</a>	</li>
+               <li> <a href="#">Где работают выпускники</a> 	</li>
+               <li> <a href="#">Отзывы выпускников</a>			</li>
+               <li> <a href="#">Фото-экскурсия</a>			</li>
+          </ul> 
+     </li>
+          
+     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Студентам </a>
+          <ul>
+               <li><a href="#">Расписание занятий</a>		</li>
+               <li><a href="#">Учебные дисциплины</a>		</li>
+               <li><a href="#">Учебные планы</a>		</li>
+               <li><a href="#">Спортивная жизнь</a>	</li>
+               <li><a href="#">Правила перевода</a>	</li>
+               <li><a href="#">Трудоустройство</a>		</li>
+               <li><a href="#">Учебные материалы</a>	</li>
+               <li><a href="#">Студенческие новости</a>	</li>
+          </ul> 
+     </li>
+             
+     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Научная деятельность </a>
+          <ul>
+               <li><a href="#">Список конференций</a>		</li>
+               <li><a href="#">Публикации</a>	</li>
+          </ul> 
+     </li>
+             
+     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Выпускникам </a>
+          <ul>
+               <li><a href="#">Ассоциация выпускников</a>		</li>
+               <li><a href="#">Форумы</a>			</li>
+               <li><a href="#">Выпускники в соцсетях</a>		</li>
+               <li><a href="#">Отзывы выпускников</a>		</li>
+               <li><a href="#">Семинары и тренинги</a>		</li>
+          </ul> 
+     </li>
+             
+     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Дополнительное образование </a>
+          <ul>
+               <li>	<a href="#">Бланки и образцы документов</a>	</li>
+               <li>	<a href="#">Карьерный рост</a>			</li>
+               <li>	<a href="#">Направления, специальности, экзамены</a>	</li>
+               <li>	<a href="#">Информация о дополнительном образовании, цены</a>	</li>
+               <li>	<a href="#">Правила приема</a>		</li>
+               <li>     <a href="#">Где работают выпускники</a>	</li>
+          </ul> 
+                  
+     </li>	
+             
+     <li> <img id="img_menu" src="img/ar2.png" align="left" /><a href="#">  Документы </a>
+          <ul>
+               <li><a href="#">Шаблоны документов</a>	</li>
+               <li><a href="#">Нормативно-правовые акты</a>	</li>
+          </ul> 
+     </li>	
+             
+     <li> <img id="img_menu" src="img/ar2.png" align="left" /> <a href="#"> Общение </a>
+          <ul>
+               <li>  <a href="#">Блоги</a>		</li>
+               <li>  <a href="#">Форумы</a>		</li>
+               <li>  <a href="#">Анкетирование</a>		</li>
+          </ul> 
+     </li>
+	
+</ul>
+</div>
+                     
+   -->

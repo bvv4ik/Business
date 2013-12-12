@@ -6,6 +6,7 @@
 
 package test;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,7 +18,7 @@ import java.util.TreeMap;
  *
  * @author SERG
  */
-public class Collections {
+public class Collections1 {
     
     public static void main(String[] args) {
         
@@ -116,7 +117,9 @@ for (Map.Entry<String, String> e : hashMap.entrySet()) {
 //    }
 //for(TreeMap.Entry e : treeMap.entrySet()){
 // 
-//    System.out.println(e.getKey()+" "+ e.getValue());
+//    System.out.println(e.getKe
+   
+//y()+" "+ e.getValue());
 //}
 
 

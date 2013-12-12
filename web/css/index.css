@@ -507,25 +507,12 @@ p {
 /*.qtip { border-radius: 5px 5px 5px 5px; }*/
 
 
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+input::-webkit-input-placeholder {
+font-style:italic;
+letter-spacing:2px; color:#B5B5B5;
+font-size: 13px;
+padding-top: 2px;
+}
 
 
 
@@ -537,34 +524,30 @@ p {
 
 /* -------------------------/ форма создания Аккаунта /------------------------------------ */
 
-
+/*
 #divAccount {
         position : relative;       
         border: 1px solid rgb(59, 59, 59);
         width    : 290px;    
 	height   : 420px;     
           font-size        : 16px;
-          background-color : #CACACA;/*#FFFACD; */
+          background-color : #CACACA; / *#FFFACD; * /
           border-radius    : 6px;
-             margin        : 0 auto;  /*по центру экрана*/
+             margin        : 0 auto;  / *по центру экрана* /
              padding-left  : 30px;
-         /*box-shadow: 0 0 60px rgba(0,0,0,0.9); / * Параметры тени */
-         /*box-shadow: 0 0 100px rgba(555,555,555,0.7);*/
-         /*box-shadow: 0 0 120px rgba(999,999,9,0.6);*/
-         /*box-shadow: 0 0 120px rgba(56, 248, 8, 0.7);*/
+  
            box-shadow: 0 0 120px rgba(255, 255, 255, 0.7);
            
            top : 150px;
 }
 
-/* -------------------------/ ЗАГОЛОВОК формы /------------------------------------ */
 #divHeader_Account
 {  
 	position : relative; 
 	left : -30px;
 	width : 320px;
 	border-radius: 5px 5px 0px 0px;
-	    /*  t ext-align: center;*/
+	    / *  t ext-align: center;* /
 	text-indent: 30px;
 	padding-top : 14px; 
 	padding-bottom : 14px; 
@@ -573,18 +556,11 @@ p {
 	background : #1667CC;  
 	color : white;
 	font-family: Geneva, Arial, Helvetica, sans-serif;
-	  /*     bor der : 1px solid blue ; */
+	  / *     bor der : 1px solid blue ; * /
 }
 
 
-/* -----------------------------/ ПОЛЯ ввода /------------------------------------ */
-/*
-.sInput_Account_act{
-border:solid 3px transparent;     
--moz-box-shadow:0 0 20px 3px #1E90FF;          /*тень* /
--webkit-box-shadow:0px 0px 7px 3px #1E90FF;
-}
-*/
+
 
 .sInput_Account
 {
@@ -592,9 +568,9 @@ border:solid 3px transparent;
     border: solid 1px rgb(75, 75, 75);
     padding : 4px;
    //      b order:solid 3px transparent;     
-   //     -mo z-box-shadow:0 0 20px 3px #1E90FF;          /*тень*/
+   //     -mo z-box-shadow:0 0 20px 3px #1E90FF;          / *тень* /
    //     -we bkit-box-shadow:0px 0px 7px 3px #1E90FF;
-    -webkit-border-radius: 3px; /*Chrome  Safari*/       /*закругление*/
+    -webkit-border-radius: 3px; /* Chrome  Safari* /       / * закругление* /
     width : 250px;
     font-size: 16px;
     margin-bottom : 11px;
@@ -602,29 +578,24 @@ border:solid 3px transparent;
     color : black;
 }
 
-input::-webkit-input-placeholder {
-font-style:italic;
-letter-spacing:2px; color:#B5B5B5;
-font-size: 13px;
-padding-top: 2px;
-}
 
 
-#btClose_Account    /*  КНОПКА закрытия окна Аккаунта  */
+#btClose_Account    / *  КНОПКА закрытия окна Аккаунта  * /
 {
     position : absolute; 
-	/*al ign : right;*/
+	/ *al ign : right;* /
 	left : 292px;
 	top : 5px;
 	border-radius: 3px;
 	border : 1px solid grey ;
 }
 
-#btClose_Account:hover  /*  наведение на КНОПКУ закрытия окна Аккаунта  */
+#btClose_Account:hover  / *  наведение на КНОПКУ закрытия окна Аккаунта  * /
 {
 	top : 4px;
 	border : 1px solid black ;
 }
+*/
 
 
 
