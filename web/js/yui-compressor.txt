@@ -1,0 +1,3 @@
+;rem http://yui.github.io/yuicompressor/
+
+java -jar  yuicompressor-2.4.8.jar 1.css -o 1.min.css --charset utf-8

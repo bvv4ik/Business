@@ -1,0 +1,1 @@
+java -jar htmlcompressor-1.5.3.jar --preserve-server-script --preserve-line-breaks --remove-intertag-spaces --compress-js --compress-css --charset UTF-8 --type html -o a1.html a.html

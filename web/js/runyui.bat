@@ -1,0 +1,1 @@
+java -jar  yuicompressor-2.4.8.jar jquery-1.8.3.js -o jquery-1.8.3.min.js --charset utf-8

@@ -40,16 +40,16 @@
                     <link rel="stylesheet" type="text/css" href="js/message/codebase/themes/message_skyblue.css" title="SkyBlue"/>  
                     -->
         <!--  <script src="http://code.jquery.com/jquery-1.9.1.js"> </script>          <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />-->    <!--  <link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" /> -->
-        <script type="text/javascript" src="js/jquery-1.8.3.js"> </script>  <!--  Библ. jquery должна быть первой   -->
-        <script type="text/javascript" src="js/jquery-ui.js"> </script>        
+        <script type="text/javascript" src="js/jquery-1.8.3.min.js"> </script>  <!--  Библ. jquery должна быть первой   -->
+        <script type="text/javascript" src="js/jquery-ui.1.10.min.js"> </script>        
         <script type="text/javascript" src="js/index.js"> </script>  <!--   мои скрипты  -->
         <script type="text/javascript" src='js/message/codebase/message.js'></script>        
-        <script type="text/javascript" src="js/jquery.qtip.js"> </script>
-        <script type="text/javascript" src="js/jquery.cookie.js"></script>   
+        <script type="text/javascript" src="js/jquery.qtip.min.js"> </script>
+        <script type="text/javascript" src="js/jquery.cookie.min.js"></script>   
         
     <script type="text/javascript" src="js/jszip.js"></script> 
      <script type="text/javascript" src="js/jszip-load.js"></script>
-<!--<script type="text/javascript" src="js/jszip-inflate.js"></script> -->
+   <!--<script type="text/javascript" src="js/jszip-inflate.js"></script> -->
         
     </head>
     <body>
@@ -77,96 +77,79 @@
         <div id="xhr1_way">324234234234234</div>
         <button  id="btZip" type="button" onclick="openZip();">zip</button>
         <button  id="btZip1" type="button" onclick="openZip1();">zip</button>
-        <button  id="btZip2" type="button" onclick="save();">zip</button>
+        <button  id="btZip2" type="button" onclick="setCSS(); setScript();">setScript</button>
         
         <input type="file" id="file" name="file[]" multiple />
         <button onclick="ReadFiles();">Read Files</button>
+ 
+        
         <script>
-            //=========================
+   //=========================
   // XHR1
   //=========================
   function openZip() {
-      alert("run");
-  var xhr1 = new XMLHttpRequest();
-  //http://stuk.github.io/jszip/test/ref/text.zip
-  xhr1.open('GET', 'js/text.zip', true);
-  if (xhr1.overrideMimeType) {
-    xhr1.overrideMimeType('text/plain; charset=x-user-defined');
-  }
+      // alert("run");
+        var xhr1 = new XMLHttpRequest();
+        xhr1.open('GET', 'js/text2.zip', true);
+        if (xhr1.overrideMimeType) {
+        xhr1.overrideMimeType('text/plain; charset=x-user-defined');
+      }
 
-  xhr1.onreadystatechange = function(e) {
-    //if (this.readyState == 4 && this.status == 200) {
-    if (this.readyState == 4 && this.status == 304) {
-      var zip = new JSZip(this.responseText);
-      var elt = document.getElementById('xhr1_way');
-     // elt.innerHTML = "<p>loaded ! (as a " + (typeof this.responseText) + ")</p>";
-      elt.innerHTML += "Content = " + zip.file("Hello.txt").asText();
-    }
-  };
-
+    xhr1.onreadystatechange = function(e) {
+     if (this.readyState == 4 && this.status == 200) { // Если в кеше файла нету то загружаем
+        var oZip = new JSZip(this.responseText);
+        var oElement = document.getElementById('xhr1_way'); // куда вставляем
+       // oElement.innerHTML = "<p>loaded ! (as a " + (typeof this.responseText) + ")</p>";
+        oElement.innerHTML += "Content = " + zip.file("hello.txt").asText();
+      }
+    };
   xhr1.send();
-  
-    }
-    
-    function openZip1() {
-        alert("run1");
-  $.ajax({
-  url: "js/text2.zip",
-  //url: "http://fiddle.jshell.net/favicon.png",  img/ar.png
-  beforeSend: function ( xhr ) {
-    xhr.overrideMimeType("text/plain; charset=x-user-defined");
+  console.log("open Zip..");
   }
-}).done(function ( data ) {
     
+  function openZip1()  // через jquery
+       // alert("run1");
+        $.ajax({
+        url: "js/text2.zip",
+        beforeSend: function ( xhr ) {
+          xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        }
+      }).done(function ( data ) {
     
-  //if( console && console.log ) {
-  //  console.log("Sample of data:", data.slice(0, 100));
-  //}
-  var zip = new JSZip(data);
-   //zip.utf8decode();
-   //var zip = new JSZip(data);
-      var elt = document.getElementById('xhr1_way');
-     // elt.innerHTML = "<p>loaded ! (as a " + (typeof this.responseText) + ")</p>";
-      elt.innerHTML += "Content = " + zip.file("hello.txt").asText();
-  
-  
-});
+        var zip = new JSZip(data);
+        var oElement = document.getElementById('xhr1_way');
+          // oElement.innerHTML = "<p>loaded ! (as a " + (typeof this.responseText) + ")</p>";
+           oElement.innerHTML += "Content = " + zip.file("hello.txt").asText();
+     });
     }
     
-    
-  /*
-     var data = new Object;
-     function ReadFiles()
-     {
-         var files = document.getElementById('file').files;
-         for (var i = 0; i < files.length; i++) {
-             var reader = new FileReader();
-             reader.onloadend = function (evt) {
-                 if (evt.target.readyState == FileReader.DONE) {
-                     data["File_Content" + i] = btoa(evt.target.result);
-                 }
-             };
-             reader.readAsBinaryString(files[i]);
-         }
-     }
-  */
-    
-    function save(){
-        var str = "этот текст будет сохранен в файл";
-      var ua = navigator.userAgent.toLowerCase();
-      if(ua.indexOf("msie") != -1 && ua.indexOf("opera") == -1 && ua.indexOf("webtv") == -1) { //IE
-         var mydoc = window.open();
-         mydoc.document.write(str);
-         mydoc.document.execCommand("saveAs",true,".xml");
-      }
-      else { //другие браузеры
-         var mydoc = window.open("data:application/download;charset=utf-8;base64," + btoa(str));
-      }
-        
-    }
-    
+   
+   function setScript(sText) {
+        var newScript = document.createElement("script");
+        newScript.type = "text/javascript";
+        newScript.text = sText;//"alert(133333333);";
+        document.getElementsByTagName('head')[0].appendChild(newScript);
+   }
+
+   function setCSS(sText) {
+            var data = sText;//"#xhr1_way{color:red;}";
+            if (data) {
+                var pa= document.getElementsByTagName('head')[0] ;
+                var el= document.createElement('style');
+                el.type= 'text/css';
+                el.media= 'screen';
+                if(el.styleSheet) el.styleSheet.cssText = data;// IE method
+                else el.appendChild(document.createTextNode(data));// others
+                pa.appendChild(el);
+            }
+        }
+
+
     
         </script>
+        
+       
+        
         
         
       </div>   
@@ -202,6 +185,9 @@
         { %>    
          <!--  <script src="js/peel.js" type="text/javascript"></script>  <!--  подключаем манящий уголок только здесь --> 
 
+         
+       
+         
 <!-- ----------  СПИСОК СЕССИЙ (окно) ---------- -->  
      <div id="divAllSessinList" >   
              <input type="button" value="Закрыть" style="position:relative; left:700px;" onClick="$('#divAllSessinList').css('display','none'); $('#FON_contact').css('display','none');" >
