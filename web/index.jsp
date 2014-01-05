@@ -27,7 +27,7 @@
 <html>
     <head>
      
-        <title> 666Главная </title>         
+        <title> 777Главная </title>         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/reset.css"/>     <!--  сброс браузерных стилей -->
         <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css"/>     <!--  подключаем манящий уголок  -->
